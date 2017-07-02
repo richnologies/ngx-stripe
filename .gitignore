@@ -1,0 +1,8 @@
+$ cat .gitignore
+/node_modules
+/dist
+/documentation
+/.vscode
+*.log
+*.tgz
+package-lock.json
