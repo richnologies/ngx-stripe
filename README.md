@@ -132,9 +132,15 @@ export class StripeTestComponent implements OnInit {
     this.stripeService
       .createToken(this.card, { name })
       .subscribe(token => {
-        console.log('Token created correctly');
-        console.log(token);
-      })
+        if (result.token) {
+          // Use the token to create a charge or a customer
+          // https://stripe.com/docs/charges
+          console.log(result.token);
+        } else if (result.error) {
+          // Error creating the token
+          console.log(result.error.message);
+        }
+      });
   }
 }
 ```
