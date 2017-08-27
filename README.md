@@ -57,17 +57,13 @@ export class AppModule { }
 
 ## Stripe Service
 
-Once imported, you can inject the StripeService anyplace you need. The stripe
-script will be loaded the first time the service is injected.
+Once imported, you can inject the StripeService anywhere you need. The stripe script will be loaded the first time the service is injected.
 
-The stripe service expose the same methods as the StripeJS instance but with typescript types.
-The API is based on Observables so it can be combine with other actions.
+The stripe service exposes the same methods as the StripeJS instance but with typescript types. The API is based on Observables so it can be combined with other actions.
 
-In the example below, the component mount the card in the onInit lifecycle.
+In the example below, the component mounts the card in the [OnInit](https://angular.io/guide/lifecycle-hooks#oninit) lifecycle. The buy button creates a Stripe token the could be sent to the server for further actions. In this example we just log that token to the console:
 
-The buy button create a Stripe token the could be sent to the server for further actions. In this example we just log that to the console
-
-//stripe.html
+Example component (more HTML and CSS examples can be found at the [Stripe Elements Examples](https://stripe.com/docs/elements/examples)):
 ```xml
 <form novalidate (ngSubmit)="buy($event)" [formGroup]="stripeTest">
   <input type="text" formControlName="name" placeholder="Jane Doe">
@@ -224,7 +220,7 @@ export class StripeTestComponent implements OnInit {
 ```
 
 ## Testing
-The following command run unit & integration tests that are in the `tests` folder, and unit tests that are in `src` folder: 
+The following command runs unit & integration tests that are in the `tests` folder, and unit tests that are in `src` folder: 
 ```Shell
 npm test 
 ```
@@ -238,11 +234,11 @@ npm run build
 - starts _AoT compilation_ using _ngc_ compiler
 - creates `dist` folder with all the files of distribution
 
-To test locally the npm package:
+To test the npm package locally, use the following command:
 ```Shell
 npm run pack-lib
 ```
-Then you can install it in an app to test it:
+You can then run the following to install it in an app to test it:
 ```Shell
 npm install [path]to-library-[version].tgz
 ```
