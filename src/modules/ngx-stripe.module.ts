@@ -7,8 +7,16 @@ import { WindowRef } from '../services/window-ref';
 import { DocumentRef } from '../services/document-ref';
 
 import { Options, STRIPE_PUBLISHABLE_KEY, STRIPE_OPTIONS } from '../interfaces/stripe';
+import { StripeCardComponent } from '../components/stripe-card.component';
 
-@NgModule({})
+@NgModule({
+  declarations: [
+    StripeCardComponent
+  ],
+  exports: [
+    StripeCardComponent
+  ]
+})
 export class NgxStripeModule {
 
   public static forRoot(publishableKey: string, options?: Options): ModuleWithProviders {

@@ -1,6 +1,8 @@
 // Public classes.
 export { NgxStripeModule } from './modules/ngx-stripe.module';
 
+export { StripeCardComponent } from './components/stripe-card.component';
+
 export { StripeService } from './services/stripe.service';
 export { LazyStripeAPILoader } from './services/api-loader.service';
 

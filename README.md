@@ -145,6 +145,84 @@ export class StripeTestComponent implements OnInit {
 }
 ```
 
+## StripeCardComponent
+
+As an alternative to the previous example, you could use the StripeCardComponent.
+
+It will make a little bit easier to mount the card.
+
+To fetch the Stripe Element, you could you use either the (onCard) output, or, 
+by using a ViewChild, the public method getCard()
+
+//stripe.html
+```xml
+<form novalidate (ngSubmit)="buy($event)" [formGroup]="stripeTest">
+  <input type="text" formControlName="name" placeholder="Jane Doe">
+  <ngx-stripe-card [options]="cardOptions"></ngx-stripe-card>
+  <button type="submit">
+    BUY
+  </button>
+</form>
+```
+```typescript
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+
+import { StripeService, StripeCardComponent } from "ngx-stripe";
+
+@Component({
+  selector: 'app-stripe-test',
+  templateUrl: 'stripe.html'
+})
+export class StripeTestComponent implements OnInit {
+  @ViewChild(StripeCardComponent) card: StripeCardComponent;
+
+  cardOptions = {
+    style: {
+      base: {
+        iconColor: '#666EE8',
+        color: '#31325F',
+        lineHeight: '40px',
+        fontWeight: 300,
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSize: '18px',
+        '::placeholder': {
+          color: '#CFD7E0'
+        }
+      }
+    }
+  };
+
+  stripeTest: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private stripeService: StripeService) {}
+
+  ngOnInit() {
+    this.stripeTest = this.fb.group({
+      name: ['', [Validators.required]]
+    });
+  }
+
+  buy() {
+    const name = this.stripeTest.get('name').value;
+    this.stripeService
+      .createToken(this.card.getCard(), { name })
+      .subscribe(result => {
+        if (result.token) {
+          // Use the token to create a charge or a customer
+          // https://stripe.com/docs/charges
+          console.log(result.token.id);
+        } else if (result.error) {
+          // Error creating the token
+          console.log(result.error.message);
+        }
+      });
+  }
+}
+```
+
 ## Testing
 The following command run unit & integration tests that are in the `tests` folder, and unit tests that are in `src` folder: 
 ```Shell
