@@ -69,26 +69,39 @@ The buy button create a Stripe token the could be sent to the server for further
 
 //stripe.html
 ```xml
-<div id="card-element" class="field" #card></div>
+<form novalidate (ngSubmit)="buy($event)" [formGroup]="stripeTest">
+  <input type="text" formControlName="name" placeholder="Jane Doe">
+  <div id="card-element" class="field" #card></div>
+  <button type="submit">
+    BUY
+  </button>
+</form>
 ```
 ```typescript
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { StripeService } from "ngx-stripe";
-import { Elements, Element as StripeElement } from "ngx-stripe";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
-@IonicPage({name: 'page-stripe'})
+import { StripeService, Elements, Element as StripeElement } from "ngx-stripe";
+
 @Component({
-  selector: 'page-stripe',
+  selector: 'app-stripe-test',
   templateUrl: 'stripe.html'
 })
-export class StripePage implements OnInit {
+export class StripeTestComponent implements OnInit {
   elements: Elements;
   card: StripeElement;
   @ViewChild('card') cardRef: ElementRef;
 
-  constructor(private stripeService: StripeService) {}
+  stripeTest: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private stripeService: StripeService) {}
 
   ngOnInit() {
+    this.stripeTest = this.fb.group({
+      name: ['', [Validators.required]]
+    });
     this.stripeService.elements()
       .subscribe(elements => {
         this.elements = elements;
