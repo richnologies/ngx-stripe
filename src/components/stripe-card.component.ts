@@ -11,9 +11,11 @@ import {
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/operator/switchMap';
 
-import { Element as StripeElement } from '../interfaces/element';
+import { Element as StripeElement, ElementOptions } from '../interfaces/element';
 import { StripeService } from '../services/stripe.service';
+import { Elements, ElementsOptions } from "../interfaces/elements";
 
 @Component({
   selector: 'ngx-stripe-card',
@@ -24,17 +26,29 @@ export class StripeCardComponent implements OnInit {
 
   @ViewChild('card') private card: ElementRef;
   private element: StripeElement;
-  @Input() private set options(options: any) {
-    this.options$.next(options);
+  @Input() private set options(optionsIn: ElementOptions) {
+    this.options$.next(optionsIn);
   }
-  private options$ = new BehaviorSubject<any>(null);
+  private options$ = new BehaviorSubject<ElementOptions>({});
+  @Input() private set elementsOptions(optionsIn: ElementsOptions) {
+    this.elementsOptions$.next(optionsIn);
+  }
+  private elementsOptions$ = new BehaviorSubject<ElementsOptions>({});
 
   constructor(private stripeService: StripeService) {}
 
   public ngOnInit() {
+    const elements$: Observable<Elements> = this.elementsOptions$
+      .asObservable()
+      .switchMap((options) => {
+        if (Object.keys(options).length > 0) {
+          return this.stripeService.elements(options);
+        }
+        return this.stripeService.elements();
+      });
     Observable
       .combineLatest(
-        this.stripeService.elements(),
+        elements$,
         this.options$.filter((options) => Boolean(options))
       )
       .subscribe(([elements, options]) => {

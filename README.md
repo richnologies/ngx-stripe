@@ -77,7 +77,7 @@ Example component (more HTML and CSS examples can be found at the [Stripe Elemen
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
-import { StripeService, Elements, Element as StripeElement } from "ngx-stripe";
+import { StripeService, Elements, Element as StripeElement, ElementsOptions } from "ngx-stripe";
 
 @Component({
   selector: 'app-stripe-test',
@@ -87,6 +87,11 @@ export class StripeTestComponent implements OnInit {
   elements: Elements;
   card: StripeElement;
   @ViewChild('card') cardRef: ElementRef;
+
+  // optional parameters
+  elementsOptions: ElementsOptions = {
+    locale: 'es'
+  };
 
   stripeTest: FormGroup;
 
@@ -98,7 +103,7 @@ export class StripeTestComponent implements OnInit {
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]]
     });
-    this.stripeService.elements()
+    this.stripeService.elements(elementsOptions)
       .subscribe(elements => {
         this.elements = elements;
         // Only mount the element the first time
@@ -154,7 +159,7 @@ by using a ViewChild, the public method getCard()
 ```xml
 <form novalidate (ngSubmit)="buy($event)" [formGroup]="stripeTest">
   <input type="text" formControlName="name" placeholder="Jane Doe">
-  <ngx-stripe-card [options]="cardOptions"></ngx-stripe-card>
+  <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
   <button type="submit">
     BUY
   </button>
@@ -164,7 +169,7 @@ by using a ViewChild, the public method getCard()
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
-import { StripeService, StripeCardComponent } from "ngx-stripe";
+import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } from "ngx-stripe";
 
 @Component({
   selector: 'app-stripe-test',
@@ -173,7 +178,7 @@ import { StripeService, StripeCardComponent } from "ngx-stripe";
 export class StripeTestComponent implements OnInit {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
-  cardOptions = {
+  cardOptions: ElementOptions = {
     style: {
       base: {
         iconColor: '#666EE8',
@@ -187,6 +192,10 @@ export class StripeTestComponent implements OnInit {
         }
       }
     }
+  };
+
+  elementsOptions: ElementsOptions = {
+    locale: 'es'
   };
 
   stripeTest: FormGroup;

@@ -11,7 +11,7 @@ import { LazyStripeAPILoader, Status } from './api-loader.service';
 
 import { STRIPE_PUBLISHABLE_KEY, StripeJS } from '../interfaces/stripe';
 import { Element } from '../interfaces/element';
-import { Elements } from '../interfaces/elements';
+import { Elements, ElementsOptions } from '../interfaces/elements';
 import {
   SourceData,
   SourceResult,
@@ -48,10 +48,10 @@ export class StripeService {
       .subscribe();
   }
 
-  public elements(): Observable<Elements> {
+  public elements(options?: ElementsOptions): Observable<Elements> {
     return this.loader.asStream()
       .filter((status: Status) => status.loaded === true)
-      .map(() => this.stripe.elements());
+      .map(() => this.stripe.elements(options));
   }
 
   public createToken(

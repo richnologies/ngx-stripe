@@ -6,10 +6,16 @@ export interface Elements {
 
 export interface ElementsOptions {
   fonts?: FontElement[];
-  locale?: string;
+  locale?: 'auto' | 'da' | 'de' | 'en' | 'es' | 'fi' | 'fr' | 'it' | 'ja' | 'no' | 'nl' | 'sv' | 'zh';
 }
 
-export interface FontElement {
+export type FontElement = FontCSSElement | FontConfigElement;
+
+export interface FontCSSElement {
+  cssSrc: string;
+}
+
+export interface FontConfigElement {
   family?: string;
   src?: string;
   style?: 'normal' | 'italic' | 'oblique';
