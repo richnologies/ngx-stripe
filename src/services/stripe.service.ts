@@ -4,12 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
 
 import { WindowRef } from './window-ref';
 import { LazyStripeAPILoader, Status } from './api-loader.service';
 
-import { STRIPE_PUBLISHABLE_KEY, StripeJS } from '../interfaces/stripe';
+import { STRIPE_PUBLISHABLE_KEY, StripeJS, STRIPE_OPTIONS } from '../interfaces/stripe';
 import { Element } from '../interfaces/element';
 import { Elements, ElementsOptions } from '../interfaces/elements';
 import {
@@ -37,15 +36,17 @@ export class StripeService {
 
   constructor(
     @Inject(STRIPE_PUBLISHABLE_KEY) private key: string,
+    @Inject(STRIPE_OPTIONS) private options: string,
     private loader: LazyStripeAPILoader,
     private window: WindowRef) {
     this.loader.asStream()
       .filter((status: Status) => status.loaded === true)
-      .do(() => {
+      .subscribe(() => {
         const Stripe = (this.window.getNativeWindow() as any).Stripe;
-        this.stripe = Stripe(this.key) as StripeJS;
-      })
-      .subscribe();
+        this.stripe = this.options
+          ? Stripe(this.key, this.options) as StripeJS
+          : Stripe(this.key) as StripeJS;
+      });
   }
 
   public elements(options?: ElementsOptions): Observable<Elements> {
