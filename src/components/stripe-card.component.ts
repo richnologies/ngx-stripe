@@ -10,8 +10,6 @@ import {
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/combineLatest';
-import 'rxjs/add/operator/switchMap';
 
 import { Element as StripeElement, ElementOptions } from '../interfaces/element';
 import { StripeService } from '../services/stripe.service';

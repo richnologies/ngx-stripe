@@ -1,9 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromPromise';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
 
 import { WindowRef } from './window-ref';
 import { LazyStripeAPILoader, Status } from './api-loader.service';
