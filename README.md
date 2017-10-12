@@ -44,9 +44,7 @@ import { NgxStripeModule } from 'ngx-stripe';
   ],
   imports: [
     BrowserModule,
-    NgxStripeModule.forRoot({
-      apiKey: '***your-stripe-publishable key***'
-    }),
+    NgxStripeModule.forRoot('***your-stripe-publishable key***'),
     LibraryModule
   ],
   providers: [],
