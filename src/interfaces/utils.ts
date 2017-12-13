@@ -1,11 +1,11 @@
 export interface Error {
   type:
-    'api_connection_error' |
-    'api_error' |
-    'authentication_error' |
-    'card_error' |
-    'invalid_request_error' |
-    'rate_limit_error';
+    | 'api_connection_error'
+    | 'api_error'
+    | 'authentication_error'
+    | 'card_error'
+    | 'invalid_request_error'
+    | 'rate_limit_error';
   charge: string;
   message?: string;
   code?: string;

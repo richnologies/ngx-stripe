@@ -1,4 +1,4 @@
-import {  Error, Address } from './utils';
+import { Error, Address } from './utils';
 
 export interface Source {
   id: string;
@@ -7,7 +7,7 @@ export interface Source {
   client_secret: string;
   code_verification?: {
     attempts_remaining: number;
-    status: 'pending' | 'succeded' | 'failed';
+    status: 'pending' | 'succeded' | 'failed';
   };
   created: number;
   currency: string;
@@ -31,17 +31,24 @@ export interface Source {
     amount_returned: number;
     redirect?: {
       return_url: string;
-      status: 'pending' | 'succeeded' | 'failed';
+      status: 'pending' | 'succeeded' | 'failed';
       url: string;
-    }
+    };
   };
-  status: 'canceled' | 'chargeable' | 'consumed' | 'failed' | 'pending';
-  type: 'card' | 'three_d_secure' | 'giropay' | 'sepa_bit' | 'ideal' | 'sofort' | 'bancontact';
+  status: 'canceled' | 'chargeable' | 'consumed' | 'failed' | 'pending';
+  type:
+    | 'card'
+    | 'three_d_secure'
+    | 'giropay'
+    | 'sepa_bit'
+    | 'ideal'
+    | 'sofort'
+    | 'bancontact';
   usage: UsageTypes;
 }
 
 export type UsageTypes = 'reusable' | 'single_use';
-export type FlowTypes = 'redirect' | 'receiver' | 'code_verification' | 'none';
+export type FlowTypes = 'redirect' | 'receiver' | 'code_verification' | 'none';
 
 export interface SourceParams {
   id: string;
@@ -55,9 +62,9 @@ export interface SourceData {
   flow?: FlowTypes;
   metadata?: { [key: string]: any };
   owner?: {
-    address?: Address,
-    email?: string,
-    name?: string,
+    address?: Address;
+    email?: string;
+    name?: string;
     phone?: string;
   };
   redirect?: {

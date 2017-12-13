@@ -20,9 +20,7 @@ export class LazyStripeAPILoader {
     loading: false
   });
 
-  constructor(
-    private window: WindowRef,
-    private document: DocumentRef) {}
+  constructor(private window: WindowRef, private document: DocumentRef) {}
 
   public asStream(): Observable<Status> {
     this.load();
@@ -47,7 +45,9 @@ export class LazyStripeAPILoader {
           loading: true
         });
 
-        const script = this.document.getNativeDocument().createElement('script');
+        const script = this.document
+          .getNativeDocument()
+          .createElement('script');
         script.type = 'text/javascript';
         script.async = true;
         script.defer = true;

@@ -1,12 +1,16 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { LazyStripeAPILoader } from '../services/api-loader.service';
-import { StripeService } from '../services/stripe.service';
+import { StripeService } from '../services/stripe.service';
 
 import { WindowRef } from '../services/window-ref';
 import { DocumentRef } from '../services/document-ref';
 
-import { Options, STRIPE_PUBLISHABLE_KEY, STRIPE_OPTIONS } from '../interfaces/stripe';
+import {
+  Options,
+  STRIPE_PUBLISHABLE_KEY,
+  STRIPE_OPTIONS
+} from '../interfaces/stripe';
 import { StripeCardComponent } from '../components/stripe-card.component';
 
 import 'rxjs/add/observable/combineLatest';
@@ -15,18 +19,18 @@ import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/publishLast';
+import 'rxjs/add/operator/refCount';
 
 @NgModule({
-  declarations: [
-    StripeCardComponent
-  ],
-  exports: [
-    StripeCardComponent
-  ]
+  declarations: [StripeCardComponent],
+  exports: [StripeCardComponent]
 })
 export class NgxStripeModule {
-
-  public static forRoot(publishableKey: string, options?: Options): ModuleWithProviders {
+  public static forRoot(
+    publishableKey: string,
+    options?: Options
+  ): ModuleWithProviders {
     return {
       ngModule: NgxStripeModule,
       providers: [

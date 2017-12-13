@@ -1,6 +1,6 @@
 export interface Element {
-  mount(el: HTMLElement | string): void;
-  on(ev: ElementEventType, handler: () => void): void;
+  mount(el: HTMLElement | string): void;
+  on(ev: ElementEventType, handler: (ev?: any) => void): void;
   blur(): void;
   clear(): void;
   focus(): void;
@@ -8,9 +8,14 @@ export interface Element {
   update(options: ElementOptions): void;
 }
 
-export type ElementEventType = 'blur' | 'change' | 'focus' | 'ready';
+export type ElementEventType = 'blur' | 'change' | 'click' | 'focus' | 'ready';
 
-export type ElementType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode';
+export type ElementType =
+  | 'card'
+  | 'cardNumber'
+  | 'cardExpiry'
+  | 'cardCvc'
+  | 'postalCode';
 
 export interface ElementOptions {
   style?: {
@@ -21,9 +26,9 @@ export interface ElementOptions {
   };
   hidePostalCode?: boolean;
   hideIcon?: boolean;
-  iconStyle?: 'solid' | 'default';
+  iconStyle?: 'solid' | 'default';
   placeholder?: string;
-  value?: string | object;
+  value?: string | object;
 }
 
 export interface ElementStyleAttributes {

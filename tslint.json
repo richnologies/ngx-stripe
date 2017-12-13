@@ -9,6 +9,7 @@
             "check-interpolation",
             "check-pipe"
         ],
+        "arrow-parens": [true, "ban-single-arg-parens"],
         "banana-in-box": true,
         "templates-no-negated-async": true,
         "directive-selector": [

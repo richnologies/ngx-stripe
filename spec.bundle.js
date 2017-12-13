@@ -9,21 +9,21 @@ import 'zone.js/dist/fake-async-test';
 
 import { getTestBed } from '@angular/core/testing';
 import {
-    BrowserDynamicTestingModule,
-    platformBrowserDynamicTesting
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 
 import 'rxjs';
 
 getTestBed().initTestEnvironment(
-    BrowserDynamicTestingModule,
-    platformBrowserDynamicTesting()
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting()
 );
 
 const testContext = require.context('./', true, /\.spec\.ts/);
 
 function requireAll(requireContext) {
-    return requireContext.keys().map(requireContext);
+  return requireContext.keys().map(requireContext);
 }
 
 const modules = requireAll(testContext);

@@ -65,7 +65,7 @@ Example component (more HTML and CSS examples can be found at the [Stripe Elemen
 ```xml
 <form novalidate (ngSubmit)="buy($event)" [formGroup]="stripeTest">
   <input type="text" formControlName="name" placeholder="Jane Doe">
-  <div id="card-element" class="field" #card></div>
+  <div id="card-element" class="field"></div>
   <button type="submit">
     BUY
   </button>
@@ -84,7 +84,6 @@ import { StripeService, Elements, Element as StripeElement, ElementsOptions } fr
 export class StripeTestComponent implements OnInit {
   elements: Elements;
   card: StripeElement;
-  @ViewChild('card') cardRef: ElementRef;
 
   // optional parameters
   elementsOptions: ElementsOptions = {
@@ -121,7 +120,7 @@ export class StripeTestComponent implements OnInit {
               }
             }
           });
-          this.card.mount(this.cardRef.nativeElement);
+          this.card.mount('#card-element');
         }
       });
   }

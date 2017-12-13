@@ -1,4 +1,4 @@
-import { Error } from './utils';
+import { Error } from './utils';
 
 export interface Token {
   id: string;
@@ -10,11 +10,16 @@ export interface Token {
     fingerprint: string;
     object: 'bank_account';
     account_holder_name: string;
-    account_holder_type: 'individual' | 'company';
+    account_holder_type: 'individual' | 'company';
     bank_name: string;
     last4: string;
     routing_number: string;
-    status: 'new' | 'validated' | 'verified' | 'verification_failded' | 'errored';
+    status:
+      | 'new'
+      | 'validated'
+      | 'verified'
+      | 'verification_failded'
+      | 'errored';
   };
   card?: {
     id: string;
@@ -35,11 +40,11 @@ export interface Token {
     dynamic_last4: string;
     exp_month: number;
     exp_year: number;
-    funding: 'credit' | 'debit' | 'prepaid' | 'unknown';
+    funding: 'credit' | 'debit' | 'prepaid' | 'unknown';
     last4: string;
-    metadata: { [key: string ]: any };
+    metadata: { [key: string]: any };
     name: string;
-    tokenization_method: 'apple_pay' | 'android_pay';
+    tokenization_method: 'apple_pay' | 'android_pay';
   };
   client_ip: string;
   livemode: boolean;
@@ -47,7 +52,7 @@ export interface Token {
   used: boolean;
 }
 
-export type FieldCheck = 'pass' | 'fail' | 'unavailable' | 'unchecked';
+export type FieldCheck = 'pass' | 'fail' | 'unavailable' | 'unchecked';
 
 export interface CardDataOptions {
   name?: string;
@@ -73,7 +78,7 @@ export interface BankAccountData {
   routing_number: string;
   account_number: string;
   account_holder_name: string;
-  account_holder_type: 'individual' | 'company';
+  account_holder_type: 'individual' | 'company';
 }
 
 export type Pii = 'pii';
@@ -86,15 +91,19 @@ export function isBankAccount(account: any): account is BankAccount {
   return account === 'bank_account';
 }
 
-export function isBankAccountData(bankAccountData: any): bankAccountData is BankAccountData {
-  return 'country' in bankAccountData &&
+export function isBankAccountData(
+  bankAccountData: any
+): bankAccountData is BankAccountData {
+  return (
+    'country' in bankAccountData &&
     'currency' in bankAccountData &&
     'routing_number' in bankAccountData &&
     'account_number' in bankAccountData &&
     'account_holder_name' in bankAccountData &&
     'account_holder_type' in bankAccountData &&
     (bankAccountData.account_holder_type === 'individual' ||
-      bankAccountData.account_holder_type === 'company');
+      bankAccountData.account_holder_type === 'company')
+  );
 }
 
 export function isPii(pii: any): pii is Pii {
