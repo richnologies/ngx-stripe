@@ -32,45 +32,42 @@ export class LazyStripeAPILoader {
   }
 
   public load() {
+    const status: Status = this.status.getValue();
     if (this.window.getNativeWindow().hasOwnProperty('Stripe')) {
       this.status.next({
         error: false,
         loaded: true,
         loading: false
       });
-    } else {
-      if (!this.status.getValue().loaded && !this.status.getValue().loading) {
+    } else if (!status.loaded && !status.loading) {
+      this.status.next({
+        ...status,
+        loading: true
+      });
+
+      const script = this.document.getNativeDocument().createElement('script');
+      script.type = 'text/javascript';
+      script.async = true;
+      script.defer = true;
+      script.src = 'https://js.stripe.com/v3/';
+
+      script.onload = () => {
         this.status.next({
-          ...this.status.getValue(),
-          loading: true
+          error: false,
+          loaded: true,
+          loading: false
         });
+      };
 
-        const script = this.document
-          .getNativeDocument()
-          .createElement('script');
-        script.type = 'text/javascript';
-        script.async = true;
-        script.defer = true;
-        script.src = 'https://js.stripe.com/v3/';
+      script.onerror = () => {
+        this.status.next({
+          error: true,
+          loaded: false,
+          loading: false
+        });
+      };
 
-        script.onload = () => {
-          this.status.next({
-            error: false,
-            loaded: true,
-            loading: false
-          });
-        };
-
-        script.onerror = () => {
-          this.status.next({
-            error: true,
-            loaded: false,
-            loading: false
-          });
-        };
-
-        this.document.getNativeDocument().body.appendChild(script);
-      }
+      this.document.getNativeDocument().body.appendChild(script);
     }
   }
 }

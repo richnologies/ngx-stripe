@@ -1,5 +1,5 @@
 export class WindowRef {
-  public getNativeWindow(): Window {
+  public getNativeWindow(): Window & { Stripe?: any } {
     return window;
   }
 }
