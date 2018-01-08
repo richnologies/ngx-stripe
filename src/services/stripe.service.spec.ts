@@ -1,15 +1,14 @@
 import { inject, TestBed } from '@angular/core/testing';
-
 import {
-  WindowRef,
-  DocumentRef,
   LazyStripeAPILoader,
   StripeService,
+  WindowRef,
+  DocumentRef,
   STRIPE_PUBLISHABLE_KEY,
   STRIPE_OPTIONS
-} from './../../index';
+} from '../../index';
 
-describe('StripeLaoderService', () => {
+describe('StripeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -28,15 +27,4 @@ describe('StripeLaoderService', () => {
       ]
     });
   });
-
-  it(
-    'should load the Stripe Library when the service is injected',
-    inject(
-      [StripeService, WindowRef],
-      (stripe: StripeService, window: WindowRef) => {
-        console.log(window.getNativeWindow().Stripe);
-        expect(window.getNativeWindow().hasOwnProperty('Stripe')).toBe(true);
-      }
-    )
-  );
 });
