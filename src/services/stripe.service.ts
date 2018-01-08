@@ -41,23 +41,20 @@ export class StripeService {
     private loader: LazyStripeAPILoader,
     private window: WindowRef
   ) {
-    this.loader
-      .asStream()
-      .filter((status: Status) => status.loaded === true)
-      .subscribe(() => {
-        const Stripe = (this.window.getNativeWindow() as any).Stripe;
-        this.stripe = this.options
-          ? (Stripe(this.key, this.options) as StripeJS)
-          : (Stripe(this.key) as StripeJS);
-      });
+    this.stripeObject().subscribe((Stripe: any) => {
+      this.stripe = this.options
+        ? (Stripe(this.key, this.options) as StripeJS)
+        : (Stripe(this.key) as StripeJS);
+    });
+  }
+
+  public elements(options?: ElementsOptions): Observable<Elements> {
+    return this.stripeObject().map(() => this.stripe.elements(options));
   }
 
   public changeKey(key: string, options?: string): Observable<StripeJS> {
-    const obs = this.loader
-      .asStream()
-      .filter((status: Status) => status.loaded === true)
-      .map(() => {
-        const Stripe = (this.window.getNativeWindow() as any).Stripe;
+    const obs = this.stripeObject()
+      .map((Stripe: any) => {
         this.stripe = options
           ? (Stripe(key, options) as StripeJS)
           : (Stripe(key) as StripeJS);
@@ -67,13 +64,6 @@ export class StripeService {
       .refCount();
     obs.subscribe();
     return obs;
-  }
-
-  public elements(options?: ElementsOptions): Observable<Elements> {
-    return this.loader
-      .asStream()
-      .filter((status: Status) => status.loaded === true)
-      .map(() => this.stripe.elements(options));
   }
 
   public createToken(
@@ -103,5 +93,12 @@ export class StripeService {
 
   public retrieveSource(source: SourceParams): Observable<SourceResult> {
     return Observable.fromPromise(this.stripe.retrieveSource(source));
+  }
+
+  private stripeObject(): Observable<any> {
+    return this.loader
+      .asStream()
+      .filter((status: Status) => status.loaded === true)
+      .map(() => (this.window.getNativeWindow() as any).Stripe);
   }
 }
