@@ -15,12 +15,10 @@ import { StripeCardComponent } from '../components/stripe-card.component';
 
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/observable/fromPromise';
-
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishLast';
-import 'rxjs/add/operator/refCount';
 
 @NgModule({
   declarations: [StripeCardComponent],
