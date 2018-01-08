@@ -1,6 +1,6 @@
 {
     "name": "ngx-stripe",
-    "version": "0.2.3",
+    "version": "0.3.0",
     "description": "Angular 2+ wrapper for StripeJS",
     "main": "./bundles/ngx-stripe.umd.js",
     "module": "./modules/ngx-stripe.es5.js",
