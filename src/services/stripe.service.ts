@@ -52,18 +52,11 @@ export class StripeService {
     return this.stripeObject().map(() => this.stripe.elements(options));
   }
 
-  public changeKey(key: string, options?: string): Observable<StripeJS> {
-    const obs = this.stripeObject()
-      .map((Stripe: any) => {
-        this.stripe = options
-          ? (Stripe(key, options) as StripeJS)
-          : (Stripe(key) as StripeJS);
-        return this.stripe;
-      })
-      .publishLast()
-      .refCount();
-    obs.subscribe();
-    return obs;
+  public changeKey(key: string, options?: string) {
+    this.key = key;
+    if (options) {
+      this.options = options;
+    }
   }
 
   public createToken(
