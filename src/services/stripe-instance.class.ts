@@ -28,8 +28,9 @@ import {
   isPii,
   isPiiData
 } from '../interfaces/token';
+import { StripeServiceInterface } from './stripe-instance.interface';
 
-export class Stripe {
+export class StripeInstance implements StripeServiceInterface {
   private stripe: StripeJS;
 
   constructor(

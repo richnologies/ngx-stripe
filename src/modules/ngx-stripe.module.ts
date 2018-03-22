@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { LazyStripeAPILoader } from '../services/api-loader.service';
 import { StripeService } from '../services/stripe.service';
+import { StripeFactoryService } from '../services/stripe-factory.service';
 
 import { WindowRef } from '../services/window-ref';
 import { DocumentRef } from '../services/document-ref';
@@ -26,7 +27,7 @@ import 'rxjs/add/operator/publishLast';
 })
 export class NgxStripeModule {
   public static forRoot(
-    publishableKey: string,
+    publishableKey?: string,
     options?: Options
   ): ModuleWithProviders {
     return {
@@ -34,6 +35,7 @@ export class NgxStripeModule {
       providers: [
         LazyStripeAPILoader,
         StripeService,
+        StripeFactoryService,
         WindowRef,
         DocumentRef,
         {

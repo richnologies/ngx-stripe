@@ -30,10 +30,12 @@ import {
   isPii,
   isPiiData
 } from '../interfaces/token';
+import { StripeInstance } from './stripe-instance.class';
+import { StripeServiceInterface } from './stripe-instance.interface';
 
 @Injectable()
-export class StripeService {
-  private stripe: StripeJS;
+export class StripeService implements StripeServiceInterface {
+  private stripe: StripeInstance;
 
   constructor(
     @Inject(STRIPE_PUBLISHABLE_KEY) private key: string,
@@ -41,57 +43,28 @@ export class StripeService {
     private loader: LazyStripeAPILoader,
     private window: WindowRef
   ) {
-    this.stripeObject().subscribe((Stripe: any) => {
-      this.stripe = this.options
-        ? (Stripe(this.key, this.options) as StripeJS)
-        : (Stripe(this.key) as StripeJS);
-    });
+    this.stripe = new StripeInstance(this.loader, this.window, key, options);
   }
 
   public elements(options?: ElementsOptions): Observable<Elements> {
-    return this.stripeObject().map(() => this.stripe.elements(options));
-  }
-
-  public changeKey(key: string, options?: string) {
-    this.key = key;
-    if (options) {
-      this.options = options;
-    }
+    return this.stripe.elements(options);
   }
 
   public createToken(
     a: Element | BankAccount | Pii,
     b: CardDataOptions | BankAccountData | PiiData | undefined
   ): Observable<TokenResult> {
-    if (isBankAccount(a) && isBankAccountData(b)) {
-      return Observable.fromPromise(this.stripe.createToken(a, b));
-    } else if (isPii(a) && isPiiData(b)) {
-      return Observable.fromPromise(this.stripe.createToken(a, b));
-    } else {
-      return Observable.fromPromise(
-        this.stripe.createToken(a as Element, b as CardDataOptions | undefined)
-      );
-    }
+    return this.stripe.createToken(a, b);
   }
 
   public createSource(
     a: Element | SourceData,
     b?: SourceData | undefined
   ): Observable<SourceResult> {
-    if (isSourceData(a)) {
-      return Observable.fromPromise(this.stripe.createSource(a as SourceData));
-    }
-    return Observable.fromPromise(this.stripe.createSource(a as Element, b));
+    return this.stripe.createSource(a, b);
   }
 
   public retrieveSource(source: SourceParams): Observable<SourceResult> {
-    return Observable.fromPromise(this.stripe.retrieveSource(source));
-  }
-
-  private stripeObject(): Observable<any> {
-    return this.loader
-      .asStream()
-      .filter((status: Status) => status.loaded === true)
-      .map(() => (this.window.getNativeWindow() as any).Stripe);
+    return this.stripe.retrieveSource(source);
   }
 }
