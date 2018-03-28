@@ -30,6 +30,7 @@ import {
   isPiiData
 } from '../interfaces/token';
 import { StripeServiceInterface } from './stripe-instance.interface';
+import { PaymentRequestOptions } from '../interfaces/payment-request';
 
 export class StripeInstance implements StripeServiceInterface {
   private stripe: StripeJS;
@@ -82,6 +83,10 @@ export class StripeInstance implements StripeServiceInterface {
 
   public retrieveSource(source: SourceParams): Observable<SourceResult> {
     return Observable.fromPromise(this.stripe.retrieveSource(source));
+  }
+
+  public paymentRequest(options: PaymentRequestOptions) {
+    return this.stripe.paymentRequest(options);
   }
 
   private stripeObject(): Observable<any> {

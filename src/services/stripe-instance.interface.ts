@@ -11,6 +11,7 @@ import {
   TokenResult
 } from '../interfaces/token';
 import { SourceData, SourceResult, SourceParams } from '../interfaces/sources';
+import { PaymentRequestOptions } from '../interfaces/payment-request';
 
 export interface StripeServiceInterface {
   elements(options?: ElementsOptions): Observable<Elements>;
@@ -23,4 +24,5 @@ export interface StripeServiceInterface {
     b?: SourceData | undefined
   ): Observable<SourceResult>;
   retrieveSource(source: SourceParams): Observable<SourceResult>;
+  paymentRequest(options: PaymentRequestOptions): any;
 }

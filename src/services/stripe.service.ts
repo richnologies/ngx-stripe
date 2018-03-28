@@ -33,6 +33,7 @@ import {
 } from '../interfaces/token';
 import { StripeInstance } from './stripe-instance.class';
 import { StripeServiceInterface } from './stripe-instance.interface';
+import { PaymentRequestOptions } from '../interfaces/payment-request';
 
 @Injectable()
 export class StripeService implements StripeServiceInterface {
@@ -90,5 +91,9 @@ export class StripeService implements StripeServiceInterface {
 
   public retrieveSource(source: SourceParams): Observable<SourceResult> {
     return this.stripe.retrieveSource(source);
+  }
+
+  public paymentRequest(options: PaymentRequestOptions) {
+    return this.stripe.paymentRequest(options);
   }
 }
