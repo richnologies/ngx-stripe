@@ -6,7 +6,8 @@ import { LazyStripeAPILoader, Status } from './api-loader.service';
 import {
   STRIPE_PUBLISHABLE_KEY,
   StripeJS,
-  STRIPE_OPTIONS
+  STRIPE_OPTIONS,
+  Options
 } from '../interfaces/stripe';
 import { Element } from '../interfaces/element';
 import { Elements, ElementsOptions } from '../interfaces/elements';
@@ -37,7 +38,7 @@ export class StripeInstance implements StripeServiceInterface {
     private loader: LazyStripeAPILoader,
     private window: WindowRef,
     private key: string,
-    private options?: string
+    private options?: Options
   ) {
     this.stripeObject().subscribe((Stripe: any) => {
       this.stripe = this.options

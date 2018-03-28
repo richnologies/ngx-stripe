@@ -100,7 +100,7 @@ export class StripeTestComponent implements OnInit {
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]]
     });
-    this.stripeService.elements(elementsOptions)
+    this.stripeService.elements(this.elementsOptions)
       .subscribe(elements => {
         this.elements = elements;
         // Only mount the element the first time

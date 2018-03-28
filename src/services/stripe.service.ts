@@ -8,7 +8,8 @@ import { LazyStripeAPILoader, Status } from './api-loader.service';
 import {
   STRIPE_PUBLISHABLE_KEY,
   StripeJS,
-  STRIPE_OPTIONS
+  STRIPE_OPTIONS,
+  Options
 } from '../interfaces/stripe';
 import { Element } from '../interfaces/element';
 import { Elements, ElementsOptions } from '../interfaces/elements';
@@ -39,11 +40,17 @@ export class StripeService implements StripeServiceInterface {
 
   constructor(
     @Inject(STRIPE_PUBLISHABLE_KEY) private key: string,
-    @Inject(STRIPE_OPTIONS) private options: string,
+    @Inject(STRIPE_OPTIONS) private options: Options,
     private loader: LazyStripeAPILoader,
     private window: WindowRef
   ) {
     this.stripe = new StripeInstance(this.loader, this.window, key, options);
+  }
+
+  public changeKey(key: string, options: Options) {
+    this.stripe = new StripeInstance(this.loader, this.window, key, options);
+
+    return this.stripe;
   }
 
   public elements(options?: ElementsOptions): Observable<Elements> {

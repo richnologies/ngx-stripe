@@ -17,15 +17,16 @@ import {
 } from '../interfaces/element';
 import { StripeService } from '../services/stripe.service';
 import { Elements, ElementsOptions } from '../interfaces/elements';
+import { StripeInstance } from 'src/services/stripe-instance.class';
 
 @Component({
   selector: 'ngx-stripe-card',
-  template: `<div class="field" #card></div>`
+  template: `<div class="field" #stripeCard></div>`
 })
 export class StripeCardComponent implements OnInit {
-  @Output() public onCard = new EventEmitter<StripeElement>();
+  @Output() public card = new EventEmitter<StripeElement>();
 
-  @ViewChild('card') private card: ElementRef;
+  @ViewChild('stripeCard') private stripeCard: ElementRef;
   private element: StripeElement;
   @Input()
   private set options(optionsIn: ElementOptions) {
@@ -37,26 +38,39 @@ export class StripeCardComponent implements OnInit {
     this.elementsOptions$.next(optionsIn);
   }
   private elementsOptions$ = new BehaviorSubject<ElementsOptions>({});
+  @Input()
+  private set stripe(stripeIn: StripeInstance) {
+    this.stripe$.next(stripeIn);
+  }
+  private stripe$ = new BehaviorSubject<StripeInstance | null>(null);
 
   constructor(private stripeService: StripeService) {}
 
   public ngOnInit() {
-    const elements$: Observable<
-      Elements
-    > = this.elementsOptions$.asObservable().switchMap(options => {
-      if (Object.keys(options).length > 0) {
-        return this.stripeService.elements(options);
+    const elements$: Observable<Elements> = Observable.combineLatest(
+      this.elementsOptions$.asObservable(),
+      this.stripe$.asObservable()
+    ).switchMap(([options, stripe]) => {
+      if (stripe) {
+        if (Object.keys(options).length > 0) {
+          return stripe.elements(options);
+        }
+        return stripe.elements();
+      } else {
+        if (Object.keys(options).length > 0) {
+          return this.stripeService.elements(options);
+        }
+        return this.stripeService.elements();
       }
-      return this.stripeService.elements();
     });
     Observable.combineLatest(
       elements$,
       this.options$.asObservable().filter(options => Boolean(options))
     ).subscribe(([elements, options]) => {
       this.element = elements.create('card', options);
-      this.element.mount(this.card.nativeElement);
+      this.element.mount(this.stripeCard.nativeElement);
 
-      this.onCard.emit(this.element);
+      this.card.emit(this.element);
     });
   }
 

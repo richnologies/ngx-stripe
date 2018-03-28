@@ -3,6 +3,7 @@
         "baseUrl": ".",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+        "strictPropertyInitialization": false,
         "strict": true,
         "module": "commonjs",
         "moduleResolution": "node",
