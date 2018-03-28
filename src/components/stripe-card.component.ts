@@ -13,7 +13,8 @@ import { Observable } from 'rxjs/Observable';
 
 import {
   Element as StripeElement,
-  ElementOptions
+  ElementOptions,
+  ElementEventType
 } from '../interfaces/element';
 import { StripeService } from '../services/stripe.service';
 import { Elements, ElementsOptions } from '../interfaces/elements';
@@ -25,6 +26,8 @@ import { StripeInstance } from 'src/services/stripe-instance.class';
 })
 export class StripeCardComponent implements OnInit {
   @Output() public card = new EventEmitter<StripeElement>();
+  @Output()
+  public on = new EventEmitter<{ type: ElementEventType; event: any }>();
 
   @ViewChild('stripeCard') private stripeCard: ElementRef;
   private element: StripeElement;
@@ -68,6 +71,42 @@ export class StripeCardComponent implements OnInit {
       this.options$.asObservable().filter(options => Boolean(options))
     ).subscribe(([elements, options]) => {
       this.element = elements.create('card', options);
+
+      this.element.on('blur', ev =>
+        this.on.emit({
+          event: ev,
+          type: 'blur'
+        })
+      );
+
+      this.element.on('change', ev =>
+        this.on.emit({
+          event: ev,
+          type: 'change'
+        })
+      );
+
+      this.element.on('click', ev =>
+        this.on.emit({
+          event: ev,
+          type: 'click'
+        })
+      );
+
+      this.element.on('focus', ev =>
+        this.on.emit({
+          event: ev,
+          type: 'focus'
+        })
+      );
+
+      this.element.on('ready', ev =>
+        this.on.emit({
+          event: ev,
+          type: 'ready'
+        })
+      );
+
       this.element.mount(this.stripeCard.nativeElement);
 
       this.card.emit(this.element);

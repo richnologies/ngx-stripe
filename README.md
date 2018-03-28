@@ -149,7 +149,7 @@ As an alternative to the previous example, you could use the StripeCardComponent
 
 It will make a little bit easier to mount the card.
 
-To fetch the Stripe Element, you could you use either the (onCard) output, or, 
+To fetch the Stripe Element, you could you use either the (card) output, or, 
 by using a ViewChild, the public method getCard()
 
 //stripe.html
