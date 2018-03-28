@@ -1,7 +1,11 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { STRIPE_PUBLISHABLE_KEY, STRIPE_OPTIONS } from '../interfaces/stripe';
+import {
+  STRIPE_PUBLISHABLE_KEY,
+  STRIPE_OPTIONS,
+  Options
+} from '../interfaces/stripe';
 import { LazyStripeAPILoader } from './api-loader.service';
 import { WindowRef } from './window-ref';
 import { StripeInstance } from './stripe-instance.class';
@@ -15,7 +19,7 @@ export class StripeFactoryService {
     private window: WindowRef
   ) {}
 
-  public create(key: string, options?: string): StripeInstance {
+  public create(key: string, options?: Options): StripeInstance {
     return new StripeInstance(this.loader, this.window, key, options);
   }
 }

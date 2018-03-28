@@ -47,6 +47,10 @@ export class StripeInstance implements StripeServiceInterface {
     });
   }
 
+  public getInstance() {
+    return this.stripe;
+  }
+
   public elements(options?: ElementsOptions): Observable<Elements> {
     return this.stripeObject().map(() => this.stripe.elements(options));
   }

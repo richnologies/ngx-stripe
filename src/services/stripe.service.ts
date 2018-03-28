@@ -44,10 +44,27 @@ export class StripeService implements StripeServiceInterface {
     private loader: LazyStripeAPILoader,
     private window: WindowRef
   ) {
-    this.stripe = new StripeInstance(this.loader, this.window, key, options);
+    if (key) {
+      this.stripe = new StripeInstance(this.loader, this.window, key, options);
+    }
   }
 
-  public changeKey(key: string, options: Options) {
+  public getStripeReference(): Observable<any> {
+    return this.loader
+      .asStream()
+      .filter((status: Status) => status.loaded === true)
+      .map(() => (this.window.getNativeWindow() as any).Stripe);
+  }
+
+  public getInstance() {
+    return this.stripe.getInstance();
+  }
+
+  public setKey(key: string, options?: Options) {
+    return this.changeKey(key, options);
+  }
+
+  public changeKey(key: string, options?: Options) {
     this.stripe = new StripeInstance(this.loader, this.window, key, options);
 
     return this.stripe;
