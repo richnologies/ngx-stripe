@@ -56,7 +56,7 @@ export interface SourceParams {
 }
 
 export interface SourceData {
-  type: string;
+  type?: string;
   amount?: number;
   currency?: string;
   flow?: FlowTypes;
