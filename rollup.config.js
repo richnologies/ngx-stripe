@@ -6,6 +6,7 @@ const globals = {
   '@angular/common': 'ng.common',
   'rxjs/add/observable/combineLatest': 'Rx',
   'rxjs/add/observable/fromPromise': 'Rx',
+  'rxjs/add/observable/of': 'Rx',
   'rxjs/add/operator/map': 'Rx',
   'rxjs/add/operator/filter': 'Rx',
   'rxjs/add/operator/switchMap': 'Rx',

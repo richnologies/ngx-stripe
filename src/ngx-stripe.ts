@@ -9,8 +9,8 @@ export { StripeInstance } from './services/stripe-instance.class';
 export { StripeServiceInterface } from './services/stripe-instance.interface';
 export { LazyStripeAPILoader } from './services/api-loader.service';
 
-export { WindowRef } from './services/window-ref';
-export { DocumentRef } from './services/document-ref';
+export { WindowRef } from './services/window-ref.service';
+export { DocumentRef } from './services/document-ref.service';
 
 export {
   Element,

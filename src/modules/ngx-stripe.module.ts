@@ -4,8 +4,8 @@ import { LazyStripeAPILoader } from '../services/api-loader.service';
 import { StripeService } from '../services/stripe.service';
 import { StripeFactoryService } from '../services/stripe-factory.service';
 
-import { WindowRef } from '../services/window-ref';
-import { DocumentRef } from '../services/document-ref';
+import { WindowRef } from '../services/window-ref.service';
+import { DocumentRef } from '../services/document-ref.service';
 
 import {
   Options,
@@ -16,6 +16,7 @@ import { StripeCardComponent } from '../components/stripe-card.component';
 
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';

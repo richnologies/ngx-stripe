@@ -1,6 +1,7 @@
+import { Inject, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { WindowRef } from './window-ref';
+import { WindowRef } from './window-ref.service';
 import { LazyStripeAPILoader, Status } from './api-loader.service';
 
 import {
@@ -31,20 +32,24 @@ import {
 } from '../interfaces/token';
 import { StripeServiceInterface } from './stripe-instance.interface';
 import { PaymentRequestOptions } from '../interfaces/payment-request';
+import { isPlatformBrowser } from '@angular/common';
 
 export class StripeInstance implements StripeServiceInterface {
   private stripe: StripeJS;
 
   constructor(
+    private platformId: any,
     private loader: LazyStripeAPILoader,
     private window: WindowRef,
     private key: string,
     private options?: Options
   ) {
     this.stripeObject().subscribe((Stripe: any) => {
-      this.stripe = this.options
-        ? (Stripe(this.key, this.options) as StripeJS)
-        : (Stripe(this.key) as StripeJS);
+      if (Stripe) {
+        this.stripe = this.options
+          ? (Stripe(this.key, this.options) as StripeJS)
+          : (Stripe(this.key) as StripeJS);
+      }
     });
   }
 
@@ -90,6 +95,9 @@ export class StripeInstance implements StripeServiceInterface {
   }
 
   private stripeObject(): Observable<any> {
+    if (isPlatformBrowser(this.platformId)) {
+      return Observable.of(null);
+    }
     return this.loader
       .asStream()
       .filter((status: Status) => status.loaded === true)

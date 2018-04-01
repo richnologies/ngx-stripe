@@ -1,8 +1,8 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
-import { WindowRef } from './window-ref';
+import { WindowRef } from './window-ref.service';
 import { LazyStripeAPILoader, Status } from './api-loader.service';
 
 import {
@@ -40,13 +40,20 @@ export class StripeService implements StripeServiceInterface {
   private stripe: StripeInstance;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: any,
     @Inject(STRIPE_PUBLISHABLE_KEY) private key: string,
     @Inject(STRIPE_OPTIONS) private options: Options,
     private loader: LazyStripeAPILoader,
     private window: WindowRef
   ) {
     if (key) {
-      this.stripe = new StripeInstance(this.loader, this.window, key, options);
+      this.stripe = new StripeInstance(
+        this.platformId,
+        this.loader,
+        this.window,
+        key,
+        options
+      );
     }
   }
 
@@ -66,7 +73,13 @@ export class StripeService implements StripeServiceInterface {
   }
 
   public changeKey(key: string, options?: Options) {
-    this.stripe = new StripeInstance(this.loader, this.window, key, options);
+    this.stripe = new StripeInstance(
+      this.platformId,
+      this.loader,
+      this.window,
+      key,
+      options
+    );
 
     return this.stripe;
   }
