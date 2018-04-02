@@ -1,6 +1,7 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 import { WindowRef } from './window-ref.service';
 import { LazyStripeAPILoader, Status } from './api-loader.service';
@@ -37,7 +38,7 @@ import { PaymentRequestOptions } from '../interfaces/payment-request';
 
 @Injectable()
 export class StripeService implements StripeServiceInterface {
-  private stripe: StripeInstance;
+  private stripe!: StripeInstance;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: any,
@@ -60,8 +61,10 @@ export class StripeService implements StripeServiceInterface {
   public getStripeReference(): Observable<any> {
     return this.loader
       .asStream()
-      .filter((status: Status) => status.loaded === true)
-      .map(() => (this.window.getNativeWindow() as any).Stripe);
+      .pipe(
+        filter((status: Status) => status.loaded === true),
+        map(() => (this.window.getNativeWindow() as any).Stripe)
+      );
   }
 
   public getInstance() {

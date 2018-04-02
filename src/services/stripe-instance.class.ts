@@ -1,5 +1,7 @@
 import { Inject, PLATFORM_ID } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { isPlatformBrowser } from '@angular/common';
+import { Observable, from, of } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
 import { WindowRef } from './window-ref.service';
 import { LazyStripeAPILoader, Status } from './api-loader.service';
@@ -32,10 +34,9 @@ import {
 } from '../interfaces/token';
 import { StripeServiceInterface } from './stripe-instance.interface';
 import { PaymentRequestOptions } from '../interfaces/payment-request';
-import { isPlatformBrowser } from '@angular/common';
 
 export class StripeInstance implements StripeServiceInterface {
-  private stripe: StripeJS;
+  private stripe!: StripeJS;
 
   constructor(
     private platformId: any,
@@ -58,7 +59,7 @@ export class StripeInstance implements StripeServiceInterface {
   }
 
   public elements(options?: ElementsOptions): Observable<Elements> {
-    return this.stripeObject().map(() => this.stripe.elements(options));
+    return this.stripeObject().pipe(map(() => this.stripe.elements(options)));
   }
 
   public createToken(
@@ -66,11 +67,11 @@ export class StripeInstance implements StripeServiceInterface {
     b: CardDataOptions | BankAccountData | PiiData | undefined
   ): Observable<TokenResult> {
     if (isBankAccount(a) && isBankAccountData(b)) {
-      return Observable.fromPromise(this.stripe.createToken(a, b));
+      return from(this.stripe.createToken(a, b));
     } else if (isPii(a) && isPiiData(b)) {
-      return Observable.fromPromise(this.stripe.createToken(a, b));
+      return from(this.stripe.createToken(a, b));
     } else {
-      return Observable.fromPromise(
+      return from(
         this.stripe.createToken(a as Element, b as CardDataOptions | undefined)
       );
     }
@@ -81,13 +82,13 @@ export class StripeInstance implements StripeServiceInterface {
     b?: SourceData | undefined
   ): Observable<SourceResult> {
     if (isSourceData(a)) {
-      return Observable.fromPromise(this.stripe.createSource(a as SourceData));
+      return from(this.stripe.createSource(a as SourceData));
     }
-    return Observable.fromPromise(this.stripe.createSource(a as Element, b));
+    return from(this.stripe.createSource(a as Element, b));
   }
 
   public retrieveSource(source: SourceParams): Observable<SourceResult> {
-    return Observable.fromPromise(this.stripe.retrieveSource(source));
+    return from(this.stripe.retrieveSource(source));
   }
 
   public paymentRequest(options: PaymentRequestOptions) {
@@ -96,11 +97,13 @@ export class StripeInstance implements StripeServiceInterface {
 
   private stripeObject(): Observable<any> {
     if (isPlatformBrowser(this.platformId)) {
-      return Observable.of(null);
+      return of(null);
     }
     return this.loader
       .asStream()
-      .filter((status: Status) => status.loaded === true)
-      .map(() => (this.window.getNativeWindow() as any).Stripe);
+      .pipe(
+        filter((status: Status) => status.loaded === true),
+        map(() => (this.window.getNativeWindow() as any).Stripe)
+      );
   }
 }

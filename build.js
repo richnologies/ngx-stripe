@@ -70,6 +70,6 @@ shell.rm(`-Rf`, `${NPM_DIR}/*.js.map`);
 shell.rm(`-Rf`, `${NPM_DIR}/src/**/*.js`);
 shell.rm(`-Rf`, `${NPM_DIR}/src/**/*.js.map`);
 
-shell.cp(`-Rf`, [`package.json`, `LICENSE`, `README.md`], `${NPM_DIR}`);
+shell.cp(`-Rf`, [`package.json`, `LICENSE.md`, `README.md`], `${NPM_DIR}`);
 
 shell.echo(chalk.green(`End building`));

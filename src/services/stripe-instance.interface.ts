@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { Element } from '../interfaces/element';
 import { ElementsOptions, Elements } from '../interfaces/elements';
