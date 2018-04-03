@@ -67,7 +67,8 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe$
       .asObservable()
       .filter(stripe => Boolean(stripe))
-      .map(stripe => (stripe as StripeJS).elements(options));
+      .map(stripe => (stripe as StripeJS).elements(options))
+      .first();
   }
 
   public createToken(
@@ -89,7 +90,8 @@ export class StripeInstance implements StripeServiceInterface {
             stripe.createToken(a as Element, b as CardDataOptions | undefined)
           );
         }
-      });
+      })
+      .first();
   }
 
   public createSource(
@@ -106,7 +108,8 @@ export class StripeInstance implements StripeServiceInterface {
           return Observable.fromPromise(stripe.createSource(a as SourceData));
         }
         return Observable.fromPromise(stripe.createSource(a as Element, b));
-      });
+      })
+      .first();
   }
 
   public retrieveSource(source: SourceParams): Observable<SourceResult> {
@@ -117,7 +120,8 @@ export class StripeInstance implements StripeServiceInterface {
         const stripe = s as StripeJS;
 
         return Observable.fromPromise(stripe.retrieveSource(source));
-      });
+      })
+      .first();
   }
 
   public paymentRequest(options: PaymentRequestOptions) {
