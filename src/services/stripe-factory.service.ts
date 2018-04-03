@@ -13,7 +13,6 @@ import { StripeInstance } from './stripe-instance.class';
 @Injectable()
 export class StripeFactoryService {
   constructor(
-    @Inject(PLATFORM_ID) private platformId: any,
     @Inject(STRIPE_PUBLISHABLE_KEY) private baseKey: string,
     @Inject(STRIPE_OPTIONS) private baseOptions: string,
     private loader: LazyStripeAPILoader,
@@ -21,12 +20,6 @@ export class StripeFactoryService {
   ) {}
 
   public create(key: string, options?: Options): StripeInstance {
-    return new StripeInstance(
-      this.platformId,
-      this.loader,
-      this.window,
-      key,
-      options
-    );
+    return new StripeInstance(this.loader, this.window, key, options);
   }
 }

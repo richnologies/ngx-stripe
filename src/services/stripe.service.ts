@@ -40,20 +40,13 @@ export class StripeService implements StripeServiceInterface {
   private stripe: StripeInstance;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: any,
     @Inject(STRIPE_PUBLISHABLE_KEY) private key: string,
     @Inject(STRIPE_OPTIONS) private options: Options,
     private loader: LazyStripeAPILoader,
     private window: WindowRef
   ) {
     if (key) {
-      this.stripe = new StripeInstance(
-        this.platformId,
-        this.loader,
-        this.window,
-        key,
-        options
-      );
+      this.stripe = new StripeInstance(this.loader, this.window, key, options);
     }
   }
 
@@ -73,13 +66,7 @@ export class StripeService implements StripeServiceInterface {
   }
 
   public changeKey(key: string, options?: Options) {
-    this.stripe = new StripeInstance(
-      this.platformId,
-      this.loader,
-      this.window,
-      key,
-      options
-    );
+    this.stripe = new StripeInstance(this.loader, this.window, key, options);
 
     return this.stripe;
   }

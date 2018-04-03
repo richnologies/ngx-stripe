@@ -10,6 +10,15 @@ Angular 2+ wrapper for StripeJS
 * Stripe Service
 * Lazy script loading
 
+## Angular 6
+
+There is a branch **6.x** for development to make the library compatible with
+Angular 6, to give it a try, use the next tag:
+
+```bash
+$ npm install ngx-stripe@next --save
+```
+
 ## Installation
 
 To install this library, run:

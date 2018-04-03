@@ -10,8 +10,7 @@ const globals = {
   'rxjs/add/operator/map': 'Rx',
   'rxjs/add/operator/filter': 'Rx',
   'rxjs/add/operator/switchMap': 'Rx',
-  'rxjs/add/operator/publishLast': 'Rx',
-  'rxjs/add/operator/refCount': 'Rx',
+  'rxjs/add/operator/first': 'Rx',
   'rxjs/Observable': 'Rx',
   'rxjs/BehaviorSubject': 'Rx'
 };

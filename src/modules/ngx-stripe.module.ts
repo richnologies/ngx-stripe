@@ -19,8 +19,8 @@ import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/publishLast';
 
 @NgModule({
   declarations: [StripeCardComponent],
