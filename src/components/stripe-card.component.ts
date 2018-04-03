@@ -18,7 +18,7 @@ import {
 } from '../interfaces/element';
 import { StripeService } from '../services/stripe.service';
 import { Elements, ElementsOptions } from '../interfaces/elements';
-import { StripeInstance } from 'src/services/stripe-instance.class';
+import { StripeInstance } from '../services/stripe-instance.class';
 
 @Component({
   selector: 'ngx-stripe-card',

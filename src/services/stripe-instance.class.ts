@@ -1,7 +1,7 @@
 import { Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Observable, from, of } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { Observable, from, of, BehaviorSubject } from 'rxjs';
+import { map, filter, switchMap, first } from 'rxjs/operators';
 
 import { WindowRef } from './window-ref.service';
 import { LazyStripeAPILoader, Status } from './api-loader.service';
@@ -36,7 +36,9 @@ import { StripeServiceInterface } from './stripe-instance.interface';
 import { PaymentRequestOptions } from '../interfaces/payment-request';
 
 export class StripeInstance implements StripeServiceInterface {
-  private stripe!: StripeJS;
+  private stripe$: BehaviorSubject<StripeJS | undefined> = new BehaviorSubject<
+    StripeJS | undefined
+  >(undefined);
 
   constructor(
     private platformId: any,
@@ -45,65 +47,91 @@ export class StripeInstance implements StripeServiceInterface {
     private key: string,
     private options?: Options
   ) {
-    this.stripeObject().subscribe((Stripe: any) => {
-      if (Stripe) {
-        this.stripe = this.options
+    this.loader
+      .asStream()
+      .pipe(
+        filter((status: Status) => status.loaded === true),
+        first(),
+        map(() => (this.window.getNativeWindow() as any).Stripe)
+      )
+      .subscribe(Stripe => {
+        const stripe = this.options
           ? (Stripe(this.key, this.options) as StripeJS)
           : (Stripe(this.key) as StripeJS);
-      }
-    });
+
+        this.stripe$.next(stripe);
+      });
   }
 
-  public getInstance() {
-    return this.stripe;
+  public getInstance(): StripeJS | undefined {
+    return this.stripe$.getValue();
   }
 
   public elements(options?: ElementsOptions): Observable<Elements> {
-    return this.stripeObject().pipe(map(() => this.stripe.elements(options)));
+    return this.stripe$.pipe(
+      filter(stripe => Boolean(stripe)),
+      map(stripe => (stripe as StripeJS).elements(options))
+    );
   }
 
   public createToken(
     a: Element | BankAccount | Pii,
     b: CardDataOptions | BankAccountData | PiiData | undefined
   ): Observable<TokenResult> {
-    if (isBankAccount(a) && isBankAccountData(b)) {
-      return from(this.stripe.createToken(a, b));
-    } else if (isPii(a) && isPiiData(b)) {
-      return from(this.stripe.createToken(a, b));
-    } else {
-      return from(
-        this.stripe.createToken(a as Element, b as CardDataOptions | undefined)
-      );
-    }
+    return this.stripe$.pipe(
+      filter(stripe => Boolean(stripe)),
+      switchMap(s => {
+        const stripe = s as StripeJS;
+
+        if (isBankAccount(a) && isBankAccountData(b)) {
+          return from(stripe.createToken(a, b));
+        } else if (isPii(a) && isPiiData(b)) {
+          return from(stripe.createToken(a, b));
+        } else {
+          return from(
+            stripe.createToken(a as Element, b as CardDataOptions | undefined)
+          );
+        }
+      })
+    );
   }
 
   public createSource(
     a: Element | SourceData,
     b?: SourceData | undefined
   ): Observable<SourceResult> {
-    if (isSourceData(a)) {
-      return from(this.stripe.createSource(a as SourceData));
-    }
-    return from(this.stripe.createSource(a as Element, b));
+    return this.stripe$.pipe(
+      filter(stripe => Boolean(stripe)),
+      switchMap(s => {
+        const stripe = s as StripeJS;
+
+        if (isSourceData(a)) {
+          return from(stripe.createSource(a as SourceData));
+        }
+        return from(stripe.createSource(a as Element, b));
+      })
+    );
   }
 
   public retrieveSource(source: SourceParams): Observable<SourceResult> {
-    return from(this.stripe.retrieveSource(source));
+    return this.stripe$.pipe(
+      filter(stripe => Boolean(stripe)),
+      switchMap(s => {
+        const stripe = s as StripeJS;
+
+        return from(stripe.retrieveSource(source));
+      })
+    );
   }
 
   public paymentRequest(options: PaymentRequestOptions) {
-    return this.stripe.paymentRequest(options);
-  }
+    return this.stripe$.pipe(
+      filter(stripe => Boolean(stripe)),
+      map(s => {
+        const stripe = s as StripeJS;
 
-  private stripeObject(): Observable<any> {
-    if (isPlatformBrowser(this.platformId)) {
-      return of(null);
-    }
-    return this.loader
-      .asStream()
-      .pipe(
-        filter((status: Status) => status.loaded === true),
-        map(() => (this.window.getNativeWindow() as any).Stripe)
-      );
+        return stripe.paymentRequest(options);
+      })
+    );
   }
 }

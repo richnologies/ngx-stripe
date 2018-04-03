@@ -5,12 +5,13 @@ export { StripeCardComponent } from './components/stripe-card.component';
 
 export { StripeService } from './services/stripe.service';
 export { StripeFactoryService } from './services/stripe-factory.service';
-export { StripeInstance } from './services/stripe-instance.class';
 export { StripeServiceInterface } from './services/stripe-instance.interface';
 export { LazyStripeAPILoader } from './services/api-loader.service';
 
 export { WindowRef } from './services/window-ref.service';
 export { DocumentRef } from './services/document-ref.service';
+
+export { StripeInstance } from './services/stripe-instance.class';
 
 export {
   Element,
