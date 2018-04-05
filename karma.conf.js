@@ -1,5 +1,7 @@
 // Karma configuration for Unit testing
 
+const path = require('path');
+
 module.exports = function(config) {
   const configuration = {
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -14,7 +16,9 @@ module.exports = function(config) {
       require('karma-chrome-launcher'),
       require('karma-webpack'),
       require('karma-sourcemap-loader'),
-      require('karma-spec-reporter')
+      require('karma-spec-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('istanbul-instrumenter-loader')
     ],
 
     // list of files / patterns to load in the browser
@@ -38,8 +42,19 @@ module.exports = function(config) {
         rules: [
           {
             test: /\.ts/,
-            loaders: ['ts-loader', 'source-map-loader'],
+            use: [{ loader: 'ts-loader' }, { loader: 'source-map-loader' }],
             exclude: /node_modules/
+          },
+          {
+            enforce: 'post',
+            test: /\.ts/,
+            use: [
+              {
+                loader: 'istanbul-instrumenter-loader',
+                options: { esModules: true }
+              }
+            ],
+            exclude: [/\.spec.ts/, /node_modules/]
           }
         ],
         exprContextCritical: false
@@ -55,7 +70,13 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['spec'],
+    reporters: ['spec', 'coverage-istanbul'],
+
+    coverageIstanbulReporter: {
+      reports: ['html', 'lcovonly'],
+      dir: path.join(__dirname, 'coverage'),
+      fixWebpackSourcePaths: true
+    },
 
     // web server port
     port: 9876,
@@ -76,7 +97,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true
   };
 
   config.set(configuration);

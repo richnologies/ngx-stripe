@@ -1,0 +1,4 @@
+/**
+ * @license ngx-stripe
+ * MIT license
+ */

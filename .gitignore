@@ -2,7 +2,9 @@ $ cat .gitignore
 /node_modules
 /dist
 /documentation
+/coverage
 /.vscode
+
 *.log
 *.tgz
 package-lock.json

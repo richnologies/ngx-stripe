@@ -1,9 +1,11 @@
 import resolve from 'rollup-plugin-node-resolve';
+import sourcemaps from 'rollup-plugin-sourcemaps';
 
-// Add here external dependencies that actually you use.
 const globals = {
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',
+  'rxjs/Observable': 'Rx',
+  'rxjs/Observer': 'Rx',
   'rxjs/add/observable/combineLatest': 'Rx',
   'rxjs/add/observable/fromPromise': 'Rx',
   'rxjs/add/observable/of': 'Rx',
@@ -16,15 +18,17 @@ const globals = {
 };
 
 export default {
-  entry: './dist/modules/ngx-stripe.es5.js',
-  dest: './dist/bundles/ngx-stripe.umd.js',
-  format: 'umd',
-  exports: 'named',
-  moduleName: 'ng.stripe',
-  plugins: [resolve()],
   external: Object.keys(globals),
-  globals: globals,
+  plugins: [resolve(), sourcemaps()],
   onwarn: () => {
     return;
+  },
+  output: {
+    format: 'umd',
+    name: 'ng.stripe',
+    globals: globals,
+    sourcemap: true,
+    exports: 'named',
+    amd: { id: 'ngx-stripe' }
   }
 };

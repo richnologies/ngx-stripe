@@ -1,23 +1,13 @@
 {
-    "extends": "tslint:recommended",
-    "rulesDirectory": [
-        "node_modules/codelyzer"
+    "extends": [
+        "tslint-angular"
     ],
     "rules": {
-        "angular-whitespace": [
-            true,
-            "check-interpolation",
-            "check-pipe"
-        ],
-        "arrow-parens": [true, "ban-single-arg-parens"],
-        "banana-in-box": true,
-        "templates-no-negated-async": true,
         "directive-selector": [
             true,
             "attribute",
             [
-                "dir-prefix1",
-                "dir-prefix2"
+                "ngx-stripe"
             ],
             "camelCase"
         ],
@@ -28,43 +18,6 @@
                 "ngx-stripe"
             ],
             "kebab-case"
-        ],
-        "use-input-property-decorator": true,
-        "use-output-property-decorator": true,
-        "use-host-property-decorator": true,
-        "no-attribute-parameter-decorator": true,
-        "no-input-rename": true,
-        "no-output-rename": true,
-        "no-forward-ref": true,
-        "use-view-encapsulation": false,
-        "use-life-cycle-interface": true,
-        "use-pipe-transform-interface": true,
-        "pipe-naming": [
-            true,
-            "camelCase",
-            "Pipe"
-        ],
-        "component-class-suffix": [
-            true,
-            "Component"
-        ],
-        "directive-class-suffix": [
-            true,
-            "Directive"
-        ],
-        "interface-name": [true, "never-prefix"],
-        "templates-use-public": true,
-        "no-access-missing-member": true,
-        "invoke-injectable": true,
-        "template-to-ng-template": true,
-        "ordered-imports": [
-            false
-        ],
-        "quotemark": [
-            false
-        ],
-        "trailing-comma": [
-            false
         ]
     }
 }
