@@ -1,43 +1,32 @@
-import { Inject, PLATFORM_ID } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 import { WindowRef } from './window-ref.service';
 import { LazyStripeAPILoader, Status } from './api-loader.service';
 
-import {
-  STRIPE_PUBLISHABLE_KEY,
-  StripeJS,
-  STRIPE_OPTIONS,
-  Options
-} from '../interfaces/stripe';
+import { Options, StripeJS } from '../interfaces/stripe';
 import { Element } from '../interfaces/element';
 import { Elements, ElementsOptions } from '../interfaces/elements';
+import { isSourceData, SourceData, SourceParams, SourceResult } from '../interfaces/sources';
 import {
-  SourceData,
-  SourceResult,
-  isSourceData,
-  SourceParams
-} from '../interfaces/sources';
-import {
-  CardDataOptions,
-  TokenResult,
   BankAccount,
   BankAccountData,
-  PiiData,
-  Pii,
+  CardDataOptions,
   isBankAccount,
   isBankAccountData,
   isPii,
-  isPiiData
+  isPiiData,
+  Pii,
+  PiiData,
+  TokenResult
 } from '../interfaces/token';
 import { StripeServiceInterface } from './stripe-instance.interface';
 import { PaymentRequestOptions } from '../interfaces/payment-request';
+import { filter, first, map, switchMap } from 'rxjs/operators';
+import { fromPromise } from 'rxjs/internal-compatibility';
 
 export class StripeInstance implements StripeServiceInterface {
-  private stripe$: BehaviorSubject<StripeJS | undefined> = new BehaviorSubject<
-    StripeJS | undefined
-  >(undefined);
+  private stripe$: BehaviorSubject<StripeJS | undefined> = new BehaviorSubject<StripeJS | undefined>(undefined);
 
   constructor(
     private loader: LazyStripeAPILoader,
@@ -47,9 +36,11 @@ export class StripeInstance implements StripeServiceInterface {
   ) {
     this.loader
       .asStream()
-      .filter((status: Status) => status.loaded === true)
-      .first()
-      .map(() => (this.window.getNativeWindow() as any).Stripe)
+      .pipe(
+        filter((status: Status) => status.loaded === true),
+        first(),
+        map(() => (this.window.getNativeWindow() as any).Stripe)
+      )
       .subscribe((Stripe: any) => {
         const stripe = this.options
           ? (Stripe(this.key, this.options) as StripeJS)
@@ -59,16 +50,18 @@ export class StripeInstance implements StripeServiceInterface {
       });
   }
 
-  public getInstance(): StripeJS | undefined {
-    return this.stripe$.getValue();
+  public getInstance(): StripeJS | null | undefined {
+    return this.stripe$.getValue() as StripeJS;
   }
 
   public elements(options?: ElementsOptions): Observable<Elements> {
     return this.stripe$
       .asObservable()
-      .filter(stripe => Boolean(stripe))
-      .map(stripe => (stripe as StripeJS).elements(options))
-      .first();
+      .pipe(
+        filter(stripe => Boolean(stripe)),
+        map(stripe => (stripe as StripeJS).elements(options)),
+        first()
+      );
   }
 
   public createToken(
@@ -77,21 +70,22 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<TokenResult> {
     return this.stripe$
       .asObservable()
-      .filter(stripe => Boolean(stripe))
-      .switchMap(s => {
-        const stripe = s as StripeJS;
+      .pipe(filter(stripe => Boolean(stripe)),
+        switchMap(s => {
+          const stripe = s as StripeJS;
 
-        if (isBankAccount(a) && isBankAccountData(b)) {
-          return Observable.fromPromise(stripe.createToken(a, b));
-        } else if (isPii(a) && isPiiData(b)) {
-          return Observable.fromPromise(stripe.createToken(a, b));
-        } else {
-          return Observable.fromPromise(
-            stripe.createToken(a as Element, b as CardDataOptions | undefined)
-          );
-        }
-      })
-      .first();
+          if (isBankAccount(a) && isBankAccountData(b)) {
+            return fromPromise(stripe.createToken(a, b));
+          } else if (isPii(a) && isPiiData(b)) {
+            return fromPromise(stripe.createToken(a, b));
+          } else {
+            return fromPromise(
+              stripe.createToken(a as Element, b as CardDataOptions | undefined)
+            );
+          }
+        }),
+        first()
+      );
   }
 
   public createSource(
@@ -100,28 +94,32 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<SourceResult> {
     return this.stripe$
       .asObservable()
-      .filter(stripe => Boolean(stripe))
-      .switchMap(s => {
-        const stripe = s as StripeJS;
+      .pipe(
+        filter(stripe => Boolean(stripe)),
+        switchMap(s => {
+          const stripe = s as StripeJS;
 
-        if (isSourceData(a)) {
-          return Observable.fromPromise(stripe.createSource(a as SourceData));
-        }
-        return Observable.fromPromise(stripe.createSource(a as Element, b));
-      })
-      .first();
+          if (isSourceData(a)) {
+            return fromPromise(stripe.createSource(a as SourceData));
+          }
+          return fromPromise(stripe.createSource(a as Element, b));
+        }),
+        first()
+      );
   }
 
   public retrieveSource(source: SourceParams): Observable<SourceResult> {
     return this.stripe$
       .asObservable()
-      .filter(stripe => Boolean(stripe))
-      .switchMap(s => {
-        const stripe = s as StripeJS;
+      .pipe(
+        filter(stripe => Boolean(stripe)),
+        switchMap(s => {
+          const stripe = s as StripeJS;
 
-        return Observable.fromPromise(stripe.retrieveSource(source));
-      })
-      .first();
+          return fromPromise(stripe.retrieveSource(source));
+        }),
+        first()
+      );
   }
 
   public paymentRequest(options: PaymentRequestOptions) {

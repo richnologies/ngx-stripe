@@ -1,11 +1,12 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 import { WindowRef } from './window-ref.service';
 import { DocumentRef } from './document-ref.service';
+
 
 export interface Status {
   loaded: boolean;

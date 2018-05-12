@@ -1,12 +1,12 @@
-import { inject, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import {
-  LazyStripeAPILoader,
-  StripeService,
-  WindowRef,
   DocumentRef,
+  LazyStripeAPILoader,
+  STRIPE_OPTIONS,
   STRIPE_PUBLISHABLE_KEY,
-  STRIPE_OPTIONS
-} from '../../index';
+  StripeService,
+  WindowRef
+} from '../ngx-stripe';
 
 describe('StripeService', () => {
   beforeEach(() => {

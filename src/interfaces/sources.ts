@@ -1,4 +1,4 @@
-import { Error, Address } from './utils';
+import { Address, Error } from './utils';
 
 export interface Source {
   id: string;

@@ -4,7 +4,7 @@ import sourcemaps from 'rollup-plugin-sourcemaps';
 const globals = {
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',
-  'rxjs/Observable': 'Rx',
+  'rxjs': 'Rx',
   'rxjs/Observer': 'Rx',
   'rxjs/add/observable/combineLatest': 'Rx',
   'rxjs/add/observable/fromPromise': 'Rx',
@@ -13,15 +13,15 @@ const globals = {
   'rxjs/add/operator/filter': 'Rx',
   'rxjs/add/operator/switchMap': 'Rx',
   'rxjs/add/operator/first': 'Rx',
-  'rxjs/Observable': 'Rx',
-  'rxjs/BehaviorSubject': 'Rx'
+  'rxjs': 'Rx',
+  'rxjs/internal/BehaviorSubject': 'Rx'
 };
 
 export default {
   external: Object.keys(globals),
   plugins: [resolve(), sourcemaps()],
   onwarn: () => {
-    return;
+
   },
   output: {
     format: 'umd',

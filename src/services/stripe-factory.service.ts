@@ -1,11 +1,6 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Inject, Injectable } from '@angular/core';
 
-import {
-  STRIPE_PUBLISHABLE_KEY,
-  STRIPE_OPTIONS,
-  Options
-} from '../interfaces/stripe';
+import { Options, STRIPE_OPTIONS, STRIPE_PUBLISHABLE_KEY } from '../interfaces/stripe';
 import { LazyStripeAPILoader } from './api-loader.service';
 import { WindowRef } from './window-ref.service';
 import { StripeInstance } from './stripe-instance.class';
