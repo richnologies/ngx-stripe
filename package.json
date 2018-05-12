@@ -1,6 +1,5 @@
 {
   "name": "ngx-stripe",
-  "private": true,
   "version": "0.8.0",
   "description": "Build an Angular library compatible with AoT compilation and Tree shaking like an official package",
   "main": "./bundles/ngx-stripe.umd.js",
@@ -8,6 +7,7 @@
   "es2015": "./esm2015/ngx-stripe.js",
   "scripts": {
     "build": "node build.js",
+    "build-pkg": "ng-packagr -p ng-package.json",
     "test": "karma start",
     "test:watch": "karma start karma.conf.js --single-run false",
     "pack:lib": "npm run build && npm pack ./dist",
@@ -63,6 +63,7 @@
     "karma-sourcemap-loader": "0.3.7",
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "3.0.0",
+    "ng-packagr": "^2.4.4",
     "reflect-metadata": "0.1.12",
     "rollup": "0.58.2",
     "rollup-plugin-license": "0.6.0",
