@@ -138,7 +138,7 @@ export class StripeTestComponent implements OnInit {
     const name = this.stripeTest.get('name').value;
     this.stripeService
       .createToken(this.card, { name })
-      .subscribe(token => {
+      .subscribe(result => {
         if (result.token) {
           // Use the token to create a charge or a customer
           // https://stripe.com/docs/charges
