@@ -14,6 +14,9 @@ export interface Source {
   flow: FlowTypes;
   livemode: boolean;
   metadata: { [key: string]: any };
+  three_d_secure: {
+    card: string;  
+  };
   owner: {
     address: Address;
     email: string;
@@ -61,6 +64,9 @@ export interface SourceData {
   currency?: string;
   flow?: FlowTypes;
   metadata?: { [key: string]: any };
+  three_d_secure?: {
+    card: string;
+  };
   owner?: {
     address?: Address;
     email?: string;
