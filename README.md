@@ -72,7 +72,7 @@ In the example below, the component mounts the card in the [OnInit](https://angu
 
 Example component (more HTML and CSS examples can be found at the [Stripe Elements Examples](https://stripe.com/docs/elements/examples)):
 ```xml
-<form novalidate (ngSubmit)="buy($event)" [formGroup]="stripeTest">
+<form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
   <input type="text" formControlName="name" placeholder="Jane Doe">
   <div id="card-element" class="field"></div>
   <button type="submit">
@@ -163,7 +163,7 @@ by using a ViewChild, the public method getCard()
 
 //stripe.html
 ```xml
-<form novalidate (ngSubmit)="buy($event)" [formGroup]="stripeTest">
+<form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
   <input type="text" formControlName="name" placeholder="Jane Doe">
   <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
   <button type="submit">
