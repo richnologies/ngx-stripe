@@ -45,6 +45,8 @@ export {
   FieldCheck,
   CardDataOptions,
   TokenResult,
+  Account,
+  AccountData,
   BankAccount,
   BankAccountData,
   Pii,

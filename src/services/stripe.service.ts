@@ -23,6 +23,8 @@ import {
 import {
   CardDataOptions,
   TokenResult,
+  Account,
+  AccountData,
   BankAccount,
   BankAccountData,
   PiiData,
@@ -92,8 +94,8 @@ export class StripeService implements StripeServiceInterface {
   }
 
   public createToken(
-    a: Element | BankAccount | Pii,
-    b: CardDataOptions | BankAccountData | PiiData | undefined
+    a: Element | Account | BankAccount | Pii,
+    b: CardDataOptions | AccountData | BankAccountData | PiiData | undefined
   ): Observable<TokenResult> {
     return this.stripe.createToken(a, b);
   }

@@ -23,10 +23,14 @@ import {
 import {
   CardDataOptions,
   TokenResult,
+  Account,
+  AccountData,
   BankAccount,
   BankAccountData,
   PiiData,
   Pii,
+  isAccount,
+  isAccountData,
   isBankAccount,
   isBankAccountData,
   isPii,
@@ -75,15 +79,17 @@ export class StripeInstance implements StripeServiceInterface {
   }
 
   public createToken(
-    a: Element | BankAccount | Pii,
-    b: CardDataOptions | BankAccountData | PiiData | undefined
+    a: Element | Account | BankAccount | Pii,
+    b: CardDataOptions | AccountData | BankAccountData | PiiData | undefined
   ): Observable<TokenResult> {
     return this.stripe$.pipe(
       filter(stripe => Boolean(stripe)),
       switchMap(s => {
         const stripe = s as StripeJS;
 
-        if (isBankAccount(a) && isBankAccountData(b)) {
+        if (isAccount(a) && isAccountData(b)) {
+          return from(stripe.createToken(a, b));
+        } else if (isBankAccount(a) && isBankAccountData(b)) {
           return from(stripe.createToken(a, b));
         } else if (isPii(a) && isPiiData(b)) {
           return from(stripe.createToken(a, b));

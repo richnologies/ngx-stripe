@@ -5,6 +5,8 @@ import { Element } from './element';
 import {
   CardDataOptions,
   TokenResult,
+  Account,
+  AccountData,
   BankAccount,
   BankAccountData,
   Pii,
@@ -22,7 +24,11 @@ export interface StripeJS {
   elements(options?: ElementsOptions): Elements;
   createToken(el: Element, cardData?: CardDataOptions): Promise<TokenResult>;
   createToken(
-    account: BankAccount,
+    account: Account,
+    accountData: AccountData
+  ): Promise<TokenResult>;
+  createToken(
+    bankAccount: BankAccount,
     bankAccountData: BankAccountData
   ): Promise<TokenResult>;
   createToken(pii: Pii, piiData: PiiData): Promise<TokenResult>;
