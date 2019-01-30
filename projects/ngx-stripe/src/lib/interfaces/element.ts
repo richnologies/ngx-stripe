@@ -15,7 +15,10 @@ export type ElementType =
   | 'cardNumber'
   | 'cardExpiry'
   | 'cardCvc'
-  | 'postalCode';
+  | 'postalCode'
+  | 'paymentRequestButton'
+  | 'iban'
+  | 'idealBank';
 
 export interface ElementOptions {
   style?: {
@@ -25,6 +28,7 @@ export interface ElementOptions {
     invalid?: ElementStyleAttributes;
   };
   hidePostalCode?: boolean;
+  supportedCountries?: any;
   hideIcon?: boolean;
   iconStyle?: 'solid' | 'default';
   placeholder?: string;
