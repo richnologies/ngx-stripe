@@ -1,4 +1,4 @@
-# ngx-stripe
+# NgxStripe
 
 [![version](https://img.shields.io/npm/v/ngx-stripe.svg)](https://www.npmjs.com/package/ngx-stripe)
 [![license](https://img.shields.io/npm/l/express.svg)](https://www.npmjs.com/package/ngx-stripe)
@@ -9,15 +9,6 @@ Angular 2+ wrapper for StripeJS
 
 * Stripe Service
 * Lazy script loading
-
-## Angular 6
-
-There is a branch **6.x** for development to make the library compatible with
-Angular 6, to give it a try, use the next tag:
-
-```bash
-$ npm install ngx-stripe@next --save
-```
 
 ## Installation
 
@@ -344,43 +335,6 @@ export class StripeTestComponent implements OnInit {
     const stripe = this.stripeService.getInstance();
   }
 }
-```
-
-## Testing
-The following command runs unit & integration tests that are in the `tests` folder, and unit tests that are in `src` folder: 
-```Shell
-npm test 
-```
-
-## Building
-The following command:
-```Shell
-npm run build
-```
-- starts _TSLint_ with _Codelyzer_
-- starts _AoT compilation_ using _ngc_ compiler
-- creates `dist` folder with all the files of distribution
-
-To test the npm package locally, use the following command:
-```Shell
-npm run pack-lib
-```
-You can then run the following to install it in an app to test it:
-```Shell
-npm install [path]to-library-[version].tgz
-```
-
-## Publishing
-
-```Shell
-npm run publish-lib
-```
-
-## Documentation
-To generate the documentation, this starter uses [compodoc](https://github.com/compodoc/compodoc):
-```Shell
-npm run compodoc
-npm run compodoc-serve 
 ```
 
 ## License

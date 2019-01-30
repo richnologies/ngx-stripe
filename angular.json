@@ -1,0 +1,170 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "ngx-stripe": {
+      "root": "projects/ngx-stripe",
+      "sourceRoot": "projects/ngx-stripe/src",
+      "projectType": "library",
+      "prefix": "ngx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-stripe/tsconfig.lib.json",
+            "project": "projects/ngx-stripe/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-stripe/src/test.ts",
+            "tsConfig": "projects/ngx-stripe/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-stripe/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-stripe/tsconfig.lib.json",
+              "projects/ngx-stripe/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-stripe-tester": {
+      "root": "projects/ngx-stripe-tester/",
+      "sourceRoot": "projects/ngx-stripe-tester/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngx-stripe-tester",
+            "index": "projects/ngx-stripe-tester/src/index.html",
+            "main": "projects/ngx-stripe-tester/src/main.ts",
+            "polyfills": "projects/ngx-stripe-tester/src/polyfills.ts",
+            "tsConfig": "projects/ngx-stripe-tester/tsconfig.app.json",
+            "assets": [
+              "projects/ngx-stripe-tester/src/favicon.ico",
+              "projects/ngx-stripe-tester/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-stripe-tester/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngx-stripe-tester/src/environments/environment.ts",
+                  "with": "projects/ngx-stripe-tester/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngx-stripe-tester:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-stripe-tester:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-stripe-tester:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-stripe-tester/src/test.ts",
+            "polyfills": "projects/ngx-stripe-tester/src/polyfills.ts",
+            "tsConfig": "projects/ngx-stripe-tester/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-stripe-tester/karma.conf.js",
+            "styles": [
+              "projects/ngx-stripe-tester/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/ngx-stripe-tester/src/favicon.ico",
+              "projects/ngx-stripe-tester/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-stripe-tester/tsconfig.app.json",
+              "projects/ngx-stripe-tester/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-stripe-tester-e2e": {
+      "root": "projects/ngx-stripe-tester-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ngx-stripe-tester-e2e/protractor.conf.js",
+            "devServerTarget": "ngx-stripe-tester:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-stripe-tester:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/ngx-stripe-tester-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ngx-stripe"
+}
