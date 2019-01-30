@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { LazyStripeAPILoader } from './services/api-loader.service';
 import { StripeService } from './services/stripe.service';
@@ -9,8 +9,8 @@ import { DocumentRef } from './services/document-ref.service';
 
 import {
   Options,
-  STRIPE_PUBLISHABLE_KEY,
-  STRIPE_OPTIONS
+  STRIPE_OPTIONS,
+  STRIPE_PUBLISHABLE_KEY
 } from './interfaces/stripe';
 import { StripeCardComponent } from './components/stripe-card.component';
 

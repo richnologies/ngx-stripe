@@ -3,16 +3,16 @@ import { InjectionToken } from '@angular/core';
 import { Elements, ElementsOptions } from './elements';
 import { Element } from './element';
 import {
-  CardDataOptions,
-  TokenResult,
   Account,
   AccountData,
   BankAccount,
   BankAccountData,
+  CardDataOptions,
   Pii,
-  PiiData
+  PiiData,
+  TokenResult
 } from './token';
-import { SourceData, SourceResult, SourceParams } from './sources';
+import { SourceData, SourceParams, SourceResult } from './sources';
 import { PaymentRequestOptions } from './payment-request';
 
 export const STRIPE_PUBLISHABLE_KEY = new InjectionToken<string>(

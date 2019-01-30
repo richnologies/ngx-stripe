@@ -1,9 +1,9 @@
-import { Injectable, Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 
 import {
-  STRIPE_PUBLISHABLE_KEY,
+  Options,
   STRIPE_OPTIONS,
-  Options
+  STRIPE_PUBLISHABLE_KEY
 } from '../interfaces/stripe';
 import { LazyStripeAPILoader } from './api-loader.service';
 import { WindowRef } from './window-ref.service';

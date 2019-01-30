@@ -1,5 +1,5 @@
-import { Observable, BehaviorSubject, from } from 'rxjs';
-import { filter, map, first, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable } from 'rxjs';
+import { filter, first, map, switchMap } from 'rxjs/operators';
 
 import { WindowRef } from './window-ref.service';
 import { LazyStripeAPILoader, Status } from './api-loader.service';

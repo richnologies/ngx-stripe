@@ -1,4 +1,4 @@
-import { ElementType, ElementOptions, Element } from './element';
+import { Element, ElementOptions, ElementType } from './element';
 
 export interface Elements {
   create(type: ElementType, options: ElementOptions): Element;
