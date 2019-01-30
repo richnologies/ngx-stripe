@@ -8,6 +8,7 @@
     "copy:readme": "cpx README.md dist/ngx-stripe",
     "copy:license": "cpx LICENSE.md dist/ngx-stripe",
     "package": "npm run build:lib && npm run copy:readme && npm run copy:license && npm run pack:lib",
+    "publish": "npm publish dist/ngx-stripe/ngx-stripe-X.X.X.tgz",
     "start": "ng serve ngx-stripe-tester",
     "test": "ng test ngx-stripe",
     "lint": "ng lint",
