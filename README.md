@@ -5,6 +5,15 @@
 
 Angular 2+ wrapper for StripeJS
 
+## Apologies
+
+> I would like to apologize for having had this project abandoned for so long
+> The module has been updated to work with Angular 7
+> The library is now compiled with the Angular CLI, and I have created an app for tests and examples
+> In the next few days I will add examples of some of the problems I have seen in some issues
+> Pull requests are always welcome
+> If someone wants to participate actively, please contact me
+
 ## Features
 
 * Stripe Service
@@ -15,7 +24,7 @@ Angular 2+ wrapper for StripeJS
 To install this library, run:
 
 ```bash
-$ npm install ngx-stripe --save
+$ npm install ngx-stripe
 ```
 
 ## Using the library
