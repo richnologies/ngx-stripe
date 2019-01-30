@@ -70,6 +70,63 @@ export interface TokenResult {
   error?: Error;
 }
 
+export type Account = 'account';
+
+export interface Address {
+  line1: string;
+  line2?: string;
+  city: string;
+  state: string;
+  postal_code: string;
+}
+
+export interface DateOfBirth {
+  day: number;
+  month: number;
+  year: number;
+}
+
+export interface LegalEntity {
+  address: Address;
+  address_kana?: Address;
+  address_kanji?: Address;
+  dob?: DateOfBirth;
+  first_name: string;
+  first_name_kana?: string;
+  first_name_kanji?: string;
+  gender?: string;
+  last_name: string;
+  last_name_kana?: string;
+  last_name_kanji?: string;
+  maiden_name?: string;
+  personal_id_number?: string;
+  phone_number?: string;
+  ssn_last_4?: string;
+}
+
+export interface IndividualEntity extends LegalEntity {
+  type: 'individual';
+}
+
+export interface BusinessEntity extends LegalEntity {
+  type: 'company';
+  additional_owners?: LegalEntity[];
+  business_name: string;
+  business_name_kana?: string;
+  business_name_kanji?: string;
+  business_tax_id?: string;
+  business_vat_id?: string;
+  personal_address?: Address;
+  personal_address_kana?: Address;
+  personal_address_kanji?: Address;
+  tax_id_registrar?: string;
+}
+
+export interface AccountData {
+  legal_entity?: IndividualEntity | BusinessEntity;
+  tos_shown_and_accepted?: boolean;
+}
+
 export type BankAccount = 'bank_account';
 
 export interface BankAccountData {
@@ -85,6 +142,14 @@ export type Pii = 'pii';
 
 export interface PiiData {
   personal_id_number: string;
+}
+
+export function isAccount(account: any): account is Account {
+  return account === 'account';
+}
+
+export function isAccountData(accountData: any): accountData is AccountData {
+  return accountData.legal_entity || accountData.tos_shown_and_accepted;
 }
 
 export function isBankAccount(account: any): account is BankAccount {
