@@ -81,7 +81,7 @@ Example component (more HTML and CSS examples can be found at the [Stripe Elemen
 </form>
 ```
 ```typescript
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { StripeService, Elements, Element as StripeElement, ElementsOptions } from "ngx-stripe";
@@ -172,7 +172,7 @@ by using a ViewChild, the public method getCard()
 </form>
 ```
 ```typescript
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } from "ngx-stripe";
@@ -268,7 +268,7 @@ Then you can use the factory service to create stripe instances. The stripe inst
 same methods of old StripeService.
 
 ```typescript
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { StripeInstance, StripeFactoryService } from "ngx-stripe";
