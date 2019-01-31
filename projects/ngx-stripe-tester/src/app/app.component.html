@@ -1,0 +1,47 @@
+<div style="display: flex; flex-flow: column; height: 100%">
+  <mat-toolbar color="primary">
+    <button
+      fxHide.gt-sm
+      mat-stroked-button
+      color="secondary"
+      (click)="sidenav.toggle()"
+    >
+      <i class="material-icons">list</i>
+    </button>
+    <span class="margin-left-10">Ngx Stripe</span>
+  </mat-toolbar>
+  <mat-sidenav-container autosize style="height: 100%">
+    <mat-sidenav
+      #sidenav
+      appSidenavResize
+      appCloseOnNav
+      color="primary"
+      mode="side"
+      opened="true"
+      role="navigation"
+      align="start"
+    >
+      <mat-nav-list
+        style="height: 100%; padding-top: 0px; max-width: 250px; background-color: #fafafa"
+      >
+        <a mat-list-item routerLink="/welcome" routerLinkActive="active">
+          <mat-icon class="mat-18">home</mat-icon>
+          Home
+        </a>
+        <a mat-list-item routerLink="/test-01" routerLinkActive="active">
+          <mat-icon class="mat-18">assessment</mat-icon>
+          Test 01
+        </a>
+        <mat-divider></mat-divider>
+      </mat-nav-list>
+    </mat-sidenav>
+    <!-- Body -->
+    <mat-sidenav-content>
+      <mat-progress-bar
+        mode="indeterminate"
+        *appRoutingLoader
+      ></mat-progress-bar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

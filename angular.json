@@ -46,7 +46,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "ngx-build-plus:build",
           "options": {
             "outputPath": "dist/ngx-stripe-tester",
             "index": "projects/ngx-stripe-tester/src/index.html",
@@ -55,9 +55,13 @@
             "tsConfig": "projects/ngx-stripe-tester/tsconfig.app.json",
             "assets": [
               "projects/ngx-stripe-tester/src/favicon.ico",
-              "projects/ngx-stripe-tester/src/assets"
+              "projects/ngx-stripe-tester/src/assets",
+              "projects/ngx-stripe-tester/src/manifest.webmanifest",
+              "projects/ngx-stripe-tester/src/robots.txt",
+              "projects/ngx-stripe-tester/src/sitemap.xml"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "projects/ngx-stripe-tester/src/styles.css"
             ],
             "scripts": []
@@ -85,12 +89,13 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 }
-              ]
+              ],
+              "serviceWorker": true
             }
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "options": {
             "browserTarget": "ngx-stripe-tester:build"
           },
@@ -107,19 +112,21 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "ngx-build-plus:karma",
           "options": {
             "main": "projects/ngx-stripe-tester/src/test.ts",
             "polyfills": "projects/ngx-stripe-tester/src/polyfills.ts",
             "tsConfig": "projects/ngx-stripe-tester/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-stripe-tester/karma.conf.js",
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "projects/ngx-stripe-tester/src/styles.css"
             ],
             "scripts": [],
             "assets": [
               "projects/ngx-stripe-tester/src/favicon.ico",
-              "projects/ngx-stripe-tester/src/assets"
+              "projects/ngx-stripe-tester/src/assets",
+              "projects/ngx-stripe-tester/src/manifest.webmanifest"
             ]
           }
         },

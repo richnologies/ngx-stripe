@@ -1,0 +1,10 @@
+<app-section maxWidth="900">
+  <div section-content>
+    <h1>Hello World</h1>
+    <ngx-stripe-card
+      [options]="cardOptions"
+      [elementsOptions]="elementsOptions"
+    ></ngx-stripe-card>
+    <button (click)="buy()">CLICK</button>
+  </div>
+</app-section>

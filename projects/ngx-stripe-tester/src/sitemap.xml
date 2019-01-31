@@ -1,0 +1,17 @@
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <url>
+    <loc>https://ngx-stripe.richnologies.io/</loc>
+    <lastmod>2019-01-31T21:07:19+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://ngx-stripe.richnologies.io/welcome</loc>
+    <lastmod>2019-01-31T21:07:19+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://ngx-stripe.richnologies.io/test-01</loc>
+    <lastmod>2019-01-31T21:07:19+00:00</lastmod>
+  </url>
+</urlset>

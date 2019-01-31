@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
-
-import { Test01Component } from './stripe-test-01.component';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
 import { NgxStripeModule } from 'ngx-stripe';
+
+import { SharedModule } from '../shared/shared.module';
+import { Test01Component } from './stripe-test-01.component';
 
 const routes: Routes = [
   {
@@ -14,6 +16,11 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [Test01Component],
-  imports: [CommonModule, NgxStripeModule, RouterModule.forChild(routes)]
+  imports: [
+    CommonModule,
+    NgxStripeModule,
+    RouterModule.forChild(routes),
+    SharedModule
+  ]
 })
 export class StripeTest01Module {}

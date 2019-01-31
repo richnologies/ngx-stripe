@@ -10,14 +10,7 @@ import {
 
 @Component({
   selector: 'app-test-01',
-  template: `
-    <h1>Hello World</h1>
-    <ngx-stripe-card
-      [options]="cardOptions"
-      [elementsOptions]="elementsOptions"
-    ></ngx-stripe-card>
-    <button (click)="buy()">CLICK</button>
-  `,
+  templateUrl: './stripe-test-01.component.html',
   styles: []
 })
 export class Test01Component {
