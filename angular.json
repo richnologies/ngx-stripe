@@ -61,7 +61,7 @@
               "projects/ngx-stripe-tester/src/sitemap.xml"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "projects/ngx-stripe-tester/src/styles.css"
             ],
             "scripts": []
