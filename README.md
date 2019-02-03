@@ -3,16 +3,14 @@
 [![version](https://img.shields.io/npm/v/ngx-stripe.svg)](https://www.npmjs.com/package/ngx-stripe)
 [![license](https://img.shields.io/npm/l/express.svg)](https://www.npmjs.com/package/ngx-stripe)
 
-Angular 2+ wrapper for StripeJS
+<h1 align="center">
+  <img width="40" valign="bottom" src="https://angular.io/assets/images/logos/angular/angular.svg">
+  ngx-stripe
+</h1>
 
-## Apologies
-
-> I would like to apologize for having had this project abandoned for so long.
-> The module has been updated to work with Angular 7.
-> The library is now compiled with the Angular CLI, and I have created an app for tests and examples.
-> In the next few days I will add examples of some of the problems I have seen in some issues.
-> Pull requests are always welcome.
-> If someone wants to participate actively, please contact me.
+<h4 align="center">
+  An Angular 7 wrapper for StripeJS elements
+</h4>
 
 ## Features
 

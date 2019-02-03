@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "build:lib": "ng build ngx-stripe",
-    "build:app": "ng build ngx-stripe --prod",
+    "build:app": "ng build ngx-stripe-tester --prod",
     "pack:lib": "cd dist/ngx-stripe && npm pack",
     "copy:readme": "cpx README.md dist/ngx-stripe",
     "copy:license": "cpx LICENSE.md dist/ngx-stripe",
