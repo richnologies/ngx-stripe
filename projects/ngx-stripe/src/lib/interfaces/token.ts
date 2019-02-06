@@ -164,13 +164,10 @@ export function isBankAccountData(
     'currency' in bankAccountData &&
     'routing_number' in bankAccountData &&
     'account_number' in bankAccountData &&
-    'account_holder_name' in bankAccountData &&
-    'account_holder_type' in bankAccountData &&
     (bankAccountData.account_holder_type === 'individual' ||
       bankAccountData.account_holder_type === 'company' ||
       bankAccountData.account_holder_type === undefined)
   );
-}
 
 export function isPii(pii: any): pii is Pii {
   return pii === 'pii';
