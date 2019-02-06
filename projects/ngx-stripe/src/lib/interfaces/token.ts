@@ -134,8 +134,8 @@ export interface BankAccountData {
   currency: string;
   routing_number: string;
   account_number: string;
-  account_holder_name: string;
-  account_holder_type: 'individual' | 'company';
+  account_holder_name?: string;
+  account_holder_type?: 'individual' | 'company';
 }
 
 export type Pii = 'pii';
@@ -167,7 +167,8 @@ export function isBankAccountData(
     'account_holder_name' in bankAccountData &&
     'account_holder_type' in bankAccountData &&
     (bankAccountData.account_holder_type === 'individual' ||
-      bankAccountData.account_holder_type === 'company')
+      bankAccountData.account_holder_type === 'company' ||
+      bankAccountData.account_holder_type === undefined)
   );
 }
 
