@@ -12,6 +12,11 @@ import {
 } from '../interfaces/token';
 import { SourceData, SourceResult, SourceParams } from '../interfaces/sources';
 import { PaymentRequestOptions } from '../interfaces/payment-request';
+import {
+  HandleCardPaymentOptions,
+  PaymentIntentResult,
+  ConfirmPaymentIntentOptions
+} from '../interfaces/payment-intent';
 
 export interface StripeServiceInterface {
   elements(options?: ElementsOptions): Observable<Elements>;
@@ -25,4 +30,13 @@ export interface StripeServiceInterface {
   ): Observable<SourceResult>;
   retrieveSource(source: SourceParams): Observable<SourceResult>;
   paymentRequest(options: PaymentRequestOptions): any;
+  handleCardPayment(
+    a: string,
+    b?: Element,
+    c?: HandleCardPaymentOptions
+  ): Observable<PaymentIntentResult>;
+  confirmPaymentIntent(
+    a: string,
+    b?: ConfirmPaymentIntentOptions
+  ): Observable<PaymentIntentResult>;
 }

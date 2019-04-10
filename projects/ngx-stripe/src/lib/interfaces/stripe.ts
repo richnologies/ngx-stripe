@@ -14,6 +14,11 @@ import {
 } from './token';
 import { SourceData, SourceParams, SourceResult } from './sources';
 import { PaymentRequestOptions } from './payment-request';
+import {
+  HandleCardPaymentOptions,
+  PaymentIntentResult,
+  ConfirmPaymentIntentOptions
+} from './payment-intent';
 
 export const STRIPE_PUBLISHABLE_KEY = new InjectionToken<string>(
   'Stripe Publishable Key'
@@ -33,6 +38,15 @@ export interface StripeJS {
   createSource(sourceData: SourceData): Promise<SourceResult>;
   retrieveSource(source: SourceParams): Promise<SourceResult>;
   paymentRequest(options: PaymentRequestOptions): any;
+  handleCardPayment(
+    clientSecret: string,
+    cardElement: Element,
+    data?: HandleCardPaymentOptions
+  ): Promise<PaymentIntentResult>;
+  confirmPaymentIntent(
+    clientSecret: string,
+    data?: ConfirmPaymentIntentOptions
+  ): Promise<PaymentIntentResult>;
 }
 
 export interface Options {

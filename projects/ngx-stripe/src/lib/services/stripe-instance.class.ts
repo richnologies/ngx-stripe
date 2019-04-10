@@ -31,6 +31,11 @@ import {
 } from '../interfaces/token';
 import { StripeServiceInterface } from './stripe-instance.interface';
 import { PaymentRequestOptions } from '../interfaces/payment-request';
+import {
+  HandleCardPaymentOptions,
+  PaymentIntentResult,
+  ConfirmPaymentIntentOptions
+} from '../interfaces/payment-intent';
 
 export class StripeInstance implements StripeServiceInterface {
   private stripe$: BehaviorSubject<StripeJS | undefined> = new BehaviorSubject<
@@ -132,5 +137,45 @@ export class StripeInstance implements StripeServiceInterface {
       return stripe.paymentRequest(options);
     }
     return undefined;
+  }
+
+  public handleCardPayment(
+    a: string,
+    b?: Element,
+    c?: HandleCardPaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe$.asObservable().pipe(
+      filter(stripe => Boolean(stripe)),
+      switchMap(s => {
+        const stripe = s as StripeJS;
+
+        return from(
+          stripe.handleCardPayment(
+            a as string,
+            b as Element,
+            c as HandleCardPaymentOptions | undefined
+          )
+        );
+      })
+    );
+  }
+
+  public confirmPaymentIntent(
+    a: string,
+    b?: ConfirmPaymentIntentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe$.asObservable().pipe(
+      filter(stripe => Boolean(stripe)),
+      switchMap(s => {
+        const stripe = s as StripeJS;
+
+        return from(
+          stripe.confirmPaymentIntent(
+            a as string,
+            b as ConfirmPaymentIntentOptions | undefined
+          )
+        );
+      })
+    );
   }
 }
