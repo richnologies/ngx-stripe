@@ -36,7 +36,8 @@ import {
   PaymentIntentResult,
   ConfirmPaymentIntentOptions,
   PaymentMethodData,
-  PaymentMethodResult
+  PaymentMethodResult,
+  isHandleCardPaymentOptions
 } from '../interfaces/payment-intent';
 
 export class StripeInstance implements StripeServiceInterface {
@@ -143,13 +144,19 @@ export class StripeInstance implements StripeServiceInterface {
 
   public handleCardPayment(
     a: string,
-    b?: Element,
-    c?: HandleCardPaymentOptions
+    b: Element | HandleCardPaymentOptions,
+    c?: HandleCardPaymentOptions | undefined
   ): Observable<PaymentIntentResult> {
     return this.stripe$.asObservable().pipe(
       filter(stripe => Boolean(stripe)),
       switchMap(s => {
         const stripe = s as StripeJS;
+
+        if (isHandleCardPaymentOptions(b)) {
+          return from(
+            stripe.handleCardPayment(a as string, b as HandleCardPaymentOptions)
+          );
+        }
 
         return from(
           stripe.handleCardPayment(

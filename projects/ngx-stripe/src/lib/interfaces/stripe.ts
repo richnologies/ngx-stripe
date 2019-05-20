@@ -45,6 +45,10 @@ export interface StripeJS {
     cardElement: Element,
     data?: HandleCardPaymentOptions
   ): Promise<PaymentIntentResult>;
+  handleCardPayment(
+    clientSecret: string,
+    data?: HandleCardPaymentOptions
+  ): Promise<PaymentIntentResult>;
   handleCardAction(clientSecret: string): Promise<PaymentIntentResult>;
   confirmPaymentIntent(
     clientSecret: string,

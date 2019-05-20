@@ -20,6 +20,12 @@ export interface HandleCardPaymentOptions {
   save_payment_method?: boolean;
 }
 
+export function isHandleCardPaymentOptions(
+  handleCardPaymentOptions: any
+): handleCardPaymentOptions is HandleCardPaymentOptions {
+  return 'type' in handleCardPaymentOptions;
+}
+
 export interface ConfirmPaymentIntentOptions extends HandleCardPaymentOptions {
   return_url?: string;
   use_stripe_sdk?: boolean;
