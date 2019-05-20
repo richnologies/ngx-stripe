@@ -17,7 +17,9 @@ import { PaymentRequestOptions } from './payment-request';
 import {
   HandleCardPaymentOptions,
   PaymentIntentResult,
-  ConfirmPaymentIntentOptions
+  ConfirmPaymentIntentOptions,
+  PaymentMethodData,
+  PaymentMethodResult
 } from './payment-intent';
 
 export const STRIPE_PUBLISHABLE_KEY = new InjectionToken<string>(
@@ -43,10 +45,16 @@ export interface StripeJS {
     cardElement: Element,
     data?: HandleCardPaymentOptions
   ): Promise<PaymentIntentResult>;
+  handleCardAction(clientSecret: string): Promise<PaymentIntentResult>;
   confirmPaymentIntent(
     clientSecret: string,
     data?: ConfirmPaymentIntentOptions
   ): Promise<PaymentIntentResult>;
+  createPaymentMethod(
+    type: string,
+    cardElement: Element,
+    data?: PaymentMethodData
+  ): Promise<PaymentMethodResult>;
 }
 
 export interface Options {

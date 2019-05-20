@@ -34,7 +34,9 @@ import { PaymentRequestOptions } from '../interfaces/payment-request';
 import {
   HandleCardPaymentOptions,
   PaymentIntentResult,
-  ConfirmPaymentIntentOptions
+  ConfirmPaymentIntentOptions,
+  PaymentMethodData,
+  PaymentMethodResult
 } from '../interfaces/payment-intent';
 
 export class StripeInstance implements StripeServiceInterface {
@@ -160,6 +162,17 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  public handleCardAction(a: string): Observable<PaymentIntentResult> {
+    return this.stripe$.asObservable().pipe(
+      filter(stripe => Boolean(stripe)),
+      switchMap(s => {
+        const stripe = s as StripeJS;
+
+        return from(stripe.handleCardAction(a as string));
+      })
+    );
+  }
+
   public confirmPaymentIntent(
     a: string,
     b?: ConfirmPaymentIntentOptions
@@ -176,6 +189,22 @@ export class StripeInstance implements StripeServiceInterface {
           )
         );
       })
+    );
+  }
+
+  public createPaymentMethod(
+    a: string,
+    b: Element,
+    c?: PaymentMethodData | undefined
+  ): Observable<PaymentMethodResult> {
+    return this.stripe$.asObservable().pipe(
+      filter(stripe => Boolean(stripe)),
+      switchMap(s => {
+        const stripe = s as StripeJS;
+
+        return from(stripe.createPaymentMethod(a, b as Element, c));
+      }),
+      first()
     );
   }
 }
