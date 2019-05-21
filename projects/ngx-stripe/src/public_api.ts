@@ -65,4 +65,11 @@ export {
   isPiiData
 } from './lib/interfaces/token';
 
+export {
+  HandleCardPaymentOptions,
+  ConfirmPaymentIntentOptions,
+  PaymentIntent,
+  PaymentIntentResult
+} from './lib/interfaces/payment-intent';
+
 export { Error, Address } from './lib/interfaces/utils';

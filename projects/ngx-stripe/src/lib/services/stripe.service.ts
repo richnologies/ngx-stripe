@@ -27,6 +27,11 @@ import { StripeInstance } from './stripe-instance.class';
 import { StripeServiceInterface } from './stripe-instance.interface';
 import { PaymentRequestOptions } from '../interfaces/payment-request';
 import { filter, map } from 'rxjs/operators';
+import {
+  HandleCardPaymentOptions,
+  ConfirmPaymentIntentOptions,
+  PaymentIntentResult
+} from '../interfaces/payment-intent';
 
 @Injectable()
 export class StripeService implements StripeServiceInterface {
@@ -88,5 +93,20 @@ export class StripeService implements StripeServiceInterface {
 
   public paymentRequest(options: PaymentRequestOptions) {
     return this.stripe.paymentRequest(options);
+  }
+
+  public handleCardPayment(
+    a: string,
+    b?: Element,
+    c?: HandleCardPaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.handleCardPayment(a, b, c);
+  }
+
+  public confirmPaymentIntent(
+    a: string,
+    b?: ConfirmPaymentIntentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.confirmPaymentIntent(a, b);
   }
 }
