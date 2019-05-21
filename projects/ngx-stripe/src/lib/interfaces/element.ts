@@ -33,6 +33,7 @@ export interface ElementOptions {
   iconStyle?: 'solid' | 'default';
   placeholder?: string;
   value?: string | object;
+  placeholderCountry?: string;
 }
 
 export interface ElementStyleAttributes {
