@@ -1,6 +1,7 @@
 import { Error, Address } from './utils';
 
 export interface HandleCardPaymentOptions {
+  payment_method?: string;
   payment_method_data?: {
     billing_details?: {
       address?: Address;
@@ -101,7 +102,7 @@ export interface PaymentMethodData {
   metadata: { [key: string]: any };
 }
 
-export interface PaymentMethodResult {
+export interface PaymentMethod {
   id: string;
   object: string;
   billing_details?: {
@@ -134,4 +135,9 @@ export interface PaymentMethodResult {
   livemode: boolean;
   metadata: { [key: string]: any };
   type: string;
+}
+
+export interface PaymentMethodResult {
+  paymentMethod?: PaymentMethod;
+  error?: Error;
 }

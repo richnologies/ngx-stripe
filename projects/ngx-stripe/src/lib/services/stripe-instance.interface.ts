@@ -15,10 +15,12 @@ import { PaymentRequestOptions } from '../interfaces/payment-request';
 import {
   HandleCardPaymentOptions,
   PaymentIntentResult,
-  ConfirmPaymentIntentOptions
+  ConfirmPaymentIntentOptions, PaymentMethodData, PaymentMethodResult
 } from '../interfaces/payment-intent';
+import {StripeJS} from '../interfaces/stripe';
 
 export interface StripeServiceInterface {
+  getInstance(): StripeJS | undefined;
   elements(options?: ElementsOptions): Observable<Elements>;
   createToken(
     a: Element | BankAccount | Pii,
@@ -30,6 +32,7 @@ export interface StripeServiceInterface {
   ): Observable<SourceResult>;
   retrieveSource(source: SourceParams): Observable<SourceResult>;
   paymentRequest(options: PaymentRequestOptions): any;
+  handleCardAction(a: string): Observable<PaymentIntentResult>;
   handleCardPayment(
     a: string,
     b?: Element,
@@ -39,4 +42,9 @@ export interface StripeServiceInterface {
     a: string,
     b?: ConfirmPaymentIntentOptions
   ): Observable<PaymentIntentResult>;
+  createPaymentMethod(
+      a: string,
+      b: Element,
+      c?: PaymentMethodData
+  ): Observable<PaymentMethodResult>;
 }
