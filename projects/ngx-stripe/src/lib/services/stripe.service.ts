@@ -8,7 +8,7 @@ import { LazyStripeAPILoader, Status } from './api-loader.service';
 import {
   STRIPE_PUBLISHABLE_KEY,
   STRIPE_OPTIONS,
-  Options
+  Options, StripeJS
 } from '../interfaces/stripe';
 import { Element } from '../interfaces/element';
 import { Elements, ElementsOptions } from '../interfaces/elements';
@@ -30,7 +30,7 @@ import { filter, map } from 'rxjs/operators';
 import {
   HandleCardPaymentOptions,
   ConfirmPaymentIntentOptions,
-  PaymentIntentResult
+  PaymentIntentResult, PaymentMethodResult, PaymentMethodData
 } from '../interfaces/payment-intent';
 
 @Injectable()
@@ -55,7 +55,7 @@ export class StripeService implements StripeServiceInterface {
     );
   }
 
-  public getInstance() {
+  public getInstance(): StripeJS | undefined {
     return this.stripe.getInstance();
   }
 
@@ -101,6 +101,18 @@ export class StripeService implements StripeServiceInterface {
     c?: HandleCardPaymentOptions
   ): Observable<PaymentIntentResult> {
     return this.stripe.handleCardPayment(a, b, c);
+  }
+
+  public handleCardAction(a: string): Observable<PaymentIntentResult> {
+    return this.stripe.handleCardAction(a);
+  }
+
+  public createPaymentMethod(
+      a: string,
+      b: Element,
+      c?: PaymentMethodData
+  ): Observable<PaymentMethodResult> {
+    return this.stripe.createPaymentMethod(a, b, c);
   }
 
   public confirmPaymentIntent(

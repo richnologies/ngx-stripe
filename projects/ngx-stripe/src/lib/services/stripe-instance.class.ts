@@ -209,7 +209,7 @@ export class StripeInstance implements StripeServiceInterface {
       switchMap(s => {
         const stripe = s as StripeJS;
 
-        return from(stripe.createPaymentMethod(a, b as Element, c));
+        return from(stripe.createPaymentMethod(a, b, c));
       }),
       first()
     );
