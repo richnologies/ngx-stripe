@@ -1,8 +1,18 @@
 {
   "name": "ngx-stripe",
-  "version": "7.4.1",
+  "version": "7.4.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nomadreservations/ngx-stripe.git"
+  },
+  "keywords": [
+    "angular",
+    "stripe",
+    "payments"
+  ],
+  "license": "MIT",
   "peerDependencies": {
-    "@angular/common": ">=6.0.0",
-    "@angular/core": ">=6.0.0"
+    "@angular/common": ">=6.0.0 <9.0.0",
+    "@angular/core": ">=6.0.0 <9.0.0"
   }
 }

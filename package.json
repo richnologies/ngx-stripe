@@ -1,6 +1,16 @@
 {
   "name": "ngx-stripe",
   "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nomadreservations/ngx-stripe.git"
+  },
+  "keywords": [
+    "angular",
+    "stripe",
+    "payments"
+  ],
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "build:lib": "ng build ngx-stripe",
