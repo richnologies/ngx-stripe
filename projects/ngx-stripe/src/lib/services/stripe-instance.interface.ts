@@ -15,9 +15,11 @@ import { PaymentRequestOptions } from '../interfaces/payment-request';
 import {
   HandleCardPaymentOptions,
   PaymentIntentResult,
-  ConfirmPaymentIntentOptions, PaymentMethodData, PaymentMethodResult
+  ConfirmPaymentIntentOptions,
+  PaymentMethodData,
+  PaymentMethodResult
 } from '../interfaces/payment-intent';
-import {StripeJS} from '../interfaces/stripe';
+import { StripeJS } from '../interfaces/stripe';
 
 export interface StripeServiceInterface {
   getInstance(): StripeJS | undefined;
@@ -35,16 +37,16 @@ export interface StripeServiceInterface {
   handleCardAction(a: string): Observable<PaymentIntentResult>;
   handleCardPayment(
     a: string,
-    b?: Element,
-    c?: HandleCardPaymentOptions
+    b?: Element | HandleCardPaymentOptions,
+    c?: HandleCardPaymentOptions | undefined
   ): Observable<PaymentIntentResult>;
   confirmPaymentIntent(
     a: string,
     b?: ConfirmPaymentIntentOptions
   ): Observable<PaymentIntentResult>;
   createPaymentMethod(
-      a: string,
-      b: Element,
-      c?: PaymentMethodData
+    a: string,
+    b: Element,
+    c?: PaymentMethodData
   ): Observable<PaymentMethodResult>;
 }
