@@ -1,6 +1,6 @@
 {
   "name": "ngx-stripe",
-  "version": "7.4.2",
+  "version": "7.4.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/nomadreservations/ngx-stripe.git"
