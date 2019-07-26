@@ -17,7 +17,8 @@ import {
   PaymentIntentResult,
   ConfirmPaymentIntentOptions,
   PaymentMethodData,
-  PaymentMethodResult
+  PaymentMethodResult,
+  CardSetupResult
 } from '../interfaces/payment-intent';
 import { StripeJS } from '../interfaces/stripe';
 
@@ -49,4 +50,9 @@ export interface StripeServiceInterface {
     b: Element,
     c?: PaymentMethodData
   ): Observable<PaymentMethodResult>;
+  handleCardSetup(
+    a: string,
+    b?: Element | string | PaymentMethodData,
+    c?: PaymentMethodData
+  ): Observable<CardSetupResult>;
 }
