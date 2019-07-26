@@ -17,7 +17,7 @@ import {
   PaymentIntentResult,
   ConfirmPaymentIntentOptions,
   PaymentMethodData,
-  PaymentMethodResult,
+  PaymentMethodResult
 } from '../interfaces/payment-intent';
 import { StripeJS } from '../interfaces/stripe';
 import { CardSetupResult } from '../interfaces/card-setup';

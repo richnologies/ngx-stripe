@@ -1,4 +1,4 @@
-import { Error, Address } from './utils';
+import { Error } from './utils';
 
 export interface SetupIntent {
   id: string;

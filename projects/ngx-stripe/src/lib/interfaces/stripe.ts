@@ -19,7 +19,7 @@ import {
   PaymentIntentResult,
   ConfirmPaymentIntentOptions,
   PaymentMethodData,
-  PaymentMethodResult,
+  PaymentMethodResult
 } from './payment-intent';
 import { CardSetupResult } from './card-setup';
 

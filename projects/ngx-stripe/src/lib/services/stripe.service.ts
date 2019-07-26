@@ -33,7 +33,7 @@ import {
   ConfirmPaymentIntentOptions,
   PaymentIntentResult,
   PaymentMethodResult,
-  PaymentMethodData,
+  PaymentMethodData
 } from '../interfaces/payment-intent';
 import { CardSetupResult } from '../interfaces/card-setup';
 
