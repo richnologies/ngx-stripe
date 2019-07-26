@@ -20,8 +20,8 @@ import {
   ConfirmPaymentIntentOptions,
   PaymentMethodData,
   PaymentMethodResult,
-  CardSetupResult
 } from './payment-intent';
+import { CardSetupResult } from './card-setup';
 
 export const STRIPE_PUBLISHABLE_KEY = new InjectionToken<string>(
   'Stripe Publishable Key'

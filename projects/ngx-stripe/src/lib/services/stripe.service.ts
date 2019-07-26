@@ -34,8 +34,8 @@ import {
   PaymentIntentResult,
   PaymentMethodResult,
   PaymentMethodData,
-  CardSetupResult
 } from '../interfaces/payment-intent';
+import { CardSetupResult } from '../interfaces/card-setup';
 
 @Injectable()
 export class StripeService implements StripeServiceInterface {

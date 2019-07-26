@@ -72,4 +72,9 @@ export {
   PaymentIntentResult
 } from './lib/interfaces/payment-intent';
 
+export {
+  SetupIntent,
+  CardSetupResult
+} from './lib/interfaces/card-setup';
+
 export { Error, Address } from './lib/interfaces/utils';

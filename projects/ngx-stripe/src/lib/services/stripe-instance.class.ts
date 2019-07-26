@@ -38,9 +38,9 @@ import {
   PaymentMethodData,
   PaymentMethodResult,
   isHandleCardPaymentOptions,
-  CardSetupResult,
   isPaymentMethodData
 } from '../interfaces/payment-intent';
+import { CardSetupResult } from '../interfaces/card-setup';
 
 export class StripeInstance implements StripeServiceInterface {
   private stripe$: BehaviorSubject<StripeJS | undefined> = new BehaviorSubject<
