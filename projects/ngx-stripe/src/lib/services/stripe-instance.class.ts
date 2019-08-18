@@ -37,8 +37,10 @@ import {
   ConfirmPaymentIntentOptions,
   PaymentMethodData,
   PaymentMethodResult,
-  isHandleCardPaymentOptions
+  isHandleCardPaymentOptions,
+  isPaymentMethodData
 } from '../interfaces/payment-intent';
+import { CardSetupResult } from '../interfaces/card-setup';
 
 export class StripeInstance implements StripeServiceInterface {
   private stripe$: BehaviorSubject<StripeJS | undefined> = new BehaviorSubject<
@@ -212,6 +214,36 @@ export class StripeInstance implements StripeServiceInterface {
         return from(stripe.createPaymentMethod(a, b, c));
       }),
       first()
+    );
+  }
+
+  public handleCardSetup(
+    a: string,
+    b?: Element | string | PaymentMethodData,
+    c?: PaymentMethodData
+  ): Observable<CardSetupResult> {
+    return this.stripe$.asObservable().pipe(
+      filter(stripe => Boolean(stripe)),
+      switchMap(s => {
+        const stripe = s as StripeJS;
+
+        if (isPaymentMethodData(c)) {
+          return from(
+            stripe.handleCardSetup(
+              a,
+              b as Element,
+              c as PaymentMethodData | undefined
+            )
+          );
+        }
+
+        return from(
+          stripe.handleCardSetup(
+            a,
+            b as string | PaymentMethodData | undefined
+          )
+        );
+      })
     );
   }
 }

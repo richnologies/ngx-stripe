@@ -20,6 +20,7 @@ import {
   PaymentMethodResult
 } from '../interfaces/payment-intent';
 import { StripeJS } from '../interfaces/stripe';
+import { CardSetupResult } from '../interfaces/card-setup';
 
 export interface StripeServiceInterface {
   getInstance(): StripeJS | undefined;
@@ -49,4 +50,9 @@ export interface StripeServiceInterface {
     b: Element,
     c?: PaymentMethodData
   ): Observable<PaymentMethodResult>;
+  handleCardSetup(
+    a: string,
+    b?: Element | string | PaymentMethodData,
+    c?: PaymentMethodData
+  ): Observable<CardSetupResult>;
 }

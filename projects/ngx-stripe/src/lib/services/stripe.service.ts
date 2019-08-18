@@ -35,6 +35,7 @@ import {
   PaymentMethodResult,
   PaymentMethodData
 } from '../interfaces/payment-intent';
+import { CardSetupResult } from '../interfaces/card-setup';
 
 @Injectable()
 export class StripeService implements StripeServiceInterface {
@@ -123,5 +124,13 @@ export class StripeService implements StripeServiceInterface {
     b?: ConfirmPaymentIntentOptions
   ): Observable<PaymentIntentResult> {
     return this.stripe.confirmPaymentIntent(a, b);
+  }
+
+  public handleCardSetup(
+    a: string,
+    b?: string | Element | PaymentMethodData,
+    c?: PaymentMethodData
+  ): Observable<CardSetupResult> {
+    return this.stripe.handleCardSetup(a, b, c);
   }
 }

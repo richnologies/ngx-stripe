@@ -21,6 +21,7 @@ import {
   PaymentMethodData,
   PaymentMethodResult
 } from './payment-intent';
+import { CardSetupResult } from './card-setup';
 
 export const STRIPE_PUBLISHABLE_KEY = new InjectionToken<string>(
   'Stripe Publishable Key'
@@ -59,6 +60,15 @@ export interface StripeJS {
     cardElement: Element,
     data?: PaymentMethodData
   ): Promise<PaymentMethodResult>;
+  handleCardSetup(
+    clientSecret: string,
+    element: Element,
+    data?: PaymentMethodData
+  ): Promise<CardSetupResult>;
+  handleCardSetup(
+    clientSecret: string,
+    data?: string | PaymentMethodData
+  ): Promise<CardSetupResult>;
 }
 
 export interface Options {

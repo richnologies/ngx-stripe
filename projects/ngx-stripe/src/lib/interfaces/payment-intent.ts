@@ -102,6 +102,12 @@ export interface PaymentMethodData {
   metadata: { [key: string]: any };
 }
 
+export function isPaymentMethodData(
+  paymentMethodData: any
+): paymentMethodData is PaymentMethodData {
+  return paymentMethodData && 'type' in paymentMethodData;
+}
+
 export interface PaymentMethod {
   id: string;
   object: string;
