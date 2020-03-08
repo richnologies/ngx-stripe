@@ -1,7 +1,7 @@
 import {
   Component,
   Input,
-  OnInit,
+  AfterViewInit,
   ViewChild,
   ElementRef,
   EventEmitter,
@@ -26,7 +26,7 @@ import { StripeInstance } from '../services/stripe-instance.class';
     <div class="field" #stripeCard></div>
   `
 })
-export class StripeCardComponent implements OnInit {
+export class StripeCardComponent implements AfterViewInit {
   @Output() public card = new EventEmitter<StripeElement>();
   // tslint:disable-next-line:no-output-on-prefix
   @Output()
@@ -52,7 +52,7 @@ export class StripeCardComponent implements OnInit {
 
   constructor(public stripeService: StripeService) {}
 
-  public ngOnInit() {
+  public ngAfterViewInit() {
     const elements$: Observable<Elements> = combineLatest(
       this.elementsOptions$.asObservable(),
       this.stripe$.asObservable()
