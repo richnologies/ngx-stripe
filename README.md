@@ -21,6 +21,18 @@ To install this library, run:
 $ npm install ngx-stripe
 ```
 
+Choose the version corresponding to your Angular version:
+
+ Angular     | ngx-stripe
+ ----------- | -------------------
+ 9           | 9.x+
+ 8           | 7.4.4
+ 7           | 7.x+
+ 6           | 0.6.x
+ 5           | 0.5.x or less
+ 4           | 0.4.x or less
+---
+
 ## Using the library
 
 Import the `NgxStripeModule` into the application
