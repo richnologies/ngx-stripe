@@ -1,4 +1,4 @@
-# NgxStripe
+An Angular 9 wrapper for StripeJS elements
 
 [![version](https://img.shields.io/npm/v/ngx-stripe.svg)](https://www.npmjs.com/package/ngx-stripe)
 [![license](https://img.shields.io/npm/l/express.svg)](https://www.npmjs.com/package/ngx-stripe)
@@ -7,10 +7,6 @@
   <img width="40" valign="bottom" src="https://angular.io/assets/images/logos/angular/angular.svg">
   ngx-stripe
 </h1>
-
-<h4 align="center">
-  An Angular 7 wrapper for StripeJS elements
-</h4>
 
 ## Features
 
@@ -156,7 +152,7 @@ As an alternative to the previous example, you could use the StripeCardComponent
 
 It will make a little bit easier to mount the card.
 
-To fetch the Stripe Element, you could you use either the (card) output, or, 
+To fetch the Stripe Element, you could you use either the (card) output, or,
 by using a ViewChild, the public method getCard()
 
 //stripe.html
