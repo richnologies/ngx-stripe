@@ -1,9 +1,9 @@
 {
   "name": "ngx-stripe",
-  "version": "9.0.1",
+  "version": "9.0.2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nomadreservations/ngx-stripe.git"
+    "url": "https://github.com/richnologies/ngx-stripe"
   },
   "keywords": [
     "angular",
