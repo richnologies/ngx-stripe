@@ -27,6 +27,7 @@ export interface ElementOptions {
     empty?: ElementStyleAttributes;
     invalid?: ElementStyleAttributes;
   };
+  paymentRequest?: PaymentRequest;
   hidePostalCode?: boolean;
   supportedCountries?: any;
   hideIcon?: boolean;
