@@ -22,7 +22,7 @@ export class NgxStripeModule {
   public static forRoot(
     publishableKey?: string,
     options?: Options
-  ): ModuleWithProviders {
+  ): ModuleWithProviders<NgxStripeModule> {
     return {
       ngModule: NgxStripeModule,
       providers: [
@@ -46,7 +46,7 @@ export class NgxStripeModule {
   public static forChild(
     publishableKey?: string,
     options?: Options
-  ): ModuleWithProviders {
+  ): ModuleWithProviders<NgxStripeModule> {
     return {
       ngModule: NgxStripeModule,
       providers: [
