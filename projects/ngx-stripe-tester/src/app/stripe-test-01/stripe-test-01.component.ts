@@ -41,7 +41,7 @@ export class Test01Component {
   buy() {
     this.stripeService
       .createToken(this.card.getCard(), { name: 'Ricardo' })
-      .subscribe(result => {
+      .subscribe((result) => {
         if (result.token) {
           console.log(result.token);
         } else if (result.error) {

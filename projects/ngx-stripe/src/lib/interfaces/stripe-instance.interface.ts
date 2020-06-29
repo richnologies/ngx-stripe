@@ -1,81 +1,22 @@
-import { BehaviorSubject, from, Observable } from 'rxjs';
-import { filter, first, map, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
-import * as StripeJS from '../interfaces/stripejs.interface';
-import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
+import * as StripeJS from './stripejs.interface';
 
-import { WindowRef } from './window-ref.service';
-import { LazyStripeAPILoader, Status } from './api-loader.service';
-
-export class StripeInstance implements StripeServiceInterface {
-  private stripe$ = new BehaviorSubject<StripeJS.Stripe | undefined>(undefined);
-
-  get stripe(): Observable<StripeJS.Stripe> {
-    return this.stripe$
-      .asObservable()
-      .pipe(filter((stripe) => Boolean(stripe)));
-  }
-
-  constructor(
-    private loader: LazyStripeAPILoader,
-    private window: WindowRef,
-    private key: string,
-    private options?: StripeJS.StripeConstructorOptions
-  ) {
-    this.loader
-      .asStream()
-      .pipe(
-        filter((status: Status) => status.loaded === true),
-        first(),
-        map(() => (this.window.getNativeWindow() as any).Stripe)
-      )
-      .subscribe((stripeInstance: any) => {
-        const stripe = this.options
-          ? (stripeInstance(this.key, this.options) as StripeJS.Stripe)
-          : (stripeInstance(this.key) as StripeJS.Stripe);
-
-        this.stripe$.next(stripe);
-      });
-  }
-
-  getInstance(): StripeJS.Stripe | undefined {
-    return this.stripe$.getValue();
-  }
-
+export interface StripeServiceInterface {
+  getInstance(): StripeJS.Stripe | undefined;
   elements(
     options?: StripeJS.StripeElementsOptions
-  ): Observable<StripeJS.StripeElements> {
-    return this.stripe$.asObservable().pipe(
-      filter((stripe) => Boolean(stripe)),
-      map((stripe) => stripe.elements(options)),
-      first()
-    );
-  }
-
+  ): Observable<StripeJS.StripeElements>;
   redirectToCheckout(
     options?: StripeJS.RedirectToCheckoutOptions
-  ): Observable<never | { error: StripeJS.StripeError }> {
-    return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.redirectToCheckout(options))),
-      first()
-    );
-  }
-
+  ): Observable<never | { error: StripeJS.StripeError }>;
   confirmAuBecsDebitPayment(
     clientSecret: string,
     data?: StripeJS.ConfirmAuBecsDebitPaymentData
   ): Observable<{
     paymentIntent?: StripeJS.PaymentIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.confirmAuBecsDebitPayment(clientSecret, data))
-      ),
-      first()
-    );
-  }
-
+  }>;
   confirmBancontactPayment(
     clientSecret: string,
     data?: StripeJS.ConfirmBancontactPaymentData,
@@ -83,15 +24,7 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{
     paymentIntent?: StripeJS.PaymentIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.confirmBancontactPayment(clientSecret, data, options))
-      ),
-      first()
-    );
-  }
-
+  }>;
   confirmCardPayment(
     clientSecret: string,
     data?: StripeJS.ConfirmCardPaymentData,
@@ -99,15 +32,7 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{
     paymentIntent?: StripeJS.PaymentIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.confirmCardPayment(clientSecret, data, options))
-      ),
-      first()
-    );
-  }
-
+  }>;
   confirmEpsPayment(
     clientSecret: string,
     data?: StripeJS.ConfirmEpsPaymentData,
@@ -115,15 +40,7 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{
     paymentIntent?: StripeJS.PaymentIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.confirmEpsPayment(clientSecret, data, options))
-      ),
-      first()
-    );
-  }
-
+  }>;
   confirmFpxPayment(
     clientSecret: string,
     data?: StripeJS.ConfirmFpxPaymentData,
@@ -131,15 +48,7 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{
     paymentIntent?: StripeJS.PaymentIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.confirmFpxPayment(clientSecret, data, options))
-      ),
-      first()
-    );
-  }
-
+  }>;
   confirmGiropayPayment(
     clientSecret: string,
     data?: StripeJS.ConfirmGiropayPaymentData,
@@ -147,15 +56,7 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{
     paymentIntent?: StripeJS.PaymentIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.confirmGiropayPayment(clientSecret, data, options))
-      ),
-      first()
-    );
-  }
-
+  }>;
   confirmIdealPayment(
     clientSecret: string,
     data?: StripeJS.ConfirmIdealPaymentData,
@@ -163,15 +64,7 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{
     paymentIntent?: StripeJS.PaymentIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.confirmIdealPayment(clientSecret, data, options))
-      ),
-      first()
-    );
-  }
-
+  }>;
   confirmP24Payment(
     clientSecret: string,
     data?: StripeJS.ConfirmP24PaymentData,
@@ -179,83 +72,39 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{
     paymentIntent?: StripeJS.PaymentIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.confirmP24Payment(clientSecret, data, options))
-      ),
-      first()
-    );
-  }
-
+  }>;
   confirmSepaDebitPayment(
     clientSecret: string,
     data?: StripeJS.ConfirmSepaDebitPaymentData
   ): Observable<{
     paymentIntent?: StripeJS.PaymentIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.confirmSepaDebitPayment(clientSecret, data))
-      ),
-      first()
-    );
-  }
-
+  }>;
   handleCardAction(
     clientSecret: string
   ): Observable<{
     paymentIntent?: StripeJS.PaymentIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.handleCardAction(clientSecret))),
-      first()
-    );
-  }
-
+  }>;
   createPaymentMethod(
     paymentMethodData: StripeJS.CreatePaymentMethodData
   ): Observable<{
     paymentMethod?: StripeJS.PaymentMethod;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.createPaymentMethod(paymentMethodData))
-      ),
-      first()
-    );
-  }
-
+  }>;
   retrievePaymentIntent(
     clientSecret: string
   ): Observable<{
     paymentIntent?: StripeJS.PaymentIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.retrievePaymentIntent(clientSecret))),
-      first()
-    );
-  }
-
+  }>;
   confirmAuBecsDebitSetup(
     clientSecret: string,
     data?: StripeJS.ConfirmAuBecsDebitSetupData
   ): Observable<{
     setupIntent?: StripeJS.SetupIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.confirmAuBecsDebitSetup(clientSecret, data))
-      ),
-      first()
-    );
-  }
-
+  }>;
   confirmCardSetup(
     clientSecret: string,
     data?: StripeJS.ConfirmCardSetupData,
@@ -263,50 +112,23 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{
     setupIntent?: StripeJS.SetupIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.confirmCardSetup(clientSecret, data, options))
-      ),
-      first()
-    );
-  }
-
+  }>;
   confirmSepaDebitSetup(
     clientSecret: string,
     data?: StripeJS.ConfirmSepaDebitSetupData
   ): Observable<{
     setupIntent?: StripeJS.SetupIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.confirmSepaDebitSetup(clientSecret, data))
-      ),
-      first()
-    );
-  }
-
+  }>;
   retrieveSetupIntent(
     clientSecret: string
   ): Observable<{
     setupIntent?: StripeJS.SetupIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.confirmSepaDebitSetup(clientSecret))),
-      first()
-    );
-  }
-
+  }>;
   paymentRequest(
     options: StripeJS.PaymentRequestOptions
-  ): StripeJS.PaymentRequest | undefined {
-    const stripe = this.getInstance();
-
-    return stripe ? stripe.paymentRequest(options) : undefined;
-  }
-
+  ): StripeJS.PaymentRequest | undefined;
   createToken(
     tokenType: StripeJS.StripeIbanElement,
     data: StripeJS.CreateTokenIbanData
@@ -335,13 +157,6 @@ export class StripeInstance implements StripeServiceInterface {
     tokenType: 'person',
     data: StripeJS.TokenCreateParams.Person
   ): Observable<{ token?: StripeJS.Token; error?: StripeJS.StripeError }>;
-  createToken(tokenType, data) {
-    return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.createToken(tokenType, data))),
-      first()
-    );
-  }
-
   createSource(
     element: StripeJS.StripeElement,
     sourceData: StripeJS.CreateSourceData
@@ -349,25 +164,9 @@ export class StripeInstance implements StripeServiceInterface {
   createSource(
     sourceData: StripeJS.CreateSourceData
   ): Observable<{ source?: StripeJS.Source; error?: StripeJS.StripeError }>;
-  createSource(
-    a,
-    b?
-  ): Observable<{ source?: StripeJS.Source; error?: StripeJS.StripeError }> {
-    return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.createSource(a, b))),
-      first()
-    );
-  }
-
   retrieveSource(
     source: StripeJS.RetrieveSourceParam
-  ): Observable<{ source?: StripeJS.Source; error?: StripeJS.StripeError }> {
-    return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.retrieveSource(source))),
-      first()
-    );
-  }
-
+  ): Observable<{ source?: StripeJS.Source; error?: StripeJS.StripeError }>;
   /**
    * @deprecated
    */
@@ -378,15 +177,7 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{
     paymentIntent?: StripeJS.PaymentIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from((stripe as any).handleCardPayment(clientSecret, element, data))
-      ),
-      first()
-    );
-  }
-
+  }>;
   /**
    * @deprecated
    */
@@ -397,15 +188,7 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{
     paymentIntent?: StripeJS.PaymentIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from((stripe as any).confirmPaymentIntent(clientSecret, element, data))
-      ),
-      first()
-    );
-  }
-
+  }>;
   /**
    * @deprecated
    */
@@ -416,15 +199,7 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{
     setupIntent?: StripeJS.SetupIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from((stripe as any).handleCardSetup(clientSecret, element, data))
-      ),
-      first()
-    );
-  }
-
+  }>;
   /**
    * @deprecated
    */
@@ -435,15 +210,7 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{
     setupIntent?: StripeJS.SetupIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from((stripe as any).confirmSetupIntent(clientSecret, element, data))
-      ),
-      first()
-    );
-  }
-
+  }>;
   /**
    * @deprecated
    */
@@ -454,12 +221,5 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{
     setupIntent?: StripeJS.SetupIntent;
     error?: StripeJS.StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from((stripe as any).handleFpxPayment(clientSecret, element, data))
-      ),
-      first()
-    );
-  }
+  }>;
 }

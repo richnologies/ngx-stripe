@@ -1,4 +1,4 @@
-<div style="display: flex; flex-flow: column; height: 100%">
+<div style="display: flex; flex-flow: column; height: 100%;">
   <mat-toolbar color="primary">
     <button
       fxHide.gt-sm
@@ -10,7 +10,7 @@
     </button>
     <span class="margin-left-10">Ngx Stripe</span>
   </mat-toolbar>
-  <mat-sidenav-container autosize style="height: 100%">
+  <mat-sidenav-container autosize style="height: 100%;">
     <mat-sidenav
       #sidenav
       appSidenavResize
@@ -22,7 +22,12 @@
       align="start"
     >
       <mat-nav-list
-        style="height: 100%; padding-top: 0px; max-width: 250px; background-color: #fafafa"
+        style="
+          height: 100%;
+          padding-top: 0px;
+          max-width: 250px;
+          background-color: #fafafa;
+        "
       >
         <a mat-list-item routerLink="/welcome" routerLinkActive="active">
           <mat-icon class="mat-18">home</mat-icon>

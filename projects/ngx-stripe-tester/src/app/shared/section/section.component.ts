@@ -39,12 +39,10 @@ export class SectionComponent implements OnInit {
   }
 
   private adaptBackgroundColor(color: string) {
-    const colors = color.split(',').map(c => this.colors.hexToRgba(c));
+    const colors = color.split(',').map((c) => this.colors.hexToRgba(c));
 
     return colors.length === 2
-      ? `linear-gradient(to bottom, ${colors[0]} 30%, ${colors[1]} 30%, ${
-          colors[1]
-        })`
+      ? `linear-gradient(to bottom, ${colors[0]} 30%, ${colors[1]} 30%, ${colors[1]})`
       : colors[0];
   }
 }

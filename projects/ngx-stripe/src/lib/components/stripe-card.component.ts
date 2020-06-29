@@ -7,43 +7,44 @@ import {
   EventEmitter,
   Output
 } from '@angular/core';
-
 import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { switchMap, filter } from 'rxjs/operators';
 
 import {
-  Element as StripeElement,
-  ElementOptions,
-  ElementEventType
-} from '../interfaces/element';
+  StripeElementsOptions,
+  StripeCardElementOptions,
+  StripeCardElement,
+  StripeElements
+} from '../interfaces/stripejs.interface';
+
 import { StripeService } from '../services/stripe.service';
-import { Elements, ElementsOptions } from '../interfaces/elements';
 import { StripeInstance } from '../services/stripe-instance.class';
 
 @Component({
   selector: 'ngx-stripe-card',
-  template: `
-    <div class="field" #stripeCard></div>
-  `
+  template: ` <div class="field" #stripeCard></div> `
 })
 export class StripeCardComponent implements AfterViewInit {
-  @Output() public card = new EventEmitter<StripeElement>();
+  @Output() public card = new EventEmitter<StripeCardElement>();
   // tslint:disable-next-line:no-output-on-prefix
   @Output()
-  public on = new EventEmitter<{ type: ElementEventType; event: any }>();
+  public on = new EventEmitter<{
+    type: 'change' | 'ready' | 'focus' | 'blur' | 'escape';
+    event: any;
+  }>();
 
   @ViewChild('stripeCard') public stripeCard!: ElementRef;
-  public element!: StripeElement;
+  public element!: StripeCardElement;
   @Input()
-  public set options(optionsIn: ElementOptions) {
+  public set options(optionsIn: StripeCardElementOptions) {
     this.options$.next(optionsIn);
   }
-  public options$ = new BehaviorSubject<ElementOptions>({});
+  public options$ = new BehaviorSubject<StripeCardElementOptions>({});
   @Input()
-  public set elementsOptions(optionsIn: ElementsOptions) {
+  public set elementsOptions(optionsIn: StripeElementsOptions) {
     this.elementsOptions$.next(optionsIn);
   }
-  public elementsOptions$ = new BehaviorSubject<ElementsOptions>({});
+  public elementsOptions$ = new BehaviorSubject<StripeElementsOptions>({});
   @Input()
   public set stripe(stripeIn: StripeInstance) {
     this.stripe$.next(stripeIn);
@@ -53,10 +54,10 @@ export class StripeCardComponent implements AfterViewInit {
   constructor(public stripeService: StripeService) {}
 
   public ngAfterViewInit() {
-    const elements$: Observable<Elements> = combineLatest(
+    const elements$: Observable<StripeElements> = combineLatest([
       this.elementsOptions$.asObservable(),
       this.stripe$.asObservable()
-    ).pipe(
+    ]).pipe(
       switchMap(([options, stripe]) => {
         if (stripe) {
           if (Object.keys(options).length > 0) {
@@ -71,43 +72,43 @@ export class StripeCardComponent implements AfterViewInit {
         }
       })
     );
-    combineLatest(
+    combineLatest([
       elements$,
-      this.options$.asObservable().pipe(filter(options => Boolean(options)))
-    ).subscribe(([elements, options]) => {
+      this.options$.asObservable().pipe(filter((options) => Boolean(options)))
+    ]).subscribe(([elements, options]) => {
       this.element = elements.create('card', options);
 
-      this.element.on('blur', ev =>
-        this.on.emit({
-          event: ev,
-          type: 'blur'
-        })
-      );
-
-      this.element.on('change', ev =>
+      this.element.on('change', (ev) =>
         this.on.emit({
           event: ev,
           type: 'change'
         })
       );
 
-      this.element.on('click', ev =>
+      this.element.on('blur', () =>
         this.on.emit({
-          event: ev,
-          type: 'click'
+          event: null,
+          type: 'blur'
         })
       );
 
-      this.element.on('focus', ev =>
+      this.element.on('focus', () =>
         this.on.emit({
-          event: ev,
+          event: null,
           type: 'focus'
         })
       );
 
-      this.element.on('ready', ev =>
+      this.element.on('ready', () =>
         this.on.emit({
-          event: ev,
+          event: null,
+          type: 'ready'
+        })
+      );
+
+      this.element.on('escape', () =>
+        this.on.emit({
+          event: null,
           type: 'ready'
         })
       );
@@ -118,7 +119,11 @@ export class StripeCardComponent implements AfterViewInit {
     });
   }
 
-  public getCard(): StripeElement {
+  getCard(): StripeCardElement {
     return this.element;
+  }
+
+  update(options: Partial<StripeCardElementOptions>) {
+    this.element.update(options);
   }
 }

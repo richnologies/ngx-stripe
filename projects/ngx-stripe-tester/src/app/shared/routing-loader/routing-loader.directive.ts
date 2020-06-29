@@ -24,7 +24,7 @@ export class RoutingLoaderDirective implements AfterViewInit {
   ) {}
 
   ngAfterViewInit() {
-    this.router.events.subscribe(ev => {
+    this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationStart) {
         this.loading = true;
       } else if (

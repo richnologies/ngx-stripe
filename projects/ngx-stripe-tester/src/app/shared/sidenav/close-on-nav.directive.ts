@@ -1,6 +1,6 @@
 import { Directive, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import {MatSidenav} from '@angular/material/sidenav';
+import { MatSidenav } from '@angular/material/sidenav';
 
 import { filter } from 'rxjs/operators';
 
@@ -12,8 +12,8 @@ export class CloseOnNavDirective implements OnInit {
 
   ngOnInit() {
     this.router.events
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe(e => {
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe((e) => {
         if (this.sidenav.mode === 'over') {
           this.sidenav.close();
         }
