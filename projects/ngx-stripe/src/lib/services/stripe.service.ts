@@ -4,7 +4,10 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 import * as StripeJS from '../interfaces/stripejs.interface';
-import { STRIPE_PUBLISHABLE_KEY, STRIPE_OPTIONS } from '../interfaces/ngx-stripe.interface';
+import {
+  STRIPE_PUBLISHABLE_KEY,
+  STRIPE_OPTIONS
+} from '../interfaces/ngx-stripe.interface';
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
 
 import { WindowRef } from './window-ref.service';

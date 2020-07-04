@@ -3,7 +3,14 @@
  */
 export { NgxStripeModule } from './lib/ngx-stripe.module';
 
-export { StripeCardComponent } from './lib/components/stripe-card.component';
+export { StripeCardComponent } from './lib/components/card.component';
+export { StripeCardNumberComponent } from './lib/components/card-number.component';
+export { StripeCardExpiryComponent } from './lib/components/card-expiry.component';
+export { StripeCardCvcComponent } from './lib/components/card-cvc.component';
+export { StripeFpxBankComponent } from './lib/components/fpx-bank.component';
+export { StripeIbanComponent } from './lib/components/iban.component';
+export { StripeIdealBankComponent } from './lib/components/ideal-bank.component';
+export { StripeAuBankAccountComponent } from './lib/components/au-bank-account.component';
 
 export { StripeService } from './lib/services/stripe.service';
 export { StripeFactoryService } from './lib/services/stripe-factory.service';
@@ -65,5 +72,24 @@ export {
   Source,
   RetrieveSourceParam,
   StripeConstructorOptions,
-  StripeCardElementOptions
+  StripeCardElementOptions,
+  StripeCardElementChangeEvent,
+  StripeCardNumberElementOptions,
+  StripeCardNumberElementChangeEvent,
+  StripeCardExpiryElement,
+  StripeCardExpiryElementOptions,
+  StripeCardExpiryElementChangeEvent,
+  StripeCardCvcElementChangeEvent,
+  StripeCardCvcElementOptions,
+  StripeFpxBankElement,
+  StripeFpxBankElementChangeEvent,
+  StripeFpxBankElementOptions,
+  StripeIdealBankElement,
+  StripeIdealBankElementOptions,
+  StripeIdealBankElementChangeEvent,
+  StripeAuBankAccountElement,
+  StripeAuBankAccountElementOptions,
+  StripeAuBankAccountElementChangeEvent,
+  StripeIbanElementOptions,
+  StripeIbanElementChangeEvent
 } from './lib/interfaces/stripejs.interface';

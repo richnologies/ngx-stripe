@@ -1,6 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 
-import { STRIPE_OPTIONS, STRIPE_PUBLISHABLE_KEY } from '../interfaces/ngx-stripe.interface';
+import {
+  STRIPE_OPTIONS,
+  STRIPE_PUBLISHABLE_KEY
+} from '../interfaces/ngx-stripe.interface';
 import { StripeConstructorOptions } from '../interfaces/stripejs.interface';
 
 import { LazyStripeAPILoader } from './api-loader.service';
@@ -25,6 +28,11 @@ export class StripeFactoryService {
       return null;
     }
 
-    return new StripeInstance(this.loader, this.window, key || this.baseKey, options || this.baseOptions);
+    return new StripeInstance(
+      this.loader,
+      this.window,
+      key || this.baseKey,
+      options || this.baseOptions
+    );
   }
 }
