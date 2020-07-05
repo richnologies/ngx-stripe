@@ -64,5 +64,15 @@ export {
   StripeAuBankAccountElementOptions,
   StripeAuBankAccountElementChangeEvent,
   StripeIbanElementOptions,
-  StripeIbanElementChangeEvent
+  StripeIbanElementChangeEvent,
+  CanMakePaymentResult,
+  PaymentRequestUpdateOptions,
+  StripePaymentRequestButtonElement,
+  StripePaymentRequestButtonElementOptions,
+  StripePaymentRequestButtonElementClickEvent,
+  PaymentRequestTokenEvent,
+  PaymentRequestPaymentMethodEvent,
+  PaymentRequestSourceEvent,
+  PaymentRequestShippingAddressEvent,
+  PaymentRequestShippingOptionEvent
 } from '@stripe/stripe-js';

@@ -9,16 +9,22 @@ import {
   StripeFpxBankElementOptions,
   StripeIbanElementOptions,
   StripeIdealBankElementOptions,
-  StripeAuBankAccountElementOptions
+  StripeAuBankAccountElementOptions,
+  PaymentRequestOptions,
+  StripeElementsOptions
 } from '../interfaces/stripejs.interface';
 
 import { StripeService } from './stripe.service';
+import {
+  PaymentRequest,
+  StripePaymentRequestButtonElementOptions
+} from '@stripe/stripe-js';
 
 @Injectable({ providedIn: 'root' })
 export class StripeElementsService {
   constructor(private stripeService: StripeService) {}
 
-  elements(stripe, options): Observable<StripeElements> {
+  elements(stripe, options: StripeElementsOptions): Observable<StripeElements> {
     if (stripe) {
       if (Object.keys(options).length > 0) {
         return stripe.elements(options);
@@ -30,6 +36,15 @@ export class StripeElementsService {
       }
       return this.stripeService.elements();
     }
+  }
+
+  paymentRequest(
+    stripe,
+    options: PaymentRequestOptions
+  ): PaymentRequest | undefined {
+    return stripe
+      ? stripe.paymentRequest(options)
+      : this.stripeService.paymentRequest(options);
   }
 
   mergeOptions(
@@ -60,6 +75,10 @@ export class StripeElementsService {
     options: StripeAuBankAccountElementOptions,
     containerClass: string
   ): StripeAuBankAccountElementOptions;
+  mergeOptions(
+    options: StripePaymentRequestButtonElementOptions,
+    containerClass: string
+  ): StripePaymentRequestButtonElementOptions;
   mergeOptions(options, containerClass: string) {
     if (!containerClass || (options && options.classes)) {
       return options;

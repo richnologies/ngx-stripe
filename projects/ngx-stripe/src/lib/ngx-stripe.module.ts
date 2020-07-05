@@ -8,6 +8,7 @@ import { StripeFpxBankComponent } from './components/fpx-bank.component';
 import { StripeIdealBankComponent } from './components/ideal-bank.component';
 import { StripeIbanComponent } from './components/iban.component';
 import { StripeAuBankAccountComponent } from './components/au-bank-account.component';
+import { StripePaymentRequestButtonComponent } from './components/payment-request-button.component';
 
 import {
   STRIPE_OPTIONS,
@@ -29,7 +30,8 @@ const components = [
   StripeFpxBankComponent,
   StripeIdealBankComponent,
   StripeIbanComponent,
-  StripeAuBankAccountComponent
+  StripeAuBankAccountComponent,
+  StripePaymentRequestButtonComponent
 ];
 
 @NgModule({

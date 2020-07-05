@@ -11,6 +11,7 @@ export { StripeFpxBankComponent } from './lib/components/fpx-bank.component';
 export { StripeIbanComponent } from './lib/components/iban.component';
 export { StripeIdealBankComponent } from './lib/components/ideal-bank.component';
 export { StripeAuBankAccountComponent } from './lib/components/au-bank-account.component';
+export { StripePaymentRequestButtonComponent } from './lib/components/payment-request-button.component';
 
 export { StripeService } from './lib/services/stripe.service';
 export { StripeFactoryService } from './lib/services/stripe-factory.service';
@@ -91,5 +92,15 @@ export {
   StripeAuBankAccountElementOptions,
   StripeAuBankAccountElementChangeEvent,
   StripeIbanElementOptions,
-  StripeIbanElementChangeEvent
+  StripeIbanElementChangeEvent,
+  CanMakePaymentResult,
+  PaymentRequestUpdateOptions,
+  StripePaymentRequestButtonElement,
+  StripePaymentRequestButtonElementOptions,
+  StripePaymentRequestButtonElementClickEvent,
+  PaymentRequestTokenEvent,
+  PaymentRequestPaymentMethodEvent,
+  PaymentRequestSourceEvent,
+  PaymentRequestShippingAddressEvent,
+  PaymentRequestShippingOptionEvent
 } from './lib/interfaces/stripejs.interface';
