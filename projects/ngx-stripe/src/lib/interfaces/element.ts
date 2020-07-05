@@ -21,6 +21,13 @@ export type ElementType =
   | 'idealBank';
 
 export interface ElementOptions {
+  classes?: {
+    base?: string;
+    empty?: string;
+    focus?: string;
+    invalid?: string;
+    webkitAutoFill?: string;
+  };
   style?: {
     base?: ElementStyleAttributes;
     complete?: ElementStyleAttributes;
