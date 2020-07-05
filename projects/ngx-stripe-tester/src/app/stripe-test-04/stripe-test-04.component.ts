@@ -1,34 +1,41 @@
 import { Component, ViewChild } from '@angular/core';
-import { StripeService, StripeCardComponent } from 'ngx-stripe';
+import { StripeService, StripePaymentRequestButtonComponent } from 'ngx-stripe';
 import {
   StripeCardElementOptions,
   StripeElementsOptions
 } from '@stripe/stripe-js';
 
 @Component({
-  selector: 'app-test-01',
+  selector: 'app-test-04',
   template: `
     <app-section maxWidth="900">
       <mat-toolbar color="secondary" section-content-header>
-        <span>Card Example</span>
+        <span>Payment Request Button Example</span>
       </mat-toolbar>
       <div section-content>
         <p>Minimum example, just fill the form and get your token</p>
-        <ngx-stripe-card
-          containerClass="Ricardo"
-          [options]="cardOptions"
+        <ngx-stripe-payment-request-button
+          [options]="paymentRequestButtonOptions"
+          [paymentOptions]="paymentRequestOptions"
           [elementsOptions]="elementsOptions"
-        ></ngx-stripe-card>
+        ></ngx-stripe-payment-request-button>
         <button (click)="buy()">CLICK</button>
       </div>
     </app-section>
   `,
   styles: []
 })
-export class Test01Component {
-  @ViewChild(StripeCardComponent) card: StripeCardComponent;
+export class Test04Component {
+  @ViewChild(StripePaymentRequestButtonComponent) button: StripePaymentRequestButtonComponent;
+  paymentRequestOptions = {
+    country: 'ES',
+    currency: 'eur',
+    total: { label: 'Demo total', amount: 1099 },
+    requestPayerName: true,
+    requestPayerEmail: true,
+  };
 
-  cardOptions: StripeCardElementOptions = {
+  paymentRequestButtonOptions: StripeCardElementOptions = {
     style: {
       base: {
         iconColor: '#666EE8',
@@ -50,14 +57,6 @@ export class Test01Component {
   constructor(private stripeService: StripeService) {}
 
   buy() {
-    this.stripeService
-      .createToken(this.card.getCard(), { name: 'Ricardo' })
-      .subscribe((result) => {
-        if (result.token) {
-          console.log(result.token);
-        } else if (result.error) {
-          console.log(result.error.message);
-        }
-      });
+
   }
 }

@@ -1,34 +1,34 @@
 import { Component, ViewChild } from '@angular/core';
-import { StripeService, StripeCardComponent } from 'ngx-stripe';
+import { StripeService, StripeIbanComponent } from 'ngx-stripe';
 import {
-  StripeCardElementOptions,
-  StripeElementsOptions
+  StripeElementsOptions,
+  StripeIbanElementOptions,
+  CreateTokenIbanData
 } from '@stripe/stripe-js';
 
 @Component({
-  selector: 'app-test-01',
+  selector: 'app-test-02',
   template: `
     <app-section maxWidth="900">
       <mat-toolbar color="secondary" section-content-header>
-        <span>Card Example</span>
+        <span>Iban Example</span>
       </mat-toolbar>
       <div section-content>
         <p>Minimum example, just fill the form and get your token</p>
-        <ngx-stripe-card
-          containerClass="Ricardo"
-          [options]="cardOptions"
+        <ngx-stripe-iban
+          [options]="ibanOptions"
           [elementsOptions]="elementsOptions"
-        ></ngx-stripe-card>
+        ></ngx-stripe-iban>
         <button (click)="buy()">CLICK</button>
       </div>
     </app-section>
   `,
   styles: []
 })
-export class Test01Component {
-  @ViewChild(StripeCardComponent) card: StripeCardComponent;
+export class Test02Component {
+  @ViewChild(StripeIbanComponent) iban: StripeIbanComponent;
 
-  cardOptions: StripeCardElementOptions = {
+  ibanOptions: StripeIbanElementOptions = {
     style: {
       base: {
         iconColor: '#666EE8',
@@ -51,7 +51,11 @@ export class Test01Component {
 
   buy() {
     this.stripeService
-      .createToken(this.card.getCard(), { name: 'Ricardo' })
+      .createToken(this.iban.element, {
+        currency: 'eur',
+        account_holder_name: 'Ricardo',
+        account_holder_type: 'individual'
+      } as CreateTokenIbanData)
       .subscribe((result) => {
         if (result.token) {
           console.log(result.token);

@@ -6,7 +6,7 @@ import {
 } from '@stripe/stripe-js';
 
 @Component({
-  selector: 'app-test-01',
+  selector: 'app-test-03',
   template: `
     <app-section maxWidth="900">
       <mat-toolbar color="secondary" section-content-header>
@@ -15,7 +15,6 @@ import {
       <div section-content>
         <p>Minimum example, just fill the form and get your token</p>
         <ngx-stripe-card
-          containerClass="Ricardo"
           [options]="cardOptions"
           [elementsOptions]="elementsOptions"
         ></ngx-stripe-card>
@@ -25,7 +24,7 @@ import {
   `,
   styles: []
 })
-export class Test01Component {
+export class Test03Component {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
   cardOptions: StripeCardElementOptions = {
