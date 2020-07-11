@@ -16,7 +16,7 @@ import {
   StripeCardCvcElement,
   StripeCardCvcElementChangeEvent,
   StripeCardCvcElementOptions
-} from '../interfaces/stripejs.interface';
+} from '@stripe/stripe-js';
 
 import { StripeInstance } from '../services/stripe-instance.class';
 import { StripeElementsService } from '../services/stripe-elements.service';

@@ -2,23 +2,21 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import {
-  StripeElements,
+  PaymentRequest,
+  PaymentRequestOptions,
   StripeCardElementOptions,
+  StripeAuBankAccountElementOptions,
   StripeCardNumberElementOptions,
   StripeCardExpiryElementOptions,
+  StripeElements,
+  StripeElementsOptions,
   StripeFpxBankElementOptions,
   StripeIbanElementOptions,
   StripeIdealBankElementOptions,
-  StripeAuBankAccountElementOptions,
-  PaymentRequestOptions,
-  StripeElementsOptions
-} from '../interfaces/stripejs.interface';
-
-import { StripeService } from './stripe.service';
-import {
-  PaymentRequest,
   StripePaymentRequestButtonElementOptions
 } from '@stripe/stripe-js';
+
+import { StripeService } from './stripe.service';
 
 @Injectable({ providedIn: 'root' })
 export class StripeElementsService {

@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 
-import { StripeConstructorOptions } from './stripejs.interface';
+import { StripeConstructorOptions } from '@stripe/stripe-js';
 
 export const STRIPE_PUBLISHABLE_KEY = new InjectionToken<string>(
   'Stripe Publishable Key'

@@ -16,7 +16,10 @@ export { StripePaymentRequestButtonComponent } from './lib/components/payment-re
 export { StripeService } from './lib/services/stripe.service';
 export { StripeFactoryService } from './lib/services/stripe-factory.service';
 export { StripeInstance } from './lib/services/stripe-instance.class';
-export { LazyStripeAPILoader } from './lib/services/api-loader.service';
+export {
+  LazyStripeAPILoader,
+  LazyStripeAPILoaderStatus
+} from './lib/services/api-loader.service';
 
 export { WindowRef } from './lib/services/window-ref.service';
 export { DocumentRef } from './lib/services/document-ref.service';
@@ -26,81 +29,3 @@ export {
   STRIPE_OPTIONS
 } from './lib/interfaces/ngx-stripe.interface';
 export { StripeServiceInterface } from './lib/interfaces/stripe-instance.interface';
-export {
-  Stripe,
-  StripeElementsOptions,
-  StripeElements,
-  StripeIbanElement,
-  CreateTokenIbanData,
-  Token,
-  StripeError,
-  StripeCardElement,
-  StripeCardNumberElement,
-  CreateTokenCardData,
-  CreateTokenPiiData,
-  CreateTokenBankAccountData,
-  StripeCardCvcElement,
-  TokenCreateParams,
-  RedirectToCheckoutOptions,
-  ConfirmAuBecsDebitPaymentData,
-  PaymentIntent,
-  ConfirmBancontactPaymentData,
-  ConfirmBancontactPaymentOptions,
-  ConfirmCardPaymentData,
-  ConfirmCardPaymentOptions,
-  ConfirmEpsPaymentData,
-  ConfirmEpsPaymentOptions,
-  ConfirmFpxPaymentData,
-  ConfirmFpxPaymentOptions,
-  ConfirmGiropayPaymentData,
-  ConfirmGiropayPaymentOptions,
-  ConfirmIdealPaymentData,
-  ConfirmIdealPaymentOptions,
-  ConfirmP24PaymentData,
-  ConfirmP24PaymentOptions,
-  ConfirmSepaDebitPaymentData,
-  CreatePaymentMethodData,
-  PaymentMethod,
-  ConfirmAuBecsDebitSetupData,
-  SetupIntent,
-  ConfirmCardSetupData,
-  ConfirmCardSetupOptions,
-  ConfirmSepaDebitSetupData,
-  PaymentRequestOptions,
-  PaymentRequest,
-  StripeElement,
-  CreateSourceData,
-  Source,
-  RetrieveSourceParam,
-  StripeConstructorOptions,
-  StripeCardElementOptions,
-  StripeCardElementChangeEvent,
-  StripeCardNumberElementOptions,
-  StripeCardNumberElementChangeEvent,
-  StripeCardExpiryElement,
-  StripeCardExpiryElementOptions,
-  StripeCardExpiryElementChangeEvent,
-  StripeCardCvcElementChangeEvent,
-  StripeCardCvcElementOptions,
-  StripeFpxBankElement,
-  StripeFpxBankElementChangeEvent,
-  StripeFpxBankElementOptions,
-  StripeIdealBankElement,
-  StripeIdealBankElementOptions,
-  StripeIdealBankElementChangeEvent,
-  StripeAuBankAccountElement,
-  StripeAuBankAccountElementOptions,
-  StripeAuBankAccountElementChangeEvent,
-  StripeIbanElementOptions,
-  StripeIbanElementChangeEvent,
-  CanMakePaymentResult,
-  PaymentRequestUpdateOptions,
-  StripePaymentRequestButtonElement,
-  StripePaymentRequestButtonElementOptions,
-  StripePaymentRequestButtonElementClickEvent,
-  PaymentRequestTokenEvent,
-  PaymentRequestPaymentMethodEvent,
-  PaymentRequestSourceEvent,
-  PaymentRequestShippingAddressEvent,
-  PaymentRequestShippingOptionEvent
-} from './lib/interfaces/stripejs.interface';

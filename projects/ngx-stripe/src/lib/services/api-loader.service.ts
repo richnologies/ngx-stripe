@@ -6,7 +6,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { WindowRef } from './window-ref.service';
 import { DocumentRef } from './document-ref.service';
 
-export interface Status {
+export interface LazyStripeAPILoaderStatus {
   loaded: boolean;
   loading: boolean;
   error: boolean;
@@ -14,7 +14,7 @@ export interface Status {
 
 @Injectable()
 export class LazyStripeAPILoader {
-  public status: BehaviorSubject<Status> = new BehaviorSubject<Status>({
+  public status = new BehaviorSubject<LazyStripeAPILoaderStatus>({
     error: false,
     loaded: false,
     loading: false
@@ -26,7 +26,7 @@ export class LazyStripeAPILoader {
     public document: DocumentRef
   ) {}
 
-  public asStream(): Observable<Status> {
+  public asStream(): Observable<LazyStripeAPILoaderStatus> {
     this.load();
     return this.status.asObservable();
   }
@@ -39,7 +39,7 @@ export class LazyStripeAPILoader {
     if (isPlatformServer(this.platformId)) {
       return;
     }
-    const status: Status = this.status.getValue();
+    const status: LazyStripeAPILoaderStatus = this.status.getValue();
     if (this.window.getNativeWindow().hasOwnProperty('Stripe')) {
       this.status.next({
         error: false,

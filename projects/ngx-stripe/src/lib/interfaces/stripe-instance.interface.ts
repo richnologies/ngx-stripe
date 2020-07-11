@@ -1,172 +1,214 @@
 import { Observable } from 'rxjs';
 
-import * as StripeJS from './stripejs.interface';
+import {
+  ConfirmAuBecsDebitPaymentData,
+  ConfirmAuBecsDebitSetupData,
+  ConfirmBancontactPaymentData,
+  ConfirmBancontactPaymentOptions,
+  ConfirmCardPaymentData,
+  ConfirmCardPaymentOptions,
+  ConfirmEpsPaymentData,
+  ConfirmEpsPaymentOptions,
+  ConfirmFpxPaymentData,
+  ConfirmFpxPaymentOptions,
+  ConfirmGiropayPaymentData,
+  ConfirmGiropayPaymentOptions,
+  ConfirmIdealPaymentData,
+  ConfirmIdealPaymentOptions,
+  ConfirmP24PaymentData,
+  ConfirmP24PaymentOptions,
+  ConfirmCardSetupData,
+  ConfirmCardSetupOptions,
+  ConfirmSepaDebitPaymentData,
+  ConfirmSepaDebitSetupData,
+  CreatePaymentMethodData,
+  CreateSourceData,
+  CreateTokenIbanData,
+  CreateTokenCardData,
+  CreateTokenPiiData,
+  CreateTokenBankAccountData,
+  PaymentIntent,
+  PaymentMethod,
+  PaymentRequest,
+  PaymentRequestOptions,
+  RedirectToCheckoutOptions,
+  RetrieveSourceParam,
+  SetupIntent,
+  Stripe,
+  StripeCardElement,
+  StripeCardNumberElement,
+  StripeCardCvcElement,
+  StripeElements,
+  StripeElementsOptions,
+  StripeElement,
+  StripeError,
+  StripeIbanElement,
+  Source,
+  Token,
+  TokenCreateParams
+} from '@stripe/stripe-js';
 
 export interface StripeServiceInterface {
-  getInstance(): StripeJS.Stripe | undefined;
-  elements(
-    options?: StripeJS.StripeElementsOptions
-  ): Observable<StripeJS.StripeElements>;
+  getInstance(): Stripe | undefined;
+  elements(options?: StripeElementsOptions): Observable<StripeElements>;
   redirectToCheckout(
-    options?: StripeJS.RedirectToCheckoutOptions
-  ): Observable<never | { error: StripeJS.StripeError }>;
+    options?: RedirectToCheckoutOptions
+  ): Observable<never | { error: StripeError }>;
   confirmAuBecsDebitPayment(
     clientSecret: string,
-    data?: StripeJS.ConfirmAuBecsDebitPaymentData
+    data?: ConfirmAuBecsDebitPaymentData
   ): Observable<{
-    paymentIntent?: StripeJS.PaymentIntent;
-    error?: StripeJS.StripeError;
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
   }>;
   confirmBancontactPayment(
     clientSecret: string,
-    data?: StripeJS.ConfirmBancontactPaymentData,
-    options?: StripeJS.ConfirmBancontactPaymentOptions
+    data?: ConfirmBancontactPaymentData,
+    options?: ConfirmBancontactPaymentOptions
   ): Observable<{
-    paymentIntent?: StripeJS.PaymentIntent;
-    error?: StripeJS.StripeError;
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
   }>;
   confirmCardPayment(
     clientSecret: string,
-    data?: StripeJS.ConfirmCardPaymentData,
-    options?: StripeJS.ConfirmCardPaymentOptions
+    data?: ConfirmCardPaymentData,
+    options?: ConfirmCardPaymentOptions
   ): Observable<{
-    paymentIntent?: StripeJS.PaymentIntent;
-    error?: StripeJS.StripeError;
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
   }>;
   confirmEpsPayment(
     clientSecret: string,
-    data?: StripeJS.ConfirmEpsPaymentData,
-    options?: StripeJS.ConfirmEpsPaymentOptions
+    data?: ConfirmEpsPaymentData,
+    options?: ConfirmEpsPaymentOptions
   ): Observable<{
-    paymentIntent?: StripeJS.PaymentIntent;
-    error?: StripeJS.StripeError;
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
   }>;
   confirmFpxPayment(
     clientSecret: string,
-    data?: StripeJS.ConfirmFpxPaymentData,
-    options?: StripeJS.ConfirmFpxPaymentOptions
+    data?: ConfirmFpxPaymentData,
+    options?: ConfirmFpxPaymentOptions
   ): Observable<{
-    paymentIntent?: StripeJS.PaymentIntent;
-    error?: StripeJS.StripeError;
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
   }>;
   confirmGiropayPayment(
     clientSecret: string,
-    data?: StripeJS.ConfirmGiropayPaymentData,
-    options?: StripeJS.ConfirmGiropayPaymentOptions
+    data?: ConfirmGiropayPaymentData,
+    options?: ConfirmGiropayPaymentOptions
   ): Observable<{
-    paymentIntent?: StripeJS.PaymentIntent;
-    error?: StripeJS.StripeError;
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
   }>;
   confirmIdealPayment(
     clientSecret: string,
-    data?: StripeJS.ConfirmIdealPaymentData,
-    options?: StripeJS.ConfirmIdealPaymentOptions
+    data?: ConfirmIdealPaymentData,
+    options?: ConfirmIdealPaymentOptions
   ): Observable<{
-    paymentIntent?: StripeJS.PaymentIntent;
-    error?: StripeJS.StripeError;
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
   }>;
   confirmP24Payment(
     clientSecret: string,
-    data?: StripeJS.ConfirmP24PaymentData,
-    options?: StripeJS.ConfirmP24PaymentOptions
+    data?: ConfirmP24PaymentData,
+    options?: ConfirmP24PaymentOptions
   ): Observable<{
-    paymentIntent?: StripeJS.PaymentIntent;
-    error?: StripeJS.StripeError;
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
   }>;
   confirmSepaDebitPayment(
     clientSecret: string,
-    data?: StripeJS.ConfirmSepaDebitPaymentData
+    data?: ConfirmSepaDebitPaymentData
   ): Observable<{
-    paymentIntent?: StripeJS.PaymentIntent;
-    error?: StripeJS.StripeError;
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
   }>;
   handleCardAction(
     clientSecret: string
   ): Observable<{
-    paymentIntent?: StripeJS.PaymentIntent;
-    error?: StripeJS.StripeError;
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
   }>;
   createPaymentMethod(
-    paymentMethodData: StripeJS.CreatePaymentMethodData
+    paymentMethodData: CreatePaymentMethodData
   ): Observable<{
-    paymentMethod?: StripeJS.PaymentMethod;
-    error?: StripeJS.StripeError;
+    paymentMethod?: PaymentMethod;
+    error?: StripeError;
   }>;
   retrievePaymentIntent(
     clientSecret: string
   ): Observable<{
-    paymentIntent?: StripeJS.PaymentIntent;
-    error?: StripeJS.StripeError;
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
   }>;
   confirmAuBecsDebitSetup(
     clientSecret: string,
-    data?: StripeJS.ConfirmAuBecsDebitSetupData
+    data?: ConfirmAuBecsDebitSetupData
   ): Observable<{
-    setupIntent?: StripeJS.SetupIntent;
-    error?: StripeJS.StripeError;
+    setupIntent?: SetupIntent;
+    error?: StripeError;
   }>;
   confirmCardSetup(
     clientSecret: string,
-    data?: StripeJS.ConfirmCardSetupData,
-    options?: StripeJS.ConfirmCardSetupOptions
+    data?: ConfirmCardSetupData,
+    options?: ConfirmCardSetupOptions
   ): Observable<{
-    setupIntent?: StripeJS.SetupIntent;
-    error?: StripeJS.StripeError;
+    setupIntent?: SetupIntent;
+    error?: StripeError;
   }>;
   confirmSepaDebitSetup(
     clientSecret: string,
-    data?: StripeJS.ConfirmSepaDebitSetupData
+    data?: ConfirmSepaDebitSetupData
   ): Observable<{
-    setupIntent?: StripeJS.SetupIntent;
-    error?: StripeJS.StripeError;
+    setupIntent?: SetupIntent;
+    error?: StripeError;
   }>;
   retrieveSetupIntent(
     clientSecret: string
   ): Observable<{
-    setupIntent?: StripeJS.SetupIntent;
-    error?: StripeJS.StripeError;
+    setupIntent?: SetupIntent;
+    error?: StripeError;
   }>;
-  paymentRequest(
-    options: StripeJS.PaymentRequestOptions
-  ): StripeJS.PaymentRequest | undefined;
+  paymentRequest(options: PaymentRequestOptions): PaymentRequest | undefined;
   createToken(
-    tokenType: StripeJS.StripeIbanElement,
-    data: StripeJS.CreateTokenIbanData
-  ): Observable<{ token?: StripeJS.Token; error?: StripeJS.StripeError }>;
+    tokenType: StripeIbanElement,
+    data: CreateTokenIbanData
+  ): Observable<{ token?: Token; error?: StripeError }>;
   createToken(
-    tokenType: StripeJS.StripeCardElement | StripeJS.StripeCardNumberElement,
-    data?: StripeJS.CreateTokenCardData
-  ): Observable<{ token?: StripeJS.Token; error?: StripeJS.StripeError }>;
+    tokenType: StripeCardElement | StripeCardNumberElement,
+    data?: CreateTokenCardData
+  ): Observable<{ token?: Token; error?: StripeError }>;
   createToken(
     tokenType: 'pii',
-    data: StripeJS.CreateTokenPiiData
-  ): Observable<{ token?: StripeJS.Token; error?: StripeJS.StripeError }>;
+    data: CreateTokenPiiData
+  ): Observable<{ token?: Token; error?: StripeError }>;
   createToken(
     tokenType: 'bank_account',
-    data: StripeJS.CreateTokenBankAccountData
-  ): Observable<{ token?: StripeJS.Token; error?: StripeJS.StripeError }>;
+    data: CreateTokenBankAccountData
+  ): Observable<{ token?: Token; error?: StripeError }>;
   createToken(
     tokenType: 'cvc_update',
-    element?: StripeJS.StripeCardCvcElement
-  ): Observable<{ token?: StripeJS.Token; error?: StripeJS.StripeError }>;
+    element?: StripeCardCvcElement
+  ): Observable<{ token?: Token; error?: StripeError }>;
   createToken(
     tokenType: 'account',
-    data: StripeJS.TokenCreateParams.Account
-  ): Observable<{ token?: StripeJS.Token; error?: StripeJS.StripeError }>;
+    data: TokenCreateParams.Account
+  ): Observable<{ token?: Token; error?: StripeError }>;
   createToken(
     tokenType: 'person',
-    data: StripeJS.TokenCreateParams.Person
-  ): Observable<{ token?: StripeJS.Token; error?: StripeJS.StripeError }>;
+    data: TokenCreateParams.Person
+  ): Observable<{ token?: Token; error?: StripeError }>;
   createSource(
-    element: StripeJS.StripeElement,
-    sourceData: StripeJS.CreateSourceData
-  ): Observable<{ source?: StripeJS.Source; error?: StripeJS.StripeError }>;
+    element: StripeElement,
+    sourceData: CreateSourceData
+  ): Observable<{ source?: Source; error?: StripeError }>;
   createSource(
-    sourceData: StripeJS.CreateSourceData
-  ): Observable<{ source?: StripeJS.Source; error?: StripeJS.StripeError }>;
+    sourceData: CreateSourceData
+  ): Observable<{ source?: Source; error?: StripeError }>;
   retrieveSource(
-    source: StripeJS.RetrieveSourceParam
-  ): Observable<{ source?: StripeJS.Source; error?: StripeJS.StripeError }>;
+    source: RetrieveSourceParam
+  ): Observable<{ source?: Source; error?: StripeError }>;
   /**
    * @deprecated
    */
@@ -175,8 +217,8 @@ export interface StripeServiceInterface {
     element?,
     data?
   ): Observable<{
-    paymentIntent?: StripeJS.PaymentIntent;
-    error?: StripeJS.StripeError;
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
   }>;
   /**
    * @deprecated
@@ -186,8 +228,8 @@ export interface StripeServiceInterface {
     element?,
     data?
   ): Observable<{
-    paymentIntent?: StripeJS.PaymentIntent;
-    error?: StripeJS.StripeError;
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
   }>;
   /**
    * @deprecated
@@ -197,8 +239,8 @@ export interface StripeServiceInterface {
     element?,
     data?
   ): Observable<{
-    setupIntent?: StripeJS.SetupIntent;
-    error?: StripeJS.StripeError;
+    setupIntent?: SetupIntent;
+    error?: StripeError;
   }>;
   /**
    * @deprecated
@@ -208,8 +250,8 @@ export interface StripeServiceInterface {
     element?,
     data?
   ): Observable<{
-    setupIntent?: StripeJS.SetupIntent;
-    error?: StripeJS.StripeError;
+    setupIntent?: SetupIntent;
+    error?: StripeError;
   }>;
   /**
    * @deprecated
@@ -219,7 +261,7 @@ export interface StripeServiceInterface {
     element?,
     data?
   ): Observable<{
-    setupIntent?: StripeJS.SetupIntent;
-    error?: StripeJS.StripeError;
+    setupIntent?: SetupIntent;
+    error?: StripeError;
   }>;
 }

@@ -25,7 +25,7 @@ import {
   PaymentRequestSourceEvent,
   PaymentRequestShippingAddressEvent,
   PaymentRequestShippingOptionEvent
-} from '../interfaces/stripejs.interface';
+} from '@stripe/stripe-js';
 
 import { StripeInstance } from '../services/stripe-instance.class';
 import { StripeElementsService } from '../services/stripe-elements.service';
@@ -118,9 +118,7 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
           ...options
         });
 
-        console.log('Payment Request', this.paymentRequest);
-
-        this.canMakePayment().subscribe(result => {
+        this.canMakePayment().subscribe((result) => {
           console.log('Result', result);
           if (result.applePay) {
             this.element.on('click', (ev) => this.change.emit(ev));

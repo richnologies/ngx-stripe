@@ -1,5 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
+import { StripeConstructorOptions } from '@stripe/stripe-js';
+
 import { StripeCardComponent } from './components/card.component';
 import { StripeCardNumberComponent } from './components/card-number.component';
 import { StripeCardExpiryComponent } from './components/card-expiry.component';
@@ -14,7 +16,6 @@ import {
   STRIPE_OPTIONS,
   STRIPE_PUBLISHABLE_KEY
 } from './interfaces/ngx-stripe.interface';
-import { StripeConstructorOptions } from './interfaces/stripejs.interface';
 
 import { LazyStripeAPILoader } from './services/api-loader.service';
 import { WindowRef } from './services/window-ref.service';
