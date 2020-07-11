@@ -1,4 +1,4 @@
-An Angular 4+ wrapper for StripeJS elements
+An Angular 6+ wrapper for StripeJS elements
 
 [![version](https://img.shields.io/npm/v/ngx-stripe.svg)](https://www.npmjs.com/package/ngx-stripe)
 [![license](https://img.shields.io/npm/l/express.svg)](https://www.npmjs.com/package/ngx-stripe)
@@ -54,15 +54,15 @@ $ npm install ngx-stripe@v7-legacy
 
 Choose the version corresponding to your Angular version:
 
-| Angular | ngx-stripe (legacy)       | ngx-stripe      |
-| ------- | ------------------------- | --------------- |
-| 10      | **Not Available**         | v10-lts / 10.x+ |
-| 9       | v9-legacy / 9.0.x+        | v9-lts / 9.1.x+ |
-| 8       | v8-legacy / 7.4.4+        | v8-lts / 8.1.x+ |
-| 7       | v7-legacy / 7.x+          | v7-lts / 7.5.x+ |
-| 6       | v6-legacy / 0.6.x         | v6-lts / 6.1.x+ |
-| 5       | v5-legacy / 0.5.x or less | v5-lts / 5.1.x+ |
-| 4       | v4-legacy / 0.4.x or less | v4-lts / 4.1.x+ |
+| Angular | ngx-stripe (legacy) | ngx-stripe      |
+| ------- | ------------------- | --------------- |
+| 10      | **Not Available**   | v10-lts / 10.x+ |
+| 9       | v9-legacy / 9.0.x+  | v9-lts / 9.1.x+ |
+| 8       | v8-legacy / 7.4.4+  | v8-lts / 8.1.x+ |
+| 7       | v7-legacy / 7.x+    | v7-lts / 7.5.x+ |
+| 6       | v6-legacy / 0.6.x   | v6-lts / 6.1.x+ |
+| 5       | 0.5.x or less       | Not Supported   |
+| 4       | 0.4.x or less       | Not Supported   |
 
 ---
 
