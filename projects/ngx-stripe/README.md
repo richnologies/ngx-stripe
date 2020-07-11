@@ -17,8 +17,9 @@ This project has not been updated for a while. After reviewing the state of the 
 3. All the missing [`Element Components`](https://stripe.com/docs/stripe-js/react#element-components) like IBAN, Ideal, FPX, ... have been added
 4. `Request Payment Button` now has full support
 5. Added [`Container Style`](https://stripe.com/docs/js/element/the_element_container) functionality support
-6. All documentation has been moved to a new [site](https://richnologies.gitbook.io/ngx-stripe/)
-7. A [`Migration`](https://github.com/richnologies/ngx-stripe/blob/main/MIGRATION.md) guide has been added with details of what have changed
+6. A [`Migration`](https://github.com/richnologies/ngx-stripe/blob/main/MIGRATION.md) guide has been added with details of what have changed
+7. The new version of library is compatible from Angular 6+ major versions. Check the `Installation` section see how to install an older version.
+8. All documentation has been moved to a new [site](https://richnologies.gitbook.io/ngx-stripe/)
 
 Finally, in order to ease the transition, we are naming the old version of the library `legacy` and we have created some `npm tags` to make it easy to install older versions.
 
@@ -54,21 +55,21 @@ $ npm install ngx-stripe@v7-legacy
 
 Choose the version corresponding to your Angular version:
 
-| Angular | ngx-stripe (legacy) | ngx-stripe      |
-| ------- | ------------------- | --------------- |
-| 10      | **Not Available**   | v10-lts / 10.x+ |
-| 9       | v9-legacy / 9.0.x+  | v9-lts / 9.1.x+ |
-| 8       | v8-legacy / 7.4.4+  | v8-lts / 8.1.x+ |
-| 7       | v7-legacy / 7.x+    | v7-lts / 7.5.x+ |
-| 6       | v6-legacy / 0.6.x   | v6-lts / 6.1.x+ |
-| 5       | 0.5.x or less       | Not Supported   |
-| 4       | 0.4.x or less       | Not Supported   |
+| Angular | ngx-stripe (legacy) | ngx-stripe        |
+| ------- | ------------------- | ----------------- |
+| 10      | **Not Available**   | v10-lts / 10.x+   |
+| 9       | v9-legacy / 9.0.x+  | v9-lts / 9.1.x+   |
+| 8       | v8-legacy / 7.4.4+  | v8-lts / 8.1.x+   |
+| 7       | v7-legacy / 7.x+    | v7-lts / 7.5.x+   |
+| 6       | v6-legacy / 0.6.x   | v6-lts / 6.1.x+   |
+| 5       | 0.5.x or less       | **Not Available** |
+| 4       | 0.4.x or less       | **Not Available** |
 
 ---
 
 ## Using the library
 
-Most of the documentation has been moved to a new [site](https://richnologies.gitbook.io/ngx-stripe/). We just leave here a very basic examples on getting started. Please check the docs for more details:
+Most of the documentation has been moved to a new [site](https://richnologies.gitbook.io/ngx-stripe/). Only a very basic example has been leave here:
 
 Import the `NgxStripeModule` into your application
 
