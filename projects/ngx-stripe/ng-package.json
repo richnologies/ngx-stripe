@@ -1,7 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/ngx-stripe",
-  "assets": ["LICENSE.md", "README.md"],
   "lib": {
     "entryFile": "src/public_api.ts"
   }

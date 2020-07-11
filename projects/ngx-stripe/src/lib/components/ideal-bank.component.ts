@@ -26,7 +26,8 @@ import { StripeElementsService } from '../services/stripe-elements.service';
   template: `<div class="field" #stripeElementRef></div>`
 })
 export class StripeIdealBankComponent implements OnChanges, OnDestroy {
-  @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
+  @ViewChild('stripeElementRef', { static: false })
+  public stripeElementRef!: ElementRef;
   element!: StripeIdealBankElement;
 
   @Input() containerClass: string;

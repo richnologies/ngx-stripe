@@ -27,7 +27,8 @@ import {} from '@stripe/stripe-js';
   template: `<div class="field" #stripeElementRef></div>`
 })
 export class StripeCardExpiryComponent implements OnChanges, OnDestroy {
-  @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
+  @ViewChild('stripeElementRef', { static: false })
+  public stripeElementRef!: ElementRef;
   element!: StripeCardExpiryElement;
 
   @Input() containerClass: string;
