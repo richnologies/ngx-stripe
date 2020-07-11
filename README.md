@@ -1,4 +1,4 @@
-# NgxStripe
+An Angular 6+ wrapper for StripeJS elements
 
 [![version](https://img.shields.io/npm/v/ngx-stripe.svg)](https://www.npmjs.com/package/ngx-stripe)
 [![license](https://img.shields.io/npm/l/express.svg)](https://www.npmjs.com/package/ngx-stripe)
@@ -8,33 +8,83 @@
   ngx-stripe
 </h1>
 
-<h4 align="center">
-  An Angular 7 wrapper for StripeJS elements
-</h4>
+Ngx Stripe is a thin wrapper around [`Stripe Elements`](https://stripe.com/docs/stripe-js). It allows adding Elements to any Angular app.
+The [`StripeJS Reference`](https://stripe.com/docs/js) covers complete Elements customization details.
+You can use Elements with any Stripe product to collect online payments. To find the right integration path for your business, explore [`Stripe Docs`](https://stripe.com/docs/stripe-js).
+
+- Learn how to use `ngx-stripe` on the **new** [docs site](https://richnologies.gitbook.io/ngx-stripe/) 🤓
+
+## Notice
+
+This project has not been updated for a while. After reviewing the state of the art for React and Vue counterparts, some major changes are going to be introduced to align this project with [`Stripe Elements`](https://stripe.com/docs/stripe-js).
+
+1. `ngx-stripe` will no longer maintain its own interfaces. Instead, `@stripe/stripe-js` has been added as peer dependency. This will make the library easier to mantain and avoid mistakes.
+2. [`Stripe Service`](https://stripe.com/docs/js) has been updated with all the missing APIs from StripeJS
+3. All the missing [`Element Components`](https://stripe.com/docs/stripe-js/react#element-components) like IBAN, Ideal, FPX, ... have been added
+4. `Request Payment Button` now has full support
+5. Added [`Container Style`](https://stripe.com/docs/js/element/the_element_container) functionality support
+6. A [`Migration`](https://github.com/richnologies/ngx-stripe/blob/main/MIGRATION.md) guide has been added with details of what have changed
+7. The new version of library is compatible from Angular 6+ major versions. Check the `Installation` section see how to install an older version.
+8. All documentation has been moved to a new [site](https://richnologies.gitbook.io/ngx-stripe/)
+
+Finally, in order to ease the transition, we are naming the old version of the library `legacy` and we have created some `npm tags` to make it easy to install older versions.
 
 ## Features
 
-* Stripe Service
-* Lazy script loading
+- Lazy script loading
+- Element Components
+- Stripe Observable wrapper
 
 ## Installation
 
-To install this library, run:
+**Active Versions**
+
+To install the last active version:
 
 ```bash
-$ npm install ngx-stripe
+$ npm install ngx-stripe @stripe/stripe-js
 ```
+
+To install an specific version for an older Angular major, use the lts npm tags or check the table below to pick the right version, for example, for v8:
+
+```bash
+$ npm install ngx-stripe@v8-lts @stripe/stripe-js
+```
+
+**Legacy Versions**
+
+To install some of the older versions of the library use the legacy npm tags or check the table below to pick the right version, for example, for v7:
+
+```bash
+$ npm install ngx-stripe@v7-legacy
+```
+
+Choose the version corresponding to your Angular version:
+
+| Angular | ngx-stripe (legacy) | ngx-stripe        |
+| ------- | ------------------- | ----------------- |
+| 10      | **Not Available**   | v10-lts / 10.x+   |
+| 9       | v9-legacy / 9.0.x+  | v9-lts / 9.1.x+   |
+| 8       | v8-legacy / 7.4.4+  | v8-lts / 8.1.x+   |
+| 7       | v7-legacy / 7.x+    | v7-lts / 7.5.x+   |
+| 6       | v6-legacy / 0.6.x   | v6-lts / 6.1.x+   |
+| 5       | 0.5.x or less       | **Not Available** |
+| 4       | 0.4.x or less       | **Not Available** |
+
+---
 
 ## Using the library
 
-Import the `NgxStripeModule` into the application
+Most of the documentation has been moved to a new [site](https://richnologies.gitbook.io/ngx-stripe/). Only a very basic example has been leave here:
 
-The module takes the same parameters as the global Stripe object. The APIKey and the optional options to use Stripe connect
+Import the `NgxStripeModule` into your application
 
-* apiKey: string
-* options: {
+The module takes the same parameters as the global Stripe object. The `APIKey` and the optional options to use Stripe connect
+
+- apiKey: string
+- options?: {
   stripeAccount?: string;
-}
+  }
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
@@ -42,304 +92,106 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-// Import your library
+// Import the library
 import { NgxStripeModule } from 'ngx-stripe';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    NgxStripeModule.forRoot('***your-stripe-publishable key***'),
-    LibraryModule
+    ReactiveFormsModule,
+    NgxStripeModule.forRoot('***your-stripe-publishable-key***'),
+    LibraryModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
-## Stripe Service
+## Card Element Component
 
-Once imported, you can inject the StripeService anywhere you need. The stripe script will be loaded the first time the service is injected.
+Once the module has been imported, you can collect credit cards
+details using the ngx-stripe-card component.
 
-The stripe service exposes the same methods as the StripeJS instance but with typescript types. The API is based on Observables so it can be combined with other actions.
+Then you can use the Stripe Service, which is basically an Obseravble wrapper arount the stripejs object, to use that information. In this example we use it to create a token, but it can be use to confirm a Payment Intent, Setup Intent, etc...
 
-In the example below, the component mounts the card in the [OnInit](https://angular.io/guide/lifecycle-hooks#oninit) lifecycle. The buy button creates a Stripe token the could be sent to the server for further actions. In this example we just log that token to the console:
+Please check the [docs](https://richnologies.gitbook.io/ngx-stripe/) to see the complete set of Stripe Element Components avaiable and the full API of the Stripe Service.
 
-Example component (more HTML and CSS examples can be found at the [Stripe Elements Examples](https://stripe.com/docs/elements/examples)):
+// stripe.html
+
 ```xml
-<form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
+<form novalidate (ngSubmit)="createToken()" [formGroup]="stripeTest">
   <input type="text" formControlName="name" placeholder="Jane Doe">
-  <div id="card-element" class="field"></div>
+  <ngx-stripe-card
+    [options]="cardOptions"
+    [elementsOptions]="elementsOptions"
+  ></ngx-stripe-card>
   <button type="submit">
-    BUY
+    CREATE TOKEN
   </button>
 </form>
 ```
+
 ```typescript
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { StripeService, Elements, Element as StripeElement, ElementsOptions } from "ngx-stripe";
-
-@Component({
-  selector: 'app-stripe-test',
-  templateUrl: 'stripe.html'
-})
-export class StripeTestComponent implements OnInit {
-  elements: Elements;
-  card: StripeElement;
-
-  // optional parameters
-  elementsOptions: ElementsOptions = {
-    locale: 'es'
-  };
-
-  stripeTest: FormGroup;
-
-  constructor(
-    private fb: FormBuilder,
-    private stripeService: StripeService) {}
-
-  ngOnInit() {
-    this.stripeTest = this.fb.group({
-      name: ['', [Validators.required]]
-    });
-    this.stripeService.elements(this.elementsOptions)
-      .subscribe(elements => {
-        this.elements = elements;
-        // Only mount the element the first time
-        if (!this.card) {
-          this.card = this.elements.create('card', {
-            style: {
-              base: {
-                iconColor: '#666EE8',
-                color: '#31325F',
-                lineHeight: '40px',
-                fontWeight: 300,
-                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                fontSize: '18px',
-                '::placeholder': {
-                  color: '#CFD7E0'
-                }
-              }
-            }
-          });
-          this.card.mount('#card-element');
-        }
-      });
-  }
-
-  buy() {
-    const name = this.stripeTest.get('name').value;
-    this.stripeService
-      .createToken(this.card, { name })
-      .subscribe(result => {
-        if (result.token) {
-          // Use the token to create a charge or a customer
-          // https://stripe.com/docs/charges
-          console.log(result.token);
-        } else if (result.error) {
-          // Error creating the token
-          console.log(result.error.message);
-        }
-      });
-  }
-}
-```
-
-## StripeCardComponent
-
-As an alternative to the previous example, you could use the StripeCardComponent.
-
-It will make a little bit easier to mount the card.
-
-To fetch the Stripe Element, you could you use either the (card) output, or, 
-by using a ViewChild, the public method getCard()
-
-//stripe.html
-```xml
-<form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
-  <input type="text" formControlName="name" placeholder="Jane Doe">
-  <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
-  <button type="submit">
-    BUY
-  </button>
-</form>
-```
-```typescript
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-
-import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } from "ngx-stripe";
+import { StripeService, StripeCardComponent } from 'ngx-stripe';
+import {
+  StripeCardElementOptions,
+  StripeElementsOptions,
+} from '@stripe/stripe-js';
 
 @Component({
-  selector: 'app-stripe-test',
-  templateUrl: 'stripe.html'
+  selector: 'app-create-token',
+  templateUrl: 'stripe.html',
 })
-export class StripeTestComponent implements OnInit {
+export class StripeCreateTokenComponent implements OnInit {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
-  cardOptions: ElementOptions = {
+  cardOptions: StripeCardElementOptions = {
     style: {
       base: {
         iconColor: '#666EE8',
         color: '#31325F',
-        lineHeight: '40px',
-        fontWeight: 300,
+        fontWeight: '300',
         fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
         fontSize: '18px',
         '::placeholder': {
-          color: '#CFD7E0'
-        }
-      }
-    }
+          color: '#CFD7E0',
+        },
+      },
+    },
   };
 
-  elementsOptions: ElementsOptions = {
-    locale: 'es'
+  elementsOptions: StripeElementsOptions = {
+    locale: 'es',
   };
 
   stripeTest: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private stripeService: StripeService) {}
+  constructor(private fb: FormBuilder, private stripeService: StripeService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.stripeTest = this.fb.group({
-      name: ['', [Validators.required]]
+      name: ['', [Validators.required]],
     });
   }
 
-  buy() {
+  createToken(): void {
     const name = this.stripeTest.get('name').value;
     this.stripeService
-      .createToken(this.card.getCard(), { name })
-      .subscribe(result => {
+      .createToken(this.card.element, { name })
+      .subscribe((result) => {
         if (result.token) {
-          // Use the token to create a charge or a customer
-          // https://stripe.com/docs/charges
+          // Use the token
           console.log(result.token.id);
         } else if (result.error) {
           // Error creating the token
           console.log(result.error.message);
         }
       });
-  }
-}
-```
-
-## StripeFactoryService
-
-If you get your stripe key in a lazy way, or if you need to work with more than one key, you can use this service.
-
-If you don't know the key just call the forRoot method with no params:
-
-```typescript
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-
-// Import your library
-import { NgxStripeModule } from 'ngx-stripe';
-
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    NgxStripeModule.forRoot(),
-    LibraryModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
-
-Then you can use the factory service to create stripe instances. The stripe instance has the
-same methods of old StripeService.
-
-```typescript
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-
-import { StripeInstance, StripeFactoryService } from "ngx-stripe";
-
-@Component({
-  selector: 'app-stripe-test',
-  templateUrl: 'stripe.html'
-})
-export class StripeTestComponent implements OnInit {
-  stripe: StripeInstance;
-
-  constructor(
-    private fb: FormBuilder,
-    private stripeFactory: StripeFactoryService
-  ) {}
-
-  ngOnInit() {
-    this.stripe = this.stripeFactory.create('***your-stripe-publishable key***');
-  }
-}
-```
-
-If you prefer to work the old StripeService, you can also update the key:
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-
-import { StripeService } from 'ngx-stripe';
-
-@Component({
-  selector: 'app-stripe-test',
-  templateUrl: 'stripe.html'
-})
-export class StripeTestComponent implements OnInit {
-
-  constructor(
-    private fb: FormBuilder,
-    private stripeSerivce: StripeService
-  ) {}
-
-  ngOnInit() {
-    this.stripeService.setKey('***your-stripe-publishable key***');
-  }
-}
-```
-
-## Stripe Instance and Stripe Reference
-
-For situations where the module has any mistakes or missing methods (I'm aware it has)
-you can now access both your elements instance and a reference to Stripe:
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-
-import { StripeService } from 'ngx-stripe';
-
-@Component({
-  selector: 'app-stripe-test',
-  templateUrl: 'stripe.html'
-})
-export class StripeTestComponent implements OnInit {
-
-  constructor(
-    private fb: FormBuilder,
-    private stripeSerivce: StripeService
-  ) {}
-
-  ngOnInit() {
-    // this is equivalent to window.Stipe, but it make sure the module is loaded
-    const Stripe$: Observable<any> = this.stripeService.getStripeReference();
-
-    // this is a reference to the stripe elements object
-    const stripe = this.stripeService.getInstance();
   }
 }
 ```
