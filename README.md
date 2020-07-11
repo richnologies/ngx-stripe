@@ -1,12 +1,18 @@
-An Angular 4+ wrapper for StripeJS elements
+An Angular 6+ wrapper for StripeJS elements
 
-[![version](https://img.shields.io/npm/v/ngx-stripe.svg)](https://www.npmjs.com/package/ngx-stripe)
+[![version](https://img.shields.io/npm/v/ngx-stripe/v8-lts.svg)](https://www.npmjs.com/package/ngx-stripe)
 [![license](https://img.shields.io/npm/l/express.svg)](https://www.npmjs.com/package/ngx-stripe)
 
 <h1 align="center">
   <img width="40" valign="bottom" src="https://angular.io/assets/images/logos/angular/angular.svg">
   ngx-stripe
 </h1>
+
+Ngx Stripe is a thin wrapper around [`Stripe Elements`](https://stripe.com/docs/stripe-js). It allows adding Elements to any Angular app.
+The [`StripeJS Reference`](https://stripe.com/docs/js) covers complete Elements customization details.
+You can use Elements with any Stripe product to collect online payments. To find the right integration path for your business, explore [`Stripe Docs`](https://stripe.com/docs/stripe-js).
+
+- Learn how to use `ngx-stripe` on the **new** [docs site](https://richnologies.gitbook.io/ngx-stripe/) 🤓
 
 ## Notice
 
@@ -17,8 +23,9 @@ This project has not been updated for a while. After reviewing the state of the 
 3. All the missing [`Element Components`](https://stripe.com/docs/stripe-js/react#element-components) like IBAN, Ideal, FPX, ... have been added
 4. `Request Payment Button` now has full support
 5. Added [`Container Style`](https://stripe.com/docs/js/element/the_element_container) functionality support
-6. All documentation has been moved to a new [site](https://richnologies.gitbook.io/ngx-stripe/)
-7. A [`Migration`](https://github.com/richnologies/ngx-stripe/blob/main/MIGRATION.md) guide has been added with details of what have changed
+6. A [`Migration`](https://github.com/richnologies/ngx-stripe/blob/main/MIGRATION.md) guide has been added with details of what have changed
+7. The new version of library is compatible from Angular 6+ major versions. Check the `Installation` section see how to install an older version.
+8. All documentation has been moved to a new [site](https://richnologies.gitbook.io/ngx-stripe/)
 
 Finally, in order to ease the transition, we are naming the old version of the library `legacy` and we have created some `npm tags` to make it easy to install older versions.
 
@@ -38,37 +45,37 @@ To install the last active version:
 $ npm install ngx-stripe @stripe/stripe-js
 ```
 
-To install an specific version for an older Angular major, use the lts npm tags or check the table below to pick the right version, for example, for v8:
+To install an specific version for an older Angular major, use the lts npm tags or check the table below to pick the right version, for example, for v9:
 
 ```bash
-$ npm install ngx-stripe@v8-lts @stripe/stripe-js
+$ npm install ngx-stripe@v9-lts @stripe/stripe-js
 ```
 
 **Legacy Versions**
 
-To install some of the older versions of the library use the legacy npm tags or check the table below to pick the right version, for example, for v7:
+To install some of the older versions of the library use the legacy npm tags or check the table below to pick the right version, for example, for v9:
 
 ```bash
-$ npm install ngx-stripe@v7-legacy
+$ npm install ngx-stripe@v9-legacy
 ```
 
 Choose the version corresponding to your Angular version:
 
-| Angular | ngx-stripe (legacy)       | ngx-stripe      |
-| ------- | ------------------------- | --------------- |
-| 10      | **Not Available**         | v10-lts / 10.x+ |
-| 9       | v9-legacy / 9.0.x+        | v9-lts / 9.1.x+ |
-| 8       | v8-legacy / 7.4.4+        | v8-lts / 8.1.x+ |
-| 7       | v7-legacy / 7.x+          | v7-lts / 7.5.x+ |
-| 6       | v6-legacy / 0.6.x         | v6-lts / 6.1.x+ |
-| 5       | v5-legacy / 0.5.x or less | v5-lts / 5.1.x+ |
-| 4       | v4-legacy / 0.4.x or less | v4-lts / 4.1.x+ |
+| Angular | ngx-stripe (legacy) | ngx-stripe        |
+| ------- | ------------------- | ----------------- |
+| 10      | **Not Available**   | v10-lts / 10.x+   |
+| 9       | v9-legacy / 9.0.x+  | v9-lts / 9.1.x+   |
+| 8       | v8-legacy / 7.4.4+  | v8-lts / 8.1.x+   |
+| 7       | v7-legacy / 7.x+    | v7-lts / 7.5.x+   |
+| 6       | v6-legacy / 0.6.x   | v6-lts / 6.1.x+   |
+| 5       | 0.5.x or less       | **Not Available** |
+| 4       | 0.4.x or less       | **Not Available** |
 
 ---
 
 ## Using the library
 
-Most of the documentation has been moved to a new [site](https://richnologies.gitbook.io/ngx-stripe/). We just leave here a very basic examples on getting started. Please check the docs for more details:
+Most of the documentation has been moved to a new [site](https://richnologies.gitbook.io/ngx-stripe/). Only a very basic example has been leave here:
 
 Import the `NgxStripeModule` into your application
 
@@ -141,7 +148,7 @@ import {
   templateUrl: 'stripe.html'
 })
 export class StripeCreateTokenComponent implements OnInit {
-  @ViewChild(StripeCardComponent) card: StripeCardComponent;
+  @ViewChild(StripeCardComponent, { static: false }) card: StripeCardComponent;
 
   cardOptions: StripeCardElementOptions = {
     style: {
