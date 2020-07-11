@@ -8,6 +8,12 @@ An Angular 6+ wrapper for StripeJS elements
   ngx-stripe
 </h1>
 
+Ngx Stripe is a thin wrapper around [`Stripe Elements`](https://stripe.com/docs/stripe-js). It allows adding Elements to any Angular app.
+The [`StripeJS Reference`](https://stripe.com/docs/js) covers complete Elements customization details.
+You can use Elements with any Stripe product to collect online payments. To find the right integration path for your business, explore [`Stripe Docs`](https://stripe.com/docs/stripe-js).
+
+- Learn how to use `ngx-stripe` on the **new** [docs site](https://richnologies.gitbook.io/ngx-stripe/) 🤓
+
 ## Notice
 
 This project has not been updated for a while. After reviewing the state of the art for React and Vue counterparts, some major changes are going to be introduced to align this project with [`Stripe Elements`](https://stripe.com/docs/stripe-js).
