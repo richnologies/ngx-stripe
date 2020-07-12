@@ -27,7 +27,9 @@ This project has not been updated for a while. After reviewing the state of the 
 7. The new version of library is compatible from Angular 6+ major versions. Check the `Installation` section see how to install an older version.
 8. All documentation has been moved to a new [site](https://richnologies.gitbook.io/ngx-stripe/)
 
-Finally, in order to ease the transition, we are naming the old version of the library `legacy` and we have created some `npm tags` to make it easy to install older versions.
+In order to ease the transition, we are naming the old version of the library `legacy` and we have created some `npm tags` to make it easy to install older versions.
+
+Finally, we are aware this library has been abandon for many months. A new **SLA** has been stablish, so we will try to answer any open issues within the week.
 
 ## Features
 
