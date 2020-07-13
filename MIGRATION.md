@@ -82,14 +82,14 @@ This is a list comparing the available methods in both `legacy` and `active`:
 
 Until this version we only have support for `CardElement`. Now we are adding all the missing element avaiable. For more information about the API please check the [docs](https://richnologies.gitbook.io/ngx-stripe/)
 
-| Element                     | Selector                  | Notes                                                                                                                                                    |
-| --------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CardElement                 | getStripeReference        | A flexible single-line input that collects all necessary card details.                                                                                   |
-| CardNumberElement           | getInstance               | Collects the card number.only                                                                                                                            |
-| CardExpiryElement           | setKey                    | Collects the card‘s expiration date. only                                                                                                                |
-| CardCvcElement              | changeKey                 | Collects the card‘s CVC number.only                                                                                                                      |
-| PaymentRequestButtonElement | elements                  | An all-in-one checkout button backed by either Apple Pay or the Payment Request API. Refer to the Payment Request Button docs for more information. only |
-| AuBankAccountElement        | redirectToCheckout        | Collects Australian bank account information (BSB and account number) for use with BECS Direct Debit payments.                                           |
-| IbanElement                 | confirmAuBecsDebitPayment | The International Bank Account Number (IBAN). Available for SEPA countries.                                                                              |
-| IdealBankElement            | confirmBancontactPayment  | The customer's bank, for use with iDEAL payments.                                                                                                        |
-| FpxBankElement              | confirmCardPayment        | The customer's bank, for use with FPX payments.                                                                                                          |
+| Element                     | Selector                          | Notes                                                                                                                                                    |
+| --------------------------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CardElement                 | ngx-stripe-card                   | A flexible single-line input that collects all necessary card details.                                                                                   |
+| CardNumberElement           | ngx-stripe-card-number            | Collects the card number.only                                                                                                                            |
+| CardExpiryElement           | ngx-stripe-card-expiry            | Collects the card‘s expiration date. only                                                                                                                |
+| CardCvcElement              | ngx-stripe-card-cvc               | Collects the card‘s CVC number.only                                                                                                                      |
+| PaymentRequestButtonElement | ngx-stripe-payment-request-button | An all-in-one checkout button backed by either Apple Pay or the Payment Request API. Refer to the Payment Request Button docs for more information. only |
+| AuBankAccountElement        | ngx-stripe-au-bank-account        | Collects Australian bank account information (BSB and account number) for use with BECS Direct Debit payments.                                           |
+| IbanElement                 | ngx-stripe-iban                   | The International Bank Account Number (IBAN). Available for SEPA countries.                                                                              |
+| IdealBankElement            | ngx-stripe-ideal-bank             | The customer's bank, for use with iDEAL payments.                                                                                                        |
+| FpxBankElement              | ngx-stripe-fpx-bank               | The customer's bank, for use with FPX payments.                                                                                                          |
