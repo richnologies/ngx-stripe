@@ -22,6 +22,7 @@ import { WindowRef } from './services/window-ref.service';
 import { DocumentRef } from './services/document-ref.service';
 import { StripeService } from './services/stripe.service';
 import { StripeFactoryService } from './services/stripe-factory.service';
+import { StripeElementsService } from './services/stripe-elements.service';
 
 const components = [
   StripeCardComponent,
@@ -50,6 +51,7 @@ export class NgxStripeModule {
         LazyStripeAPILoader,
         StripeService,
         StripeFactoryService,
+        StripeElementsService,
         WindowRef,
         DocumentRef,
         {
@@ -74,6 +76,7 @@ export class NgxStripeModule {
         LazyStripeAPILoader,
         StripeService,
         StripeFactoryService,
+        StripeElementsService,
         WindowRef,
         DocumentRef,
         {
