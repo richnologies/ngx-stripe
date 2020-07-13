@@ -18,7 +18,7 @@ import {
 
 import { StripeService } from './stripe.service';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class StripeElementsService {
   constructor(private stripeService: StripeService) {}
 

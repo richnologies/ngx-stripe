@@ -20,6 +20,7 @@ export {
   LazyStripeAPILoader,
   LazyStripeAPILoaderStatus
 } from './lib/services/api-loader.service';
+export { StripeElementsService } from './lib/services/stripe-elements.service';
 
 export { WindowRef } from './lib/services/window-ref.service';
 export { DocumentRef } from './lib/services/document-ref.service';
