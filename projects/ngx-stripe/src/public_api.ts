@@ -23,6 +23,7 @@ export {
 
 export { WindowRef } from './lib/services/window-ref.service';
 export { DocumentRef } from './lib/services/document-ref.service';
+export { StripeElementsService } from './lib/services/stripe-elements.service';
 
 export {
   STRIPE_PUBLISHABLE_KEY,
