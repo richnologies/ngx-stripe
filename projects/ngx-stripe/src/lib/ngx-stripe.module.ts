@@ -12,6 +12,8 @@ import { StripeIbanComponent } from './components/iban.component';
 import { StripeAuBankAccountComponent } from './components/au-bank-account.component';
 import { StripePaymentRequestButtonComponent } from './components/payment-request-button.component';
 
+import { StripeCardGroupDirective } from './directives/card-group.directive';
+
 import {
   STRIPE_OPTIONS,
   STRIPE_PUBLISHABLE_KEY
@@ -36,9 +38,11 @@ const components = [
   StripePaymentRequestButtonComponent
 ];
 
+const directives = [StripeCardGroupDirective];
+
 @NgModule({
-  declarations: [...components],
-  exports: [...components]
+  declarations: [...components, ...directives],
+  exports: [...components, ...directives]
 })
 export class NgxStripeModule {
   public static forRoot(
