@@ -1,5 +1,17 @@
 # Changelog
 
+## 10.1.1 - 2020-07-17
+
+- [#101](https://github.com/richnologies/ngx-stripe/issues/101) Fix ngx-stripe-card now requires elementsOptions and options to render?
+
+## 10.1.0 - 2020-07-16
+
+- [#100](https://github.com/richnologies/ngx-stripe/issues/100) Fix confirmCardSetup returns 400 error, if separated elements are used
+
+## 10.0.4 - 2020-07-14
+
+- [#99](https://github.com/richnologies/ngx-stripe/issues/99) Fix No provider for StripeElementsService
+
 ## 10.0.0 - 2020-07-11
 
 - Release new major version of the library. More info about migration [here](https://github.com/richnologies/ngx-stripe/blob/main/MIGRATION.md)

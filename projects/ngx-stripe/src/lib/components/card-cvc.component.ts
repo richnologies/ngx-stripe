@@ -8,7 +8,8 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
-  OnDestroy
+  OnDestroy,
+  Optional
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -47,17 +48,8 @@ export class StripeCardCvcComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     public stripeElementsService: StripeElementsService,
-    private cardGroup: StripeCardGroupDirective
+    @Optional() private cardGroup: StripeCardGroupDirective
   ) {}
-
-  ngOnInit() {
-    this.cardGroupSubscription = this.cardGroup.elements.subscribe(
-      (elements: StripeElements) => {
-        this.elements = elements;
-        this.setupElement('elements');
-      }
-    );
-  }
 
   async ngOnChanges(changes: SimpleChanges) {
     if (changes.options || changes.containerClass) {
@@ -65,8 +57,25 @@ export class StripeCardCvcComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  ngOnInit() {
+    if (this.cardGroup) {
+      this.cardGroupSubscription = this.cardGroup.elements.subscribe(
+        (elements: StripeElements) => {
+          this.elements = elements;
+          this.setupElement('elements');
+        }
+      );
+    } else {
+      throw new Error(
+        'StripeCardCvcComponent must have StripeCardGroupDirective parent'
+      );
+    }
+  }
+
   ngOnDestroy() {
-    this.element.destroy();
+    if (this.element) {
+      this.element.destroy();
+    }
     if (this.cardGroupSubscription) {
       this.cardGroupSubscription.unsubscribe();
     }
@@ -91,7 +100,7 @@ export class StripeCardCvcComponent implements OnInit, OnChanges, OnDestroy {
 
     if (this.element && source === 'options') {
       this.update(options);
-    } else if (this.elements) {
+    } else if (this.elements && source === 'elements') {
       this.element = this.elements.create('cardCvc', options);
       this.element.on('change', (ev) => this.change.emit(ev));
       this.element.on('blur', () => this.blur.emit());
