@@ -69,6 +69,7 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
   @Output() shippingoptionchange = new EventEmitter<
     PaymentRequestShippingOptionEvent
   >();
+  @Output() notavailable = new EventEmitter<void>();
 
   elements: StripeElements;
 
@@ -126,7 +127,7 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
         });
 
         this.canMakePayment().subscribe((result) => {
-          if (result.applePay) {
+          if (result) {
             this.element.on('click', (ev) => this.change.emit(ev));
             this.element.on('blur', () => this.blur.emit());
             this.element.on('focus', () => this.focus.emit());
@@ -138,6 +139,8 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
               paymentRequestButton: this.element,
               paymentRequest: this.paymentRequest
             });
+          } else {
+            this.notavailable.emit();
           }
         });
       }
