@@ -13,6 +13,8 @@ export { StripeIdealBankComponent } from './lib/components/ideal-bank.component'
 export { StripeAuBankAccountComponent } from './lib/components/au-bank-account.component';
 export { StripePaymentRequestButtonComponent } from './lib/components/payment-request-button.component';
 
+export { StripeCardGroupDirective } from './lib/directives/card-group.directive';
+
 export { StripeService } from './lib/services/stripe.service';
 export { StripeFactoryService } from './lib/services/stripe-factory.service';
 export { StripeInstance } from './lib/services/stripe-instance.class';
