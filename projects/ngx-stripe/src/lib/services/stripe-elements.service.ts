@@ -22,7 +22,10 @@ import { StripeService } from './stripe.service';
 export class StripeElementsService {
   constructor(private stripeService: StripeService) {}
 
-  elements(stripe, options: StripeElementsOptions): Observable<StripeElements> {
+  elements(
+    stripe,
+    options: StripeElementsOptions = {}
+  ): Observable<StripeElements> {
     if (stripe) {
       if (Object.keys(options).length > 0) {
         return stripe.elements(options);
@@ -79,7 +82,7 @@ export class StripeElementsService {
   ): StripePaymentRequestButtonElementOptions;
   mergeOptions(options, containerClass: string) {
     if (!containerClass || (options && options.classes)) {
-      return options;
+      return options || {};
     }
 
     if (!options || !options.classes) {
@@ -96,6 +99,6 @@ export class StripeElementsService {
       };
     }
 
-    return options;
+    return options || {};
   }
 }
