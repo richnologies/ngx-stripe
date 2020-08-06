@@ -5,34 +5,34 @@ import {
   ElementRef,
   EventEmitter,
   Output,
+  OnInit,
   OnChanges,
   SimpleChanges,
-  OnDestroy
+  OnDestroy,
+  Optional
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import {
-  StripeElementsOptions,
   StripeElements,
   StripeCardNumberElement,
   StripeCardNumberElementOptions,
   StripeCardNumberElementChangeEvent
 } from '@stripe/stripe-js';
 
-import { StripeInstance } from '../services/stripe-instance.class';
+import { StripeCardGroupDirective } from '../directives/card-group.directive';
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
   selector: 'ngx-stripe-card-number',
   template: `<div class="field" #stripeElementRef></div>`
 })
-export class StripeCardNumberComponent implements OnChanges, OnDestroy {
+export class StripeCardNumberComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeCardNumberElement;
 
   @Input() containerClass: string;
   @Input() options: Partial<StripeCardNumberElementOptions>;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeInstance;
 
   @Output() load = new EventEmitter<StripeCardNumberElement>();
 
@@ -43,44 +43,41 @@ export class StripeCardNumberComponent implements OnChanges, OnDestroy {
   @Output() escape = new EventEmitter<void>();
 
   elements: StripeElements;
+  cardGroupSubscription: Subscription;
 
-  constructor(public stripeElementsService: StripeElementsService) {}
+  constructor(
+    public stripeElementsService: StripeElementsService,
+    @Optional() private cardGroup: StripeCardGroupDirective
+  ) {}
 
   async ngOnChanges(changes: SimpleChanges) {
-    const options = this.stripeElementsService.mergeOptions(
-      this.options,
-      this.containerClass
-    );
-    const elementsOptions = this.elementsOptions;
-    const stripe = this.stripe;
-
-    if (changes.elementsOptions || changes.stripe) {
-      const elements = await this.stripeElementsService
-        .elements(stripe, elementsOptions)
-        .toPromise();
-      this.elements = elements;
-    }
-
     if (changes.options || changes.containerClass) {
-      if (this.element) {
-        this.update(options);
-      } else {
-        this.element = this.elements.create('cardNumber', options);
-        this.element.on('change', (ev) => this.change.emit(ev));
-        this.element.on('blur', () => this.blur.emit());
-        this.element.on('focus', () => this.focus.emit());
-        this.element.on('ready', () => this.ready.emit());
-        this.element.on('escape', () => this.escape.emit());
+      this.setupElement('options');
+    }
+  }
 
-        this.element.mount(this.stripeElementRef.nativeElement);
-
-        this.load.emit(this.element);
-      }
+  ngOnInit() {
+    if (this.cardGroup) {
+      this.cardGroupSubscription = this.cardGroup.elements.subscribe(
+        (elements: StripeElements) => {
+          this.elements = elements;
+          this.setupElement('elements');
+        }
+      );
+    } else {
+      throw new Error(
+        'StripeCardNumberComponent must have StripeCardGroupDirective parent'
+      );
     }
   }
 
   ngOnDestroy() {
-    this.element.destroy();
+    if (this.element) {
+      this.element.destroy();
+    }
+    if (this.cardGroupSubscription) {
+      this.cardGroupSubscription.unsubscribe();
+    }
   }
 
   update(options: Partial<StripeCardNumberElementOptions>) {
@@ -92,5 +89,27 @@ export class StripeCardNumberComponent implements OnChanges, OnDestroy {
    */
   getCardNumber() {
     return this.element;
+  }
+
+  private setupElement(source: 'elements' | 'options') {
+    const options = this.stripeElementsService.mergeOptions(
+      this.options,
+      this.containerClass
+    );
+
+    if (this.element && source === 'options') {
+      this.update(options);
+    } else if (this.elements && source === 'elements') {
+      this.element = this.elements.create('cardNumber', options);
+      this.element.on('change', (ev) => this.change.emit(ev));
+      this.element.on('blur', () => this.blur.emit());
+      this.element.on('focus', () => this.focus.emit());
+      this.element.on('ready', () => this.ready.emit());
+      this.element.on('escape', () => this.escape.emit());
+
+      this.element.mount(this.stripeElementRef.nativeElement);
+
+      this.load.emit(this.element);
+    }
   }
 }

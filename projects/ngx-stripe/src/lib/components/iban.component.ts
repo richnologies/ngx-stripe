@@ -5,6 +5,7 @@ import {
   ElementRef,
   EventEmitter,
   Output,
+  OnInit,
   OnChanges,
   SimpleChanges,
   OnDestroy
@@ -25,7 +26,7 @@ import { StripeElementsService } from '../services/stripe-elements.service';
   selector: 'ngx-stripe-iban',
   template: `<div class="field" #stripeElementRef></div>`
 })
-export class StripeIbanComponent implements OnChanges, OnDestroy {
+export class StripeIbanComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeIbanElement;
 
@@ -43,44 +44,59 @@ export class StripeIbanComponent implements OnChanges, OnDestroy {
   @Output() escape = new EventEmitter<void>();
 
   elements: StripeElements;
+  state: 'notready' | 'starting' | 'ready' = 'notready';
 
   constructor(public stripeElementsService: StripeElementsService) {}
 
   async ngOnChanges(changes: SimpleChanges) {
+    this.state = 'starting';
+
     const options = this.stripeElementsService.mergeOptions(
       this.options,
       this.containerClass
     );
-    const elementsOptions = this.elementsOptions;
-    const stripe = this.stripe;
+    let updateElements = false;
 
-    if (changes.elementsOptions || changes.stripe) {
-      const elements = await this.stripeElementsService
-        .elements(stripe, elementsOptions)
+    if (changes.elementsOptions || changes.stripe || !this.elements) {
+      this.elements = await this.stripeElementsService
+        .elements(this.stripe, this.elementsOptions)
         .toPromise();
-      this.elements = elements;
+      updateElements = true;
     }
 
-    if (changes.options || changes.containerClass) {
-      if (this.element) {
+    if (
+      changes.options ||
+      changes.containerClass ||
+      !this.element ||
+      updateElements
+    ) {
+      if (this.element && !updateElements) {
         this.update(options);
-      } else {
-        this.element = this.elements.create('iban', options);
-        this.element.on('change', (ev) => this.change.emit(ev));
-        this.element.on('blur', () => this.blur.emit());
-        this.element.on('focus', () => this.focus.emit());
-        this.element.on('ready', () => this.ready.emit());
-        this.element.on('escape', () => this.escape.emit());
-
-        this.element.mount(this.stripeElementRef.nativeElement);
-
-        this.load.emit(this.element);
+      } else if (this.elements && updateElements) {
+        this.createElement(options);
       }
+    }
+
+    this.state = 'ready';
+  }
+
+  async ngOnInit() {
+    if (this.state === 'notready') {
+      this.state = 'starting';
+
+      this.elements = await this.stripeElementsService
+        .elements(this.stripe)
+        .toPromise();
+      this.createElement();
+
+      this.state = 'ready';
     }
   }
 
   ngOnDestroy() {
-    this.element.destroy();
+    if (this.element) {
+      this.element.destroy();
+    }
   }
 
   update(options: Partial<StripeIbanElementOptions>) {
@@ -92,5 +108,18 @@ export class StripeIbanComponent implements OnChanges, OnDestroy {
    */
   getIban() {
     return this.element;
+  }
+
+  private createElement(options: Partial<StripeIbanElementOptions> = {}) {
+    this.element = this.elements.create('iban', options);
+    this.element.on('change', (ev) => this.change.emit(ev));
+    this.element.on('blur', () => this.blur.emit());
+    this.element.on('focus', () => this.focus.emit());
+    this.element.on('ready', () => this.ready.emit());
+    this.element.on('escape', () => this.escape.emit());
+
+    this.element.mount(this.stripeElementRef.nativeElement);
+
+    this.load.emit(this.element);
   }
 }

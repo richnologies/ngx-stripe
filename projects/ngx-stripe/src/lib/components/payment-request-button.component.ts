@@ -69,6 +69,7 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
   @Output() shippingoptionchange = new EventEmitter<
     PaymentRequestShippingOptionEvent
   >();
+  @Output() notavailable = new EventEmitter<void>();
 
   elements: StripeElements;
 
@@ -81,22 +82,29 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
     );
     const elementsOptions = this.elementsOptions;
     const stripe = this.stripe;
+    let updateElements = false;
 
-    if (changes.elementsOptions || changes.stripe) {
+    if (changes.elementsOptions || changes.stripe || !this.elements) {
       const elements = await this.stripeElementsService
         .elements(stripe, elementsOptions)
         .toPromise();
       this.elements = elements;
+      updateElements = true;
     }
 
     if (changes.paymentOptions && this.paymentRequest) {
       this.updateRequest(this.paymentOptions);
     }
 
-    if (changes.options || changes.containerClass) {
-      if (this.element) {
+    if (
+      changes.options ||
+      changes.containerClass ||
+      !this.element ||
+      updateElements
+    ) {
+      if (this.element && !updateElements) {
         this.update(options);
-      } else {
+      } else if (this.elements && updateElements) {
         this.paymentRequest = this.stripeElementsService.paymentRequest(
           stripe,
           this.paymentOptions
@@ -119,8 +127,7 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
         });
 
         this.canMakePayment().subscribe((result) => {
-          console.log('Result', result);
-          if (result.applePay) {
+          if (result) {
             this.element.on('click', (ev) => this.change.emit(ev));
             this.element.on('blur', () => this.blur.emit());
             this.element.on('focus', () => this.focus.emit());
@@ -132,6 +139,8 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
               paymentRequestButton: this.element,
               paymentRequest: this.paymentRequest
             });
+          } else {
+            this.notavailable.emit();
           }
         });
       }
