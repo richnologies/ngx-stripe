@@ -5,35 +5,33 @@ import {
   ElementRef,
   EventEmitter,
   Output,
+  OnInit,
   OnChanges,
   SimpleChanges,
   OnDestroy
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import {
-  StripeElementsOptions,
   StripeElements,
   StripeCardCvcElement,
   StripeCardCvcElementChangeEvent,
   StripeCardCvcElementOptions
 } from '@stripe/stripe-js';
 
-import { StripeInstance } from '../services/stripe-instance.class';
+import { StripeCardGroupDirective } from '../directives/card-group.directive';
 import { StripeElementsService } from '../services/stripe-elements.service';
-import {} from '@stripe/stripe-js';
 
 @Component({
   selector: 'ngx-stripe-card-cvc',
   template: `<div class="field" #stripeElementRef></div>`
 })
-export class StripeCardCvcComponent implements OnChanges, OnDestroy {
+export class StripeCardCvcComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeCardCvcElement;
 
   @Input() containerClass: string;
   @Input() options: Partial<StripeCardCvcElementOptions>;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeInstance;
 
   @Output() load = new EventEmitter<StripeCardCvcElement>();
 
@@ -44,44 +42,33 @@ export class StripeCardCvcComponent implements OnChanges, OnDestroy {
   @Output() escape = new EventEmitter<void>();
 
   elements: StripeElements;
+  cardGroupSubscription: Subscription;
 
-  constructor(public stripeElementsService: StripeElementsService) {}
+  constructor(
+    public stripeElementsService: StripeElementsService,
+    private cardGroup: StripeCardGroupDirective
+  ) {}
+
+  ngOnInit() {
+    this.cardGroupSubscription = this.cardGroup.elements.subscribe(
+      (elements: StripeElements) => {
+        this.elements = elements;
+        this.setupElement('elements');
+      }
+    );
+  }
 
   async ngOnChanges(changes: SimpleChanges) {
-    const options = this.stripeElementsService.mergeOptions(
-      this.options,
-      this.containerClass
-    );
-    const elementsOptions = this.elementsOptions;
-    const stripe = this.stripe;
-
-    if (changes.elementsOptions || changes.stripe) {
-      const elements = await this.stripeElementsService
-        .elements(stripe, elementsOptions)
-        .toPromise();
-      this.elements = elements;
-    }
-
     if (changes.options || changes.containerClass) {
-      if (this.element) {
-        this.update(options);
-      } else {
-        this.element = this.elements.create('cardCvc', options);
-        this.element.on('change', (ev) => this.change.emit(ev));
-        this.element.on('blur', () => this.blur.emit());
-        this.element.on('focus', () => this.focus.emit());
-        this.element.on('ready', () => this.ready.emit());
-        this.element.on('escape', () => this.escape.emit());
-
-        this.element.mount(this.stripeElementRef.nativeElement);
-
-        this.load.emit(this.element);
-      }
+      this.setupElement('options');
     }
   }
 
   ngOnDestroy() {
     this.element.destroy();
+    if (this.cardGroupSubscription) {
+      this.cardGroupSubscription.unsubscribe();
+    }
   }
 
   update(options: Partial<StripeCardCvcElementOptions>) {
@@ -93,5 +80,27 @@ export class StripeCardCvcComponent implements OnChanges, OnDestroy {
    */
   getCardCvc() {
     return this.element;
+  }
+
+  private setupElement(source: 'elements' | 'options') {
+    const options = this.stripeElementsService.mergeOptions(
+      this.options,
+      this.containerClass
+    );
+
+    if (this.element && source === 'options') {
+      this.update(options);
+    } else if (this.elements) {
+      this.element = this.elements.create('cardCvc', options);
+      this.element.on('change', (ev) => this.change.emit(ev));
+      this.element.on('blur', () => this.blur.emit());
+      this.element.on('focus', () => this.focus.emit());
+      this.element.on('ready', () => this.ready.emit());
+      this.element.on('escape', () => this.escape.emit());
+
+      this.element.mount(this.stripeElementRef.nativeElement);
+
+      this.load.emit(this.element);
+    }
   }
 }
