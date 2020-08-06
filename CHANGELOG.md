@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.1.2 - 2020-08-06
+
+- [#103](https://github.com/richnologies/ngx-stripe/issues/103) Fix a little bug related to Payment Request Button
+- Adds a new Output `notavailable` to Payment Request Button
+
 ## 10.1.1 - 2020-07-17
 
 - [#101](https://github.com/richnologies/ngx-stripe/issues/101) Fix ngx-stripe-card now requires elementsOptions and options to render?
