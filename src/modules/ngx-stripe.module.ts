@@ -1,17 +1,31 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 
+import { StripeConstructorOptions } from '@stripe/stripe-js';
+
+import { StripeCardComponent } from '../components/card.component';
+import { StripeCardNumberComponent } from '../components/card-number.component';
+import { StripeCardExpiryComponent } from '../components/card-expiry.component';
+import { StripeCardCvcComponent } from '../components/card-cvc.component';
+import { StripeFpxBankComponent } from '../components/fpx-bank.component';
+import { StripeIdealBankComponent } from '../components/ideal-bank.component';
+import { StripeIbanComponent } from '../components/iban.component';
+import { StripeAuBankAccountComponent } from '../components/au-bank-account.component';
+import { StripePaymentRequestButtonComponent } from '../components/payment-request-button.component';
+
+import { StripeCardGroupDirective } from '../directives/card-group.directive';
+
+import {
+  STRIPE_PUBLISHABLE_KEY,
+  STRIPE_OPTIONS
+} from '../interfaces/ngx-stripe.interface';
+
 import { LazyStripeAPILoader } from '../services/api-loader.service';
+import { StripeFactoryService } from '../services/stripe-factory.service';
+import { StripeElementsService } from '../services/stripe-elements.service';
 import { StripeService } from '../services/stripe.service';
 
 import { WindowRef } from '../services/window-ref';
 import { DocumentRef } from '../services/document-ref';
-
-import {
-  Options,
-  STRIPE_PUBLISHABLE_KEY,
-  STRIPE_OPTIONS
-} from '../interfaces/stripe';
-import { StripeCardComponent } from '../components/stripe-card.component';
 
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/observable/fromPromise';
@@ -19,23 +33,40 @@ import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/publishLast';
-import 'rxjs/add/operator/refCount';
+import 'rxjs/add/operator/toPromise';
+
+const components = [
+  StripeCardComponent,
+  StripeCardNumberComponent,
+  StripeCardExpiryComponent,
+  StripeCardCvcComponent,
+  StripeFpxBankComponent,
+  StripeIdealBankComponent,
+  StripeIbanComponent,
+  StripeAuBankAccountComponent,
+  StripePaymentRequestButtonComponent
+];
+
+const directives = [StripeCardGroupDirective];
 
 @NgModule({
-  declarations: [StripeCardComponent],
-  exports: [StripeCardComponent]
+  declarations: [...components, ...directives],
+  exports: [...components, ...directives]
 })
 export class NgxStripeModule {
   public static forRoot(
-    publishableKey: string,
-    options?: Options
+    publishableKey?: string,
+    options?: StripeConstructorOptions
   ): ModuleWithProviders {
     return {
       ngModule: NgxStripeModule,
       providers: [
         LazyStripeAPILoader,
         StripeService,
+        StripeFactoryService,
+        StripeElementsService,
         WindowRef,
         DocumentRef,
         {

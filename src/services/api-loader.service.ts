@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -20,7 +20,11 @@ export class LazyStripeAPILoader {
     loading: false
   });
 
-  constructor(private window: WindowRef, private document: DocumentRef) {}
+  constructor(
+    @Inject(PLATFORM_ID) public platformId: any,
+    private window: WindowRef,
+    private document: DocumentRef
+  ) {}
 
   public asStream(): Observable<Status> {
     this.load();
@@ -32,6 +36,10 @@ export class LazyStripeAPILoader {
   }
 
   public load() {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
+
     if (this.window.getNativeWindow().hasOwnProperty('Stripe')) {
       this.status.next({
         error: false,

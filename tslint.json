@@ -9,13 +9,14 @@
             "check-interpolation",
             "check-pipe"
         ],
-        "arrow-parens": [true, "ban-single-arg-parens"],
+        "arrow-parens": false,
         "banana-in-box": true,
         "templates-no-negated-async": true,
         "directive-selector": [
             true,
             "attribute",
             [
+                "ngx",
                 "dir-prefix1",
                 "dir-prefix2"
             ],
@@ -25,7 +26,7 @@
             true,
             "element",
             [
-                "ngx-stripe"
+                "ngx"
             ],
             "kebab-case"
         ],
@@ -36,6 +37,7 @@
         "no-input-rename": true,
         "no-output-rename": true,
         "no-forward-ref": true,
+        "variable-name": false,
         "use-view-encapsulation": false,
         "use-life-cycle-interface": true,
         "use-pipe-transform-interface": true,
@@ -54,6 +56,8 @@
         ],
         "interface-name": [true, "never-prefix"],
         "templates-use-public": true,
+        "member-ordering": [false],
+        "member-access": false,
         "no-access-missing-member": true,
         "invoke-injectable": true,
         "template-to-ng-template": true,

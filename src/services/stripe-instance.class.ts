@@ -1,5 +1,5 @@
-import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import {
   ConfirmAuBecsDebitPaymentData,
@@ -50,63 +50,54 @@ import {
   TokenCreateParams
 } from '@stripe/stripe-js';
 
-import {
-  STRIPE_PUBLISHABLE_KEY,
-  STRIPE_OPTIONS
-} from '../interfaces/ngx-stripe.interface';
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
 
 import { WindowRef } from './window-ref';
-import {
-  LazyStripeAPILoader,
-  Status
-} from './api-loader.service';
+import { LazyStripeAPILoader, Status } from './api-loader.service';
 
-import { StripeInstance } from './stripe-instance.class';
-
-@Injectable()
-export class StripeService implements StripeServiceInterface {
-  stripe: StripeInstance;
+export class StripeInstance implements StripeServiceInterface {
+  private stripe$ = new BehaviorSubject<Stripe | undefined>(undefined);
+  public stripe = this.stripe$
+    .asObservable()
+    .filter(s => Boolean(s));
 
   constructor(
-    @Inject(STRIPE_PUBLISHABLE_KEY) public key: string,
-    @Inject(STRIPE_OPTIONS) public options: StripeConstructorOptions,
-    public loader: LazyStripeAPILoader,
-    public window: WindowRef
+    private loader: LazyStripeAPILoader,
+    private window: WindowRef,
+    private key: string,
+    private options?: StripeConstructorOptions
   ) {
-    if (key) {
-      this.stripe = new StripeInstance(this.loader, this.window, key, options);
-    }
-  }
-
-  getStripeReference(): Observable<any> {
-    return this.loader.asStream()
+    this.loader
+      .asStream()
       .filter((status: Status) => status.loaded === true)
-      .map(() => (this.window.getNativeWindow() as any).Stripe);
+      .first()
+      .map(() => (this.window.getNativeWindow() as any).Stripe)
+      .subscribe((stripeInstance: any) => {
+        const stripe = this.options
+          ? (stripeInstance(this.key, this.options) as Stripe)
+          : (stripeInstance(this.key) as Stripe);
+
+        this.stripe$.next(stripe);
+      });
   }
 
   getInstance(): Stripe | undefined {
-    return this.stripe.getInstance();
-  }
-
-  setKey(key: string, options?: StripeConstructorOptions) {
-    return this.changeKey(key, options);
-  }
-
-  changeKey(key: string, options?: StripeConstructorOptions) {
-    this.stripe = new StripeInstance(this.loader, this.window, key, options);
-
-    return this.stripe;
+    return this.stripe$.getValue();
   }
 
   elements(options?: StripeElementsOptions): Observable<StripeElements> {
-    return this.stripe.elements(options);
+    return this.stripe$.asObservable()
+      .filter((stripe) => Boolean(stripe))
+      .map((stripe) => stripe.elements(options))
+      .first();
   }
 
   redirectToCheckout(
     options?: RedirectToCheckoutOptions
   ): Observable<never | { error: StripeError }> {
-    return this.stripe.redirectToCheckout(options);
+    return this.stripe
+      .switchMap((stripe) => Observable.fromPromise(stripe.redirectToCheckout(options)))
+      .first();
   }
 
   confirmAuBecsDebitPayment(
@@ -116,7 +107,11 @@ export class StripeService implements StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmAuBecsDebitPayment(clientSecret, data);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise(stripe.confirmAuBecsDebitPayment(clientSecret, data))
+      )
+      .first();
   }
 
   confirmBancontactPayment(
@@ -127,7 +122,11 @@ export class StripeService implements StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmBancontactPayment(clientSecret, data, options);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise(stripe.confirmBancontactPayment(clientSecret, data, options))
+      )
+      .first();
   }
 
   confirmCardPayment(
@@ -138,7 +137,11 @@ export class StripeService implements StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmCardPayment(clientSecret, data, options);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise(stripe.confirmCardPayment(clientSecret, data, options))
+      )
+      .first();
   }
 
   confirmEpsPayment(
@@ -149,7 +152,11 @@ export class StripeService implements StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmEpsPayment(clientSecret, data, options);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise(stripe.confirmEpsPayment(clientSecret, data, options))
+      )
+      .first();
   }
 
   confirmFpxPayment(
@@ -160,7 +167,11 @@ export class StripeService implements StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmFpxPayment(clientSecret, data, options);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise(stripe.confirmFpxPayment(clientSecret, data, options))
+      )
+      .first();
   }
 
   confirmGiropayPayment(
@@ -171,7 +182,11 @@ export class StripeService implements StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmGiropayPayment(clientSecret, data, options);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise(stripe.confirmGiropayPayment(clientSecret, data, options))
+      )
+      .first();
   }
 
   confirmIdealPayment(
@@ -182,7 +197,11 @@ export class StripeService implements StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmIdealPayment(clientSecret, data, options);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise(stripe.confirmIdealPayment(clientSecret, data, options))
+      )
+      .first();
   }
 
   confirmP24Payment(
@@ -193,7 +212,11 @@ export class StripeService implements StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmP24Payment(clientSecret, data, options);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise(stripe.confirmP24Payment(clientSecret, data, options))
+      )
+      .first();
   }
 
   confirmSepaDebitPayment(
@@ -203,7 +226,11 @@ export class StripeService implements StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmSepaDebitPayment(clientSecret, data);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise(stripe.confirmSepaDebitPayment(clientSecret, data))
+      )
+      .first();
   }
 
   handleCardAction(
@@ -212,7 +239,9 @@ export class StripeService implements StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.handleCardAction(clientSecret);
+    return this.stripe
+      .switchMap((stripe) => Observable.fromPromise(stripe.handleCardAction(clientSecret)))
+      .first();
   }
 
   createPaymentMethod(
@@ -221,7 +250,11 @@ export class StripeService implements StripeServiceInterface {
     paymentMethod?: PaymentMethod;
     error?: StripeError;
   }> {
-    return this.stripe.createPaymentMethod(paymentMethodData);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise(stripe.createPaymentMethod(paymentMethodData))
+      )
+      .first();
   }
 
   retrievePaymentIntent(
@@ -230,7 +263,9 @@ export class StripeService implements StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.retrievePaymentIntent(clientSecret);
+    return this.stripe
+      .switchMap((stripe) => Observable.fromPromise(stripe.retrievePaymentIntent(clientSecret)))
+      .first();
   }
 
   confirmAuBecsDebitSetup(
@@ -240,7 +275,11 @@ export class StripeService implements StripeServiceInterface {
     setupIntent?: SetupIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmAuBecsDebitSetup(clientSecret, data);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise(stripe.confirmAuBecsDebitSetup(clientSecret, data))
+      )
+      .first();
   }
 
   confirmCardSetup(
@@ -251,7 +290,11 @@ export class StripeService implements StripeServiceInterface {
     setupIntent?: SetupIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmCardSetup(clientSecret, data, options);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise(stripe.confirmCardSetup(clientSecret, data, options))
+      )
+      .first();
   }
 
   confirmSepaDebitSetup(
@@ -261,7 +304,11 @@ export class StripeService implements StripeServiceInterface {
     setupIntent?: SetupIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmSepaDebitSetup(clientSecret, data);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise(stripe.confirmSepaDebitSetup(clientSecret, data))
+      )
+      .first();
   }
 
   retrieveSetupIntent(
@@ -270,11 +317,15 @@ export class StripeService implements StripeServiceInterface {
     setupIntent?: SetupIntent;
     error?: StripeError;
   }> {
-    return this.stripe.retrieveSetupIntent(clientSecret);
+    return this.stripe
+      .switchMap((stripe) => Observable.fromPromise(stripe.confirmSepaDebitSetup(clientSecret)))
+      .first();
   }
 
   paymentRequest(options: PaymentRequestOptions): PaymentRequest | undefined {
-    return this.stripe.paymentRequest(options);
+    const stripe = this.getInstance();
+
+    return stripe ? stripe.paymentRequest(options) : undefined;
   }
 
   createToken(
@@ -306,7 +357,9 @@ export class StripeService implements StripeServiceInterface {
     data: TokenCreateParams.Person
   ): Observable<{ token?: Token; error?: StripeError }>;
   createToken(tokenType, data) {
-    return this.stripe.createToken(tokenType, data);
+    return this.stripe
+      .switchMap((stripe) => Observable.fromPromise(stripe.createToken(tokenType, data)))
+      .first();
   }
 
   createSource(
@@ -317,13 +370,17 @@ export class StripeService implements StripeServiceInterface {
     sourceData: CreateSourceData
   ): Observable<{ source?: Source; error?: StripeError }>;
   createSource(a, b?): Observable<{ source?: Source; error?: StripeError }> {
-    return this.stripe.createSource(a, b);
+    return this.stripe
+      .switchMap((stripe) => Observable.fromPromise(stripe.createSource(a, b)))
+      .first();
   }
 
   retrieveSource(
     source: RetrieveSourceParam
   ): Observable<{ source?: Source; error?: StripeError }> {
-    return this.stripe.retrieveSource(source);
+    return this.stripe
+      .switchMap((stripe) => Observable.fromPromise(stripe.retrieveSource(source)))
+      .first();
   }
 
   /**
@@ -337,7 +394,11 @@ export class StripeService implements StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.handleCardPayment(clientSecret, element, data);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise((stripe as any).handleCardPayment(clientSecret, element, data))
+      )
+      .first();
   }
 
   /**
@@ -351,7 +412,11 @@ export class StripeService implements StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmPaymentIntent(clientSecret, element, data);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise((stripe as any).confirmPaymentIntent(clientSecret, element, data))
+      )
+      .first();
   }
 
   /**
@@ -365,7 +430,11 @@ export class StripeService implements StripeServiceInterface {
     setupIntent?: SetupIntent;
     error?: StripeError;
   }> {
-    return this.stripe.handleCardSetup(clientSecret, element, data);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise((stripe as any).handleCardSetup(clientSecret, element, data))
+      )
+      .first();
   }
 
   /**
@@ -379,7 +448,11 @@ export class StripeService implements StripeServiceInterface {
     setupIntent?: SetupIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmSetupIntent(clientSecret, element, data);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise((stripe as any).confirmSetupIntent(clientSecret, element, data))
+      )
+      .first();
   }
 
   /**
@@ -393,6 +466,10 @@ export class StripeService implements StripeServiceInterface {
     setupIntent?: SetupIntent;
     error?: StripeError;
   }> {
-    return this.stripe.handleFpxPayment(clientSecret, element, data);
+    return this.stripe
+      .switchMap((stripe) =>
+        Observable.fromPromise((stripe as any).handleFpxPayment(clientSecret, element, data))
+      )
+      .first();
   }
 }
