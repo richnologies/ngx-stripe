@@ -16,7 +16,7 @@ You can use Elements with any Stripe product to collect online payments. To find
 
 ## Notice
 
-This project has not been updated for a while. After reviewing the state of the art for React and Vue counterparts, some major changes are going to be introduced to align this project with [`Stripe Elements`](https://stripe.com/docs/stripe-js).
+After reviewing the state of the art for React and Vue counterparts, some major changes are going to be introduced to align this project with [`Stripe Elements`](https://stripe.com/docs/stripe-js).
 
 1. `ngx-stripe` will no longer maintain its own interfaces. Instead, `@stripe/stripe-js` has been added as peer dependency. This will make the library easier to maintain and avoid mistakes.
 2. [`Stripe Service`](https://stripe.com/docs/js) has been updated with all the missing APIs from StripeJS
@@ -28,8 +28,6 @@ This project has not been updated for a while. After reviewing the state of the 
 8. All documentation has been moved to a new [docs site](https://richnologies.gitbook.io/ngx-stripe/)
 
 In order to ease the transition, we are naming the old version of the library `legacy` and we have created some `npm tags` to make it easy to install older versions.
-
-Finally, we are aware this library has been abandon for many months. A new **SLA** has been stablish, so we will try to answer any open issues within the week.
 
 ## Features
 
