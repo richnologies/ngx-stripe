@@ -340,7 +340,7 @@ export class StripeInstance implements StripeServiceInterface {
     error?: StripeError;
   }> {
     return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.retrieveSetupIntent(clientSecret))),
+      switchMap((stripe) => from(stripe.confirmSepaDebitSetup(clientSecret))),
       first()
     );
   }
