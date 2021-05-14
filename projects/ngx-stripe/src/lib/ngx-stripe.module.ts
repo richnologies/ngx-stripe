@@ -15,6 +15,7 @@ import { StripePaymentRequestButtonComponent } from './components/payment-reques
 import { StripeCardGroupDirective } from './directives/card-group.directive';
 
 import {
+  NGX_STRIPE_VERSION,
   STRIPE_OPTIONS,
   STRIPE_PUBLISHABLE_KEY
 } from './interfaces/ngx-stripe.interface';
@@ -39,6 +40,8 @@ const components = [
 ];
 
 const directives = [StripeCardGroupDirective];
+
+const currentVersion = '12.0.0';
 
 @NgModule({
   declarations: [...components, ...directives],
@@ -65,6 +68,10 @@ export class NgxStripeModule {
         {
           provide: STRIPE_OPTIONS,
           useValue: options
+        },
+        {
+          provide: NGX_STRIPE_VERSION,
+          useValue: currentVersion
         }
       ]
     };
@@ -90,6 +97,10 @@ export class NgxStripeModule {
         {
           provide: STRIPE_OPTIONS,
           useValue: options
+        },
+        {
+          provide: NGX_STRIPE_VERSION,
+          useValue: currentVersion
         }
       ]
     };

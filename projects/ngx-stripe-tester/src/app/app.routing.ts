@@ -3,23 +3,23 @@ import { Routes } from '@angular/router';
 export const ROUTES: Routes = [
   {
     path: 'test-01',
-    loadChildren: './stripe-test-01/stripe-test-01.module#StripeTest01Module'
+    loadChildren: () => import('./stripe-test-01/stripe-test-01.module').then(m => m.StripeTest01Module)
   },
   {
     path: 'test-02',
-    loadChildren: './stripe-test-02/stripe-test-02.module#StripeTest02Module'
+    loadChildren: () => import('./stripe-test-02/stripe-test-02.module').then(m => m.StripeTest02Module)
   },
   {
     path: 'test-03',
-    loadChildren: './stripe-test-03/stripe-test-03.module#StripeTest03Module'
+    loadChildren: () => import('./stripe-test-03/stripe-test-03.module').then(m => m.StripeTest03Module)
   },
   {
     path: 'test-04',
-    loadChildren: './stripe-test-04/stripe-test-04.module#StripeTest04Module'
+    loadChildren: () => import('./stripe-test-04/stripe-test-04.module').then(m => m.StripeTest04Module)
   },
   {
     path: 'welcome',
-    loadChildren: './welcome/welcome.module#WelcomeModule'
+    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule)
   },
   {
     path: '**',

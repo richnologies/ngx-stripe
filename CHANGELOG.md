@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.0.0 - 2021-05-15
+
+- Add support for Angular v12
+
 ## 10.1.2 - 2020-08-06
 
 - [#103](https://github.com/richnologies/ngx-stripe/issues/103) Fix a little bug related to Payment Request Button

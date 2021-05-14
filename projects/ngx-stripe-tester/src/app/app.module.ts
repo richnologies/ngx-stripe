@@ -18,7 +18,7 @@ import { ROUTES } from './app.routing';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(ROUTES),
+    RouterModule.forRoot(ROUTES, { relativeLinkResolution: 'legacy' }),
     NgxStripeModule.forRoot('pk_test_nDR7IWEIGLp4a1SBtqKH5eyg'),
     NoopAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
