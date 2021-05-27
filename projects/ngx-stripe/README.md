@@ -47,25 +47,26 @@ To install the last active version:
 $ npm install ngx-stripe @stripe/stripe-js
 ```
 
-To install an specific version for an older Angular major, use the lts npm tags or check the table below to pick the right version, for example, for v9:
+To install an specific version for an older Angular major, use the lts npm tags or check the table below to pick the right version, for example, for v8:
 
 ```bash
-$ npm install ngx-stripe@v9-lts @stripe/stripe-js
+$ npm install ngx-stripe@v8-lts @stripe/stripe-js
 ```
 
 **Legacy Versions**
 
-To install some of the older versions of the library use the legacy npm tags or check the table below to pick the right version, for example, for v9:
+To install some of the older versions of the library use the legacy npm tags or check the table below to pick the right version, for example, for v7:
 
 ```bash
-$ npm install ngx-stripe@v9-legacy
+$ npm install ngx-stripe@v7-legacy
 ```
 
 Choose the version corresponding to your Angular version:
 
 | Angular | ngx-stripe (legacy) | ngx-stripe        |
 | ------- | ------------------- | ----------------- |
-| 10      | **Not Available**   | v10-lts / 10.x+   |
+| 11      | **Not Available**   | 11.x+             |
+| 10      | **Not Available**   | 10.x+             |
 | 9       | v9-legacy / 9.0.x+  | v9-lts / 9.1.x+   |
 | 8       | v8-legacy / 7.4.4+  | v8-lts / 8.1.x+   |
 | 7       | v7-legacy / 7.x+    | v7-lts / 7.5.x+   |

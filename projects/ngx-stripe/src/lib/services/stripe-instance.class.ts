@@ -50,6 +50,7 @@ import {
   TokenCreateParams
 } from '@stripe/stripe-js';
 
+import { StripeAppInfo } from '../interfaces/ngx-stripe.interface';
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
 
 import { WindowRef } from './window-ref.service';
@@ -65,6 +66,7 @@ export class StripeInstance implements StripeServiceInterface {
     .pipe(filter((stripe) => Boolean(stripe)));
 
   constructor(
+    private version: string,
     private loader: LazyStripeAPILoader,
     private window: WindowRef,
     private key: string,
@@ -82,6 +84,7 @@ export class StripeInstance implements StripeServiceInterface {
           ? (stripeInstance(this.key, this.options) as Stripe)
           : (stripeInstance(this.key) as Stripe);
 
+        (stripe as any).registerAppInfo(this.getNgxStripeAppInfo(this.version));
         this.stripe$.next(stripe);
       });
   }
@@ -340,7 +343,7 @@ export class StripeInstance implements StripeServiceInterface {
     error?: StripeError;
   }> {
     return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.confirmSepaDebitSetup(clientSecret))),
+      switchMap((stripe) => from(stripe.retrieveSetupIntent(clientSecret))),
       first()
     );
   }
@@ -502,5 +505,14 @@ export class StripeInstance implements StripeServiceInterface {
       ),
       first()
     );
+  }
+
+  private getNgxStripeAppInfo(version: string): StripeAppInfo {
+    return {
+      name: 'ngx-stripe',
+      url: 'https://ngx-stripe.dev',
+      partner_id: 'pp_partner_JR4l1rmvUoPP4V',
+      version
+    };
   }
 }
