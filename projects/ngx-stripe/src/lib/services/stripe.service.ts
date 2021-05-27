@@ -53,7 +53,8 @@ import {
 
 import {
   STRIPE_PUBLISHABLE_KEY,
-  STRIPE_OPTIONS
+  STRIPE_OPTIONS,
+  NGX_STRIPE_VERSION
 } from '../interfaces/ngx-stripe.interface';
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
 
@@ -70,13 +71,14 @@ export class StripeService implements StripeServiceInterface {
   stripe!: StripeInstance;
 
   constructor(
+    @Inject(NGX_STRIPE_VERSION) public version: string,
     @Inject(STRIPE_PUBLISHABLE_KEY) public key: string,
     @Inject(STRIPE_OPTIONS) public options: StripeConstructorOptions,
     public loader: LazyStripeAPILoader,
     public window: WindowRef
   ) {
     if (key) {
-      this.stripe = new StripeInstance(this.loader, this.window, key, options);
+      this.stripe = new StripeInstance(this.version, this.loader, this.window, key, options);
     }
   }
 
@@ -96,7 +98,7 @@ export class StripeService implements StripeServiceInterface {
   }
 
   changeKey(key: string, options?: StripeConstructorOptions) {
-    this.stripe = new StripeInstance(this.loader, this.window, key, options);
+    this.stripe = new StripeInstance(this.version, this.loader, this.window, key, options);
 
     return this.stripe;
   }
