@@ -156,7 +156,14 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
   }
 
   updateRequest(options: PaymentRequestUpdateOptions) {
-    this.paymentRequest.update(options);
+    const { currency, total, displayItems, shippingOptions } = options;
+
+    this.paymentRequest.update({
+      currency,
+      total,
+      displayItems,
+      shippingOptions
+    });
   }
 
   show() {
