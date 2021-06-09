@@ -197,6 +197,19 @@ export class StripeCreateTokenComponent implements OnInit {
 }
 ```
 
+## Funding this project
+
+[![Stripe Logo](./docs/logos/stripe_blurple.svg)](https://stripe.com)
+
+You can now become a sponsor to `ngx-stripe` with [GitHub Sponsors](https://github.com/sponsors/richnologies).
+
+We've been bringing ngx-stripe to the world for over 4 years and are excited to be able to start
+dedicating some real resources to the project.
+
+Your sponsorship helps us keep a team of maintainers actively working to improve ngx-stripe and
+ensure it stays up-to-date with the latest Stripe changes. If you're using ngx-stripe in a commercial
+capacity and have the ability to start a sponsorship, we'd greatly appreciate the contribution.
+
 ## License
 
-MIT © [Ricardo Sánchez Gregorio](mailto:me@richnologies.io)
+MIT © [Ricardo Sánchez Gregorio](mailto:me@ricardosanchez.dev)
