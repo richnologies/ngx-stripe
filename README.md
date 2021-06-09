@@ -12,7 +12,7 @@ Ngx Stripe is a thin wrapper around [`Stripe Elements`](https://stripe.com/docs/
 The [`StripeJS Reference`](https://stripe.com/docs/js) covers complete Elements customization details.
 You can use Elements with any Stripe product to collect online payments. To find the right integration path for your business, explore [`Stripe Docs`](https://stripe.com/docs/stripe-js).
 
-- Learn how to use `ngx-stripe` on the **new** [docs site](https://richnologies.gitbook.io/ngx-stripe/) 🤓
+- Learn how to use `ngx-stripe` on the **new** [docs site](https://docs.ngx-stripe.dev/) 🤓
 
 ## Notice
 
@@ -25,7 +25,7 @@ After reviewing the state of the art for React and Vue counterparts, some major 
 5. Added [`Container Style`](https://stripe.com/docs/js/element/the_element_container) functionality support
 6. A [`Migration`](https://github.com/richnologies/ngx-stripe/blob/main/MIGRATION.md) guide has been added with details of what have changed
 7. The new version of library is compatible from Angular 6+ major versions. Check the `Installation` section to see how to install an older version.
-8. All documentation has been moved to a new [docs site](https://richnologies.gitbook.io/ngx-stripe/)
+8. All documentation has been moved to a new [docs site](https://docs.ngx-stripe.dev/)
 
 In order to ease the transition, we are naming the old version of the library `legacy` and we have created some `npm tags` to make it easy to install older versions.
 
@@ -77,7 +77,7 @@ Choose the version corresponding to your Angular version:
 
 ## Using the library
 
-Most of the documentation has been moved to a new [docs site](https://richnologies.gitbook.io/ngx-stripe/). Only a very basic example has been left here:
+Most of the documentation has been moved to a new [docs site](https://docs.ngx-stripe.dev/). Only a very basic example has been left here:
 
 Import the `NgxStripeModule` into your application
 
@@ -117,7 +117,7 @@ Once the module has been imported, you can collect credit card details using the
 
 Then you can use the Stripe Service, which is basically an Obseravble wrapper around the stripejs object, to use that information. In this example we use it to create a token, but it can be use to confirm a Payment Intent, Setup Intent, etc...
 
-Please check the [docs site](https://richnologies.gitbook.io/ngx-stripe/) to see a complete set of Stripe Element Components available and the full API of the Stripe Service.
+Please check the [docs site](https://docs.ngx-stripe.dev/) to see a complete set of Stripe Element Components available and the full API of the Stripe Service.
 
 // stripe.html
 
