@@ -2,6 +2,12 @@ import { BehaviorSubject, from, Observable } from 'rxjs';
 import { filter, first, map, switchMap } from 'rxjs/operators';
 
 import {
+  ConfirmAcssDebitPaymentData,
+  ConfirmAcssDebitPaymentOptions,
+  ConfirmAfterpayClearpayPaymentData,
+  ConfirmAfterpayClearpayPaymentOptions,
+  ConfirmAlipayPaymentData,
+  ConfirmAlipayPaymentOptions,
   ConfirmAuBecsDebitPaymentData,
   ConfirmAuBecsDebitSetupData,
   ConfirmBancontactPaymentData,
@@ -14,15 +20,27 @@ import {
   ConfirmFpxPaymentOptions,
   ConfirmGiropayPaymentData,
   ConfirmGiropayPaymentOptions,
+  ConfirmGrabPayPaymentData,
+  ConfirmGrabPayPaymentOptions,
   ConfirmIdealPaymentData,
   ConfirmIdealPaymentOptions,
+  ConfirmKlarnaPaymentData,
+  ConfirmKlarnaPaymentOptions,
+  ConfirmOxxoPaymentData,
+  ConfirmOxxoPaymentOptions,
   ConfirmP24PaymentData,
   ConfirmP24PaymentOptions,
   ConfirmCardSetupData,
   ConfirmCardSetupOptions,
   ConfirmSepaDebitPaymentData,
+  ConfirmSofortPaymentData,
+  ConfirmWechatPayPaymentData,
+  ConfirmWechatPayPaymentOptions,
   ConfirmSepaDebitSetupData,
   CreatePaymentMethodData,
+  VerifyMicrodepositsForPaymentData,
+  ConfirmAcssDebitSetupData,
+  ConfirmAcssDebitSetupOptions,
   CreateSourceData,
   CreateTokenIbanData,
   CreateTokenCardData,
@@ -48,11 +66,14 @@ import {
   Source,
   Token,
   TokenCreateParams,
-  ConfirmOxxoPaymentData,
-  ConfirmOxxoPaymentOptions
+  ConfirmBacsDebitSetupData,
+  ConfirmBancontactSetupData,
+  ConfirmIdealSetupData,
+  ConfirmSofortSetupData,
+  VerifyMicrodepositsForSetupData,
+  WrapperLibrary
 } from '@stripe/stripe-js';
 
-import { StripeAppInfo } from '../interfaces/ngx-stripe.interface';
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
 
 import { WindowRef } from './window-ref.service';
@@ -86,7 +107,7 @@ export class StripeInstance implements StripeServiceInterface {
           ? (stripeInstance(this.key, this.options) as Stripe)
           : (stripeInstance(this.key) as Stripe);
 
-        (stripe as any).registerAppInfo(this.getNgxStripeAppInfo(this.version));
+        stripe.registerAppInfo(this.getNgxStripeAppInfo(this.version));
         this.stripe$.next(stripe);
       });
   }
@@ -108,6 +129,54 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<never | { error: StripeError }> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.redirectToCheckout(options))),
+      first()
+    );
+  }
+
+  confirmAcssDebitPayment(
+    clientSecret: string,
+    data?: ConfirmAcssDebitPaymentData,
+    options?: ConfirmAcssDebitPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmAcssDebitPayment(clientSecret, data, options))
+      ),
+      first()
+    );
+  }
+
+  confirmAfterpayClearpayPayment(
+    clientSecret: string,
+    data?: ConfirmAfterpayClearpayPaymentData,
+    options?: ConfirmAfterpayClearpayPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmAfterpayClearpayPayment(clientSecret, data, options))
+      ),
+      first()
+    );
+  }
+
+  confirmAlipayPayment(
+    clientSecret: string,
+    data?: ConfirmAlipayPaymentData,
+    options?: ConfirmAlipayPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmAlipayPayment(clientSecret, data, options))
+      ),
       first()
     );
   }
@@ -207,6 +276,22 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  confirmGrabPayPayment(
+    clientSecret: string,
+    data?: ConfirmGrabPayPaymentData,
+    options?: ConfirmGrabPayPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmGrabPayPayment(clientSecret, data, options))
+      ),
+      first()
+    );
+  }
+
   confirmIdealPayment(
     clientSecret: string,
     data?: ConfirmIdealPaymentData,
@@ -218,6 +303,22 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe.pipe(
       switchMap((stripe) =>
         from(stripe.confirmIdealPayment(clientSecret, data, options))
+      ),
+      first()
+    );
+  }
+
+  confirmKlarnaPayment(
+    clientSecret: string,
+    data?: ConfirmKlarnaPaymentData,
+    options?: ConfirmKlarnaPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmKlarnaPayment(clientSecret, data, options))
       ),
       first()
     );
@@ -270,6 +371,37 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  confirmSofortPayment(
+    clientSecret: string,
+    data?: ConfirmSofortPaymentData
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmSofortPayment(clientSecret, data))
+      ),
+      first()
+    );
+  }
+
+  confirmWechatPayPayment(
+    clientSecret: string,
+    data?: ConfirmWechatPayPaymentData,
+    options?: ConfirmWechatPayPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmWechatPayPayment(clientSecret, data, options))
+      ),
+      first()
+    );
+  }
+
   handleCardAction(
     clientSecret: string
   ): Observable<{
@@ -278,6 +410,21 @@ export class StripeInstance implements StripeServiceInterface {
   }> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.handleCardAction(clientSecret))),
+      first()
+    );
+  }
+
+  verifyMicrodepositsForPayment(
+    clientSecret: string,
+    data?: VerifyMicrodepositsForPaymentData
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.verifyMicrodepositsForPayment(clientSecret, data))
+      ),
       first()
     );
   }
@@ -308,6 +455,22 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  confirmAcssDebitSetup(
+    clientSecret: string,
+    data?: ConfirmAcssDebitSetupData,
+    options?: ConfirmAcssDebitSetupOptions
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmAcssDebitSetup(clientSecret, data, options))
+      ),
+      first()
+    );
+  }
+
   confirmAuBecsDebitSetup(
     clientSecret: string,
     data?: ConfirmAuBecsDebitSetupData
@@ -318,6 +481,36 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe.pipe(
       switchMap((stripe) =>
         from(stripe.confirmAuBecsDebitSetup(clientSecret, data))
+      ),
+      first()
+    );
+  }
+
+  confirmBacsDebitSetup(
+    clientSecret: string,
+    data?: ConfirmBacsDebitSetupData
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmBacsDebitSetup(clientSecret, data))
+      ),
+      first()
+    );
+  }
+
+  confirmBancontactSetup(
+    clientSecret: string,
+    data?: ConfirmBancontactSetupData
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmBancontactSetup(clientSecret, data))
       ),
       first()
     );
@@ -339,6 +532,21 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  confirmIdealSetup(
+    clientSecret: string,
+    data?: ConfirmIdealSetupData
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmIdealSetup(clientSecret, data))
+      ),
+      first()
+    );
+  }
+
   confirmSepaDebitSetup(
     clientSecret: string,
     data?: ConfirmSepaDebitSetupData
@@ -349,6 +557,36 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe.pipe(
       switchMap((stripe) =>
         from(stripe.confirmSepaDebitSetup(clientSecret, data))
+      ),
+      first()
+    );
+  }
+
+  confirmSofortSetup(
+    clientSecret: string,
+    data?: ConfirmSofortSetupData
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmSofortSetup(clientSecret, data))
+      ),
+      first()
+    );
+  }
+
+  verifyMicrodepositsForSetup(
+    clientSecret: string,
+    data?: VerifyMicrodepositsForSetupData
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.verifyMicrodepositsForSetup(clientSecret, data))
       ),
       first()
     );
@@ -525,7 +763,7 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
-  private getNgxStripeAppInfo(version: string): StripeAppInfo {
+  private getNgxStripeAppInfo(version: string): WrapperLibrary {
     return {
       name: 'ngx-stripe',
       url: 'https://ngx-stripe.dev',

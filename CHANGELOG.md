@@ -1,6 +1,22 @@
 # Changelog
 
-## 12.1.0 - 2021-06-19
+## 12.2.0 - 2021-06-19
+
+- Add support for Acss Debit Payments
+- Add support for Afterpay Clearpay Payments
+- Add support for Alipay Payments
+- Add support for GrabPay Payments
+- Add support for Klarna Payments (requires beta access)
+- Add support for Sofort Payments
+- Add support for WeChat Pay Payments (requires beta access)
+- Add support for Verify Microdeposits Payments
+- Add support for Bacs Debit Setup
+- Add support for Bancontact Setup
+- Add support for Ideal Bank Setup
+- Add support for Sofort Setup
+- Add support for Verify Microdeposits Setup
+
+## 12.1.1 - 2021-06-19
 
 - Add support for OXXO Payments
 

@@ -10,10 +10,3 @@ export const STRIPE_OPTIONS = new InjectionToken<StripeConstructorOptions>(
 );
 
 export const NGX_STRIPE_VERSION = new InjectionToken<string>('NGX_STRIPE_VERSION');
-
-export interface StripeAppInfo {
-  name: string;
-  url: string;
-  partner_id: string;
-  version: string;
-}
