@@ -4,7 +4,7 @@ An Angular 6+ wrapper for StripeJS elements
 [![license](https://img.shields.io/npm/l/express.svg)](https://www.npmjs.com/package/ngx-stripe)
 
 <h1 align="center">
-  <img width="120" valign="bottom" src="./docs/logos/ngx-stripe-logo.png">
+  <img width="160" valign="bottom" src="./docs/logos/ngx-stripe-logo.png">
 </h1>
 
 Ngx Stripe is a thin wrapper around [`Stripe Elements`](https://stripe.com/docs/stripe-js). It allows adding Elements to any Angular app.
