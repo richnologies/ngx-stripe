@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.1.0 - 2021-06-19
+
+- Add support for OXXO Payments
+
 ## 12.0.0 - 2021-05-15
 
 - Add support for Angular v12
