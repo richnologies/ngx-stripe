@@ -197,18 +197,24 @@ export class StripeCreateTokenComponent implements OnInit {
 }
 ```
 
-## Funding this project
+## Support us
 
-[![Stripe Logo](./docs/logos/stripe_blurple.svg)](https://stripe.com)
+`ngx-stripe` is an MIT-licensed open source project. You can now become a sponsor with [GitHub Sponsors](https://github.com/sponsors/richnologies).
 
-You can now become a sponsor to `ngx-stripe` with [GitHub Sponsors](https://github.com/sponsors/richnologies).
+We've been bringing `ngx-stripe` to the world for over 4 years and are excited to be able to start dedicating some real resources to the project.
 
-We've been bringing ngx-stripe to the world for over 4 years and are excited to be able to start
-dedicating some real resources to the project.
+Your sponsorship helps us keep a team of maintainers actively working to improve `ngx-stripe` and ensure it stays up-to-date with the latest Stripe changes. If you're using `ngx-stripe` in a commercial capacity and have the ability to start a sponsorship, we'd greatly appreciate the contribution.
 
-Your sponsorship helps us keep a team of maintainers actively working to improve ngx-stripe and
-ensure it stays up-to-date with the latest Stripe changes. If you're using ngx-stripe in a commercial
-capacity and have the ability to start a sponsorship, we'd greatly appreciate the contribution.
+### Principal Sponsors
+
+<p float="left">
+  <a href="https://stripe.com" rel="nofollow noopener noreferrer" target="_blank">
+    <img src="./docs/logos/stripe_blurple.png" width="210" style="padding: 20px 30px 20px 0px" />
+  </a>
+  <a href="https://www.psi-mobile.com" rel="nofollow noopener noreferrer" target="_blank">
+    <img src="./docs/logos/psi-logo.png" width="170" style="padding: 20px 20px 20px 0px" />
+  </a>
+</p>
 
 ## License
 
