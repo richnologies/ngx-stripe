@@ -48,7 +48,9 @@ import {
   StripeIbanElement,
   Source,
   Token,
-  TokenCreateParams
+  TokenCreateParams,
+  ConfirmOxxoPaymentData,
+  ConfirmOxxoPaymentOptions
 } from '@stripe/stripe-js';
 
 import {
@@ -187,6 +189,17 @@ export class StripeService implements StripeServiceInterface {
     error?: StripeError;
   }> {
     return this.stripe.confirmIdealPayment(clientSecret, data, options);
+  }
+
+  confirmOxxoPayment(
+    clientSecret: string,
+    data?: ConfirmOxxoPaymentData,
+    options?: ConfirmOxxoPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.confirmOxxoPayment(clientSecret, data, options);
   }
 
   confirmP24Payment(
