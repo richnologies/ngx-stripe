@@ -47,7 +47,9 @@ import {
   StripeIbanElement,
   Source,
   Token,
-  TokenCreateParams
+  TokenCreateParams,
+  ConfirmOxxoPaymentData,
+  ConfirmOxxoPaymentOptions
 } from '@stripe/stripe-js';
 
 import { StripeAppInfo } from '../interfaces/ngx-stripe.interface';
@@ -216,6 +218,22 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe.pipe(
       switchMap((stripe) =>
         from(stripe.confirmIdealPayment(clientSecret, data, options))
+      ),
+      first()
+    );
+  }
+
+  confirmOxxoPayment(
+    clientSecret: string,
+    data?: ConfirmOxxoPaymentData,
+    options?: ConfirmOxxoPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmOxxoPayment(clientSecret, data, options))
       ),
       first()
     );
