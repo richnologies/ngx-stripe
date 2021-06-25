@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.2.1 - 2021-06-25
+
+- Update README.md with new Logo
+
 ## 12.2.0 - 2021-06-19
 
 - Add support for Acss Debit Payments

@@ -4,9 +4,7 @@ An Angular 6+ wrapper for StripeJS elements
 [![license](https://img.shields.io/npm/l/express.svg)](https://www.npmjs.com/package/ngx-stripe)
 
 <h1 align="center">
-  <a href="https://docs.ngx-stripe.com">
-    <img width="160" valign="bottom" src="../../docs/logos/ngx-stripe-logo.png">
-  </a>
+  <img width="160" valign="bottom" src="./docs/logos/ngx-stripe-logo.png">
 </h1>
 
 Ngx Stripe is a thin wrapper around [`Stripe Elements`](https://stripe.com/docs/stripe-js). It allows adding Elements to any Angular app.
@@ -210,10 +208,10 @@ Your sponsorship helps us keep a team of maintainers actively working to improve
 
 <p float="left">
   <a href="https://stripe.com" rel="nofollow noopener noreferrer" target="_blank">
-    <img src="../../docs/logos/stripe_blurple.png" width="210" />
+    <img src="./docs/logos/stripe_blurple.png" width="210" />
   </a>
   <a href="https://www.psi-mobile.com" rel="nofollow noopener noreferrer" target="_blank">
-    <img src="../../docs/logos/psi-logo.png" width="170" />
+    <img src="./docs/logos/psi-logo.png" width="170" />
   </a>
 </p>
 
