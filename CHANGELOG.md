@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.3.0 - 2021-06-30
+
+- Add support for Stripe Identity
+
 ## 12.2.1 - 2021-06-25
 
 - Update README.md with new Logo

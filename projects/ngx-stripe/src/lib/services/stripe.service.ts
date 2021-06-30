@@ -79,7 +79,7 @@ import {
   STRIPE_OPTIONS,
   NGX_STRIPE_VERSION
 } from '../interfaces/ngx-stripe.interface';
-import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
+import { StripeServiceInterface, VerificationSessionResult } from '../interfaces/stripe-instance.interface';
 
 import { WindowRef } from './window-ref.service';
 import {
@@ -509,6 +509,10 @@ export class StripeService implements StripeServiceInterface {
     source: RetrieveSourceParam
   ): Observable<{ source?: Source; error?: StripeError }> {
     return this.stripe.retrieveSource(source);
+  }
+
+  verifyIdentity(clientSecret: string): Observable<VerificationSessionResult> {
+    return this.stripe.verifyIdentity(clientSecret);
   }
 
   /**

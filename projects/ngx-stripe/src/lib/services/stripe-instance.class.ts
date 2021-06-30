@@ -74,7 +74,7 @@ import {
   WrapperLibrary
 } from '@stripe/stripe-js';
 
-import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
+import { StripeServiceInterface, VerificationSessionResult } from '../interfaces/stripe-instance.interface';
 
 import { WindowRef } from './window-ref.service';
 import {
@@ -664,6 +664,13 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<{ source?: Source; error?: StripeError }> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.retrieveSource(source))),
+      first()
+    );
+  }
+
+  verifyIdentity(clientSecret: string): Observable<VerificationSessionResult> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from((stripe as any).verifyIdentity(clientSecret) as Promise<VerificationSessionResult>)),
       first()
     );
   }
