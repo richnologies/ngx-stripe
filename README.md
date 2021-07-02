@@ -1,5 +1,6 @@
 An Angular 6+ wrapper for StripeJS elements
 
+<a href="https://stripe.com/partners/ngx-stripe" target="_blank"><img src="./docs/logos/stripe_partner_badge_verified_blurple.png" alt="drawing" width="98"/>
 [![version](https://img.shields.io/npm/v/ngx-stripe.svg)](https://www.npmjs.com/package/ngx-stripe)
 [![license](https://img.shields.io/npm/l/express.svg)](https://www.npmjs.com/package/ngx-stripe)
 

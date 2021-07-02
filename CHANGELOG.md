@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.3.1 - 2021-06-30
+
+- Add Stripe Verified Partner badge
+
 ## 12.3.0 - 2021-06-30
 
 - Add support for Stripe Identity
