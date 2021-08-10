@@ -71,10 +71,13 @@ import {
   ConfirmIdealSetupData,
   ConfirmSofortSetupData,
   VerifyMicrodepositsForSetupData,
-  WrapperLibrary
+  WrapperLibrary,
+  VerificationSessionResult,
+  ConfirmPayPalPaymentData,
+  ConfirmPayPalSetupData
 } from '@stripe/stripe-js';
 
-import { StripeServiceInterface, VerificationSessionResult } from '../interfaces/stripe-instance.interface';
+import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
 
 import { WindowRef } from './window-ref.service';
 import {
@@ -356,6 +359,21 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  confirmPayPalPayment(
+    clientSecret: string,
+    data?: ConfirmPayPalPaymentData
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmPayPalPayment(clientSecret, data))
+      ),
+      first()
+    );
+  }
+
   confirmSepaDebitPayment(
     clientSecret: string,
     data?: ConfirmSepaDebitPaymentData
@@ -547,6 +565,21 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  confirmPayPalSetup(
+    clientSecret: string,
+    data?: ConfirmPayPalSetupData
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmPayPalSetup(clientSecret, data))
+      ),
+      first()
+    );
+  }
+
   confirmSepaDebitSetup(
     clientSecret: string,
     data?: ConfirmSepaDebitSetupData
@@ -670,7 +703,7 @@ export class StripeInstance implements StripeServiceInterface {
 
   verifyIdentity(clientSecret: string): Observable<VerificationSessionResult> {
     return this.stripe.pipe(
-      switchMap((stripe) => from((stripe as any).verifyIdentity(clientSecret) as Promise<VerificationSessionResult>)),
+      switchMap((stripe) => from(stripe.verifyIdentity(clientSecret))),
       first()
     );
   }

@@ -68,17 +68,11 @@ import {
   ConfirmIdealSetupData,
   ConfirmSofortSetupData,
   VerifyMicrodepositsForSetupData,
-  ConfirmAlipayPaymentOptions
+  ConfirmAlipayPaymentOptions,
+  VerificationSessionResult,
+  ConfirmPayPalPaymentData,
+  ConfirmPayPalSetupData
 } from '@stripe/stripe-js';
-
-// TEMPORARY WORKAROUND UNTIL OFFICIAL SUPPORT IS RELEASED
-export interface VerificationSession {
-  id: string;
-}
-
-export type VerificationSessionResult =
-  | { verificationSession: VerificationSession; error?: undefined }
-  | { verificationSession?: undefined; error: StripeError };
 
 export interface StripeServiceInterface {
   getInstance(): Stripe | undefined;
@@ -197,6 +191,13 @@ export interface StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }>;
+  confirmPayPalPayment(
+    clientSecret: string,
+    data?: ConfirmPayPalPaymentData
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }>;
   confirmSepaDebitPayment(
     clientSecret: string,
     data?: ConfirmSepaDebitPaymentData
@@ -284,6 +285,13 @@ export interface StripeServiceInterface {
   confirmIdealSetup(
     clientSecret: string,
     data?: ConfirmIdealSetupData
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }>;
+  confirmPayPalSetup(
+    clientSecret: string,
+    data?: ConfirmPayPalSetupData
   ): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;

@@ -1,5 +1,11 @@
 # Changelog
 
+## 12.4.0 - 2021-08-09
+
+- Remove temporary workaround for Stripe Identity
+- Update types for Payment Request Button
+- Add support for PayPal Payments (requires beta access)
+
 ## 12.3.1 - 2021-06-30
 
 - Add Stripe Verified Partner badge

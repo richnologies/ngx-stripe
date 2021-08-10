@@ -72,6 +72,9 @@ import {
   ConfirmIdealSetupData,
   ConfirmSofortSetupData,
   VerifyMicrodepositsForSetupData,
+  VerificationSessionResult,
+  ConfirmPayPalPaymentData,
+  ConfirmPayPalSetupData,
 } from '@stripe/stripe-js';
 
 import {
@@ -79,7 +82,7 @@ import {
   STRIPE_OPTIONS,
   NGX_STRIPE_VERSION
 } from '../interfaces/ngx-stripe.interface';
-import { StripeServiceInterface, VerificationSessionResult } from '../interfaces/stripe-instance.interface';
+import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
 
 import { WindowRef } from './window-ref.service';
 import {
@@ -289,6 +292,16 @@ export class StripeService implements StripeServiceInterface {
     return this.stripe.confirmP24Payment(clientSecret, data, options);
   }
 
+  confirmPayPalPayment(
+    clientSecret: string,
+    data?: ConfirmPayPalPaymentData
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.confirmPayPalPayment(clientSecret, data);
+  }
+
   confirmSepaDebitPayment(
     clientSecret: string,
     data?: ConfirmSepaDebitPaymentData
@@ -417,6 +430,16 @@ export class StripeService implements StripeServiceInterface {
     error?: StripeError;
   }> {
     return this.stripe.confirmIdealSetup(clientSecret, data);
+  }
+
+  confirmPayPalSetup(
+    clientSecret: string,
+    data?: ConfirmPayPalSetupData
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.confirmPayPalSetup(clientSecret, data);
   }
 
   confirmSepaDebitSetup(
