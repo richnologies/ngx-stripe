@@ -41,7 +41,7 @@ const components = [
 
 const directives = [StripeCardGroupDirective];
 
-const currentVersion = '12.4.0';
+const currentVersion = '12.5.0';
 
 @NgModule({
   declarations: [...components, ...directives],

@@ -13,6 +13,8 @@ import {
   ConfirmAuBecsDebitSetupData,
   ConfirmBancontactPaymentData,
   ConfirmBancontactPaymentOptions,
+  ConfirmBoletoPaymentData,
+  ConfirmBoletoPaymentOptions,
   ConfirmCardPaymentData,
   ConfirmCardPaymentOptions,
   ConfirmEpsPaymentData,
@@ -191,6 +193,17 @@ export class StripeService implements StripeServiceInterface {
     error?: StripeError;
   }> {
     return this.stripe.confirmBancontactPayment(clientSecret, data, options);
+  }
+
+  confirmBoletoPayment(
+    clientSecret: string,
+    data?: ConfirmBoletoPaymentData,
+    options?: ConfirmBoletoPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.confirmBoletoPayment(clientSecret, data, options);
   }
 
   confirmCardPayment(

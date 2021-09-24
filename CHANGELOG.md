@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.5.0 - 2021-09-24
+
+- Add support for Boleto Payments
+
 ## 12.4.0 - 2021-08-09
 
 - Remove temporary workaround for Stripe Identity
