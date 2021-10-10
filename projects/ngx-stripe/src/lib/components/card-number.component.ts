@@ -9,7 +9,9 @@ import {
   OnChanges,
   SimpleChanges,
   OnDestroy,
-  Optional
+  Optional,
+  ContentChild,
+  TemplateRef
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -20,14 +22,22 @@ import {
   StripeCardNumberElementChangeEvent
 } from '@stripe/stripe-js';
 
+import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
+
 import { StripeCardGroupDirective } from '../directives/card-group.directive';
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
   selector: 'ngx-stripe-card-number',
-  template: `<div class="field" #stripeElementRef></div>`
+  template: `
+    <div class="field" #stripeElementRef>
+      <ng-container *ngIf="cardGroup && cardGroup.state !== 'ready' && loadingTemplate" [ngTemplateOutlet]="loadingTemplate"></ng-container>
+    </div>
+  `
 })
 export class StripeCardNumberComponent implements OnInit, OnChanges, OnDestroy {
+  @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })
+  loadingTemplate!: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeCardNumberElement;
 
@@ -47,7 +57,7 @@ export class StripeCardNumberComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     public stripeElementsService: StripeElementsService,
-    @Optional() private cardGroup: StripeCardGroupDirective
+    @Optional() public cardGroup: StripeCardGroupDirective
   ) {}
 
   async ngOnChanges(changes: SimpleChanges) {

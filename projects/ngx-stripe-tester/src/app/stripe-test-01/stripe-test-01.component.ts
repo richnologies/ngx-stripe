@@ -14,7 +14,11 @@ import {
       </mat-toolbar>
       <div section-content>
         <p>Minimum example, just fill the form and get your token</p>
-        <ngx-stripe-card [options]="cardOptions"></ngx-stripe-card>
+        <ngx-stripe-card [options]="cardOptions">
+          <span style="color: green" *ngxStripeLoadingTemplate>
+            Loading Stripe Card...
+          </span>
+        </ngx-stripe-card>
         <button (click)="buy()">CLICK</button>
       </div>
     </app-section>

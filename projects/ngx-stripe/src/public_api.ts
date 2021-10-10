@@ -14,6 +14,7 @@ export { StripeAuBankAccountComponent } from './lib/components/au-bank-account.c
 export { StripePaymentRequestButtonComponent } from './lib/components/payment-request-button.component';
 
 export { StripeCardGroupDirective } from './lib/directives/card-group.directive';
+export { NgxStripeElementLoadingTemplateDirective } from './lib/directives/stripe-element-loading-template.directive';
 
 export { StripeService } from './lib/services/stripe.service';
 export { StripeFactoryService } from './lib/services/stripe-factory.service';

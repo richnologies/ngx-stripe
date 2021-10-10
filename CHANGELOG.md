@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.6.0 - 2021-10-10
+
+- Add support for Loading Template
+
 ## 12.5.0 - 2021-09-24
 
 - Add support for Boleto Payments

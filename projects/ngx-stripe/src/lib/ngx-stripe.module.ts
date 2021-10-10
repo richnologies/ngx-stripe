@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { StripeConstructorOptions } from '@stripe/stripe-js';
@@ -13,6 +14,7 @@ import { StripeAuBankAccountComponent } from './components/au-bank-account.compo
 import { StripePaymentRequestButtonComponent } from './components/payment-request-button.component';
 
 import { StripeCardGroupDirective } from './directives/card-group.directive';
+import { NgxStripeElementLoadingTemplateDirective } from './directives/stripe-element-loading-template.directive';
 
 import {
   NGX_STRIPE_VERSION,
@@ -39,13 +41,17 @@ const components = [
   StripePaymentRequestButtonComponent
 ];
 
-const directives = [StripeCardGroupDirective];
+const directives = [
+  StripeCardGroupDirective,
+  NgxStripeElementLoadingTemplateDirective
+];
 
-const currentVersion = '12.5.0';
+const currentVersion = '12.6.0';
 
 @NgModule({
   declarations: [...components, ...directives],
-  exports: [...components, ...directives]
+  exports: [...components, ...directives],
+  imports: [CommonModule]
 })
 export class NgxStripeModule {
   public static forRoot(
