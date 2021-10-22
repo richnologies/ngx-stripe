@@ -8,7 +8,9 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
-  OnDestroy
+  OnDestroy,
+  ContentChild,
+  TemplateRef
 } from '@angular/core';
 
 import {
@@ -19,15 +21,23 @@ import {
   StripeAuBankAccountElementChangeEvent
 } from '@stripe/stripe-js';
 
+import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
+
 import { StripeInstance } from '../services/stripe-instance.class';
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
   selector: 'ngx-stripe-au-bank-account',
-  template: `<div class="field" #stripeElementRef></div>`
+  template: `
+    <div class="field" #stripeElementRef>
+      <ng-container *ngIf="state !== 'ready' && loadingTemplate" [ngTemplateOutlet]="loadingTemplate"></ng-container>
+    </div>
+  `
 })
 export class StripeAuBankAccountComponent
   implements OnInit, OnChanges, OnDestroy {
+  @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })
+  loadingTemplate?: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeAuBankAccountElement;
 
