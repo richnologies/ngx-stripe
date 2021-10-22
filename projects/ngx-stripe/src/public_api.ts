@@ -11,6 +11,7 @@ export { StripeFpxBankComponent } from './lib/components/fpx-bank.component';
 export { StripeIbanComponent } from './lib/components/iban.component';
 export { StripeIdealBankComponent } from './lib/components/ideal-bank.component';
 export { StripeAuBankAccountComponent } from './lib/components/au-bank-account.component';
+export { StripePaymentElementComponent } from './lib/components/payment-element.component';
 export { StripePaymentRequestButtonComponent } from './lib/components/payment-request-button.component';
 
 export { StripeCardGroupDirective } from './lib/directives/card-group.directive';

@@ -1,5 +1,12 @@
 # Changelog
 
+## 12.7.0 - 2021-10-22
+
+- Add support for Payment Element
+- Add support for Affirm Payment
+- Add support for Prompt Pay Payment
+- Add support for Pay Now Payment
+
 ## 12.6.0 - 2021-10-10
 
 - Add support for Loading Template

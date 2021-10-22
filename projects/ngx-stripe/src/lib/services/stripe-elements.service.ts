@@ -13,7 +13,8 @@ import {
   StripeFpxBankElementOptions,
   StripeIbanElementOptions,
   StripeIdealBankElementOptions,
-  StripePaymentRequestButtonElementOptions
+  StripePaymentRequestButtonElementOptions,
+  StripePaymentElementOptions
 } from '@stripe/stripe-js';
 
 import { StripeService } from './stripe.service';
@@ -80,6 +81,10 @@ export class StripeElementsService {
     options: StripePaymentRequestButtonElementOptions,
     containerClass: string
   ): StripePaymentRequestButtonElementOptions;
+  mergeOptions(
+    options: StripePaymentElementOptions,
+    containerClass: string
+  ): StripePaymentElementOptions;
   mergeOptions(options, containerClass: string) {
     if (!containerClass || (options && options.classes)) {
       return options || {};

@@ -71,7 +71,16 @@ import {
   ConfirmAlipayPaymentOptions,
   VerificationSessionResult,
   ConfirmPayPalPaymentData,
-  ConfirmPayPalSetupData
+  ConfirmPayPalSetupData,
+  ConfirmPaymentData,
+  ConfirmAffirmPaymentData,
+  ConfirmAffirmPaymentOptions,
+  ConfirmPromptPayPaymentData,
+  ConfirmPromptPayPaymentOptions,
+  ConfirmPayNowPaymentData,
+  ConfirmPayNowPaymentOptions,
+  ConfirmCustomerBalancePaymentData,
+  ConfirmCustomerBalancePaymentOptions
 } from '@stripe/stripe-js';
 
 export interface StripeServiceInterface {
@@ -80,18 +89,23 @@ export interface StripeServiceInterface {
   redirectToCheckout(
     options?: RedirectToCheckoutOptions
   ): Observable<never | { error: StripeError }>;
+  confirmPayment(options: {
+    elements: StripeElements;
+    confirmParams?: Partial<ConfirmPaymentData>;
+    redirect: 'if_required';
+  }): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }>;
+  confirmPayment(options: {
+    elements: StripeElements;
+    confirmParams: ConfirmPaymentData;
+    redirect?: 'always';
+  }): Observable<never | {error: StripeError}>;
   confirmAcssDebitPayment(
     clientSecret: string,
     data?: ConfirmAcssDebitPaymentData,
     options?: ConfirmAcssDebitPaymentOptions
-  ): Observable<{
-    paymentIntent?: PaymentIntent;
-    error?: StripeError;
-  }>;
-  confirmAfterpayClearpayPayment(
-    clientSecret: string,
-    data?: ConfirmAfterpayClearpayPaymentData,
-    options?: ConfirmAfterpayClearpayPaymentOptions
   ): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
@@ -123,6 +137,14 @@ export interface StripeServiceInterface {
     clientSecret: string,
     data?: ConfirmCardPaymentData,
     options?: ConfirmCardPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }>;
+  confirmCustomerBalancePayment(
+    clientSecret: string,
+    data?: ConfirmCustomerBalancePaymentData,
+    options?: ConfirmCustomerBalancePaymentOptions
   ): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
@@ -191,9 +213,25 @@ export interface StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }>;
+  confirmPayNowPayment(
+    clientSecret: string,
+    data?: ConfirmPayNowPaymentData,
+    options?: ConfirmPayNowPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }>;
   confirmPayPalPayment(
     clientSecret: string,
     data?: ConfirmPayPalPaymentData
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }>;
+  confirmPromptPayPayment(
+    clientSecret: string,
+    data?: ConfirmPromptPayPaymentData,
+    options?: ConfirmPromptPayPaymentOptions
   ): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
@@ -245,6 +283,19 @@ export interface StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }>;
+  confirmSetup(options: {
+    elements: StripeElements;
+    confirmParams?: Partial<ConfirmPaymentData>;
+    redirect: 'if_required';
+  }): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }>;
+  confirmSetup(options: {
+    elements: StripeElements;
+    confirmParams: ConfirmPaymentData;
+    redirect?: 'always';
+  }): Observable<never | { error: StripeError }>;
   confirmAcssDebitSetup(
     clientSecret: string,
     data?: ConfirmAcssDebitSetupData,
@@ -308,6 +359,22 @@ export interface StripeServiceInterface {
     data?: ConfirmSofortSetupData
   ): Observable<{
     setupIntent?: SetupIntent;
+    error?: StripeError;
+  }>;
+  confirmAffirmPayment(
+    clientSecret: string,
+    data?: ConfirmAffirmPaymentData,
+    options?: ConfirmAffirmPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }>;
+  confirmAfterpayClearpayPayment(
+    clientSecret: string,
+    data?: ConfirmAfterpayClearpayPaymentData,
+    options?: ConfirmAfterpayClearpayPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
     error?: StripeError;
   }>;
   verifyMicrodepositsForSetup(

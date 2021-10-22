@@ -76,7 +76,16 @@ import {
   WrapperLibrary,
   VerificationSessionResult,
   ConfirmPayPalPaymentData,
-  ConfirmPayPalSetupData
+  ConfirmPayPalSetupData,
+  ConfirmPaymentData,
+  ConfirmCustomerBalancePaymentData,
+  ConfirmCustomerBalancePaymentOptions,
+  ConfirmPayNowPaymentData,
+  ConfirmPayNowPaymentOptions,
+  ConfirmPromptPayPaymentData,
+  ConfirmPromptPayPaymentOptions,
+  ConfirmAffirmPaymentData,
+  ConfirmAffirmPaymentOptions
 } from '@stripe/stripe-js';
 
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
@@ -138,6 +147,26 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  confirmPayment(options: {
+    elements: StripeElements;
+    confirmParams?: Partial<ConfirmPaymentData>;
+    redirect: 'if_required';
+  }): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }>;
+  confirmPayment(options: {
+    elements: StripeElements;
+    confirmParams: ConfirmPaymentData;
+    redirect?: 'always';
+  }): Observable<never | {error: StripeError}>;
+  confirmPayment(options) {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.confirmPayment(options))),
+      first()
+    );
+  }
+
   confirmAcssDebitPayment(
     clientSecret: string,
     data?: ConfirmAcssDebitPaymentData,
@@ -149,22 +178,6 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe.pipe(
       switchMap((stripe) =>
         from(stripe.confirmAcssDebitPayment(clientSecret, data, options))
-      ),
-      first()
-    );
-  }
-
-  confirmAfterpayClearpayPayment(
-    clientSecret: string,
-    data?: ConfirmAfterpayClearpayPaymentData,
-    options?: ConfirmAfterpayClearpayPaymentOptions
-  ): Observable<{
-    paymentIntent?: PaymentIntent;
-    error?: StripeError;
-  }> {
-    return this.stripe.pipe(
-      switchMap((stripe) =>
-        from(stripe.confirmAfterpayClearpayPayment(clientSecret, data, options))
       ),
       first()
     );
@@ -244,6 +257,22 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe.pipe(
       switchMap((stripe) =>
         from(stripe.confirmCardPayment(clientSecret, data, options))
+      ),
+      first()
+    );
+  }
+
+  confirmCustomerBalancePayment(
+    clientSecret: string,
+    data?: ConfirmCustomerBalancePaymentData,
+    options?: ConfirmCustomerBalancePaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmCustomerBalancePayment(clientSecret, data, options))
       ),
       first()
     );
@@ -377,6 +406,22 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  confirmPayNowPayment(
+    clientSecret: string,
+    data?: ConfirmPayNowPaymentData,
+    options?: ConfirmPayNowPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmPayNowPayment(clientSecret, data, options))
+      ),
+      first()
+    );
+  }
+
   confirmPayPalPayment(
     clientSecret: string,
     data?: ConfirmPayPalPaymentData
@@ -387,6 +432,22 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe.pipe(
       switchMap((stripe) =>
         from(stripe.confirmPayPalPayment(clientSecret, data))
+      ),
+      first()
+    );
+  }
+
+  confirmPromptPayPayment(
+    clientSecret: string,
+    data?: ConfirmPromptPayPaymentData,
+    options?: ConfirmPromptPayPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmPromptPayPayment(clientSecret, data, options))
       ),
       first()
     );
@@ -487,6 +548,26 @@ export class StripeInstance implements StripeServiceInterface {
   }> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.retrievePaymentIntent(clientSecret))),
+      first()
+    );
+  }
+
+  confirmSetup(options: {
+    elements: StripeElements;
+    confirmParams?: Partial<ConfirmPaymentData>;
+    redirect: 'if_required';
+  }): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }>;
+  confirmSetup(options: {
+    elements: StripeElements;
+    confirmParams: ConfirmPaymentData;
+    redirect?: 'always';
+  }): Observable<never | { error: StripeError }>;
+  confirmSetup(options) {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.confirmSetup(options))),
       first()
     );
   }
@@ -623,6 +704,38 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe.pipe(
       switchMap((stripe) =>
         from(stripe.confirmSofortSetup(clientSecret, data))
+      ),
+      first()
+    );
+  }
+
+  confirmAffirmPayment(
+    clientSecret: string,
+    data?: ConfirmAffirmPaymentData,
+    options?: ConfirmAffirmPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmAffirmPayment(clientSecret, data, options))
+      ),
+      first()
+    );
+  }
+
+  confirmAfterpayClearpayPayment(
+    clientSecret: string,
+    data?: ConfirmAfterpayClearpayPaymentData,
+    options?: ConfirmAfterpayClearpayPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmAfterpayClearpayPayment(clientSecret, data, options))
       ),
       first()
     );

@@ -11,6 +11,7 @@ import { StripeFpxBankComponent } from './components/fpx-bank.component';
 import { StripeIdealBankComponent } from './components/ideal-bank.component';
 import { StripeIbanComponent } from './components/iban.component';
 import { StripeAuBankAccountComponent } from './components/au-bank-account.component';
+import { StripePaymentElementComponent } from './components/payment-element.component';
 import { StripePaymentRequestButtonComponent } from './components/payment-request-button.component';
 
 import { StripeCardGroupDirective } from './directives/card-group.directive';
@@ -38,6 +39,7 @@ const components = [
   StripeIdealBankComponent,
   StripeIbanComponent,
   StripeAuBankAccountComponent,
+  StripePaymentElementComponent,
   StripePaymentRequestButtonComponent
 ];
 
@@ -46,7 +48,7 @@ const directives = [
   NgxStripeElementLoadingTemplateDirective
 ];
 
-const currentVersion = '12.6.0';
+const currentVersion = '12.7.0';
 
 @NgModule({
   declarations: [...components, ...directives],

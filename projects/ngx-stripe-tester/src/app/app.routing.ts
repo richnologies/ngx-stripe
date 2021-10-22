@@ -18,6 +18,14 @@ export const ROUTES: Routes = [
     loadChildren: () => import('./stripe-test-04/stripe-test-04.module').then(m => m.StripeTest04Module)
   },
   {
+    path: 'test-05',
+    loadChildren: () => import('./stripe-test-05/stripe-test-05.module').then(m => m.StripeTest05Module)
+  },
+  {
+    path: 'test-06',
+    loadChildren: () => import('./stripe-test-06/stripe-test-06.module').then(m => m.StripeTest06Module)
+  },
+  {
     path: 'welcome',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule)
   },
