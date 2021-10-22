@@ -36,7 +36,7 @@ import { StripeElementsService } from '../services/stripe-elements.service';
 })
 export class StripeIdealBankComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })
-  loadingTemplate!: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
+  loadingTemplate?: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeIdealBankElement;
 

@@ -37,7 +37,7 @@ import { StripeElementsService } from '../services/stripe-elements.service';
 export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })
   loadingTemplate!: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
-  @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
+  @ViewChild('stripeElementRef') public stripeElementRef?: ElementRef;
   element!: StripeCardElement;
 
   @Input() containerClass: string;
