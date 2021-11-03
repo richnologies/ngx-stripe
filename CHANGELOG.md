@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.7.1 - 2021-10-22
+
+- Fix peer dependencies
+
 ## 12.7.0 - 2021-10-22
 
 - Add support for Payment Element
