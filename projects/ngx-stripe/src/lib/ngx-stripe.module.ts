@@ -48,7 +48,7 @@ const directives = [
   NgxStripeElementLoadingTemplateDirective
 ];
 
-const currentVersion = '12.7.1';
+const currentVersion = '12.7.2';
 
 @NgModule({
   declarations: [...components, ...directives],

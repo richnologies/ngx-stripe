@@ -1,6 +1,10 @@
 # Changelog
 
-## 12.7.1 - 2021-10-22
+## 12.7.2 - 2021-11-05
+
+- Undo peer dependencies workaround
+
+## 12.7.1 - 2021-11-03
 
 - Fix peer dependencies
 

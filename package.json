@@ -42,7 +42,7 @@
     "@angular/pwa": "^12.0.0",
     "@angular/router": "^12.0.0",
     "@angular/service-worker": "^12.0.0",
-    "@stripe/stripe-js": "~1.20.3",
+    "@stripe/stripe-js": "^1.21.1",
     "core-js": "^2.5.4",
     "ngx-build-modern": "^1.1.10",
     "ngx-build-plus": "^12.0.1",
