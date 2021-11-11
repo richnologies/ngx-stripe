@@ -1,6 +1,6 @@
 {
   "name": "ngx-stripe",
-  "version": "12.7.2",
+  "version": "13.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/richnologies/ngx-stripe"
@@ -12,8 +12,8 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": ">=9.0.0 <13.0.0",
-    "@angular/core": ">=9.0.0 <13.0.0",
+    "@angular/common": ">=9.0.0 <14.0.0",
+    "@angular/core": ">=9.0.0 <14.0.0",
     "@stripe/stripe-js": "^1.21.1 <2.0.0"
   }
 }

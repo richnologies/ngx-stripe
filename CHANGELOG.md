@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.0.0 - 2021-11-11
+
+- Update peer dependencies for Angular v13
+
 ## 12.7.2 - 2021-11-05
 
 - Undo peer dependencies workaround
