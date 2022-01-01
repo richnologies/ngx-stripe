@@ -1,0 +1,22 @@
+<ngstr-section>
+  <ng-container ngStrSectionMain>
+    <ngstr-header title="Stripe Factory"></ngstr-header>
+    <p>
+      If you get your stripe key in a <strong>lazy way</strong>, or if you
+      need to work with more than one key, you can use the <strong>factory service</strong>.
+    </p>
+    <p>
+      If you don't know the key just call the <span class="ngstr-highlight">forRoot</span> method with no params
+    </p>
+    <p>
+      Then you can use the factory service to create stripe instances.
+      The stripe instance has the same api as the regular StripeService.
+    </p>
+    <ngstr-subheader>Usage</ngstr-subheader>
+    <ngstr-code-group>
+      <ngstr-code name="stripe-factory.component.ts" [code]="serviceFactoryTS"></ngstr-code>
+      <ngstr-code name="stripe-factory.component.html"[code]="serviceFactoryHTML"></ngstr-code>
+      <ngstr-code name="server.js" [code]="serviceFactoryModule"></ngstr-code>
+    </ngstr-code-group>
+  </ng-container>
+</ngstr-section>

@@ -1,0 +1,29 @@
+<ngstr-section>
+  <ng-container ngStrSectionMain>
+    <ngstr-header title="Checkout"></ngstr-header>
+    <p>
+      Stripe Checkout is a prebuilt, hosted payment page optimized for conversion.
+      Whether you offer one-time purchases or subscriptions, you can use Checkout to easily and securely accept payments online.
+    </p>
+    <ngstr-subheader link="accept-payment">Accept a payment</ngstr-subheader>
+    <p>
+      The easiest way to use Checkout to accept a single payment is to create a checkout
+      session in the server and then use the Stripe Service to redirect in the client.
+    </p>
+    <p>
+      To see more details on a full example, please check the official
+      <a href="https://stripe.com/docs/payments/accept-a-payment?platform=web&lang=javascript&integration=checkout&ui=checkout">
+        Stripe Docs.
+      </a>
+    </p>
+    <ngstr-subheader link="usage">Usage</ngstr-subheader>
+    <ngstr-code-group>
+      <ngstr-code name="checkout.component.ts" [code]="checkoutTS"></ngstr-code>
+      <ngstr-code name="checkout.component.html"[code]="checkoutHTML"></ngstr-code>
+      <ngstr-code name="server.js" [code]="serverJS"></ngstr-code>
+    </ngstr-code-group>
+  </ng-container>
+  <div class="sm:mx-auto sm:w-full sm:max-w-md" ngStrSectionAside>
+    <ngstr-copy-link></ngstr-copy-link>
+  </div>
+</ngstr-section>

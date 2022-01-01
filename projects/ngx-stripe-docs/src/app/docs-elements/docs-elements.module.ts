@@ -1,0 +1,59 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+import { HighlightModule } from 'ngx-highlightjs';
+
+import { NgStrCodeComponent } from './code/code.component';
+import { NgStrCodeGroup } from './code-group/code-group.component';
+import { NgStrCopyLinkComponent } from './copy-link/copy-link.component';
+import { NgStrDocsShellComponent } from './docs-shell/docs-shell.component';
+import { NgStrDocsHeaderComponent } from './header/header.component';
+import { NgStrPanelComponent } from './panel/panel.component';
+import { NgStrSectionComponent } from './section/section.component';
+import { NgStrSectionNavigatorComponent } from './section-navigator/section-navigator.component';
+import { NgStrSubheaderComponent } from './subheader/subheader.component';
+
+import { NgStrSectionMainDirective } from './section/section-main.directive';
+import { NgStrSectionAsideDirective } from './section/section-aside.directive';
+
+import { NgStrCodeFormatPipe } from './code/code-format.pipe';
+import { NgStrGroupNamePipe } from './section/group-name.pipe';
+
+const components = [
+  NgStrCodeComponent,
+  NgStrCodeGroup,
+  NgStrCopyLinkComponent,
+  NgStrDocsShellComponent,
+  NgStrDocsHeaderComponent,
+  NgStrPanelComponent,
+  NgStrSectionComponent,
+  NgStrSectionNavigatorComponent,
+  NgStrSubheaderComponent
+];
+
+const directives = [
+  NgStrSectionMainDirective,
+  NgStrSectionAsideDirective
+];
+
+const pipes = [
+  NgStrCodeFormatPipe,
+  NgStrGroupNamePipe
+];
+
+@NgModule({
+  declarations: [...components, ...directives, ...pipes],
+  exports: [
+    ...components,
+    ...directives,
+    ...pipes,
+    HighlightModule
+  ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HighlightModule
+  ]
+})
+export class DocsElementsModule {}

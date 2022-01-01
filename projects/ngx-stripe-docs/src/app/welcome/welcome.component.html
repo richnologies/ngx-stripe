@@ -1,0 +1,336 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="relative bg-gray-50 overflow-hidden">
+  <div class="hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full" aria-hidden="true">
+    <div class="relative h-full max-w-7xl mx-auto">
+      <svg class="absolute right-full transform translate-y-1/4 translate-x-1/4 lg:translate-x-1/2" width="404" height="784" fill="none" viewBox="0 0 404 784">
+        <defs>
+          <pattern id="f210dbf6-a58d-4871-961e-36d5016a0f49" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
+          </pattern>
+        </defs>
+        <rect width="404" height="784" fill="url(#f210dbf6-a58d-4871-961e-36d5016a0f49)" />
+      </svg>
+      <svg class="absolute left-full transform -translate-y-3/4 -translate-x-1/4 md:-translate-y-1/2 lg:-translate-x-1/2" width="404" height="784" fill="none" viewBox="0 0 404 784">
+        <defs>
+          <pattern id="5d0dd344-b041-4d26-bec4-8d33ea57ec9b" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
+          </pattern>
+        </defs>
+        <rect width="404" height="784" fill="url(#5d0dd344-b041-4d26-bec4-8d33ea57ec9b)" />
+      </svg>
+    </div>
+  </div>
+
+  <div class="relative pt-6 pb-16 sm:pb-24">
+    <main class="mt-16 mx-auto max-w-7xl px-4">
+      <div class="text-center">
+        <img src="/assets/img/ngx-stripe-logo.png" style="margin: auto; width: 160px; margin-bottom: 50px; padding: 5px; box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%); border-radius: 15px"/>
+        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+          <span class="block xl:inline">Ngx Stripe</span>
+        </h1>
+        <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl" style="margin: auto">
+          Collect payments with Stripe the Angular way
+        </p>
+        <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
+          <div class="rounded-md shadow">
+            <a routerLink="/docs/installation" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+              Get started
+            </a>
+          </div>
+          <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+            <a href="https://stackblitz.com/edit/ngx-stripe-live" rel="noopener noreferrer" target="_blank" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+              Live demo
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="bg-indigo-700">
+  <div class="max-w-4xl mx-auto px-4 py-8 sm:px-6 sm:pt-8 sm:pb-24 lg:max-w-7xl lg:px-8">
+    <!-- <h2 class="text-3xl font-extrabold text-white tracking-tight">Inbox support built for efficiency</h2>
+    <p class="mt-4 max-w-3xl text-lg text-indigo-200">Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis. Blandit aliquam sit nisl euismod mattis in.</p> -->
+    <div class="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
+      <div>
+        <div>
+          <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+            <!-- Heroicon name: outline/inbox -->
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+            </svg>
+          </span>
+        </div>
+        <div class="mt-6">
+          <h3 class="text-lg font-medium text-white">Checkout</h3>
+          <p class="mt-2 text-base text-indigo-200">
+            Use a low-code integration to build a customized payment page, hosted on Stripe.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+            <!-- Heroicon name: outline/users -->
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </span>
+        </div>
+        <div class="mt-6">
+          <h3 class="text-lg font-medium text-white">Payment Element</h3>
+          <p class="mt-2 text-base text-indigo-200">
+            Accept payment methods from around the globe with a single secure, embeddable UI component.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+            <!-- Heroicon name: outline/trash -->
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </span>
+        </div>
+        <div class="mt-6">
+          <h3 class="text-lg font-medium text-white">Identity</h3>
+          <p class="mt-2 text-base text-indigo-200">
+            Stripe Identity lets you programmatically confirm the identity of global users
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+            <!-- Heroicon name: outline/pencil-alt -->
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+          </span>
+        </div>
+        <div class="mt-6">
+          <h3 class="text-lg font-medium text-white">Payment Links</h3>
+          <p class="mt-2 text-base text-indigo-200">
+            Use Payment Links to sell online without a website. Create a full payment page in just a few clicks
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="bg-white">
+  <!-- Header -->
+  <div class="relative pb-32 bg-gray-800">
+    <div class="absolute inset-0">
+      <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1525130413817-d45c1d127c42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=60&&sat=-100" alt="">
+      <div class="absolute inset-0 bg-gray-800 mix-blend-multiply" aria-hidden="true"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">Support</h1>
+      <p class="mt-6 max-w-3xl text-xl text-gray-300">
+        We are here to help. Whether you have a problem with the library,
+        have any suggestions for improvement or simply want advice on how to approach payments in your project,
+        do not hesitate to contact us.
+      </p>
+    </div>
+  </div>
+
+  <!-- Overlapping cards -->
+  <section class="-mt-32 max-w-7xl mx-auto relative z-10 pb-32 px-4 sm:px-6 lg:px-8" aria-labelledby="contact-heading">
+    <h2 class="sr-only" id="contact-heading">Contact us</h2>
+    <div class="grid grid-cols-1 gap-y-20 lg:grid-cols-3 lg:gap-y-0 lg:gap-x-8">
+      <div class="flex flex-col bg-white rounded-2xl shadow-xl">
+        <div class="flex-1 relative pt-16 px-6 pb-8 md:px-8">
+          <div class="absolute top-0 p-5 inline-block bg-indigo-600 rounded-xl shadow-lg transform -translate-y-1/2">
+            <!-- Heroicon name: outline/phone -->
+            <svg class="h-6 w-6" fill="white" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-medium text-gray-900">GitHub</h3>
+          <p class="mt-4 text-base text-gray-500">This is the ideal channel to manage bugs or improvements so that the community can help and contribute.</p>
+        </div>
+        <div class="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
+          <a href="#" class="text-base font-medium text-indigo-700 hover:text-indigo-600">Create Issue<span aria-hidden="true"> &rarr;</span></a>
+        </div>
+      </div>
+
+      <div class="flex flex-col bg-white rounded-2xl shadow-xl">
+        <div class="flex-1 relative pt-16 px-6 pb-8 md:px-8">
+          <div class="absolute top-0 p-5 inline-block bg-indigo-600 rounded-xl shadow-lg transform -translate-y-1/2">
+            <!-- Heroicon name: outline/support -->
+            <svg class="h-6 w-6" fill="white" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-medium text-gray-900">Twitter</h3>
+          <p class="mt-4 text-base text-gray-500">If you prefer, you can reach us in Twitter by sending use a DM</p>
+        </div>
+        <div class="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
+          <a href="https://twitter.com/messages/compose?recipient_id=jcoegom" class="text-base font-medium text-indigo-700 hover:text-indigo-600">Send DM<span aria-hidden="true"> &rarr;</span></a>
+        </div>
+      </div>
+
+      <div class="flex flex-col bg-white rounded-2xl shadow-xl">
+        <div class="flex-1 relative pt-16 px-6 pb-8 md:px-8">
+          <div class="absolute top-0 p-5 inline-block bg-indigo-600 rounded-xl shadow-lg transform -translate-y-1/2">
+            <!-- Heroicon name: outline/newspaper -->
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-medium text-gray-900">Mail</h3>
+          <p class="mt-4 text-base text-gray-500">If you are looking for a more private communication, send us a message directly.</p>
+        </div>
+        <div class="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
+          <a href="mailto:support@ngx-stripe.dev" class="text-base font-medium text-indigo-700 hover:text-indigo-600">Send Message<span aria-hidden="true"> &rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="bg-indigo-400 bg-opacity-25">
+  <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+    <div class="lg:grid lg:grid-cols-2 lg:gap-8">
+      <h2 class="max-w-md mx-auto text-3xl font-extrabold text-indigo-900 text-center lg:max-w-xl lg:text-left">
+        We're thankful to our sponsors for their contribution, which has allowed us to greatly improve the project, increase QA and testing, and push forward
+      </h2>
+      <div class="flow-root self-center mt-8 lg:mt-0">
+        <div class="-mt-4 -ml-8 flex flex-wrap lg:-ml-4">
+          <div class="mt-4 ml-8 flex flex-grow flex-shrink-0 justify-center lg:flex-grow-0 lg:ml-4">
+            <img style="height: 7rem" src="https://github.com/richnologies/ngx-stripe/raw/main/docs/logos/stripe_blurple.png" alt="Stripe">
+          </div>
+          <div class="mt-4 ml-8 flex flex-grow flex-shrink-0 justify-center lg:flex-grow-0 lg:ml-4">
+            <img style="height: 7rem" src="https://github.com/richnologies/ngx-stripe/raw/main/docs/logos/psi-logo.png" alt="PSI Mobile">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<footer class="bg-white" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+      <div class="space-y-8 xl:col-span-1">
+        <img class="h-14" src="/assets/img/ngx-stripe-logo.png" alt="Ngx Stripe Logo" style="padding: 4px; box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%); border-radius: 5px">
+        <p class="text-gray-500 text-base">Collect payments with Stripe the Angular way</p>
+        <div class="flex space-x-6">
+
+          <a href="https://twitter.com/richnologies" class="text-gray-400 hover:text-gray-500">
+            <span class="sr-only">Twitter</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+            </svg>
+          </a>
+
+          <a href="https://github.com/richnologies/ngx-stripe" class="text-gray-400 hover:text-gray-500" target="_blank" rel="noopener noreferrer">
+            <span class="sr-only">GitHub</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+            </svg>
+          </a>
+
+        </div>
+      </div>
+      <!-- <div class="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Solutions</h3>
+            <ul role="list" class="mt-4 space-y-4">
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Marketing </a>
+              </li>
+
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Analytics </a>
+              </li>
+
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Commerce </a>
+              </li>
+
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Insights </a>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-12 md:mt-0">
+            <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Support</h3>
+            <ul role="list" class="mt-4 space-y-4">
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Pricing </a>
+              </li>
+
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Documentation </a>
+              </li>
+
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Guides </a>
+              </li>
+
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> API Status </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Company</h3>
+            <ul role="list" class="mt-4 space-y-4">
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> About </a>
+              </li>
+
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Blog </a>
+              </li>
+
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Jobs </a>
+              </li>
+
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Press </a>
+              </li>
+
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Partners </a>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-12 md:mt-0">
+            <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Legal</h3>
+            <ul role="list" class="mt-4 space-y-4">
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Claim </a>
+              </li>
+
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Privacy </a>
+              </li>
+
+              <li>
+                <a href="#" class="text-base text-gray-500 hover:text-gray-900"> Terms </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <div class="mt-12 border-t border-gray-200 pt-8">
+      <p class="text-base text-gray-400 xl:text-center">Made with love by <a href="https://ricardosanchez.dev/" rel="noopener noreferrer" target="_blank">Ricardo Sánchez</a></p>
+    </div>
+  </div>
+</footer>

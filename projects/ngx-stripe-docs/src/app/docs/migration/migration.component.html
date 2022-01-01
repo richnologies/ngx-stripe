@@ -1,0 +1,119 @@
+<ngstr-section>
+  <ng-container ngStrSectionMain>
+    <ngstr-header title="Migration"></ngstr-header>
+    <p>
+      Below are the major changes for update from legacy to active <span class="ngstr-highlight">ngx-stripe</span>
+    </p>
+    <ngstr-subheader>Interfaces</ngstr-subheader>
+    <p>
+      Most of the changes in the library are because ngx-stripe will
+      no longer maintain its own types. Instead, it will make use of
+      the official Stripe types.
+    </p>
+    <p>
+      Changes in the interfaces should always be for the best,
+      no mistach between Stripe and ngx-stripe. Always up to the date the last changes.
+    </p>
+    <p>
+      The main change will be in terms of naming.
+      The following table aim to be a guide reference:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Legacy</th>
+          <th>Active</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Options</td>
+          <td>StripeConstructorOptions</td>
+        </tr>
+        <tr>
+          <td>StripeJS</td>
+          <td>Stripe</td>
+        </tr>
+        <tr>
+          <td>ElementsOptions</td>
+          <td>StripeElementsOptions</td>
+        </tr>
+        <tr>
+          <td>Element</td>
+          <td>StripeElement</td>
+        </tr>
+        <tr>
+          <td>Elements</td>
+          <td>StripeElements</td>
+        </tr>
+        <tr>
+          <td>PaymentRequestOptions</td>
+          <td>PaymentRequestOptions</td>
+        </tr>
+        <tr>
+          <td>PaymentIntentResult</td>
+          <td>{{ paymentIntentResultNext }}</td>
+        </tr>
+        <tr>
+          <td>CardSetupResult</td>
+          <td>{{ cardSetupResultNext }}</td>
+        </tr>
+        <tr>
+          <td>SourceData</td>
+          <td>CreateSourceData</td>
+        </tr>
+        <tr>
+          <td>SourceParams</td>
+          <td>RetrieveSourceParam</td>
+        </tr>
+        <tr>
+          <td>SourceResult</td>
+          <td>{{ sourceResultNext }}</td>
+        </tr>
+        <tr>
+          <td>TokenResult</td>
+          <td>{{ tokenResultNext }}</td>
+        </tr>
+        <tr>
+          <td>PiiData</td>
+          <td>CreateTokenPiiData</td>
+        </tr>
+        <tr>
+          <td>BankAccountData</td>
+          <td>CreateTokenBankAccountData</td>
+        </tr>
+        <tr>
+          <td>CardDataOptions</td>
+          <td>CreateTokenCardData</td>
+        </tr>
+        <tr>
+          <td>Account</td>
+          <td>TokenCreateParams.Account</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <strong>
+        NOTE: In legacy types were imported from ngx-stripe, while in active they are imported from @stripe/stripe-js
+      </strong>
+    </p>
+    <p>
+      <strong>
+        NOTE 2: Please if you notices any missing type, open an issue or a PR and we will try to address it as soon as possible
+      </strong>
+    </p>
+    <ngstr-subheader>Stripe Service</ngstr-subheader>
+    <p>
+      Now the good news. The Stripe Service has been updated to include all the
+      new APIs from StripeJS. No problems shoudl arise here, since basically what
+      we have done is add missing methods. Nothing has been removed.
+      Issue will be likely type related.
+    </p>
+    <p>
+      For more information about the API please check the docs
+    </p>
+    <p>
+      This is a list comparing the available methods in both legacy and active:
+    </p>
+  </ng-container>
+</ngstr-section>

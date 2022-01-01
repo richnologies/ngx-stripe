@@ -38,31 +38,29 @@
         }
       }
     },
-    "ngx-stripe-tester": {
-      "root": "projects/ngx-stripe-tester/",
-      "sourceRoot": "projects/ngx-stripe-tester/src",
+    "ngx-stripe-docs": {
+      "root": "projects/ngx-stripe-docs/",
+      "sourceRoot": "projects/ngx-stripe-docs/src",
       "projectType": "application",
-      "prefix": "app",
+      "prefix": "ngst",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngx-stripe-tester",
-            "index": "projects/ngx-stripe-tester/src/index.html",
-            "main": "projects/ngx-stripe-tester/src/main.ts",
-            "polyfills": "projects/ngx-stripe-tester/src/polyfills.ts",
-            "tsConfig": "projects/ngx-stripe-tester/tsconfig.app.json",
+            "outputPath": "dist/ngx-stripe-docs",
+            "index": "projects/ngx-stripe-docs/src/index.html",
+            "main": "projects/ngx-stripe-docs/src/main.ts",
+            "polyfills": "projects/ngx-stripe-docs/src/polyfills.ts",
+            "tsConfig": "projects/ngx-stripe-docs/tsconfig.app.json",
             "assets": [
-              "projects/ngx-stripe-tester/src/favicon.ico",
-              "projects/ngx-stripe-tester/src/assets",
-              "projects/ngx-stripe-tester/src/manifest.webmanifest",
-              "projects/ngx-stripe-tester/src/robots.txt",
-              "projects/ngx-stripe-tester/src/sitemap.xml"
+              "projects/ngx-stripe-docs/src/assets",
+              "projects/ngx-stripe-docs/src/robots.txt",
+              "projects/ngx-stripe-docs/src/sitemap.xml"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "projects/ngx-stripe-tester/src/styles.css"
+              "projects/ngx-stripe-docs/src/styles.css"
             ],
             "scripts": []
           },
@@ -70,14 +68,13 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/ngx-stripe-tester/src/environments/environment.ts",
-                  "with": "projects/ngx-stripe-tester/src/environments/environment.prod.ts"
+                  "replace": "projects/ngx-stripe-docs/src/environments/environment.ts",
+                  "with": "projects/ngx-stripe-docs/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -89,44 +86,43 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 }
-              ],
-              "serviceWorker": true
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngx-stripe-tester:build"
+            "browserTarget": "ngx-stripe-docs:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngx-stripe-tester:build:production"
+              "browserTarget": "ngx-stripe-docs:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-stripe-tester:build"
+            "browserTarget": "ngx-stripe-docs:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ngx-stripe-tester/src/test.ts",
-            "polyfills": "projects/ngx-stripe-tester/src/polyfills.ts",
-            "tsConfig": "projects/ngx-stripe-tester/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-stripe-tester/karma.conf.js",
+            "main": "projects/ngx-stripe-docs/src/test.ts",
+            "polyfills": "projects/ngx-stripe-docs/src/polyfills.ts",
+            "tsConfig": "projects/ngx-stripe-docs/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-stripe-docs/karma.conf.js",
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
-              "projects/ngx-stripe-tester/src/styles.css"
+              "projects/ngx-stripe-docs/src/styles.css"
             ],
             "scripts": [],
             "assets": [
-              "projects/ngx-stripe-tester/src/favicon.ico",
-              "projects/ngx-stripe-tester/src/assets",
-              "projects/ngx-stripe-tester/src/manifest.webmanifest"
+              "projects/ngx-stripe-docs/src/favicon.ico",
+              "projects/ngx-stripe-docs/src/assets",
+              "projects/ngx-stripe-docs/src/manifest.webmanifest"
             ]
           }
         },
@@ -134,37 +130,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ngx-stripe-tester/tsconfig.app.json",
-              "projects/ngx-stripe-tester/tsconfig.spec.json"
+              "projects/ngx-stripe-docs/tsconfig.app.json",
+              "projects/ngx-stripe-docs/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "ngx-stripe-tester-e2e": {
-      "root": "projects/ngx-stripe-tester-e2e/",
-      "projectType": "application",
-      "prefix": "",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/ngx-stripe-tester-e2e/protractor.conf.js",
-            "devServerTarget": "ngx-stripe-tester:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "ngx-stripe-tester:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "projects/ngx-stripe-tester-e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**"
             ]

@@ -1,0 +1,16 @@
+<ngstr-section>
+  <ng-container ngStrSectionMain>
+    <ngstr-header title="Setup Application"></ngstr-header>
+    <p>
+      Import the <span class="ngstr-highlight">NgxStripeModule</span> into your application
+    </p>
+    <p>
+      The module takes the same parameters as the global Stripe object. The <span class="ngstr-highlight">APIKey</span> and the optional <span class="ngstr-highlight">Options</span> to use <strong>Stripe</strong> connect.
+    </p>
+    <ul role="list">
+      <li>apiKey: string</li>
+      <li>{{ options }}</li>
+    </ul>
+    <ngstr-code [code]="appModule"></ngstr-code>
+  </ng-container>
+</ngstr-section>
