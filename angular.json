@@ -46,7 +46,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "ngx-build-plus:build",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/ngx-stripe-tester",
             "index": "projects/ngx-stripe-tester/src/index.html",
@@ -95,7 +95,7 @@
           }
         },
         "serve": {
-          "builder": "ngx-build-plus:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "ngx-stripe-tester:build"
           },
@@ -112,7 +112,7 @@
           }
         },
         "test": {
-          "builder": "ngx-build-plus:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "projects/ngx-stripe-tester/src/test.ts",
             "polyfills": "projects/ngx-stripe-tester/src/polyfills.ts",
