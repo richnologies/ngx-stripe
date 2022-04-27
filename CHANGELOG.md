@@ -1,5 +1,12 @@
 # Changelog
 
+## 13.1.0 - 2022-04-27
+
+- Update whole project to use Angular v13
+- Add support for confirmSofort* options
+- Add support for confirmKonbiniPayments
+- Add support for US Bank Accounts
+
 ## 13.0.0 - 2021-11-11
 
 - Update peer dependencies for Angular v13
