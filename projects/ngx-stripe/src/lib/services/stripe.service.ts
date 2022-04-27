@@ -90,6 +90,10 @@ import {
   ConfirmSofortSetupOptions,
   ConfirmKonbiniPaymentData,
   ConfirmKonbiniPaymentOptions,
+  ConfirmUsBankAccountPaymentData,
+  CollectBankAccountForPaymentOptions,
+  ConfirmUsBankAccountSetupData,
+  CollectBankAccountForSetupOptions,
 } from '@stripe/stripe-js';
 
 import {
@@ -180,6 +184,16 @@ export class StripeService implements StripeServiceInterface {
     error?: StripeError;
   }> {
     return this.stripe.confirmAcssDebitPayment(clientSecret, data, options);
+  }
+
+  confirmUsBankAccountPayment(
+    clientSecret: string,
+    data?: ConfirmUsBankAccountPaymentData
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.confirmUsBankAccountPayment(clientSecret, data);
   }
 
   confirmAlipayPayment(
@@ -429,6 +443,15 @@ export class StripeService implements StripeServiceInterface {
     return this.stripe.verifyMicrodepositsForPayment(clientSecret, data);
   }
 
+  collectBankAccountForPayment(
+    options: CollectBankAccountForPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.collectBankAccountForPayment(options);
+  }
+
   createPaymentMethod(
     paymentMethodData: CreatePaymentMethodData
   ): Observable<{
@@ -473,6 +496,16 @@ export class StripeService implements StripeServiceInterface {
     error?: StripeError;
   }> {
     return this.stripe.confirmAcssDebitSetup(clientSecret, data, options);
+  }
+
+  confirmUsBankAccountSetup(
+    clientSecret: string,
+    data?: ConfirmUsBankAccountSetupData
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.confirmUsBankAccountSetup(clientSecret, data);
   }
 
   confirmAuBecsDebitSetup(
@@ -587,6 +620,15 @@ export class StripeService implements StripeServiceInterface {
     error?: StripeError;
   }> {
     return this.stripe.verifyMicrodepositsForSetup(clientSecret, data);
+  }
+
+  collectBankAccountForSetup(
+    options?: CollectBankAccountForSetupOptions
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.collectBankAccountForSetup(options);
   }
 
   retrieveSetupIntent(

@@ -84,7 +84,11 @@ import {
   ConfirmSofortPaymentOptions,
   ConfirmSofortSetupOptions,
   ConfirmKonbiniPaymentData,
-  ConfirmKonbiniPaymentOptions
+  ConfirmKonbiniPaymentOptions,
+  ConfirmUsBankAccountPaymentData,
+  CollectBankAccountForPaymentOptions,
+  ConfirmUsBankAccountSetupData,
+  CollectBankAccountForSetupOptions
 } from '@stripe/stripe-js';
 
 export interface StripeServiceInterface {
@@ -110,6 +114,13 @@ export interface StripeServiceInterface {
     clientSecret: string,
     data?: ConfirmAcssDebitPaymentData,
     options?: ConfirmAcssDebitPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }>;
+  confirmUsBankAccountPayment(
+    clientSecret: string,
+    data?: ConfirmUsBankAccountPaymentData
   ): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
@@ -284,6 +295,12 @@ export interface StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }>;
+  collectBankAccountForPayment(
+    options: CollectBankAccountForPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }>;
   createPaymentMethod(
     paymentMethodData: CreatePaymentMethodData
   ): Observable<{
@@ -313,6 +330,13 @@ export interface StripeServiceInterface {
     clientSecret: string,
     data?: ConfirmAcssDebitSetupData,
     options?: ConfirmAcssDebitSetupOptions
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }>;
+  confirmUsBankAccountSetup(
+    clientSecret: string,
+    data?: ConfirmUsBankAccountSetupData
   ): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;
@@ -394,6 +418,12 @@ export interface StripeServiceInterface {
   verifyMicrodepositsForSetup(
     clientSecret: string,
     data?: VerifyMicrodepositsForSetupData
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }>;
+  collectBankAccountForSetup(
+    options: CollectBankAccountForSetupOptions
   ): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;

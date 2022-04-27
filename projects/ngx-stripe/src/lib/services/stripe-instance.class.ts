@@ -89,7 +89,11 @@ import {
   ConfirmSofortPaymentOptions,
   ConfirmSofortSetupOptions,
   ConfirmKonbiniPaymentData,
-  ConfirmKonbiniPaymentOptions
+  ConfirmKonbiniPaymentOptions,
+  ConfirmUsBankAccountPaymentData,
+  CollectBankAccountForPaymentOptions,
+  ConfirmUsBankAccountSetupData,
+  CollectBankAccountForSetupOptions
 } from '@stripe/stripe-js';
 
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
@@ -182,6 +186,21 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe.pipe(
       switchMap((stripe) =>
         from(stripe.confirmAcssDebitPayment(clientSecret, data, options))
+      ),
+      first()
+    );
+  }
+
+  confirmUsBankAccountPayment(
+    clientSecret: string,
+    data?: ConfirmUsBankAccountPaymentData
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmUsBankAccountPayment(clientSecret, data))
       ),
       first()
     );
@@ -547,6 +566,20 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  collectBankAccountForPayment(
+    options: CollectBankAccountForPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.collectBankAccountForPayment(options))
+      ),
+      first()
+    );
+  }
+
   createPaymentMethod(
     paymentMethodData: CreatePaymentMethodData
   ): Observable<{
@@ -604,6 +637,21 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe.pipe(
       switchMap((stripe) =>
         from(stripe.confirmAcssDebitSetup(clientSecret, data, options))
+      ),
+      first()
+    );
+  }
+
+  confirmUsBankAccountSetup(
+    clientSecret: string,
+    data?: ConfirmUsBankAccountSetupData
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmUsBankAccountSetup(clientSecret, data))
       ),
       first()
     );
@@ -773,6 +821,20 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe.pipe(
       switchMap((stripe) =>
         from(stripe.verifyMicrodepositsForSetup(clientSecret, data))
+      ),
+      first()
+    );
+  }
+
+  collectBankAccountForSetup(
+    options: CollectBankAccountForSetupOptions
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.collectBankAccountForSetup(options))
       ),
       first()
     );
