@@ -87,7 +87,9 @@ import {
   ConfirmAffirmPaymentData,
   ConfirmAffirmPaymentOptions,
   ConfirmSofortPaymentOptions,
-  ConfirmSofortSetupOptions
+  ConfirmSofortSetupOptions,
+  ConfirmKonbiniPaymentData,
+  ConfirmKonbiniPaymentOptions
 } from '@stripe/stripe-js';
 
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
@@ -371,6 +373,22 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe.pipe(
       switchMap((stripe) =>
         from(stripe.confirmKlarnaPayment(clientSecret, data, options))
+      ),
+      first()
+    );
+  }
+
+  confirmKonbiniPayment(
+    clientSecret: string,
+    data?: ConfirmKonbiniPaymentData,
+    options?: ConfirmKonbiniPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.pipe(
+      switchMap((stripe) =>
+        from(stripe.confirmKonbiniPayment(clientSecret, data, options))
       ),
       first()
     );

@@ -88,6 +88,8 @@ import {
   ConfirmAffirmPaymentOptions,
   ConfirmSofortPaymentOptions,
   ConfirmSofortSetupOptions,
+  ConfirmKonbiniPaymentData,
+  ConfirmKonbiniPaymentOptions,
 } from '@stripe/stripe-js';
 
 import {
@@ -309,6 +311,17 @@ export class StripeService implements StripeServiceInterface {
     error?: StripeError;
   }> {
     return this.stripe.confirmKlarnaPayment(clientSecret, data, options);
+  }
+
+  confirmKonbiniPayment(
+    clientSecret: string,
+    data?: ConfirmKonbiniPaymentData,
+    options?: ConfirmKonbiniPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }> {
+    return this.stripe.confirmKonbiniPayment(clientSecret, data, options);
   }
 
   confirmOxxoPayment(
