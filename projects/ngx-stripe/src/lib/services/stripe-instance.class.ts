@@ -85,7 +85,9 @@ import {
   ConfirmPromptPayPaymentData,
   ConfirmPromptPayPaymentOptions,
   ConfirmAffirmPaymentData,
-  ConfirmAffirmPaymentOptions
+  ConfirmAffirmPaymentOptions,
+  ConfirmSofortPaymentOptions,
+  ConfirmSofortSetupOptions
 } from '@stripe/stripe-js';
 
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
@@ -470,14 +472,15 @@ export class StripeInstance implements StripeServiceInterface {
 
   confirmSofortPayment(
     clientSecret: string,
-    data?: ConfirmSofortPaymentData
+    data?: ConfirmSofortPaymentData,
+    options?: ConfirmSofortPaymentOptions
   ): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
     return this.stripe.pipe(
       switchMap((stripe) =>
-        from(stripe.confirmSofortPayment(clientSecret, data))
+        from(stripe.confirmSofortPayment(clientSecret, data, options))
       ),
       first()
     );
@@ -696,14 +699,15 @@ export class StripeInstance implements StripeServiceInterface {
 
   confirmSofortSetup(
     clientSecret: string,
-    data?: ConfirmSofortSetupData
+    data?: ConfirmSofortSetupData,
+    options?: ConfirmSofortSetupOptions
   ): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;
   }> {
     return this.stripe.pipe(
       switchMap((stripe) =>
-        from(stripe.confirmSofortSetup(clientSecret, data))
+        from(stripe.confirmSofortSetup(clientSecret, data, options))
       ),
       first()
     );

@@ -86,6 +86,8 @@ import {
   ConfirmPromptPayPaymentOptions,
   ConfirmAffirmPaymentData,
   ConfirmAffirmPaymentOptions,
+  ConfirmSofortPaymentOptions,
+  ConfirmSofortSetupOptions,
 } from '@stripe/stripe-js';
 
 import {
@@ -375,12 +377,13 @@ export class StripeService implements StripeServiceInterface {
 
   confirmSofortPayment(
     clientSecret: string,
-    data?: ConfirmSofortPaymentData
+    data?: ConfirmSofortPaymentData,
+    options?: ConfirmSofortPaymentOptions
   ): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmSofortPayment(clientSecret, data);
+    return this.stripe.confirmSofortPayment(clientSecret, data, options);
   }
 
   confirmWechatPayPayment(
@@ -532,12 +535,13 @@ export class StripeService implements StripeServiceInterface {
 
   confirmSofortSetup(
     clientSecret: string,
-    data?: ConfirmSofortSetupData
+    data?: ConfirmSofortSetupData,
+    options?: ConfirmSofortSetupOptions
   ): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;
   }> {
-    return this.stripe.confirmSofortSetup(clientSecret, data);
+    return this.stripe.confirmSofortSetup(clientSecret, data, options);
   }
 
   confirmAffirmPayment(

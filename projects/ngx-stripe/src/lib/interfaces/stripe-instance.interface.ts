@@ -80,7 +80,9 @@ import {
   ConfirmPayNowPaymentData,
   ConfirmPayNowPaymentOptions,
   ConfirmCustomerBalancePaymentData,
-  ConfirmCustomerBalancePaymentOptions
+  ConfirmCustomerBalancePaymentOptions,
+  ConfirmSofortPaymentOptions,
+  ConfirmSofortSetupOptions
 } from '@stripe/stripe-js';
 
 export interface StripeServiceInterface {
@@ -245,7 +247,8 @@ export interface StripeServiceInterface {
   }>;
   confirmSofortPayment(
     clientSecret: string,
-    data?: ConfirmSofortPaymentData
+    data?: ConfirmSofortPaymentData,
+    options?: ConfirmSofortPaymentOptions
   ): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
@@ -356,7 +359,8 @@ export interface StripeServiceInterface {
   }>;
   confirmSofortSetup(
     clientSecret: string,
-    data?: ConfirmSofortSetupData
+    data?: ConfirmSofortSetupData,
+    options?: ConfirmSofortSetupOptions
   ): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;
