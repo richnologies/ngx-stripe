@@ -1,19 +1,32 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject } from '@angular/core';
+
+import { ToastrService } from 'ngx-toastr';
+
+import { NgStrClipboardService } from '../../core';
 
 @Component({
   selector: 'ngstr-copy-link',
   template: `
-    <div class="cursor-pointer font-medium px-3 py-2 text-sm border-l-4" (click)="copyLink()">
-      <span class="material-icons mr-3">content_copy</span>
-      Copy Link
+    <div class="cursor-pointer font-normal px-3 py-1 text-sm border-l-2 text-gray-500 hover:text-indigo-600" (click)="copyLink()">
+      <span class="material-icons text-sm mr-3">content_copy</span>
+      <span>Copy Link</span>
     </div>
   `
 })
 export class NgStrCopyLinkComponent {
-  constructor(private router: Router) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private clipboard: NgStrClipboardService,
+    private toastr: ToastrService
+  ) {}
 
   copyLink() {
-    this.router
+    try {
+      this.clipboard.copy(this.document.defaultView.location.href);
+      this.toastr.info('Paste it wherever you like', 'Page URL copied to the clipboard');
+    } catch (err) {
+      console.error(err);
+    }
   }
 }

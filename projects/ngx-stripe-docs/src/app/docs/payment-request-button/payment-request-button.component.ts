@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-payment-request-button',
+  selector: 'ngstr-payment-request-button',
   templateUrl: './payment-request-button.component.html',
   encapsulation: ViewEncapsulation.None
 })
@@ -21,7 +21,7 @@ export class NgStrPaymentRequestButtonComponent {
     } from '@stripe/stripe-js';
 
     @Component({
-      selector: 'app-payment-request-button',
+      selector: 'ngstr-payment-request-button',
       templateUrl: './payment-request-button.component.html',
     })
     export class PaymentRequestButtonComponent {

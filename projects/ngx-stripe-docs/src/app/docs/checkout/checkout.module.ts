@@ -4,21 +4,21 @@ import { CommonModule } from '@angular/common';
 
 import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
 
-import { CheckoutComponent } from './checkout.component';
+import { NgStrCheckoutComponent } from './checkout.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CheckoutComponent
+    component: NgStrCheckoutComponent
   }
 ];
 
 @NgModule({
-  declarations: [CheckoutComponent],
+  declarations: [NgStrCheckoutComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     DocsElementsModule
   ]
 })
-export class CheckoutModule {}
+export class NgStrCheckoutModule {}

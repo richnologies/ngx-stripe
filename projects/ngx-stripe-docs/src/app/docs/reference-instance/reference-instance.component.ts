@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-reference-instance',
+  selector: 'ngstr-reference-instance',
   templateUrl: './reference-instance.component.html',
   encapsulation: ViewEncapsulation.None
 })
@@ -12,7 +12,7 @@ export class NgStrReferenceInstanceComponent {
     import { StripeService } from 'ngx-stripe';
 
     @Component({
-      selector: 'app-stripe-test',
+      selector: 'ngstr-stripe-test',
       templateUrl: 'stripe.html'
     })
     export class StripeTestComponent implements OnInit {

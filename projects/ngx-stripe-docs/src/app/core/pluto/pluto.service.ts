@@ -8,7 +8,7 @@ import Stripe from 'stripe';
 import { PLUTO_ID } from './client-id.provider';
 
 @Injectable({ providedIn: 'root' })
-export class PlutoService {
+export class NgStrPlutoService {
   private static readonly BASE_URL = 'https://api.pluto.ricardosanchez.dev/api';
 
   constructor(
@@ -18,7 +18,7 @@ export class PlutoService {
 
   createPaymentIntent(params: Stripe.PaymentIntentCreateParams, options: { clientId?: string } = {}): Observable<PaymentIntent> {
     return this.http.post<PaymentIntent>(
-      `${PlutoService.BASE_URL}/payments/create-payment-intent`,
+      `${NgStrPlutoService.BASE_URL}/payments/create-payment-intent`,
       params,
       { headers: { merchant: options.clientId ?? this.clientId } }
     );
@@ -26,7 +26,7 @@ export class PlutoService {
 
   createVerificationSession(userid: string, options: { clientId?: string } = {}): Observable<any> {
     return this.http.post<PaymentIntent>(
-      `${PlutoService.BASE_URL}/identity/create-verification-session`,
+      `${NgStrPlutoService.BASE_URL}/identity/create-verification-session`,
       { userid },
       { headers: { merchant: options.clientId ?? this.clientId } }
     );

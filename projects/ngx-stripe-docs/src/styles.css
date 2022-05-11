@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '~highlight.js/styles/xcode.css';
+@import '~ngx-toastr/toastr';
 
 html, body { height: 100%; }
 body {
@@ -50,4 +51,8 @@ ngstr-code pre code.hljs {
   background: #f5f8fc !important;
   font-size: 0.813rem;
   border-radius: 0.625em;
+}
+
+.toast-ngx-stripe {
+  background-color: #635bffdf;
 }

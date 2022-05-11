@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-manually-mount',
+  selector: 'ngstr-manually-mount',
   templateUrl: './manually-mount.component.html',
   encapsulation: ViewEncapsulation.None
 })
@@ -19,7 +19,7 @@ export class NgStrManuallyMountComponent {
     } from '@stripe/stripe-js';
 
     @Component({
-      selector: 'app-stirpe-mount',
+      selector: 'ngstr-stirpe-mount',
       templateUrl: '/stripe-mount.component.html'
     })
     export class StripeTestComponent implements OnInit {

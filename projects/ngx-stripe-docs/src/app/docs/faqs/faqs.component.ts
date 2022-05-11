@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-faqs',
+  selector: 'ngstr-faqs',
   templateUrl: './faqs.component.html',
   encapsulation: ViewEncapsulation.None
 })

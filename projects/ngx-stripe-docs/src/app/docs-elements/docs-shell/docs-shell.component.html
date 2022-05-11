@@ -13,17 +13,16 @@
       <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
         <div class="flex-shrink-0 flex items-center px-4">
           <a routerLink="/">
-            <img class="h-8 w-auto mr-3" [src]="content.logo" [alt]="content.title" style="display: inline-block;">
+            <img class="inline-block h-8 w-auto mr-3" [src]="content.logo" [alt]="content.title">
             {{ content.title }}
           </a>
         </div>
         <nav class="mt-5 px-2 space-y-1">
           <ng-container *ngFor="let item of content.menu">
             <h3 *ngIf="item.type === 'group'"
-              class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider"
-              style="display: block; margin-top: 24px; font-size: 90%; margin-bottom: 5px"
+              class="block px-4 mt-6 mb-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider"
             >
-              {{ item.name }}
+              <span class="text-xs">{{ item.name }}</span>
             </h3>
             <a *ngIf="item.type === 'page'"
               (click)="showMenu = false"
@@ -41,7 +40,6 @@
                 'hover:text-gray-900': !rla.isActive
               }"
             >
-              <span class="material-icons mr-3">{{ item.icon }}</span>
               {{ item.name }}
             </a>
           </ng-container>
@@ -56,17 +54,16 @@
       <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
         <div class="flex items-center flex-shrink-0 px-4">
           <a routerLink="/">
-            <img class="h-14 w-auto mr-3" [src]="content.logo" [alt]="content.title" style="display: inline-block; padding: 3px; box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%); border-radius: 15px">
+            <img class="inline-block h-14 w-auto mr-3 p-1 rounded-2xl shadow-md" [src]="content.logo" [alt]="content.title">
             <span class="text-xl tracking-tight font-extrabold text-gray-900">{{ content.title }}</span>
           </a>
         </div>
         <nav class="mt-5 flex-1 bg-white space-y-1">
           <ng-container *ngFor="let item of content.menu">
             <h3 *ngIf="item.type === 'group'"
-              class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider"
-              style="display: block; margin-top: 24px; font-size: 90%; margin-bottom: 5px"
+              class="block px-4 mt-6 mb-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider"
             >
-              {{ item.name }}
+              <span class="text-xs">{{ item.name }}</span>
             </h3>
             <a *ngIf="item.type === 'page'"
               [routerLink]="item.path"

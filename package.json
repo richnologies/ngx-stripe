@@ -41,6 +41,7 @@
     "highlight.js": "^11.5.1",
     "highlightjs-line-numbers.js": "^2.8.0",
     "ngx-highlightjs": "^6.1.2",
+    "ngx-toastr": "^14.3.0",
     "rxjs": "~7.4.0",
     "stripe": "^8.219.0",
     "tslib": "^2.3.0",

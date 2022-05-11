@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
   selector: 'ngstr-subheader',
   template: `
     <h3 class="ngstr-subheader" [id]="link" (mouseenter)="showHashLink = true" (mouseleave)="showHashLink = false">
-      <ng-content></ng-content>
+      <span>{{ subheader }}</span>
       <a [href]="url + '#' + link"
         class="ngstr-link-hash"
         title="Direct link to heading"
@@ -25,6 +25,7 @@ import { Router } from '@angular/router';
   ]
 })
 export class NgStrSubheaderComponent {
+  @Input() subheader: string;
   @Input() link: string;
   showHashLink = false;
 

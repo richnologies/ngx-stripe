@@ -1,11 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-setup-application',
+  selector: 'ngstr-setup-application',
   templateUrl: './setup-application.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export class SetupApplicationComponent {
+export class NgStrSetupApplicationComponent {
   appModule = `
     import { BrowserModule } from '@angular/platform-browser';
     import { NgModule } from '@angular/core';

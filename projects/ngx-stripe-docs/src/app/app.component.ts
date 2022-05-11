@@ -6,7 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { NgStrGoogleTagManagerService } from './core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'ngstr-root',
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {

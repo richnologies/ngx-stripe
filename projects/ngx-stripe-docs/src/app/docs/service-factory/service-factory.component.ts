@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-service-factory',
+  selector: 'ngstr-service-factory',
   templateUrl: './service-factory.component.html',
   encapsulation: ViewEncapsulation.None
 })
@@ -17,7 +17,7 @@ export class NgStrServiceFactoryComponent {
     } from "ngx-stripe";
 
     @Component({
-      selector: 'app-stripe-test',
+      selector: 'ngstr-stripe-test',
       templateUrl: 'stripe.html'
     })
     export class StripeTestComponent implements OnInit {

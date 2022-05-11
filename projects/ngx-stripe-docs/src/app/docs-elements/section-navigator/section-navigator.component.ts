@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgstContentService, NgstMenuItem } from '../../core';
+import { NgStrContentService, NgStrMenuItem } from '../../core';
 
 @Component({
   selector: 'ngstr-section-navigator',
@@ -30,12 +30,12 @@ import { NgstContentService, NgstMenuItem } from '../../core';
   `
 })
 export class NgStrSectionNavigatorComponent implements OnInit {
-  next: NgstMenuItem;
-  previous: NgstMenuItem;
+  next: NgStrMenuItem;
+  previous: NgStrMenuItem;
 
   constructor(
     private router: Router,
-    private contentService: NgstContentService
+    private contentService: NgStrContentService
   ) {}
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-migration',
+  selector: 'ngstr-migration',
   templateUrl: './migration.component.html',
   encapsulation: ViewEncapsulation.None
 })

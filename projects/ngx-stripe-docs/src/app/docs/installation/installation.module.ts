@@ -4,21 +4,21 @@ import { CommonModule } from '@angular/common';
 
 import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
 
-import { InstallationComponent } from './installation.component';
+import { NgStrInstallationComponent } from './installation.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: InstallationComponent
+    component: NgStrInstallationComponent
   }
 ];
 
 @NgModule({
-  declarations: [InstallationComponent],
+  declarations: [NgStrInstallationComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     DocsElementsModule
   ]
 })
-export class InstallationModule {}
+export class NgStrInstallationModule {}

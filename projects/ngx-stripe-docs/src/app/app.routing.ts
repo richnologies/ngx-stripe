@@ -5,7 +5,7 @@ import { NgStrDocsShellComponent } from './docs-elements/docs-shell/docs-shell.c
 export const ROUTES: Routes = [
   {
     path: '',
-    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule)
+    loadChildren: () => import('./welcome/welcome.module').then(m => m.NgStrWelcomeModule)
   },
   {
     path: 'docs',
@@ -13,22 +13,22 @@ export const ROUTES: Routes = [
     children: [
       {
         path: 'introduction',
-        loadChildren: () => import('./docs/introduction/introduction.module').then(m => m.IntroductionModule),
+        loadChildren: () => import('./docs/introduction/introduction.module').then(m => m.NgStrIntroductionModule),
         data: { title: 'Introduction' }
       },
       {
         path: 'installation',
-        loadChildren: () => import('./docs/installation/installation.module').then(m => m.InstallationModule),
+        loadChildren: () => import('./docs/installation/installation.module').then(m => m.NgStrInstallationModule),
         data: { title: 'Installation' }
       },
       {
         path: 'setup-application',
-        loadChildren: () => import('./docs/setup-application/setup-application.module').then(m => m.SetupApplicationModule),
+        loadChildren: () => import('./docs/setup-application/setup-application.module').then(m => m.NgStrSetupApplicationModule),
         data: { title: 'Installation' }
       },
       {
         path: 'checkout',
-        loadChildren: () => import('./docs/checkout/checkout.module').then(m => m.CheckoutModule),
+        loadChildren: () => import('./docs/checkout/checkout.module').then(m => m.NgStrCheckoutModule),
         data: { title: 'Checkout' }
       },
       {

@@ -6,7 +6,7 @@ import {
 } from '@stripe/stripe-js';
 
 @Component({
-  selector: 'app-test-01',
+  selector: 'ngstr-test-01',
   template: `
     <div>
       <div color="secondary" section-content-header>
@@ -15,7 +15,7 @@ import {
       <div section-content>
         <p>Minimum example, just fill the form and get your token</p>
         <ngx-stripe-card [options]="cardOptions">
-          <span style="color: green" *ngxStripeLoadingTemplate>
+          <span class="text-green-400" *ngxStripeLoadingTemplate>
             Loading Stripe Card...
           </span>
         </ngx-stripe-card>

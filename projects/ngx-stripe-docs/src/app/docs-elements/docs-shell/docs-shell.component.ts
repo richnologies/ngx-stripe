@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NgstContentService } from '../../core';
+import { NgStrContentService } from '../../core';
 
 @Component({
   selector: 'ngstr-docs-shell',
@@ -9,5 +9,5 @@ import { NgstContentService } from '../../core';
 export class NgStrDocsShellComponent {
   showMenu = false;
 
-  constructor(public content: NgstContentService) {}
+  constructor(public content: NgStrContentService) {}
 }

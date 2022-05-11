@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-styling',
+  selector: 'ngstr-styling',
   templateUrl: './styling.component.html',
   encapsulation: ViewEncapsulation.None
 })
@@ -16,7 +16,7 @@ export class NgStrStylingComponent {
     } from '@stripe/stripe-js';
 
     @Component({
-      selector: 'app-styling-example',
+      selector: 'ngstr-styling-example',
       template: \`
         <ngx-stripe-card [options]="cardOptions"></ngx-stripe-card>
       \`,
@@ -55,7 +55,7 @@ export class NgStrStylingComponent {
     } from '@stripe/stripe-js';
 
     @Component({
-      selector: 'app-styling-example',
+      selector: 'ngstr-styling-example',
       template: \`
         <ngx-stripe-card containerClass="example"></ngx-stripe-card>
       \`,

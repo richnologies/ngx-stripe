@@ -1,11 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-checkout',
+  selector: 'ngstr-checkout',
   templateUrl: './checkout.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export class CheckoutComponent {
+export class NgStrCheckoutComponent {
   checkoutTS = `
     import { Component } from '@angular/core';
     import { HttpClient } from '@angular/common/http';
@@ -14,7 +14,7 @@ export class CheckoutComponent {
     import { StripeService } from 'ngx-stripe';
 
     @Component({
-      selector: 'app-checkout',
+      selector: 'ngstr-checkout',
       templateUrl: './checkout.component.html'
     })
     export class CheckoutComponent {

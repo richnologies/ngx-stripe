@@ -8,10 +8,10 @@ import {
   StripeElementsOptions
 } from '@stripe/stripe-js';
 
-import { PlutoService } from '../core';
+import { NgStrPlutoService } from '../core';
 
 @Component({
-  selector: 'app-test-05',
+  selector: 'ngstr-test-05',
   template: `
     <div maxWidth="900">
       <div color="secondary" section-content-header>
@@ -21,7 +21,7 @@ import { PlutoService } from '../core';
         <input placeholder="name" formControlName="name" />
         <input placeholder="amount" type="number" formControlName="amount" />
         <ngx-stripe-card [options]="cardOptions">
-          <span style="color: green" *ngxStripeLoadingTemplate>
+          <span class="text-green-400" *ngxStripeLoadingTemplate>
             Loading Stripe Card...
           </span>
         </ngx-stripe-card>
@@ -67,7 +67,7 @@ export class Test05Component {
 
   constructor(
     private fb: FormBuilder,
-    private plutoService: PlutoService,
+    private plutoService: NgStrPlutoService,
     private factory: StripeFactoryService,
     private stripeService: StripeService
   ) {}

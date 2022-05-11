@@ -1,7 +1,6 @@
-export interface NgstMenuItem {
+export interface NgStrMenuItem {
   type: 'page' | 'group';
   name: string;
-  icon?: string;
   path?: string;
   group: string;
 }

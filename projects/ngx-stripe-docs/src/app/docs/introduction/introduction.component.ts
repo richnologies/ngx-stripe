@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-introduction',
+  selector: 'ngstr-introduction',
   templateUrl: './introduction.component.html'
 })
-export class IntroductionComponent {}
+export class NgStrIntroductionComponent {}

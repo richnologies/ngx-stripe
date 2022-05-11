@@ -8,10 +8,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HighlightModule, HighlightOptions, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { NgxStripeModule } from 'ngx-stripe';
+import { ToastrModule } from 'ngx-toastr';
 
 import { environment } from '../environments/environment';
 
-import { CoreModule, PLUTO_ID } from './core';
+import { StrCoreModule, PLUTO_ID } from './core';
 import { ENV } from './interfaces';
 
 import { AppComponent } from './app.component';
@@ -27,7 +28,14 @@ import { ROUTES } from './app.routing';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HighlightModule,
-    CoreModule
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      iconClasses: {
+        info: 'toast-ngx-stripe',
+      },
+      preventDuplicates: false
+    }),
+    StrCoreModule
   ],
   providers: [
     {

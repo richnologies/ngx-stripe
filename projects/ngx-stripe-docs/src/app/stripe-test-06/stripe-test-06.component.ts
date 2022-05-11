@@ -4,10 +4,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { StripeService, StripePaymentElementComponent } from 'ngx-stripe';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 
-import { PlutoService } from '../core';
+import { NgStrPlutoService } from '../core';
 
 @Component({
-  selector: 'app-test-06',
+  selector: 'ngstr-test-06',
   template: `
     <div maxWidth="900">
       <div color="secondary" section-content-header>
@@ -41,7 +41,7 @@ export class Test06Component implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private plutoService: PlutoService,
+    private plutoService: NgStrPlutoService,
     private stripeService: StripeService
   ) {}
 

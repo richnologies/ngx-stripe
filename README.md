@@ -145,7 +145,7 @@ import {
 } from '@stripe/stripe-js';
 
 @Component({
-  selector: 'app-create-token',
+  selector: 'ngstr-create-token',
   templateUrl: 'stripe.html'
 })
 export class StripeCreateTokenComponent implements OnInit {

@@ -5,16 +5,16 @@
       The aim of this section is to provide some examples of usual application.
       Based on questions, problems or suggestions, extra examples will be added.
     </p>
-    <ngstr-subheader>Create Token</ngstr-subheader>
+    <ngstr-subheader subheader="Create Token" link="create-token"></ngstr-subheader>
     <p>
       This is the easy example because it does not need server side code.
     </p>
-    <ngstr-subheader>Usage</ngstr-subheader>
+    <ngstr-subheader subheader="Usage" link="usage-token"></ngstr-subheader>
     <ngstr-code-group>
       <ngstr-code name="create-token.component.ts" [code]="createTokenTS"></ngstr-code>
       <ngstr-code name="create-token.component.html"[code]="createTokenHTML"></ngstr-code>
     </ngstr-code-group>
-    <ngstr-subheader>Collect Payment Intent</ngstr-subheader>
+    <ngstr-subheader subheader="Collect Payment Intent" link="collect-payment-intent"></ngstr-subheader>
     <p>
       The aim of this library is to provide a wrapper around StripeJS.
       In order to collect payments, you also need a server code.
@@ -22,19 +22,19 @@
       or ready to use in a production environment, just enough to
       show how to create a <strong>Payment Intent</strong>.
     </p>
-    <ngstr-subheader>Usage</ngstr-subheader>
+    <ngstr-subheader subheader="Usage" link="usage-payment-intent"></ngstr-subheader>
     <ngstr-code-group>
       <ngstr-code name="payment-intent.component.ts" [code]="collectPaymentIntentTS"></ngstr-code>
       <ngstr-code name="payment-intent.component.html" [code]="collectPaymentIntentHTML"></ngstr-code>
       <ngstr-code name="server.js" [code]="collectPaymentIntentServer"></ngstr-code>
     </ngstr-code-group>
-    <ngstr-subheader>Input Validation</ngstr-subheader>
+    <ngstr-subheader subheader="Input Validation" link="input-validation"></ngstr-subheader>
     <p>
       Stripe elements validate customer input as it is typed.
       To help your customers catch mistakes, listen to change events
       on an Element and display any errors.
     </p>
-    <ngstr-subheader>Usage</ngstr-subheader>
+    <ngstr-subheader subheader="Usage" link="usage-input-validation"></ngstr-subheader>
     <ngstr-code [code]="inputValidationTS"></ngstr-code>
   </ng-container>
 </ngstr-section>

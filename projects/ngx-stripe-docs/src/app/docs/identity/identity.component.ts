@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-identity',
+  selector: 'ngstr-identity',
   templateUrl: './identity.component.html',
   encapsulation: ViewEncapsulation.None
 })
@@ -14,7 +14,7 @@ export class NgStrIdentityComponent {
     import { StripeService } from 'ngx-stripe';
 
     @Component({
-      selector: 'app-identity',
+      selector: 'ngstr-identity',
       templateUrl: './identity.component.html'
     })
     export class IdentityComponent {
@@ -76,7 +76,7 @@ export class NgStrIdentityComponent {
     import { switchMap } from 'rxjs/operators';
 
     @Component({
-      selector: 'app-identity',
+      selector: 'ngstr-identity',
       templateUrl: './identity.component.html'
     })
     export class IdentityComponent {

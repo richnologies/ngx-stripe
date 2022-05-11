@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-installation',
+  selector: 'ngstr-installation',
   templateUrl: './installation.component.html'
 })
-export class InstallationComponent { }
+export class NgStrInstallationComponent { }

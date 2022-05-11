@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-examples',
+  selector: 'ngstr-examples',
   templateUrl: './examples.component.html',
   encapsulation: ViewEncapsulation.None
 })
@@ -17,7 +17,7 @@ export class NgStrExamplesComponent {
     } from '@stripe/stripe-js';
 
     @Component({
-      selector: 'app-create-token',
+      selector: 'ngstr-create-token',
       templateUrl: './create-token.component.html',
     })
     export class CreateTokenComponent implements OnInit {
@@ -96,7 +96,7 @@ export class NgStrExamplesComponent {
     import { environment as env } from '../../environments/environment';
 
     @Component({
-      selector: 'app-simple-payment-intent',
+      selector: 'ngstr-simple-payment-intent',
       templateUrl: './simple-payment-intent.component.html',
       styleUrls: ['./simple-payment-intent.component.css'],
     })
@@ -227,7 +227,7 @@ export class NgStrExamplesComponent {
     import { StripeCardElementChangeEvent } from '@stripe/stripe-js';
 
     @Component({
-      selector: 'app-input-validation',
+      selector: 'ngstr-input-validation',
       template: \`
         <ngx-stripe-card (change)="onChange($event)"></ngx-stripe-card>
         <div id="card-errors"></div>

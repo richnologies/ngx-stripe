@@ -4,21 +4,21 @@ import { CommonModule } from '@angular/common';
 
 import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
 
-import { IntroductionComponent } from './introduction.component';
+import { NgStrIntroductionComponent } from './introduction.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: IntroductionComponent
+    component: NgStrIntroductionComponent
   }
 ];
 
 @NgModule({
-  declarations: [IntroductionComponent],
+  declarations: [NgStrIntroductionComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     DocsElementsModule
   ]
 })
-export class IntroductionModule {}
+export class NgStrIntroductionModule {}

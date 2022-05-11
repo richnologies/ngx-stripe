@@ -5,10 +5,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { StripeService, StripePaymentElementComponent } from 'ngx-stripe';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 
-import { PlutoService } from '../../core';
+import { NgStrPlutoService } from '../../core';
 
 @Component({
-  selector: 'app-payment-element',
+  selector: 'ngstr-payment-element',
   templateUrl: './payment-element.component.html',
   encapsulation: ViewEncapsulation.None
 })
@@ -28,7 +28,7 @@ export class NgStrPaymentElementComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private plutoService: PlutoService,
+    private plutoService: NgStrPlutoService,
     private stripeService: StripeService
   ) {}
 
@@ -87,7 +87,7 @@ export class NgStrPaymentElementComponent implements OnInit {
     } from '@stripe/stripe-js';
 
     @Component({
-      selector: 'app-test-06',
+      selector: 'ngstr-test-06',
       templateUrl: './payment-element.component.html'
     })
     export class Test06Component implements OnInit {

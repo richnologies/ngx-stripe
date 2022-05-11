@@ -6,7 +6,7 @@ import {
 } from '@stripe/stripe-js';
 
 @Component({
-  selector: 'app-test-04',
+  selector: 'ngstr-test-04',
   template: `
     <div maxWidth="900">
       <div color="secondary" section-content-header>
