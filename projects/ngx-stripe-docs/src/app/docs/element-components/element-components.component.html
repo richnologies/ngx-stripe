@@ -81,4 +81,83 @@
       <ngstr-code name="card-number.component.html"[code]="cardGroupComponentHTML"></ngstr-code>
     </ngstr-code-group>
   </ng-container>
+  <div class="sm:mx-auto sm:w-full sm:max-w-md" ngStrSectionAside>
+    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 bg-indigo-50" [formGroup]="createTokenForm">
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Create Token Example
+      </h2>
+      <div class="my-1">
+        <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
+        <div class="mt-1">
+          <input id="name" type="text" formControlName="name" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+      </div>
+      <div class="my-1">
+        <label for="name" class="block text-sm font-medium text-gray-700"> Email </label>
+        <div class="mt-1">
+          <input id="name" type="email" formControlName="email" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+      </div>
+      <div class="my-1">
+        <label for="name" class="block text-sm font-medium text-gray-700"> Credit Card </label>
+        <div class="mt-1 bg-white border border-gray-300 rounded-md px-3 py-2">
+          <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+        </div>
+      </div>
+      <button type="button"
+        [disabled]="creatingToken"
+        class="mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        (click)="createToken()">
+        <span *ngIf="!creatingToken">CREATE TOKEN</span>
+        <span *ngIf="creatingToken">CREATING...</span>
+      </button>
+    </div>
+
+    <div class="mt-12 mb-12 bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 bg-indigo-50" [formGroup]="createTokenForm">
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Card Group Example
+      </h2>
+      <ngx-stripe-card-group [formGroup]="cardGroupForm" [elementsOptions]="elementsOptions">
+        <div class="my-1">
+          <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
+          <div class="mt-1">
+            <input id="name" type="text" formControlName="name" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+        </div>
+        <div class="my-1">
+          <label for="name" class="block text-sm font-medium text-gray-700"> Email </label>
+          <div class="mt-1">
+            <input id="name" type="email" formControlName="email" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+        </div>
+        <div class="my-1">
+          <label for="name" class="block text-sm font-medium text-gray-700"> Credit Card </label>
+          <div class="mt-1 bg-white border border-gray-300 rounded-md px-3 py-2">
+            <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
+          </div>
+        </div>
+        <div class="my-1 flex flex-row gap-1">
+          <div class="grow">
+            <label for="name" class="block text-sm font-medium text-gray-700"> Expiry </label>
+            <div class="mt-1 bg-white border border-gray-300 rounded-md px-3 py-2">
+              <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
+            </div>
+          </div>
+          <div class="grow">
+            <label for="name" class="block text-sm font-medium text-gray-700"> CVC </label>
+            <div class="mt-1 bg-white border border-gray-300 rounded-md px-3 py-2">
+              <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
+            </div>
+          </div>
+        </div>
+      </ngx-stripe-card-group>
+      <button type="button"
+        [disabled]="paying"
+        class="mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        (click)="pay()">
+        <span *ngIf="!paying">PAY 25$</span>
+        <span *ngIf="paying">PAYING...</span>
+      </button>
+    </div>
+  </div>
 </ngstr-section>

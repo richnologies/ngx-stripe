@@ -1,4 +1,11 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { switchMap } from 'rxjs/operators';
+
+import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
+import { StripeCardComponent, StripeService } from 'ngx-stripe';
+
+import { NgStrPlutoService } from '../../core';
 
 @Component({
   selector: 'ngstr-element-components',
@@ -6,6 +13,100 @@ import { Component, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class NgStrElementComponentsComponent {
+  @ViewChild(StripeCardComponent) card: StripeCardComponent;
+
+  createTokenForm = this.fb.group({
+    name: ['John Doe', [Validators.required]],
+    email: ['support@ngx-stripe.dev', [Validators.required]]
+  });
+
+  cardGroupForm = this.fb.group({
+    name: ['John Doe', [Validators.required]],
+    email: ['support@ngx-stripe.dev', [Validators.required]],
+    amount: [2500, [Validators.required]]
+  });
+
+  cardOptions: StripeCardElementOptions = {
+    style: {
+      base: {
+        iconColor: '#666EE8',
+        backgroundColor: '#FFF',
+        color: '#000',
+        fontWeight: '300',
+        fontFamily: "Inter, Open Sans, Segoe UI, sans-serif",
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#666'
+        }
+      }
+    }
+  };
+
+  elementsOptions: StripeElementsOptions = {
+    locale: 'en'
+  };
+
+  creatingToken = false;
+  paying = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private stripeService: StripeService,
+    private plutoService: NgStrPlutoService
+  ) {}
+
+  createToken() {
+    const name = this.createTokenForm.get('name').value;
+    this.creatingToken = true;
+    this.stripeService
+      .createToken(this.card.element, { name })
+      .subscribe((result) => {
+        this.creatingToken = false;
+        if (result.token) {
+          // Use the token
+          alert(JSON.stringify({ success: true, token: result.token.id }));
+        } else if (result.error) {
+          // Error creating the token
+          alert(JSON.stringify({ success: false, error: result.error.message }));
+        }
+      });
+  }
+
+  pay() {
+    if (this.cardGroupForm.valid) {
+      this.plutoService.createPaymentIntent({
+        amount: this.cardGroupForm.get('amount').value,
+        currency: 'usd'
+      })
+        .pipe(
+          switchMap((pi) =>
+            this.stripeService.confirmCardPayment(pi.client_secret, {
+              payment_method: {
+                card: this.card.element,
+                billing_details: {
+                  name: this.cardGroupForm.get('name').value,
+                },
+              },
+            })
+          )
+        )
+        .subscribe((result) => {
+          if (result.error) {
+            // Show error to your customer (e.g., insufficient funds)
+            alert(JSON.stringify({ success: false, error: result.error.message }));
+          } else {
+            // The payment has been processed!
+            if (result.paymentIntent.status === 'succeeded') {
+              // Show a success message to your customer
+              alert(JSON.stringify({ success: true }));
+            }
+          }
+        });
+    } else {
+      console.log(this.cardGroupForm);
+    }
+  }
+
   createTokenTS = `
     import { Component, OnInit, ViewChild } from '@angular/core';
     import { FormGroup, FormBuilder, Validators } from "@angular/forms";

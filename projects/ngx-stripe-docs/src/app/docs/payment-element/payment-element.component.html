@@ -26,21 +26,39 @@
       <ngstr-code name="server.js" [code]="paymentElementServer"></ngstr-code>
     </ngstr-code-group>
   </ng-container>
-  <div class="sm:mx-auto sm:w-full sm:max-w-md" ngStrSectionAside [formGroup]="stripeTest">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md" ngStrSectionAside [formGroup]="paymentElementForm">
     <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 bg-indigo-50">
       <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
         Payment Element
       </h2>
-      <div>
+      <div class="my-1">
         <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
         <div class="mt-1">
           <input id="name" type="text" formControlName="name" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
         </div>
       </div>
-      <div class="mb-2">
-        <label for="amount" class="block text-sm font-medium text-gray-700"> Amount </label>
+      <div class="my-1">
+        <label for="name" class="block text-sm font-medium text-gray-700"> Email </label>
         <div class="mt-1">
-          <input id="amount" type="text" formControlName="amount" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          <input id="name" type="email" formControlName="email" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+      </div>
+      <div class="my-1">
+        <label for="name" class="block text-sm font-medium text-gray-700"> Address </label>
+        <div class="mt-1">
+          <input id="name" type="text" formControlName="address" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+      </div>
+      <div class="my-1">
+        <label for="name" class="block text-sm font-medium text-gray-700"> ZIP Code </label>
+        <div class="mt-1">
+          <input id="name" type="text" formControlName="zipcode" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+      </div>
+      <div class="my-1">
+        <label for="name" class="block text-sm font-medium text-gray-700"> City </label>
+        <div class="mt-1">
+          <input id="name" type="text" formControlName="city" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
         </div>
       </div>
       <ng-container *ngIf="elementsOptions?.clientSecret as clientSecret">

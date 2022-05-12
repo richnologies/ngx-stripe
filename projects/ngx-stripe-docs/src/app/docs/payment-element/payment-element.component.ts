@@ -15,9 +15,13 @@ import { NgStrPlutoService } from '../../core';
 export class NgStrPaymentElementComponent implements OnInit {
   @ViewChild(StripePaymentElementComponent) paymentElement: StripePaymentElementComponent;
 
-  stripeTest = this.fb.group({
-    name: ['Angular v12', [Validators.required]],
-    amount: [1109, [Validators.required, Validators.pattern(/\d+/)]]
+  paymentElementForm = this.fb.group({
+    name: ['John doe', [Validators.required]],
+    email: ['support@ngx-stripe.dev', [Validators.required]],
+    address: [''],
+    zipcode: [''],
+    city: [''],
+    amount: [2500, [Validators.required, Validators.pattern(/\d+/)]]
   });
 
   elementsOptions: StripeElementsOptions = {
@@ -34,29 +38,34 @@ export class NgStrPaymentElementComponent implements OnInit {
 
   ngOnInit() {
     this.plutoService.createPaymentIntent({
-      amount: this.stripeTest.get('amount').value,
-      currency: 'eur'
+      amount: this.paymentElementForm.get('amount').value,
+      currency: 'usd'
     }).subscribe(pi => {
       this.elementsOptions.clientSecret = pi.client_secret;
     });
   }
 
   pay() {
-    if (this.stripeTest.valid) {
+    if (this.paymentElementForm.valid) {
       this.paying = true;
       this.stripeService.confirmPayment({
         elements: this.paymentElement.elements,
         confirmParams: {
           payment_method_data: {
             billing_details: {
-              name: this.stripeTest.get('name').value
+              name: this.paymentElementForm.get('name').value,
+              email: this.paymentElementForm.get('email').value,
+              address: {
+                line1: this.paymentElementForm.get('address').value || '',
+                postal_code: this.paymentElementForm.get('zipcode').value || '',
+                city: this.paymentElementForm.get('city').value || '',
+              }
             }
           }
         },
         redirect: 'if_required'
       }).subscribe(result => {
         this.paying = false;
-        console.log('Result', result);
         if (result.error) {
           // Show error to your customer (e.g., insufficient funds)
           alert(JSON.stringify({ success: false, error: result.error.message }));
@@ -69,7 +78,7 @@ export class NgStrPaymentElementComponent implements OnInit {
         }
       });
     } else {
-      console.log(this.stripeTest);
+      console.log(this.paymentElementForm);
     }
   }
 
@@ -94,9 +103,13 @@ export class NgStrPaymentElementComponent implements OnInit {
       @ViewChild(StripePaymentElementComponent)
       paymentElement: StripePaymentElementComponent;
 
-      stripeTest = this.fb.group({
-        name: ['Angular v12', [Validators.required]],
-        amount: [1109, [Validators.required, Validators.pattern(/\d+/)]]
+      paymentElementForm = this.fb.group({
+        name: ['John doe', [Validators.required]],
+        email: ['support@ngx-stripe.dev', [Validators.required]],
+        address: [''],
+        zipcode: [''],
+        city: [''],
+        amount: [2500, [Validators.required, Validators.pattern(/\d+/)]]
       });
 
       elementsOptions: StripeElementsOptions = {
@@ -112,21 +125,27 @@ export class NgStrPaymentElementComponent implements OnInit {
       ) {}
 
       ngOnInit() {
-        this.createPaymentIntent(this.stripeTest.get('amount').value)
+        this.createPaymentIntent(this.paymentElementForm.get('amount').value)
           .subscribe(pi => {
             this.elementsOptions.clientSecret = pi.client_secret;
           });
       }
 
       pay() {
-        if (this.stripeTest.valid) {
+        if (this.paymentElementForm.valid) {
           this.paying = true;
           this.stripeService.confirmPayment({
             elements: this.paymentElement.elements,
             confirmParams: {
               payment_method_data: {
                 billing_details: {
-                  name: this.stripeTest.get('name').value
+                  name: this.paymentElementForm.get('name').value,
+                  email: this.paymentElementForm.get('email').value,
+                  address: {
+                    line1: this.paymentElementForm.get('address').value || '',
+                    postal_code: this.paymentElementForm.get('zipcode').value || '',
+                    city: this.paymentElementForm.get('city').value || '',
+                  }
                 }
               }
             },
@@ -146,7 +165,7 @@ export class NgStrPaymentElementComponent implements OnInit {
             }
           });
         } else {
-          console.log(this.stripeTest);
+          console.log(this.paymentElementForm);
         }
       }
 
@@ -159,12 +178,21 @@ export class NgStrPaymentElementComponent implements OnInit {
     }
   `;
   paymentElementHTML = `
-    <div [formGroup]="stripeTest">
+    <div [formGroup]="paymentElementForm">
       <mat-form-field class="example-full-width" appearance="fill">
         <input matInput placeholder="name" formControlName="name" />
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="fill">
-        <input matInput placeholder="amount" type="number" formControlName="amount" />
+        <input matInput placeholder="Email" type="email" formControlName="email" />
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <input matInput placeholder="Address" formControlName="address" />
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <input matInput placeholder="ZIP Code" formControlName="zipcode" />
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <input matInput placeholder="city" formControlName="city" />
       </mat-form-field>
       <ng-container *ngIf="elementsOptions?.clientSecret as clientSecret">
         <ngx-stripe-payment [clientSecret]="clientSecret">
