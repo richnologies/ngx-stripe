@@ -25,15 +25,15 @@ export class NgStrContentService {
     { group: 'Support', type: 'group', name: 'Support' },
     { group: 'Support', type: 'page', name: 'FAQS', path: 'faqs' },
     { group: 'Support', type: 'page', name: 'Examples', path: 'examples' },
-    { group: 'Support', type: 'page', name: 'Migration', path: 'migration' },
-    { group: 'Examples', type: 'group', name: 'Examples' },
+    { group: 'Support', type: 'page', name: 'Migration', path: 'migration' }
+    /* { group: 'Examples', type: 'group', name: 'Examples' },
     { group: 'Examples', type: 'page', name: 'Test 01', path: 'test-01' },
     { group: 'Examples', type: 'page', name: 'Test 02', path: 'test-02' },
     { group: 'Examples', type: 'page', name: 'Test 03', path: 'test-03' },
     { group: 'Examples', type: 'page', name: 'Test 04', path: 'test-04' },
     { group: 'Examples', type: 'page', name: 'Test 05', path: 'test-05' },
     { group: 'Examples', type: 'page', name: 'Test 06', path: 'test-06' },
-    { group: 'Examples', type: 'page', name: 'Test 07', path: 'test-07' }
+    { group: 'Examples', type: 'page', name: 'Test 07', path: 'test-07' } */
   ];
 
   getNavigationElements(path: string): { next: NgStrMenuItem, previous: NgStrMenuItem } {

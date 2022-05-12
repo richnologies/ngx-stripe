@@ -8,6 +8,8 @@ import { NgStrCodeComponent } from './code/code.component';
 import { NgStrCodeGroup } from './code-group/code-group.component';
 import { NgStrCopyLinkComponent } from './copy-link/copy-link.component';
 import { NgStrDocsShellComponent } from './docs-shell/docs-shell.component';
+import { NgStrHighlightComponent } from './highlight/highlight.component';
+import { NgStrLinkComponent } from './link/link.component';
 import { NgStrDocsHeaderComponent } from './header/header.component';
 import { NgStrPanelComponent } from './panel/panel.component';
 import { NgStrSectionComponent } from './section/section.component';
@@ -26,6 +28,8 @@ const components = [
   NgStrCopyLinkComponent,
   NgStrDocsShellComponent,
   NgStrDocsHeaderComponent,
+  NgStrHighlightComponent,
+  NgStrLinkComponent,
   NgStrPanelComponent,
   NgStrSectionComponent,
   NgStrSectionNavigatorComponent,

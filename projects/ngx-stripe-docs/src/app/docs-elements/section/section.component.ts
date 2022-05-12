@@ -5,14 +5,15 @@ import { NgStrSubheaderComponent } from '../subheader/subheader.component';
 @Component({
   selector: 'ngstr-section',
   template: `
-    <div class="flex-1 relative z-0 flex overflow-hidden">
-      <main class="flex-1 m-auto py-10 max-w-screen-md h-full w-11/12 my-0 mx-1">
+    <div class="flex-1 relative z-0 flex h-screen overflow-hidden">
+      <main class="flex-1 m-auto py-10 max-w-screen-md h-full w-11/12 my-0 mx-1 overflow-y-auto">
         <div class="mt-6 prose prose-indigo text-gray-500 mx-auto">
           <ng-content select="[ngStrSectionMain]"></ng-content>
+          <div class="!mt-8"></div>
           <ngstr-section-navigator></ngstr-section-navigator>
         </div>
       </main>
-      <aside class="hidden xl:block xl:pl-8 w-1/3" *ngIf="aside">
+      <aside class="hidden xl:block xl:pl-8 w-1/3 overflow-y-auto" *ngIf="aside">
         <div class="space-y-5 mr-8 mt-16">
           <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <ngstr-copy-link></ngstr-copy-link>

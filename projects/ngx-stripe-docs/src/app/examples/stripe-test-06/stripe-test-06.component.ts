@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { StripeService, StripePaymentElementComponent } from 'ngx-stripe';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 
-import { NgStrPlutoService } from '../core';
+import { NgStrPlutoService } from '../../core';
 
 @Component({
   selector: 'ngstr-test-06',

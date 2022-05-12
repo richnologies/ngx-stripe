@@ -21,6 +21,12 @@ import { Router } from '@angular/router';
         margin-bottom: 1.25rem;
         font-weight: 600;
       }
+      a.ngstr-link-hash {
+        cursor: pointer;
+        margin-left: 0.5rem;
+        text-decoration: none;
+        color: var(--tw-prose-headings);
+      }
     `
   ]
 })

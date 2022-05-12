@@ -1,17 +1,84 @@
 <ngstr-section>
   <ng-container ngStrSectionMain>
     <ngstr-header title="Element Components"></ngstr-header>
+    <p><ngstr-highlight>Element components</ngstr-highlight> provide a flexible way to securely collect payment information in your Angular app.</p>
     <p>
-      Import the <span class="ngstr-highlight">NgxStripeModule</span> into your application
+      You can mount individual Element components inside of your <ngstr-highlight>Elements</ngstr-highlight> tree. Note that you can only mount one of each type of Element.
+    </p>
+    <ngstr-subheader subheader="Create Token" link="create-token"></ngstr-subheader>
+    <p>In this example the <ngstr-highlight>Card Element</ngstr-highlight> is used to collection payment information and create a token.</p>
+    <ngstr-code-group>
+      <ngstr-code name="create-token.component.ts" [code]="createTokenTS"></ngstr-code>
+      <ngstr-code name="create-token.component.html"[code]="createTokenHTML"></ngstr-code>
+    </ngstr-code-group>
+    <p>The full list of components available:</p>
+    <table class="mb-8">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Selector</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Card Element</td>
+          <td><strong>ngx-stripe-card</strong></td>
+        </tr>
+        <tr>
+          <td>Card Number Element</td>
+          <td><strong>ngx-stripe-card-number</strong></td>
+        </tr>
+        <tr>
+          <td>Card Expiry Element</td>
+          <td><strong>ngx-stripe-card-expiry</strong></td>
+        </tr>
+        <tr>
+          <td>Card CVC Element</td>
+          <td><strong>ngx-stripe-card-cvc</strong></td>
+        </tr>
+        <tr>
+          <td>Payment Request Button</td>
+          <td><strong>ngx-stripe-payment-request-button</strong></td>
+        </tr>
+        <tr>
+          <td>Au Bank Account Element</td>
+          <td><strong>ngx-stripe-au-bank-account</strong></td>
+        </tr>
+        <tr>
+          <td>IBAN Element</td>
+          <td><strong>ngx-stripe-iban</strong></td>
+        </tr>
+        <tr>
+          <td>Ideal Bank Element</td>
+          <td><strong>ngx-stripe-ideal-bank</strong></td>
+        </tr>
+        <tr>
+          <td>FPX Bank Element</td>
+          <td><strong>ngx-stripe-fpx-bank</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <ngstr-subheader subheader="Card Group Directive" link="card-group-directive"></ngstr-subheader>
+    <p>
+      If you want to use the card number, expiry and cvc as separated elements you need to put them
+      inside the <strong>card group directive</strong>.
     </p>
     <p>
-      The module takes the same parameters as the global Stripe object. The <span class="ngstr-highlight">APIKey</span> and the optional <span class="ngstr-highlight">Options</span> to use <strong>Stripe</strong> connect.
+      This is necessary to ensure the three elements shared the same stripe elements objects, otherwise it won't work. As you can see in the example element options is not available for any of the three child components, but only for the group directive.
     </p>
-    <ul role="list">
-      <li>apiKey: string</li>
-      <li>{{ options }}</li>
-    </ul>
-    <ngstr-subheader subheader="Usage" link="usage"></ngstr-subheader>
-    <ngstr-code [code]="appModule"></ngstr-code>
+    <p>
+      Here is an example using the <strong>Card Group as a Directive</strong>:
+    </p>
+    <ngstr-code-group>
+      <ngstr-code name="card-number.component.ts" [code]="cardGroupDirectiveTS"></ngstr-code>
+      <ngstr-code name="card-number.component.html"[code]="cardGroupDirectiveHTML"></ngstr-code>
+    </ngstr-code-group>
+    <p>
+      We also make available the component selector, in case you prefer to work that way, here is an example using the <strong>Card Group as a Component</strong>.
+    </p>
+    <ngstr-code-group>
+      <ngstr-code name="card-number.component.ts" [code]="cardGroupComponentTS"></ngstr-code>
+      <ngstr-code name="card-number.component.html"[code]="cardGroupComponentHTML"></ngstr-code>
+    </ngstr-code-group>
   </ng-container>
 </ngstr-section>

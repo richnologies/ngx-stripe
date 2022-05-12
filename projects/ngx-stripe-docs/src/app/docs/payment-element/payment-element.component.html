@@ -2,7 +2,7 @@
   <ng-container ngStrSectionMain>
     <ngstr-header title="Payment Element"></ngstr-header>
     <p>
-      The <a class="ngstr-link" href="https://stripe.com/docs/payments/payment-element">Payment Element</a>
+      The <ngstr-link url="https://stripe.com/docs/payments/payment-element">Payment Element</ngstr-link>
       is an embeddable component for securely collecting payment details.
       The Payment Element supports dozens of payment methods with a single integration.
       Whether you're just collecting card payments or dozens of payment methods,
@@ -11,13 +11,13 @@
     </p>
     <p>
       If you want more information about what the Payment Element and how to use it,
-      you can visit official Stripe <a class="ngstr-link" href="https://stripe.com/docs/payments/payment-element">docs</a>.
+      you can visit official Stripe <ngstr-link url="https://stripe.com/docs/payments/payment-element">docs</ngstr-link>.
     </p>
     <p>
       In this guide we are going to focus on how to use the Payment Element with
-      Angular using ngx-stripe As we any other Stripe Element, <span class="ngstr-highlight">ngx-stripe</span> tries to
+      Angular using ngx-stripe As we any other Stripe Element, <ngstr-highlight>ngx-stripe</ngstr-highlight> tries to
       provide a similar API. Here as an example on how to collection card payments using the
-      <span class="ngstr-highlight">Payment Element</span>
+      <ngstr-highlight>Payment Element</ngstr-highlight>
     </p>
     <ngstr-subheader subheader="Usage" link="usage"></ngstr-subheader>
     <ngstr-code-group>
@@ -27,7 +27,7 @@
     </ngstr-code-group>
   </ng-container>
   <div class="sm:mx-auto sm:w-full sm:max-w-md" ngStrSectionAside [formGroup]="stripeTest">
-    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 bg-indigo-50">
       <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
         Payment Element
       </h2>

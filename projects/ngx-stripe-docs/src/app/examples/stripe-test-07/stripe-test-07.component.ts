@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { StripeService, StripeFpxBankComponent } from 'ngx-stripe';
 
-import { NgStrPlutoService } from '../core';
+import { NgStrPlutoService } from '../../core';
 
 @Component({
   selector: 'ngstr-test-06',

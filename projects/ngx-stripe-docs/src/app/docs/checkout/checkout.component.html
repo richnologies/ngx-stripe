@@ -12,15 +12,52 @@
     </p>
     <p>
       To see more details on a full example, please check the official
-      <a href="https://stripe.com/docs/payments/accept-a-payment?platform=web&lang=javascript&integration=checkout&ui=checkout">
+      <ngstr-link url="https://stripe.com/docs/payments/accept-a-payment?platform=web&lang=javascript&integration=checkout&ui=checkout">
         Stripe Docs.
-      </a>
+      </ngstr-link>
     </p>
-    <ngstr-subheader subheader="Usage" link="usage"></ngstr-subheader>
     <ngstr-code-group>
       <ngstr-code name="checkout.component.ts" [code]="checkoutTS"></ngstr-code>
       <ngstr-code name="checkout.component.html"[code]="checkoutHTML"></ngstr-code>
       <ngstr-code name="server.js" [code]="serverJS"></ngstr-code>
     </ngstr-code-group>
+    <ngstr-subheader subheader="Create a Subscription" link="create-subscription"></ngstr-subheader>
+    <p>In a very similar way as the previous example, you can use Checkout to create a subscription with different pricing options.</p>
+    <p>
+      As you can see in the server tab, the <strong>priceId</strong> comes in the body and we use it to create the session.
+      This allows the user to choose the price. In the example below we use different buttons, but it would be
+      easy to just change the priceId base on any other condition, like a select field for example. </p>
+    <p>Also, notice the <strong>mode</strong> attribute in the <ngstr-highlight>server.js</ngstr-highlight> tab. It was <strong>payment</strong> in the previous example but it is <strong>subscription</strong> in this one. </p>
+    <p>Again, please visit the <ngstr-link url="https://stripe.com/docs/billing/subscriptions/checkout">Stripe Docs</ngstr-link> site for more details.</p>
+    <ngstr-code-group>
+      <ngstr-code name="checkout.component.ts" [code]="checkoutSubscriptionTS"></ngstr-code>
+      <ngstr-code name="checkout.component.html"[code]="checkoutSubscriptionHTML"></ngstr-code>
+      <ngstr-code name="server.js" [code]="serverSubscriptionJS"></ngstr-code>
+    </ngstr-code-group>
+    <ngstr-subheader subheader="Customizing Checkout" link="customizing-checkout"></ngstr-subheader>
+    <p>There is a lot of elements that you can customize about your Checkout integration:</p>
+    <ul role="list">
+      <li>Branding</li>
+      <li>Policies and contact information</li>
+      <li>Customizing the submit button</li>
+    </ul>
+    <p>
+      Please check the
+      <ngstr-link url="https://stripe.com/docs/payments/checkout/customization">
+        docs
+      </ngstr-link>
+      for more information
+    </p>
+    <ngstr-subheader subheader="Customize your success page" link="customize-success-page"></ngstr-subheader>
+    <p>
+      You can use details from a <ngstr-link url="https://stripe.com/docs/api/checkout/sessions">Checkout Session</ngstr-link> to display an order confirmation page for your customer after the payment. To use the details from a Checkout Session:
+    </p>
+    <ol role="list">
+      <li>Modify the <ngstr-highlight>success_url</ngstr-highlight> to pass the Checkout Session ID to the client side</li>
+      <li>Look up the Checkout Session using the ID on your success page</li>
+      <li>Use the Checkout Session to customize what's displayed on your success page</li>
+    </ol>
+    <p>Here is a minimal example build the html with express (definitely better ways to do it)</p>
+    <ngstr-code [code]="customSuccessScreen"></ngstr-code>
   </ng-container>
 </ngstr-section>
