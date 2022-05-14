@@ -1,13 +1,4 @@
-import {
-  Component,
-  Input,
-  ViewChild,
-  ElementRef,
-  EventEmitter,
-  Output,
-  OnChanges,
-  SimpleChanges
-} from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable, from } from 'rxjs';
 
 import {
@@ -50,25 +41,17 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
     paymentRequest: PaymentRequest;
   }>();
 
-  @Output() change = new EventEmitter<
-    StripePaymentRequestButtonElementClickEvent
-  >();
+  @Output() change = new EventEmitter<StripePaymentRequestButtonElementClickEvent>();
   @Output() blur = new EventEmitter<void>();
   @Output() focus = new EventEmitter<void>();
   @Output() ready = new EventEmitter<void>();
 
   @Output() token = new EventEmitter<PaymentRequestTokenEvent>();
-  @Output() paymentMethod = new EventEmitter<
-    PaymentRequestPaymentMethodEvent
-  >();
+  @Output() paymentMethod = new EventEmitter<PaymentRequestPaymentMethodEvent>();
   @Output() source = new EventEmitter<PaymentRequestSourceEvent>();
   @Output() cancel = new EventEmitter<void>();
-  @Output() shippingaddresschange = new EventEmitter<
-    PaymentRequestShippingAddressEvent
-  >();
-  @Output() shippingoptionchange = new EventEmitter<
-    PaymentRequestShippingOptionEvent
-  >();
+  @Output() shippingaddresschange = new EventEmitter<PaymentRequestShippingAddressEvent>();
+  @Output() shippingoptionchange = new EventEmitter<PaymentRequestShippingOptionEvent>();
   @Output() notavailable = new EventEmitter<void>();
 
   elements: StripeElements;
@@ -76,18 +59,13 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
   constructor(public stripeElementsService: StripeElementsService) {}
 
   async ngOnChanges(changes: SimpleChanges) {
-    const options = this.stripeElementsService.mergeOptions(
-      this.options,
-      this.containerClass
-    );
+    const options = this.stripeElementsService.mergeOptions(this.options, this.containerClass);
     const elementsOptions = this.elementsOptions;
     const stripe = this.stripe;
     let updateElements = false;
 
     if (changes.elementsOptions || changes.stripe || !this.elements) {
-      const elements = await this.stripeElementsService
-        .elements(stripe, elementsOptions)
-        .toPromise();
+      const elements = await this.stripeElementsService.elements(stripe, elementsOptions).toPromise();
       this.elements = elements;
       updateElements = true;
     }
@@ -96,31 +74,17 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
       this.updateRequest(this.paymentOptions);
     }
 
-    if (
-      changes.options ||
-      changes.containerClass ||
-      !this.element ||
-      updateElements
-    ) {
+    if (changes.options || changes.containerClass || !this.element || updateElements) {
       if (this.element && !updateElements) {
         this.update(options);
       } else if (this.elements && updateElements) {
-        this.paymentRequest = this.stripeElementsService.paymentRequest(
-          stripe,
-          this.paymentOptions
-        );
+        this.paymentRequest = this.stripeElementsService.paymentRequest(stripe, this.paymentOptions);
         this.paymentRequest.on('token', (ev) => this.token.emit(ev));
-        this.paymentRequest.on('paymentmethod', (ev) =>
-          this.paymentMethod.emit(ev)
-        );
+        this.paymentRequest.on('paymentmethod', (ev) => this.paymentMethod.emit(ev));
         this.paymentRequest.on('source', (ev) => this.source.emit(ev));
         this.paymentRequest.on('cancel', () => this.cancel.emit());
-        this.paymentRequest.on('shippingaddresschange', (ev) =>
-          this.shippingaddresschange.emit(ev)
-        );
-        this.paymentRequest.on('shippingoptionchange', (ev) =>
-          this.shippingoptionchange.emit(ev)
-        );
+        this.paymentRequest.on('shippingaddresschange', (ev) => this.shippingaddresschange.emit(ev));
+        this.paymentRequest.on('shippingoptionchange', (ev) => this.shippingoptionchange.emit(ev));
         this.element = this.elements.create('paymentRequestButton', {
           paymentRequest: this.paymentRequest,
           ...options

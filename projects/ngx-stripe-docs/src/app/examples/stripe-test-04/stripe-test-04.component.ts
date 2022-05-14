@@ -1,9 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { StripeService, StripePaymentRequestButtonComponent } from 'ngx-stripe';
-import {
-  StripeCardElementOptions,
-  StripeElementsOptions
-} from '@stripe/stripe-js';
+import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 @Component({
   selector: 'ngstr-test-04',
@@ -26,13 +23,14 @@ import {
   styles: []
 })
 export class Test04Component {
-  @ViewChild(StripePaymentRequestButtonComponent) button: StripePaymentRequestButtonComponent;
+  @ViewChild(StripePaymentRequestButtonComponent)
+  button: StripePaymentRequestButtonComponent;
   paymentRequestOptions = {
     country: 'ES',
     currency: 'eur',
     total: { label: 'Demo total', amount: 1099 },
     requestPayerName: true,
-    requestPayerEmail: true,
+    requestPayerEmail: true
   };
 
   paymentRequestButtonOptions: StripeCardElementOptions = {
@@ -56,7 +54,5 @@ export class Test04Component {
 
   constructor(private stripeService: StripeService) {}
 
-  buy() {
-
-  }
+  buy() {}
 }

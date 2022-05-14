@@ -38,28 +38,13 @@ const components = [
   NgStrSubheaderComponent
 ];
 
-const directives = [
-  NgStrSectionMainDirective,
-  NgStrSectionAsideDirective
-];
+const directives = [NgStrSectionMainDirective, NgStrSectionAsideDirective];
 
-const pipes = [
-  NgStrCodeFormatPipe,
-  NgStrGroupNamePipe
-];
+const pipes = [NgStrCodeFormatPipe, NgStrGroupNamePipe];
 
 @NgModule({
   declarations: [...components, ...directives, ...pipes],
-  exports: [
-    ...components,
-    ...directives,
-    ...pipes,
-    HighlightModule
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    HighlightModule
-  ]
+  exports: [...components, ...directives, ...pipes, HighlightModule],
+  imports: [CommonModule, RouterModule, HighlightModule]
 })
 export class DocsElementsModule {}

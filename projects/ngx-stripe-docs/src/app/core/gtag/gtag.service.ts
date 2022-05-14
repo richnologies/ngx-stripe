@@ -29,19 +29,18 @@ export class NgStrGoogleTagManagerService {
 
     if (!this.loading && this.loaded.getValue() === false) {
       await lastValueFrom(
-        this.loaded
-          .pipe(
-            tap((loaded) => {
-              if (!loaded && !this.loading) {
-                this.load(this.trackingCode);
-              }
-            }),
-            filter((loaded) => loaded === true),
-            tap(() => {
-              this.gtag('js', new Date());
-            }),
-            first()
-          )
+        this.loaded.pipe(
+          tap((loaded) => {
+            if (!loaded && !this.loading) {
+              this.load(this.trackingCode);
+            }
+          }),
+          filter((loaded) => loaded === true),
+          tap(() => {
+            this.gtag('js', new Date());
+          }),
+          first()
+        )
       );
     }
   }
@@ -59,16 +58,15 @@ export class NgStrGoogleTagManagerService {
   gtag(...args) {
     const a = arguments;
     lastValueFrom(
-      this.loaded
-        .pipe(
-          filter((loaded) => loaded === true),
-          tap(() => {
-            if (this.window && this.window.dataLayer) {
-              this.window.dataLayer.push(a);
-            }
-          }),
-          first()
-        )
+      this.loaded.pipe(
+        filter((loaded) => loaded === true),
+        tap(() => {
+          if (this.window && this.window.dataLayer) {
+            this.window.dataLayer.push(a);
+          }
+        }),
+        first()
+      )
     );
   }
 

@@ -15,10 +15,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [NgStrExamplesComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    DocsElementsModule
-  ]
+  imports: [CommonModule, RouterModule.forChild(routes), DocsElementsModule]
 })
 export class NgStrExamplesModule {}

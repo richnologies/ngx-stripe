@@ -6,24 +6,36 @@ import { NgStrContentService, NgStrMenuItem } from '../../core';
   selector: 'ngstr-section-navigator',
   template: `
     <div class="flex flex-col md:flex-row gap-4 mt-2 px-2" *ngIf="next || previous">
-      <a class="inline-block w-full cursor-pointer no-underline" [routerLink]="['/docs', previous.path]" *ngIf="previous">
-        <div class="flex flex-row grow rounded justify-between px-4 py-2 border border-gray-300 hover:border-indigo-500 bg-white">
-          <div class="pt-4"><span class="material-icons text-gray-700">arrow_back</span></div>
+      <a
+        class="inline-block w-full cursor-pointer no-underline"
+        [routerLink]="['/docs', previous.path]"
+        *ngIf="previous"
+      >
+        <div
+          class="flex flex-row grow rounded justify-between px-4 py-2 border border-gray-300 hover:border-indigo-500 bg-white"
+        >
+          <div class="pt-4">
+            <span class="material-icons text-gray-700">arrow_back</span>
+          </div>
           <div>
-            <span class="text-xs text-gray-400">{{ previous.group | ngStrGroupName:'previous' }}</span>
-            <br/>
+            <span class="text-xs text-gray-400">{{ previous.group | ngStrGroupName: 'previous' }}</span>
+            <br />
             <span class="text-gray-700 float-right">{{ previous.name }}</span>
           </div>
         </div>
       </a>
       <a class="inline-block w-full cursor-pointer no-underline" [routerLink]="['/docs', next.path]" *ngIf="next">
-        <div class="flex flex-row grow rounded justify-between px-4 py-2 border border-gray-300 hover:border-indigo-500 bg-white">
+        <div
+          class="flex flex-row grow rounded justify-between px-4 py-2 border border-gray-300 hover:border-indigo-500 bg-white"
+        >
           <div>
-            <span class="text-xs text-gray-400">{{ next.group | ngStrGroupName:'next' }}</span>
-            <br/>
+            <span class="text-xs text-gray-400">{{ next.group | ngStrGroupName: 'next' }}</span>
+            <br />
             <span class="text-gray-700">{{ next.name }}</span>
           </div>
-          <div class="pt-4"><span class="material-icons text-gray-700">arrow_forward</span></div>
+          <div class="pt-4">
+            <span class="material-icons text-gray-700">arrow_forward</span>
+          </div>
         </div>
       </a>
     </div>
@@ -33,10 +45,7 @@ export class NgStrSectionNavigatorComponent implements OnInit {
   next: NgStrMenuItem;
   previous: NgStrMenuItem;
 
-  constructor(
-    private router: Router,
-    private contentService: NgStrContentService
-  ) {}
+  constructor(private router: Router, private contentService: NgStrContentService) {}
 
   ngOnInit() {
     if (this.router.url && this.router.url) {

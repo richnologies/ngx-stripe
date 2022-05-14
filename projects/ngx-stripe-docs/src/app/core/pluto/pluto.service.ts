@@ -11,17 +11,15 @@ import { PLUTO_ID } from './client-id.provider';
 export class NgStrPlutoService {
   private static readonly BASE_URL = 'https://api.pluto.ricardosanchez.dev/api';
 
-  constructor(
-    @Inject(PLUTO_ID) private readonly clientId: string,
-    private readonly http: HttpClient
-  ) {}
+  constructor(@Inject(PLUTO_ID) private readonly clientId: string, private readonly http: HttpClient) {}
 
-  createPaymentIntent(params: Stripe.PaymentIntentCreateParams, options: { clientId?: string } = {}): Observable<PaymentIntent> {
-    return this.http.post<PaymentIntent>(
-      `${NgStrPlutoService.BASE_URL}/payments/create-payment-intent`,
-      params,
-      { headers: { merchant: options.clientId ?? this.clientId } }
-    );
+  createPaymentIntent(
+    params: Stripe.PaymentIntentCreateParams,
+    options: { clientId?: string } = {}
+  ): Observable<PaymentIntent> {
+    return this.http.post<PaymentIntent>(`${NgStrPlutoService.BASE_URL}/payments/create-payment-intent`, params, {
+      headers: { merchant: options.clientId ?? this.clientId }
+    });
   }
 
   createVerificationSession(userid: string, options: { clientId?: string } = {}): Observable<any> {

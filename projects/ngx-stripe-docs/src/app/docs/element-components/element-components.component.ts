@@ -33,7 +33,7 @@ export class NgStrElementComponentsComponent {
         backgroundColor: '#FFF',
         color: '#000',
         fontWeight: '300',
-        fontFamily: "Inter, Open Sans, Segoe UI, sans-serif",
+        fontFamily: 'Inter, Open Sans, Segoe UI, sans-serif',
         fontSize: '16px',
         '::placeholder': {
           color: '#666'
@@ -49,44 +49,39 @@ export class NgStrElementComponentsComponent {
   creatingToken = false;
   paying = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private stripeService: StripeService,
-    private plutoService: NgStrPlutoService
-  ) {}
+  constructor(private fb: FormBuilder, private stripeService: StripeService, private plutoService: NgStrPlutoService) {}
 
   createToken() {
     const name = this.createTokenForm.get('name').value;
     this.creatingToken = true;
-    this.stripeService
-      .createToken(this.card.element, { name })
-      .subscribe((result) => {
-        this.creatingToken = false;
-        if (result.token) {
-          // Use the token
-          alert(JSON.stringify({ success: true, token: result.token.id }));
-        } else if (result.error) {
-          // Error creating the token
-          alert(JSON.stringify({ success: false, error: result.error.message }));
-        }
-      });
+    this.stripeService.createToken(this.card.element, { name }).subscribe((result) => {
+      this.creatingToken = false;
+      if (result.token) {
+        // Use the token
+        alert(JSON.stringify({ success: true, token: result.token.id }));
+      } else if (result.error) {
+        // Error creating the token
+        alert(JSON.stringify({ success: false, error: result.error.message }));
+      }
+    });
   }
 
   pay() {
     if (this.cardGroupForm.valid) {
-      this.plutoService.createPaymentIntent({
-        amount: this.cardGroupForm.get('amount').value,
-        currency: 'usd'
-      })
+      this.plutoService
+        .createPaymentIntent({
+          amount: this.cardGroupForm.get('amount').value,
+          currency: 'usd'
+        })
         .pipe(
           switchMap((pi) =>
             this.stripeService.confirmCardPayment(pi.client_secret, {
               payment_method: {
                 card: this.card.element,
                 billing_details: {
-                  name: this.cardGroupForm.get('name').value,
-                },
-              },
+                  name: this.cardGroupForm.get('name').value
+                }
+              }
             })
           )
         )

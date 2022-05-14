@@ -61,25 +61,15 @@ export class StripeIbanComponent implements OnInit, OnChanges, OnDestroy {
   async ngOnChanges(changes: SimpleChanges) {
     this.state = 'starting';
 
-    const options = this.stripeElementsService.mergeOptions(
-      this.options,
-      this.containerClass
-    );
+    const options = this.stripeElementsService.mergeOptions(this.options, this.containerClass);
     let updateElements = false;
 
     if (changes.elementsOptions || changes.stripe || !this.elements) {
-      this.elements = await this.stripeElementsService
-        .elements(this.stripe, this.elementsOptions)
-        .toPromise();
+      this.elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
       updateElements = true;
     }
 
-    if (
-      changes.options ||
-      changes.containerClass ||
-      !this.element ||
-      updateElements
-    ) {
+    if (changes.options || changes.containerClass || !this.element || updateElements) {
       if (this.element && !updateElements) {
         this.update(options);
       } else if (this.elements && updateElements) {
@@ -94,9 +84,7 @@ export class StripeIbanComponent implements OnInit, OnChanges, OnDestroy {
     if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await this.stripeElementsService
-        .elements(this.stripe)
-        .toPromise();
+      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
       this.createElement();
 
       this.state = 'ready';

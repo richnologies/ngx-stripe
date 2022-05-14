@@ -2,37 +2,30 @@
   <ng-container ngStrSectionMain>
     <ngstr-header title="Styling"></ngstr-header>
     <p>
-      Each element is actually mounted in an iframe under the hood.
-      Because of this, Elements are unlikely to work with any existing
-      styling and component frameworks that you may have.
-      Despite this, you should still be able to fully configure an
-      Element to seamlessly blend in with the rest of your site.
-      Fully customizing Elements consists of configuring the Element with options,
-      applying styles to the Element container, and responding to events.
+      Each element is actually mounted in an iframe under the hood. Because of this, Elements are unlikely to work with
+      any existing styling and component frameworks that you may have. Despite this, you should still be able to fully
+      configure an Element to seamlessly blend in with the rest of your site. Fully customizing Elements consists of
+      configuring the Element with options, applying styles to the Element container, and responding to events.
     </p>
     <ngstr-subheader subheader="Why iFrames?" link="why-iframes"></ngstr-subheader>
     <p>
-      We recognize that the use of iframes makes styling an Element more difficult,
-      but they shift the burden of securely handling payment data to Stripe and
-      provide an easy way to keep your site compliant with industry regulation.
+      We recognize that the use of iframes makes styling an Element more difficult, but they shift the burden of
+      securely handling payment data to Stripe and provide an easy way to keep your site compliant with industry
+      regulation.
     </p>
     <ngstr-code [code]="stylingOne"></ngstr-code>
     <ngstr-subheader subheader="Element Container" link="element-container"></ngstr-subheader>
     <p>
-      Style the container you mount an Element to as if it were an
-      input on your page. For example, to control padding and border on an Element, set these properties on the container.
-      This is usually done by re-using the classes that you have applied to your DOM
-      input elements.
+      Style the container you mount an Element to as if it were an input on your page. For example, to control padding
+      and border on an Element, set these properties on the container. This is usually done by re-using the classes that
+      you have applied to your DOM input elements.
     </p>
     <p>
-      The Element Container API allows to specify a class name for container
-      of the input in the iframe. You can set this using the option classes
-      in the element options, or just use the containerClass in the element:
+      The Element Container API allows to specify a class name for container of the input in the iframe. You can set
+      this using the option classes in the element options, or just use the containerClass in the element:
     </p>
     <ngstr-code [code]="stylingTwo"></ngstr-code>
-    <p>
-      The default value is StripeElement, and there are also some subclasses:
-    </p>
+    <p>The default value is StripeElement, and there are also some subclasses:</p>
     <ul role="list">
       <li>.StripeElement--complete</li>
       <li>.StripeElement--empty</li>

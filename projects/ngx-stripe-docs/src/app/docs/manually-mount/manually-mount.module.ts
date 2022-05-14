@@ -15,10 +15,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [NgStrManuallyMountComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    DocsElementsModule
-  ]
+  imports: [CommonModule, RouterModule.forChild(routes), DocsElementsModule]
 })
 export class NgStrManuallyMountModule {}

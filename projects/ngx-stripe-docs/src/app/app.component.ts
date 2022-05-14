@@ -10,17 +10,13 @@ import { NgStrGoogleTagManagerService } from './core';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private router: Router,
-    private titleService: Title,
-    private gtag: NgStrGoogleTagManagerService
-  ) {}
+  constructor(private router: Router, private titleService: Title, private gtag: NgStrGoogleTagManagerService) {}
 
   ngOnInit() {
     this.gtag.setup();
     this.router.events
       .pipe(
-        filter(ev => ev instanceof NavigationEnd),
+        filter((ev) => ev instanceof NavigationEnd),
         map((ev: NavigationEnd) => {
           let route: ActivatedRoute = this.router.routerState.root;
           let routeTitle = '';

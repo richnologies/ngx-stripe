@@ -3,17 +3,21 @@
     <ngstr-header title="Introduction"></ngstr-header>
     <ngstr-subheader subheader="What is ngx-stripe" link="what-is"></ngstr-subheader>
     <p class="mt-4">
-      Ngx Stripe is a thin wrapper around <ngstr-link url="https://stripe.com/docs/stripe-js">Stripe Elements</ngstr-link>. It allows adding Elements to any <strong>Angular</strong> app.
+      Ngx Stripe is a thin wrapper around
+      <ngstr-link url="https://stripe.com/docs/stripe-js">Stripe Elements</ngstr-link>. It allows adding Elements to any
+      <strong>Angular</strong> app.
     </p>
     <p>
-      The <ngstr-link url="https://stripe.com/docs/js">Stripe.js reference</ngstr-link> covers complete <strong>Elements</strong> customization details.
+      The
+      <ngstr-link url="https://stripe.com/docs/js">Stripe.js reference</ngstr-link>
+      covers complete <strong>Elements</strong> customization details.
     </p>
     <p>
-      You can use Elements with any Stripe product to collect online payments. To find the right integration path for your business, explore <ngstr-link url="https://stripe.com/docs/stripe-js">Stripe Docs</ngstr-link>.
+      You can use Elements with any Stripe product to collect online payments. To find the right integration path for
+      your business, explore
+      <ngstr-link url="https://stripe.com/docs/stripe-js">Stripe Docs</ngstr-link>.
     </p>
-    <p>
-      The library provides three major elements:
-    </p>
+    <p>The library provides three major elements:</p>
     <ul role="list">
       <li>Lazy script loading</li>
       <li>Element Components</li>
@@ -21,24 +25,45 @@
     </ul>
     <ngstr-subheader subheader="New major version" link="new-major-version"></ngstr-subheader>
     <p>
-      This project has not been updated for a while.
-      After reviewing the state of the art for React and Vue counterparts,
-      some major changes are going to be introduced to align this project with <ngstr-link url="https://stripe.com/docs/js"> Stripe Elements </ngstr-link>.
+      This project has not been updated for a while. After reviewing the state of the art for React and Vue
+      counterparts, some major changes are going to be introduced to align this project with
+      <ngstr-link url="https://stripe.com/docs/js"> Stripe Elements </ngstr-link>.
     </p>
     <ol role="list">
-      <li>ngx-stripe will no longer maintain its own interfaces. Instead, @stripe/stripe-js has been added as peer dependency. This will make the library easier to maintain and avoid mistakes.</li>
-      <li><ngstr-link url="https://stripe.com/docs/js">Stripe Service</ngstr-link> has been updated with all the missing APIs from StripeJS.</li>
-      <li>All the missing <ngstr-link url="https://stripe.com/docs/stripe-js/react#element-components">Element Components</ngstr-link> like IBAN, Ideal, FPX, ... have been added.</li>
+      <li>
+        ngx-stripe will no longer maintain its own interfaces. Instead, @stripe/stripe-js has been added as peer
+        dependency. This will make the library easier to maintain and avoid mistakes.
+      </li>
+      <li>
+        <ngstr-link url="https://stripe.com/docs/js">Stripe Service</ngstr-link>
+        has been updated with all the missing APIs from StripeJS.
+      </li>
+      <li>
+        All the missing
+        <ngstr-link url="https://stripe.com/docs/stripe-js/react#element-components">Element Components</ngstr-link>
+        like IBAN, Ideal, FPX, ... have been added.
+      </li>
       <li>Request Payment Button now has full support.</li>
-      <li>Added <ngstr-link url="https://stripe.com/docs/js/element/the_element_container">Container Style</ngstr-link> functionality support.</li>
-      <li>A <ngstr-link url="https://github.com/richnologies/ngx-stripe/blob/main/MIGRATION.md">Migration</ngstr-link> guide has been added with details of what have changed.</li>
-      <li>The new version of library is compatible from Angular 6+ major versions. Check the <ngstr-highlight>Installation</ngstr-highlight> section see how to install an older version.</li>
+      <li>
+        Added
+        <ngstr-link url="https://stripe.com/docs/js/element/the_element_container">Container Style</ngstr-link>
+        functionality support.
+      </li>
+      <li>
+        A
+        <ngstr-link url="https://github.com/richnologies/ngx-stripe/blob/main/MIGRATION.md">Migration</ngstr-link>
+        guide has been added with details of what have changed.
+      </li>
+      <li>
+        The new version of library is compatible from Angular 6+ major versions. Check the
+        <ngstr-highlight>Installation</ngstr-highlight> section see how to install an older version.
+      </li>
       <li>All documentation has been moved to this new site.</li>
     </ol>
     <p>
-      Finally, in order to ease the transition,
-      we are naming the old version of the library <ngstr-highlight>legacy</ngstr-highlight> and we have created some npm tags to make it easy to install older versions.
-      Check <ngstr-highlight>Installation</ngstr-highlight> to say a complete list of available versions.
+      Finally, in order to ease the transition, we are naming the old version of the library
+      <ngstr-highlight>legacy</ngstr-highlight> and we have created some npm tags to make it easy to install older
+      versions. Check <ngstr-highlight>Installation</ngstr-highlight> to say a complete list of available versions.
     </p>
   </ng-container>
 </ngstr-section>

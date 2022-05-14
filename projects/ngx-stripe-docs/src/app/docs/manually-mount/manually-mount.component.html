@@ -2,28 +2,28 @@
   <ng-container ngStrSectionMain>
     <ngstr-header title="Manually Mount your Element"></ngstr-header>
     <p>
-      In some scenarios you may want to fully control the style,
-      the loading flow or simply the provided Element Components
-      don't suit well for your application.
+      In some scenarios you may want to fully control the style, the loading flow or simply the provided Element
+      Components don't suit well for your application.
     </p>
     <p>
-      In those cases you manually mount the Stripe Element on any DOM element.
-      In the example bellow, we are mounting a Card Element into the div
-      with id <strong>card-element</strong>. We need to do 3 things the Card Component usually do for us:
+      In those cases you manually mount the Stripe Element on any DOM element. In the example bellow, we are mounting a
+      Card Element into the div with id
+      <strong>card-element</strong>. We need to do 3 things the Card Component usually do for us:
     </p>
     <ul role="list">
       <li>Fetch the Elements Object</li>
-      <li>Create the Stripe Element. In this example a card element, but the same approach can be use for any other support payment method.</li>
+      <li>
+        Create the Stripe Element. In this example a card element, but the same approach can be use for any other
+        support payment method.
+      </li>
       <li>Mount the element into the DOM</li>
     </ul>
     <p>With those technique we have access the the Stripe Element directly.</p>
-    <ngstr-panel type="warning">
-      This is a more flexible approach, but also a little bit more involving
-    </ngstr-panel>
+    <ngstr-panel type="warning"> This is a more flexible approach, but also a little bit more involving </ngstr-panel>
     <ngstr-subheader subheader="Usage" link="usage"></ngstr-subheader>
     <ngstr-code-group>
       <ngstr-code name="stripe-mount.component.ts" [code]="stripeMountTS"></ngstr-code>
-      <ngstr-code name="stripe-mount.component.html"[code]="stripeMountHTML"></ngstr-code>
+      <ngstr-code name="stripe-mount.component.html" [code]="stripeMountHTML"></ngstr-code>
     </ngstr-code-group>
   </ng-container>
 </ngstr-section>

@@ -16,11 +16,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [Test06Component],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule.forChild(routes),
-    NgxStripeModule
-  ]
+  imports: [CommonModule, ReactiveFormsModule, RouterModule.forChild(routes), NgxStripeModule]
 })
 export class StripeTest06Module {}

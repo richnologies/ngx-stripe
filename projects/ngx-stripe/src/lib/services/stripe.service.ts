@@ -93,21 +93,14 @@ import {
   ConfirmUsBankAccountPaymentData,
   CollectBankAccountForPaymentOptions,
   ConfirmUsBankAccountSetupData,
-  CollectBankAccountForSetupOptions,
+  CollectBankAccountForSetupOptions
 } from '@stripe/stripe-js';
 
-import {
-  STRIPE_PUBLISHABLE_KEY,
-  STRIPE_OPTIONS,
-  NGX_STRIPE_VERSION
-} from '../interfaces/ngx-stripe.interface';
+import { STRIPE_PUBLISHABLE_KEY, STRIPE_OPTIONS, NGX_STRIPE_VERSION } from '../interfaces/ngx-stripe.interface';
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
 
 import { WindowRef } from './window-ref.service';
-import {
-  LazyStripeAPILoader,
-  LazyStripeAPILoaderStatus
-} from './api-loader.service';
+import { LazyStripeAPILoader, LazyStripeAPILoaderStatus } from './api-loader.service';
 
 import { StripeInstance } from './stripe-instance.class';
 
@@ -152,9 +145,7 @@ export class StripeService implements StripeServiceInterface {
     return this.stripe.elements(options);
   }
 
-  redirectToCheckout(
-    options?: RedirectToCheckoutOptions
-  ): Observable<never | { error: StripeError }> {
+  redirectToCheckout(options?: RedirectToCheckoutOptions): Observable<never | { error: StripeError }> {
     return this.stripe.redirectToCheckout(options);
   }
 
@@ -170,7 +161,7 @@ export class StripeService implements StripeServiceInterface {
     elements: StripeElements;
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
-  }): Observable<never | {error: StripeError}>;
+  }): Observable<never | { error: StripeError }>;
   confirmPayment(options) {
     return this.stripe.confirmPayment(options);
   }
@@ -424,9 +415,7 @@ export class StripeService implements StripeServiceInterface {
     return this.stripe.confirmWechatPayPayment(clientSecret, data, options);
   }
 
-  handleCardAction(
-    clientSecret: string
-  ): Observable<{
+  handleCardAction(clientSecret: string): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
@@ -443,27 +432,21 @@ export class StripeService implements StripeServiceInterface {
     return this.stripe.verifyMicrodepositsForPayment(clientSecret, data);
   }
 
-  collectBankAccountForPayment(
-    options: CollectBankAccountForPaymentOptions
-  ): Observable<{
+  collectBankAccountForPayment(options: CollectBankAccountForPaymentOptions): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
     return this.stripe.collectBankAccountForPayment(options);
   }
 
-  createPaymentMethod(
-    paymentMethodData: CreatePaymentMethodData
-  ): Observable<{
+  createPaymentMethod(paymentMethodData: CreatePaymentMethodData): Observable<{
     paymentMethod?: PaymentMethod;
     error?: StripeError;
   }> {
     return this.stripe.createPaymentMethod(paymentMethodData);
   }
 
-  retrievePaymentIntent(
-    clientSecret: string
-  ): Observable<{
+  retrievePaymentIntent(clientSecret: string): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }> {
@@ -622,18 +605,14 @@ export class StripeService implements StripeServiceInterface {
     return this.stripe.verifyMicrodepositsForSetup(clientSecret, data);
   }
 
-  collectBankAccountForSetup(
-    options?: CollectBankAccountForSetupOptions
-  ): Observable<{
+  collectBankAccountForSetup(options?: CollectBankAccountForSetupOptions): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;
   }> {
     return this.stripe.collectBankAccountForSetup(options);
   }
 
-  retrieveSetupIntent(
-    clientSecret: string
-  ): Observable<{
+  retrieveSetupIntent(clientSecret: string): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;
   }> {
@@ -652,10 +631,7 @@ export class StripeService implements StripeServiceInterface {
     tokenType: StripeCardElement | StripeCardNumberElement,
     data?: CreateTokenCardData
   ): Observable<{ token?: Token; error?: StripeError }>;
-  createToken(
-    tokenType: 'pii',
-    data: CreateTokenPiiData
-  ): Observable<{ token?: Token; error?: StripeError }>;
+  createToken(tokenType: 'pii', data: CreateTokenPiiData): Observable<{ token?: Token; error?: StripeError }>;
   createToken(
     tokenType: 'bank_account',
     data: CreateTokenBankAccountData
@@ -668,10 +644,7 @@ export class StripeService implements StripeServiceInterface {
     tokenType: 'account',
     data: TokenCreateParams.Account
   ): Observable<{ token?: Token; error?: StripeError }>;
-  createToken(
-    tokenType: 'person',
-    data: TokenCreateParams.Person
-  ): Observable<{ token?: Token; error?: StripeError }>;
+  createToken(tokenType: 'person', data: TokenCreateParams.Person): Observable<{ token?: Token; error?: StripeError }>;
   createToken(tokenType, data) {
     return this.stripe.createToken(tokenType, data);
   }
@@ -680,16 +653,12 @@ export class StripeService implements StripeServiceInterface {
     element: StripeElement,
     sourceData: CreateSourceData
   ): Observable<{ source?: Source; error?: StripeError }>;
-  createSource(
-    sourceData: CreateSourceData
-  ): Observable<{ source?: Source; error?: StripeError }>;
+  createSource(sourceData: CreateSourceData): Observable<{ source?: Source; error?: StripeError }>;
   createSource(a, b?): Observable<{ source?: Source; error?: StripeError }> {
     return this.stripe.createSource(a, b);
   }
 
-  retrieveSource(
-    source: RetrieveSourceParam
-  ): Observable<{ source?: Source; error?: StripeError }> {
+  retrieveSource(source: RetrieveSourceParam): Observable<{ source?: Source; error?: StripeError }> {
     return this.stripe.retrieveSource(source);
   }
 

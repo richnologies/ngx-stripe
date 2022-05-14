@@ -4,4 +4,4 @@ import { Component } from '@angular/core';
   selector: 'ngstr-installation',
   templateUrl: './installation.component.html'
 })
-export class NgStrInstallationComponent { }
+export class NgStrInstallationComponent {}

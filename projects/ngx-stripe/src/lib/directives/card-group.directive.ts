@@ -1,12 +1,4 @@
-import {
-  Directive,
-  Input,
-  OnInit,
-  OnChanges,
-  SimpleChanges,
-  Output,
-  EventEmitter
-} from '@angular/core';
+import { Directive, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 
 import { StripeElements, StripeElementsOptions } from '@stripe/stripe-js';
 
@@ -34,9 +26,7 @@ export class StripeCardGroupDirective implements OnInit, OnChanges {
     const stripe = this.stripe;
 
     if (changes.elementsOptions || changes.stripe || !this._elements) {
-      this._elements = await this.stripeElementsService
-        .elements(stripe, elementsOptions)
-        .toPromise();
+      this._elements = await this.stripeElementsService.elements(stripe, elementsOptions).toPromise();
       this.elements.emit(this._elements);
     }
 
@@ -47,9 +37,7 @@ export class StripeCardGroupDirective implements OnInit, OnChanges {
     if (this.state === 'notready') {
       this.state = 'starting';
 
-      this._elements = await this.stripeElementsService
-        .elements(this.stripe)
-        .toPromise();
+      this._elements = await this.stripeElementsService.elements(this.stripe).toPromise();
       this.elements.emit(this._elements);
 
       this.state = 'ready';

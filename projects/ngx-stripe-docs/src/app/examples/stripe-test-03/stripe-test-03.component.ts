@@ -1,9 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { StripeService, StripeCardComponent } from 'ngx-stripe';
-import {
-  StripeCardElementOptions,
-  StripeElementsOptions
-} from '@stripe/stripe-js';
+import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 @Component({
   selector: 'ngstr-test-03',
@@ -14,10 +11,7 @@ import {
       </div>
       <div section-content>
         <p>Minimum example, just fill the form and get your token</p>
-        <ngx-stripe-card
-          [options]="cardOptions"
-          [elementsOptions]="elementsOptions"
-        ></ngx-stripe-card>
+        <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
         <button (click)="buy()">CLICK</button>
       </div>
     </div>
@@ -49,14 +43,12 @@ export class Test03Component {
   constructor(private stripeService: StripeService) {}
 
   buy() {
-    this.stripeService
-      .createToken(this.card.getCard(), { name: 'Ricardo' })
-      .subscribe((result) => {
-        if (result.token) {
-          console.log(result.token);
-        } else if (result.error) {
-          console.log(result.error.message);
-        }
-      });
+    this.stripeService.createToken(this.card.getCard(), { name: 'Ricardo' }).subscribe((result) => {
+      if (result.token) {
+        console.log(result.token);
+      } else if (result.error) {
+        console.log(result.error.message);
+      }
+    });
   }
 }

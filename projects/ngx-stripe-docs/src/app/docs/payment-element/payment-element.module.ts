@@ -18,12 +18,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [NgStrPaymentElementComponent],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NgxStripeModule,
-    RouterModule.forChild(routes),
-    DocsElementsModule
-  ]
+  imports: [CommonModule, ReactiveFormsModule, NgxStripeModule, RouterModule.forChild(routes), DocsElementsModule]
 })
 export class NgStrPaymentElementModule {}

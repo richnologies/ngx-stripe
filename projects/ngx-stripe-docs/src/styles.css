@@ -3,7 +3,10 @@
 @import '~highlight.js/styles/xcode.css';
 @import '~ngx-toastr/toastr';
 
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+}
 body {
   margin: 0;
   font-family: gitbook-code-font, Menlo, monospace;

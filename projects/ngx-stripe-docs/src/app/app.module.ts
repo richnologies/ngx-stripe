@@ -24,14 +24,16 @@ import { ROUTES } from './app.routing';
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(ROUTES, { relativeLinkResolution: 'legacy' }),
-    NgxStripeModule.forRoot('pk_test_51Ii5RpH2XTJohkGafOSn3aoFFDjfCE4G9jmW48Byd8OS0u2707YHusT5PojHOwWAys9HbvNylw7qDk0KkMZomdG600TJYNYj20'),
+    NgxStripeModule.forRoot(
+      'pk_test_51Ii5RpH2XTJohkGafOSn3aoFFDjfCE4G9jmW48Byd8OS0u2707YHusT5PojHOwWAys9HbvNylw7qDk0KkMZomdG600TJYNYj20'
+    ),
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HighlightModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
       iconClasses: {
-        info: 'toast-ngx-stripe',
+        info: 'toast-ngx-stripe'
       },
       preventDuplicates: false
     }),
@@ -55,8 +57,8 @@ import { ROUTES } from './app.routing';
         languages: {
           typescript: () => import('highlight.js/lib/languages/typescript'),
           css: () => import('highlight.js/lib/languages/css'),
-          xml: () => import('highlight.js/lib/languages/xml'),
-        },
+          xml: () => import('highlight.js/lib/languages/xml')
+        }
       }
     }
   ],

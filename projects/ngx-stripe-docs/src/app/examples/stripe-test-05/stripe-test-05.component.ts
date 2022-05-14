@@ -3,10 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
 import { StripeService, StripeCardComponent, StripeFactoryService } from 'ngx-stripe';
-import {
-  StripeCardElementOptions,
-  StripeElementsOptions
-} from '@stripe/stripe-js';
+import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../../core';
 
@@ -21,9 +18,7 @@ import { NgStrPlutoService } from '../../core';
         <input placeholder="name" formControlName="name" />
         <input placeholder="amount" type="number" formControlName="amount" />
         <ngx-stripe-card [options]="cardOptions">
-          <span class="text-green-400" *ngxStripeLoadingTemplate>
-            Loading Stripe Card...
-          </span>
+          <span class="text-green-400" *ngxStripeLoadingTemplate> Loading Stripe Card... </span>
         </ngx-stripe-card>
         <button (click)="pay()">PAY</button>
       </div>
@@ -81,7 +76,7 @@ export class Test05Component {
           currency: 'eur'
         })
         .pipe(
-          switchMap(pi =>
+          switchMap((pi) =>
             this.stripeService.confirmCardPayment(pi.client_secret, {
               payment_method: {
                 card: this.card.element,
@@ -92,7 +87,7 @@ export class Test05Component {
             })
           )
         )
-        .subscribe(result => {
+        .subscribe((result) => {
           this.paying = false;
           console.log('Result', result);
           if (result.error) {

@@ -1,10 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { StripeService, StripeIbanComponent } from 'ngx-stripe';
-import {
-  StripeElementsOptions,
-  StripeIbanElementOptions,
-  CreateTokenIbanData
-} from '@stripe/stripe-js';
+import { StripeElementsOptions, StripeIbanElementOptions, CreateTokenIbanData } from '@stripe/stripe-js';
 
 @Component({
   selector: 'ngstr-test-02',
@@ -15,10 +11,7 @@ import {
       </div>
       <div section-content>
         <p>Minimum example, just fill the form and get your token</p>
-        <ngx-stripe-iban
-          [options]="ibanOptions"
-          [elementsOptions]="elementsOptions"
-        ></ngx-stripe-iban>
+        <ngx-stripe-iban [options]="ibanOptions" [elementsOptions]="elementsOptions"></ngx-stripe-iban>
         <button (click)="buy()">CLICK</button>
       </div>
     </div>

@@ -23,7 +23,7 @@ import { Component, Input } from '@angular/core';
       }
       .panel-warning {
         background-color: #fef8e1;
-        border-left: 0.375rem solid #FFC407;
+        border-left: 0.375rem solid #ffc407;
       }
       .panel-danger {
         background-color: #fee1e1;

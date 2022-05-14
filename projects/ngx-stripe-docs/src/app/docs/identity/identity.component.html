@@ -1,11 +1,9 @@
 <ngstr-section>
   <ng-container ngStrSectionMain>
-    <ngstr-header
-      title="Identity"
-      subtitle="The easiest way to verify identities"
-    ></ngstr-header>
+    <ngstr-header title="Identity" subtitle="The easiest way to verify identities"></ngstr-header>
     <p>
-      Stripe Identity helps you confirm the identity of global users to prevent fraud, streamline risk operations, and increase trust and safety.
+      Stripe Identity helps you confirm the identity of global users to prevent fraud, streamline risk operations, and
+      increase trust and safety.
     </p>
     <ul role="list">
       <li>Capture IDs with a conversion-optimized verification flow</li>
@@ -14,11 +12,14 @@
       <li>Access collected images, and extracted data from ID document</li>
     </ul>
     <p>
-      If you want to know more, please visit the <ngstr-link url="https://stripe.com/identity">Stripe Identity</ngstr-link> home page. Or, if you're ready to get started, you can check the docs <ngstr-link url="https://stripe.com/docs/identity">here</ngstr-link>
+      If you want to know more, please visit the
+      <ngstr-link url="https://stripe.com/identity">Stripe Identity</ngstr-link>
+      home page. Or, if you're ready to get started, you can check the docs
+      <ngstr-link url="https://stripe.com/docs/identity">here</ngstr-link>
     </p>
     <ngstr-panel type="warning">
-      In order to use Stripe Identity you first need to Activate your account and
-      fill out your <ngstr-link url="https://dashboard.stripe.com/identity/application">Stripe Identity application</ngstr-link>.
+      In order to use Stripe Identity you first need to Activate your account and fill out your
+      <ngstr-link url="https://dashboard.stripe.com/identity/application">Stripe Identity application</ngstr-link>.
     </ngstr-panel>
     <ngstr-subheader subheader="Verify your users identity docuemnts" link="verify-users-documents"></ngstr-subheader>
     <p>There are four ways to implement Identity:</p>
@@ -29,36 +30,43 @@
       <li>Without code — manually create verifications in Dashboard and share a link with your users.</li>
     </ul>
     <p>
-      In this case we are going to use ngx-stripe to trigger the modal window within
-      our Angular App. We need to create a verificación session in the server
-      and then use the client secret in the front to trigger open the modal.
-      Is a very similar to the <ngstr-link url="https://docs.ngx-stripe.dev/core-concepts/checkout">Checkout flow</ngstr-link>.
+      In this case we are going to use ngx-stripe to trigger the modal window within our Angular App. We need to create
+      a verificación session in the server and then use the client secret in the front to trigger open the modal. Is a
+      very similar to the
+      <ngstr-link url="https://docs.ngx-stripe.dev/core-concepts/checkout">Checkout flow</ngstr-link>.
     </p>
     <p>
-      To see more details on a full example, please check the official <ngstr-link url="https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=modal">Stripe Docs</ngstr-link>.
+      To see more details on a full example, please check the official
+      <ngstr-link url="https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=modal"
+        >Stripe Docs</ngstr-link
+      >.
     </p>
     <ngstr-code-group>
       <ngstr-code name="identity.component.ts" [code]="identityOneTS"></ngstr-code>
-      <ngstr-code name="identity.component.html"[code]="identityOneHTML"></ngstr-code>
+      <ngstr-code name="identity.component.html" [code]="identityOneHTML"></ngstr-code>
       <ngstr-code name="server.js" [code]="identityOneServer"></ngstr-code>
     </ngstr-code-group>
-    <ngstr-subheader subheader="Verify your users identity using redirect" link="verify-users-redirect"></ngstr-subheader>
+    <ngstr-subheader
+      subheader="Verify your users identity using redirect"
+      link="verify-users-redirect"
+    ></ngstr-subheader>
     <p>
-      As discuss in the previous section, there is an alternative flow using redirect
-      instead of a modal window. In this case you don't need this library or
-      to bootstrap Stripe in the front at all.
+      As discuss in the previous section, there is an alternative flow using redirect instead of a modal window. In this
+      case you don't need this library or to bootstrap Stripe in the front at all.
     </p>
     <p>
-      All you need is to create a Verification Session in the server and pass
-      the redirect url to the front. From there, you can simply redirect the user
-      to that url.
+      All you need is to create a Verification Session in the server and pass the redirect url to the front. From there,
+      you can simply redirect the user to that url.
     </p>
     <p>
-      Again, to see more details on a full example, please check the official <ngstr-link url="https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=redirect">Stripe Docs</ngstr-link>.
+      Again, to see more details on a full example, please check the official
+      <ngstr-link url="https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=redirect"
+        >Stripe Docs</ngstr-link
+      >.
     </p>
     <ngstr-code-group>
       <ngstr-code name="identity.component.ts" [code]="identityTwoTS"></ngstr-code>
-      <ngstr-code name="identity.component.html"[code]="identityTwoHTML"></ngstr-code>
+      <ngstr-code name="identity.component.html" [code]="identityTwoHTML"></ngstr-code>
       <ngstr-code name="server.js" [code]="identityTwoServer"></ngstr-code>
     </ngstr-code-group>
   </ng-container>

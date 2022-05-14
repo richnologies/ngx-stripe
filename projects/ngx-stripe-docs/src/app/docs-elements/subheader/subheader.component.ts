@@ -6,11 +6,13 @@ import { Router } from '@angular/router';
   template: `
     <h3 class="ngstr-subheader" [id]="link" (mouseenter)="showHashLink = true" (mouseleave)="showHashLink = false">
       <span>{{ subheader }}</span>
-      <a [href]="url + '#' + link"
+      <a
+        [href]="url + '#' + link"
         class="ngstr-link-hash"
         title="Direct link to heading"
         *ngIf="showHashLink && link && link.length > 0"
-      >#</a>
+        >#</a
+      >
     </h3>
   `,
   styles: [

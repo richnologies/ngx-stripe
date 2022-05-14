@@ -20,11 +20,7 @@ export class LazyStripeAPILoader {
     loading: false
   });
 
-  constructor(
-    @Inject(PLATFORM_ID) public platformId: any,
-    public window: WindowRef,
-    public document: DocumentRef
-  ) {}
+  constructor(@Inject(PLATFORM_ID) public platformId: any, public window: WindowRef, public document: DocumentRef) {}
 
   public asStream(): Observable<LazyStripeAPILoaderStatus> {
     this.load();

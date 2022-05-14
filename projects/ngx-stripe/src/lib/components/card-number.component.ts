@@ -31,7 +31,10 @@ import { StripeElementsService } from '../services/stripe-elements.service';
   selector: 'ngx-stripe-card-number',
   template: `
     <div class="field" #stripeElementRef>
-      <ng-container *ngIf="cardGroup && cardGroup.state !== 'ready' && loadingTemplate" [ngTemplateOutlet]="loadingTemplate"></ng-container>
+      <ng-container
+        *ngIf="cardGroup && cardGroup.state !== 'ready' && loadingTemplate"
+        [ngTemplateOutlet]="loadingTemplate"
+      ></ng-container>
     </div>
   `
 })
@@ -68,16 +71,12 @@ export class StripeCardNumberComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     if (this.cardGroup) {
-      this.cardGroupSubscription = this.cardGroup.elements.subscribe(
-        (elements: StripeElements) => {
-          this.elements = elements;
-          this.setupElement('elements');
-        }
-      );
+      this.cardGroupSubscription = this.cardGroup.elements.subscribe((elements: StripeElements) => {
+        this.elements = elements;
+        this.setupElement('elements');
+      });
     } else {
-      throw new Error(
-        'StripeCardNumberComponent must have StripeCardGroupDirective parent'
-      );
+      throw new Error('StripeCardNumberComponent must have StripeCardGroupDirective parent');
     }
   }
 
@@ -102,10 +101,7 @@ export class StripeCardNumberComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private setupElement(source: 'elements' | 'options') {
-    const options = this.stripeElementsService.mergeOptions(
-      this.options,
-      this.containerClass
-    );
+    const options = this.stripeElementsService.mergeOptions(this.options, this.containerClass);
 
     if (this.element && source === 'options') {
       this.update(options);

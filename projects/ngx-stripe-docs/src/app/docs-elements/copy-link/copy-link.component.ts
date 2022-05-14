@@ -8,7 +8,10 @@ import { NgStrClipboardService } from '../../core';
 @Component({
   selector: 'ngstr-copy-link',
   template: `
-    <div class="cursor-pointer font-normal px-3 py-1 text-sm border-l-2 text-gray-500 hover:text-indigo-600" (click)="copyLink()">
+    <div
+      class="cursor-pointer font-normal px-3 py-1 text-sm border-l-2 text-gray-500 hover:text-indigo-600"
+      (click)="copyLink()"
+    >
       <span class="material-icons text-sm mr-3">content_copy</span>
       <span>Copy Link</span>
     </div>

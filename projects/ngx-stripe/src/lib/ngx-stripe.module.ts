@@ -17,11 +17,7 @@ import { StripePaymentRequestButtonComponent } from './components/payment-reques
 import { StripeCardGroupDirective } from './directives/card-group.directive';
 import { NgxStripeElementLoadingTemplateDirective } from './directives/stripe-element-loading-template.directive';
 
-import {
-  NGX_STRIPE_VERSION,
-  STRIPE_OPTIONS,
-  STRIPE_PUBLISHABLE_KEY
-} from './interfaces/ngx-stripe.interface';
+import { NGX_STRIPE_VERSION, STRIPE_OPTIONS, STRIPE_PUBLISHABLE_KEY } from './interfaces/ngx-stripe.interface';
 
 import { LazyStripeAPILoader } from './services/api-loader.service';
 import { WindowRef } from './services/window-ref.service';
@@ -43,10 +39,7 @@ const components = [
   StripePaymentRequestButtonComponent
 ];
 
-const directives = [
-  StripeCardGroupDirective,
-  NgxStripeElementLoadingTemplateDirective
-];
+const directives = [StripeCardGroupDirective, NgxStripeElementLoadingTemplateDirective];
 
 const currentVersion = '13.1.0';
 

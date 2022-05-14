@@ -2,37 +2,43 @@
   <ng-container ngStrSectionMain>
     <ngstr-header title="Payment Request Button"></ngstr-header>
     <p class="text-gray-400">
-      Collect payment and address information from customers who use Apple Pay,
-      Google Pay, Microsoft Pay, and the Payment Request API.
+      Collect payment and address information from customers who use Apple Pay, Google Pay, Microsoft Pay, and the
+      Payment Request API.
     </p>
-    <hr class="my-8">
+    <hr class="my-8" />
     <p>
-      The Payment Request Button Element gives you a single integration
-      for <ngstr-link url="https://stripe.com/docs/apple-pay">Apple Pay</ngstr-link>,
-      <ngstr-link url="https://stripe.com/docs/google-pay">Google Pay</ngstr-link>, <ngstr-link url="https://stripe.com/docs/microsoft-pay">Microsoft Pay</ngstr-link>, and the browser
-      standard <ngstr-link url="https://stripe.com/docs/stripe-js/reference#stripe-payment-request">Payment Request API</ngstr-link>.
+      The Payment Request Button Element gives you a single integration for
+      <ngstr-link url="https://stripe.com/docs/apple-pay">Apple Pay</ngstr-link>,
+      <ngstr-link url="https://stripe.com/docs/google-pay">Google Pay</ngstr-link>,
+      <ngstr-link url="https://stripe.com/docs/microsoft-pay">Microsoft Pay</ngstr-link>, and the browser standard
+      <ngstr-link url="https://stripe.com/docs/stripe-js/reference#stripe-payment-request"
+        >Payment Request API</ngstr-link
+      >.
     </p>
     <ngstr-subheader subheader="Prerequisites" link="prerequisites"></ngstr-subheader>
     <div class="!mt-6"></div>
     <ngstr-panel type="danger">
-      Add a <strong>payment method</strong> to your browser.<br/>
-      Serve your application over <strong>HTTPS</strong>, both in development and production<br/>
-      For <strong>Apple Pay</strong> you will need to <strong>verify your domain</strong>, both in development and production
+      Add a <strong>payment method</strong> to your browser.<br />
+      Serve your application over <strong>HTTPS</strong>, both in development and production<br />
+      For <strong>Apple Pay</strong> you will need to <strong>verify your domain</strong>, both in development and
+      production
     </ngstr-panel>
     <p class="!mt-6">
-      Please check all the information regarding <strong>prerequisites</strong> in the Stripe Payment Request Button <ngstr-link url="https://stripe.com/docs/stripe-js/elements/payment-request-button#html-js-prerequisites">site</ngstr-link>.
+      Please check all the information regarding
+      <strong>prerequisites</strong> in the Stripe Payment Request Button
+      <ngstr-link url="https://stripe.com/docs/stripe-js/elements/payment-request-button#html-js-prerequisites"
+        >site</ngstr-link
+      >.
     </p>
-    <p>
-      After that, you can use the built-in component. Here is a complete example:
-    </p>
+    <p>After that, you can use the built-in component. Here is a complete example:</p>
     <ngstr-code-group>
       <ngstr-code name="request-button.component.ts" [code]="paymentButtonTS"></ngstr-code>
-      <ngstr-code name="request-button.component.html"[code]="paymentButtonHTML"></ngstr-code>
+      <ngstr-code name="request-button.component.html" [code]="paymentButtonHTML"></ngstr-code>
     </ngstr-code-group>
     <ngstr-subheader subheader="Outputs" link="outputs"></ngstr-subheader>
     <p>
-      The component has a couple of Outputs you can subscribe.
-      The ones in the example are the most important ones, but here is a complete list:
+      The component has a couple of Outputs you can subscribe. The ones in the example are the most important ones, but
+      here is a complete list:
     </p>
     <ul role="list">
       <li>token</li>

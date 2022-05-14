@@ -1,15 +1,22 @@
 <ngstr-section>
   <ng-container ngStrSectionMain>
     <ngstr-header title="Element Components"></ngstr-header>
-    <p><ngstr-highlight>Element components</ngstr-highlight> provide a flexible way to securely collect payment information in your Angular app.</p>
     <p>
-      You can mount individual Element components inside of your <ngstr-highlight>Elements</ngstr-highlight> tree. Note that you can only mount one of each type of Element.
+      <ngstr-highlight>Element components</ngstr-highlight> provide a flexible way to securely collect payment
+      information in your Angular app.
+    </p>
+    <p>
+      You can mount individual Element components inside of your
+      <ngstr-highlight>Elements</ngstr-highlight> tree. Note that you can only mount one of each type of Element.
     </p>
     <ngstr-subheader subheader="Create Token" link="create-token"></ngstr-subheader>
-    <p>In this example the <ngstr-highlight>Card Element</ngstr-highlight> is used to collection payment information and create a token.</p>
+    <p>
+      In this example the <ngstr-highlight>Card Element</ngstr-highlight> is used to collection payment information and
+      create a token.
+    </p>
     <ngstr-code-group>
       <ngstr-code name="create-token.component.ts" [code]="createTokenTS"></ngstr-code>
-      <ngstr-code name="create-token.component.html"[code]="createTokenHTML"></ngstr-code>
+      <ngstr-code name="create-token.component.html" [code]="createTokenHTML"></ngstr-code>
     </ngstr-code-group>
     <p>The full list of components available:</p>
     <table class="mb-8">
@@ -60,42 +67,53 @@
     </table>
     <ngstr-subheader subheader="Card Group Directive" link="card-group-directive"></ngstr-subheader>
     <p>
-      If you want to use the card number, expiry and cvc as separated elements you need to put them
-      inside the <strong>card group directive</strong>.
+      If you want to use the card number, expiry and cvc as separated elements you need to put them inside the
+      <strong>card group directive</strong>.
     </p>
     <p>
-      This is necessary to ensure the three elements shared the same stripe elements objects, otherwise it won't work. As you can see in the example element options is not available for any of the three child components, but only for the group directive.
+      This is necessary to ensure the three elements shared the same stripe elements objects, otherwise it won't work.
+      As you can see in the example element options is not available for any of the three child components, but only for
+      the group directive.
     </p>
-    <p>
-      Here is an example using the <strong>Card Group as a Directive</strong>:
-    </p>
+    <p>Here is an example using the <strong>Card Group as a Directive</strong>:</p>
     <ngstr-code-group>
       <ngstr-code name="card-number.component.ts" [code]="cardGroupDirectiveTS"></ngstr-code>
-      <ngstr-code name="card-number.component.html"[code]="cardGroupDirectiveHTML"></ngstr-code>
+      <ngstr-code name="card-number.component.html" [code]="cardGroupDirectiveHTML"></ngstr-code>
     </ngstr-code-group>
     <p>
-      We also make available the component selector, in case you prefer to work that way, here is an example using the <strong>Card Group as a Component</strong>.
+      We also make available the component selector, in case you prefer to work that way, here is an example using the
+      <strong>Card Group as a Component</strong>.
     </p>
     <ngstr-code-group>
       <ngstr-code name="card-number.component.ts" [code]="cardGroupComponentTS"></ngstr-code>
-      <ngstr-code name="card-number.component.html"[code]="cardGroupComponentHTML"></ngstr-code>
+      <ngstr-code name="card-number.component.html" [code]="cardGroupComponentHTML"></ngstr-code>
     </ngstr-code-group>
   </ng-container>
   <div class="sm:mx-auto sm:w-full sm:max-w-md" ngStrSectionAside>
     <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 bg-indigo-50" [formGroup]="createTokenForm">
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-        Create Token Example
-      </h2>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Create Token Example</h2>
       <div class="my-1">
         <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
         <div class="mt-1">
-          <input id="name" type="text" formControlName="name" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            required
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
         </div>
       </div>
       <div class="my-1">
         <label for="name" class="block text-sm font-medium text-gray-700"> Email </label>
         <div class="mt-1">
-          <input id="name" type="email" formControlName="email" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          <input
+            id="name"
+            type="email"
+            formControlName="email"
+            required
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
         </div>
       </div>
       <div class="my-1">
@@ -104,30 +122,45 @@
           <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
         </div>
       </div>
-      <button type="button"
+      <button
+        type="button"
         [disabled]="creatingToken"
         class="mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        (click)="createToken()">
+        (click)="createToken()"
+      >
         <span *ngIf="!creatingToken">CREATE TOKEN</span>
         <span *ngIf="creatingToken">CREATING...</span>
       </button>
     </div>
 
-    <div class="mt-12 mb-12 bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 bg-indigo-50" [formGroup]="createTokenForm">
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-        Card Group Example
-      </h2>
+    <div
+      class="mt-12 mb-12 bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 bg-indigo-50"
+      [formGroup]="createTokenForm"
+    >
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Card Group Example</h2>
       <ngx-stripe-card-group [formGroup]="cardGroupForm" [elementsOptions]="elementsOptions">
         <div class="my-1">
           <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
           <div class="mt-1">
-            <input id="name" type="text" formControlName="name" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <input
+              id="name"
+              type="text"
+              formControlName="name"
+              required
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
           </div>
         </div>
         <div class="my-1">
           <label for="name" class="block text-sm font-medium text-gray-700"> Email </label>
           <div class="mt-1">
-            <input id="name" type="email" formControlName="email" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <input
+              id="name"
+              type="email"
+              formControlName="email"
+              required
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
           </div>
         </div>
         <div class="my-1">
@@ -151,10 +184,12 @@
           </div>
         </div>
       </ngx-stripe-card-group>
-      <button type="button"
+      <button
+        type="button"
         [disabled]="paying"
         class="mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        (click)="pay()">
+        (click)="pay()"
+      >
         <span *ngIf="!paying">PAY 25$</span>
         <span *ngIf="paying">PAYING...</span>
       </button>
