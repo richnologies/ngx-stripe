@@ -5,14 +5,14 @@ import { NgStrContentService, NgStrMenuItem } from '../../core';
 @Component({
   selector: 'ngstr-section-navigator',
   template: `
-    <div class="flex flex-row gap-4 mt-2" *ngIf="next || previous">
+    <div class="flex flex-col md:flex-row gap-4 mt-2 px-2" *ngIf="next || previous">
       <a class="inline-block w-full cursor-pointer no-underline" [routerLink]="['/docs', previous.path]" *ngIf="previous">
         <div class="flex flex-row grow rounded justify-between px-4 py-2 border border-gray-300 hover:border-indigo-500 bg-white">
           <div class="pt-4"><span class="material-icons text-gray-700">arrow_back</span></div>
           <div>
             <span class="text-xs text-gray-400">{{ previous.group | ngStrGroupName:'previous' }}</span>
             <br/>
-            <span class="text-gray-700">{{ previous.name }}</span>
+            <span class="text-gray-700 float-right">{{ previous.name }}</span>
           </div>
         </div>
       </a>

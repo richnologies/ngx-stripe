@@ -6,6 +6,7 @@ import { HighlightModule } from 'ngx-highlightjs';
 
 import { NgStrCodeComponent } from './code/code.component';
 import { NgStrCodeGroup } from './code-group/code-group.component';
+import { NgStrContentsComponent } from './contents/contents.component';
 import { NgStrCopyLinkComponent } from './copy-link/copy-link.component';
 import { NgStrDocsShellComponent } from './docs-shell/docs-shell.component';
 import { NgStrHighlightComponent } from './highlight/highlight.component';
@@ -25,6 +26,7 @@ import { NgStrGroupNamePipe } from './section/group-name.pipe';
 const components = [
   NgStrCodeComponent,
   NgStrCodeGroup,
+  NgStrContentsComponent,
   NgStrCopyLinkComponent,
   NgStrDocsShellComponent,
   NgStrDocsHeaderComponent,
