@@ -5,7 +5,7 @@ import { NgStrContentService, NgStrMenuItem } from '../../core';
 @Component({
   selector: 'ngstr-section-navigator',
   template: `
-    <div class="flex flex-col md:flex-row gap-4 mt-2 px-2" *ngIf="next || previous">
+    <div class="flex flex-col md:flex-row gap-4 mt-2 md:px-2" *ngIf="next || previous">
       <a
         class="inline-block w-full cursor-pointer no-underline"
         [routerLink]="['/docs', previous.path]"
