@@ -1,9 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngstr-manually-mount',
-  templateUrl: './manually-mount.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './manually-mount.component.html'
 })
 export class NgStrManuallyMountComponent {
   stripeMountTS = `

@@ -1,9 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngstr-reference-instance',
-  templateUrl: './reference-instance.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './reference-instance.component.html'
 })
 export class NgStrReferenceInstanceComponent {
   referenceAndInstance = `

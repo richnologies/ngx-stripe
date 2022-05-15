@@ -1,9 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngstr-faqs',
-  templateUrl: './faqs.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './faqs.component.html'
 })
 export class NgStrFAQSComponent {
   appModule = `

@@ -1,9 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngstr-setup-application',
-  templateUrl: './setup-application.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './setup-application.component.html'
 })
 export class NgStrSetupApplicationComponent {
   appModule = `

@@ -9,6 +9,7 @@ import { NgStrCodeGroup } from './code-group/code-group.component';
 import { NgStrContentsComponent } from './contents/contents.component';
 import { NgStrCopyLinkComponent } from './copy-link/copy-link.component';
 import { NgStrDocsShellComponent } from './docs-shell/docs-shell.component';
+import { NgStrFlipContainerComponent } from './flip-container/flip-container.component';
 import { NgStrHighlightComponent } from './highlight/highlight.component';
 import { NgStrLinkComponent } from './link/link.component';
 import { NgStrDocsHeaderComponent } from './header/header.component';
@@ -29,6 +30,7 @@ const components = [
   NgStrContentsComponent,
   NgStrCopyLinkComponent,
   NgStrDocsShellComponent,
+  NgStrFlipContainerComponent,
   NgStrDocsHeaderComponent,
   NgStrHighlightComponent,
   NgStrLinkComponent,

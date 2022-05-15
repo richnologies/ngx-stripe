@@ -1,9 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngstr-migration',
-  templateUrl: './migration.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './migration.component.html'
 })
 export class NgStrMigrationComponent {
   paymentIntentResultNext = '{ paymentIntent?: PaymentIntent; error?: StripeError; }';

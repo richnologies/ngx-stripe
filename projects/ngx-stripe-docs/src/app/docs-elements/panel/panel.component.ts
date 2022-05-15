@@ -3,34 +3,23 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'ngstr-panel',
   template: `
-    <div [class]="'text-gray-900 panel panel-' + type">
+    <div class="py-6 px-8 rounded-md border-l-8" [ngClass]="{
+      'bg-green-100': type === 'success',
+      'text-green-700': type === 'success',
+      'border-green-400': type === 'success',
+      'bg-blue-100': type === 'info',
+      'text-blue-700': type === 'info',
+      'border-blue-400': type === 'info',
+      'bg-yellow-100': type === 'warning',
+      'text-yellow-700': type === 'warning',
+      'border-yellow-400': type === 'warning',
+      'bg-red-100': type === 'danger',
+      'text-red-700': type === 'danger',
+      'border-red-400': type === 'danger'
+    }">
       <ng-content></ng-content>
     </div>
-  `,
-  styles: [
-    `
-      .panel {
-        padding: 1.5rem 2rem;
-        border-radius: 0.375rem;
-      }
-      .panel-success {
-        background-color: #e9fee1;
-        border-left: 0.375rem solid #07ff26;
-      }
-      .panel-info {
-        background-color: #e1e9fe;
-        border-left: 0.375rem solid #0795ff;
-      }
-      .panel-warning {
-        background-color: #fef8e1;
-        border-left: 0.375rem solid #ffc407;
-      }
-      .panel-danger {
-        background-color: #fee1e1;
-        border-left: 0.375rem solid #ff0707;
-      }
-    `
-  ]
+  `
 })
 export class NgStrPanelComponent {
   @Input() type: 'success' | 'info' | 'warning' | 'danger' = 'info';

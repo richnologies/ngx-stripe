@@ -1,8 +1,7 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngstr-service',
-  templateUrl: './service.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './service.component.html'
 })
 export class NgStrServiceComponent {}

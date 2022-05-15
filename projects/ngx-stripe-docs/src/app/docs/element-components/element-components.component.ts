@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
@@ -9,8 +9,7 @@ import { NgStrPlutoService } from '../../core';
 
 @Component({
   selector: 'ngstr-element-components',
-  templateUrl: './element-components.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './element-components.component.html'
 })
 export class NgStrElementComponentsComponent {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;

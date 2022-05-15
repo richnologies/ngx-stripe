@@ -1,9 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngstr-identity',
-  templateUrl: './identity.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './identity.component.html'
 })
 export class NgStrIdentityComponent {
   identityOneTS = `

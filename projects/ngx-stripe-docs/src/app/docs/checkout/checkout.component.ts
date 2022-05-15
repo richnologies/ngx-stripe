@@ -1,9 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngstr-checkout',
-  templateUrl: './checkout.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './checkout.component.html'
 })
 export class NgStrCheckoutComponent {
   checkoutTS = `

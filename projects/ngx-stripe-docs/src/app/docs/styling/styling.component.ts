@@ -1,9 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngstr-styling',
-  templateUrl: './styling.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './styling.component.html'
 })
 export class NgStrStylingComponent {
   stylingOne = `

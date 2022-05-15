@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -9,8 +9,7 @@ import { NgStrPlutoService } from '../../core';
 
 @Component({
   selector: 'ngstr-payment-element',
-  templateUrl: './payment-element.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './payment-element.component.html'
 })
 export class NgStrPaymentElementComponent implements OnInit {
   @ViewChild(StripePaymentElementComponent)
@@ -30,6 +29,7 @@ export class NgStrPaymentElementComponent implements OnInit {
   };
 
   paying = false;
+  completed = false;
 
   constructor(private fb: FormBuilder, private plutoService: NgStrPlutoService, private stripeService: StripeService) {}
 
@@ -67,6 +67,7 @@ export class NgStrPaymentElementComponent implements OnInit {
         })
         .subscribe((result) => {
           this.paying = false;
+          console.log(result);
           if (result.error) {
             // Show error to your customer (e.g., insufficient funds)
             alert(JSON.stringify({ success: false, error: result.error.message }));
@@ -74,13 +75,25 @@ export class NgStrPaymentElementComponent implements OnInit {
             // The payment has been processed!
             if (result.paymentIntent.status === 'succeeded') {
               // Show a success message to your customer
-              alert(JSON.stringify({ success: true }));
+              this.completed = true;
             }
           }
         });
     } else {
       console.log(this.paymentElementForm);
     }
+  }
+
+  clearPaymentElementForm() {
+    this.paymentElementForm.patchValue({
+      name: '',
+      email: '',
+      address: '',
+      zipcode: '',
+      city: ''
+    });
+
+    this.completed = false;
   }
 
   // Code Snippets

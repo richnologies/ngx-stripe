@@ -1,9 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngstr-examples',
-  templateUrl: './examples.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './examples.component.html'
 })
 export class NgStrExamplesComponent {
   createTokenTS = `

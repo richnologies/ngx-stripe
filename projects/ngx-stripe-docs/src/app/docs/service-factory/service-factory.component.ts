@@ -1,9 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngstr-service-factory',
-  templateUrl: './service-factory.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './service-factory.component.html'
 })
 export class NgStrServiceFactoryComponent {
   serviceFactoryTS = `
