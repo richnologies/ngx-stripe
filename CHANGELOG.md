@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.2.1 - 2022-05-17
+
+- Fixing mess with versions :(
+
 ## 13.2.0 - 2022-05-17
 
 - [#103](https://github.com/richnologies/ngx-stripe/issues/169) Fix a little bug related to Payment Request Button
