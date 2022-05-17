@@ -80,15 +80,21 @@ import {
   ConfirmPayNowPaymentData,
   ConfirmPayNowPaymentOptions,
   ConfirmCustomerBalancePaymentData,
-  ConfirmCustomerBalancePaymentOptions
+  ConfirmCustomerBalancePaymentOptions,
+  ConfirmSofortPaymentOptions,
+  ConfirmSofortSetupOptions,
+  ConfirmKonbiniPaymentData,
+  ConfirmKonbiniPaymentOptions,
+  ConfirmUsBankAccountPaymentData,
+  CollectBankAccountForPaymentOptions,
+  ConfirmUsBankAccountSetupData,
+  CollectBankAccountForSetupOptions
 } from '@stripe/stripe-js';
 
 export interface StripeServiceInterface {
   getInstance(): Stripe | undefined;
   elements(options?: StripeElementsOptions): Observable<StripeElements>;
-  redirectToCheckout(
-    options?: RedirectToCheckoutOptions
-  ): Observable<never | { error: StripeError }>;
+  redirectToCheckout(options?: RedirectToCheckoutOptions): Observable<never | { error: StripeError }>;
   confirmPayment(options: {
     elements: StripeElements;
     confirmParams?: Partial<ConfirmPaymentData>;
@@ -101,11 +107,18 @@ export interface StripeServiceInterface {
     elements: StripeElements;
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
-  }): Observable<never | {error: StripeError}>;
+  }): Observable<never | { error: StripeError }>;
   confirmAcssDebitPayment(
     clientSecret: string,
     data?: ConfirmAcssDebitPaymentData,
     options?: ConfirmAcssDebitPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }>;
+  confirmUsBankAccountPayment(
+    clientSecret: string,
+    data?: ConfirmUsBankAccountPaymentData
   ): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
@@ -197,6 +210,14 @@ export interface StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }>;
+  confirmKonbiniPayment(
+    clientSecret: string,
+    data?: ConfirmKonbiniPaymentData,
+    options?: ConfirmKonbiniPaymentOptions
+  ): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }>;
   confirmOxxoPayment(
     clientSecret: string,
     data?: ConfirmOxxoPaymentData,
@@ -245,7 +266,8 @@ export interface StripeServiceInterface {
   }>;
   confirmSofortPayment(
     clientSecret: string,
-    data?: ConfirmSofortPaymentData
+    data?: ConfirmSofortPaymentData,
+    options?: ConfirmSofortPaymentOptions
   ): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
@@ -258,9 +280,7 @@ export interface StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }>;
-  handleCardAction(
-    clientSecret: string
-  ): Observable<{
+  handleCardAction(clientSecret: string): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }>;
@@ -271,15 +291,15 @@ export interface StripeServiceInterface {
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }>;
-  createPaymentMethod(
-    paymentMethodData: CreatePaymentMethodData
-  ): Observable<{
+  collectBankAccountForPayment(options: CollectBankAccountForPaymentOptions): Observable<{
+    paymentIntent?: PaymentIntent;
+    error?: StripeError;
+  }>;
+  createPaymentMethod(paymentMethodData: CreatePaymentMethodData): Observable<{
     paymentMethod?: PaymentMethod;
     error?: StripeError;
   }>;
-  retrievePaymentIntent(
-    clientSecret: string
-  ): Observable<{
+  retrievePaymentIntent(clientSecret: string): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
   }>;
@@ -300,6 +320,13 @@ export interface StripeServiceInterface {
     clientSecret: string,
     data?: ConfirmAcssDebitSetupData,
     options?: ConfirmAcssDebitSetupOptions
+  ): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }>;
+  confirmUsBankAccountSetup(
+    clientSecret: string,
+    data?: ConfirmUsBankAccountSetupData
   ): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;
@@ -356,7 +383,8 @@ export interface StripeServiceInterface {
   }>;
   confirmSofortSetup(
     clientSecret: string,
-    data?: ConfirmSofortSetupData
+    data?: ConfirmSofortSetupData,
+    options?: ConfirmSofortSetupOptions
   ): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;
@@ -384,9 +412,11 @@ export interface StripeServiceInterface {
     setupIntent?: SetupIntent;
     error?: StripeError;
   }>;
-  retrieveSetupIntent(
-    clientSecret: string
-  ): Observable<{
+  collectBankAccountForSetup(options: CollectBankAccountForSetupOptions): Observable<{
+    setupIntent?: SetupIntent;
+    error?: StripeError;
+  }>;
+  retrieveSetupIntent(clientSecret: string): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;
   }>;
@@ -399,10 +429,7 @@ export interface StripeServiceInterface {
     tokenType: StripeCardElement | StripeCardNumberElement,
     data?: CreateTokenCardData
   ): Observable<{ token?: Token; error?: StripeError }>;
-  createToken(
-    tokenType: 'pii',
-    data: CreateTokenPiiData
-  ): Observable<{ token?: Token; error?: StripeError }>;
+  createToken(tokenType: 'pii', data: CreateTokenPiiData): Observable<{ token?: Token; error?: StripeError }>;
   createToken(
     tokenType: 'bank_account',
     data: CreateTokenBankAccountData
@@ -415,20 +442,13 @@ export interface StripeServiceInterface {
     tokenType: 'account',
     data: TokenCreateParams.Account
   ): Observable<{ token?: Token; error?: StripeError }>;
-  createToken(
-    tokenType: 'person',
-    data: TokenCreateParams.Person
-  ): Observable<{ token?: Token; error?: StripeError }>;
+  createToken(tokenType: 'person', data: TokenCreateParams.Person): Observable<{ token?: Token; error?: StripeError }>;
   createSource(
     element: StripeElement,
     sourceData: CreateSourceData
   ): Observable<{ source?: Source; error?: StripeError }>;
-  createSource(
-    sourceData: CreateSourceData
-  ): Observable<{ source?: Source; error?: StripeError }>;
-  retrieveSource(
-    source: RetrieveSourceParam
-  ): Observable<{ source?: Source; error?: StripeError }>;
+  createSource(sourceData: CreateSourceData): Observable<{ source?: Source; error?: StripeError }>;
+  retrieveSource(source: RetrieveSourceParam): Observable<{ source?: Source; error?: StripeError }>;
   verifyIdentity(clientSecret: string): Observable<VerificationSessionResult>;
   /**
    * @deprecated

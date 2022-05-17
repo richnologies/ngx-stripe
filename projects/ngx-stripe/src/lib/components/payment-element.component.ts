@@ -61,7 +61,7 @@ export class StripePaymentElementComponent implements OnChanges, OnDestroy {
     if (changes.elementsOptions || changes.stripe || changes.clientSecret || changes.appearance || !this.elements) {
       this.elements = await this.stripeElementsService
         .elements(this.stripe, {
-          ...(this.elementsOptions || {}),
+          ...(this.elementsOptions || {}),
           ...(this.appearance ? { appearance: this.appearance } : {}),
           ...(this.clientSecret ? { clientSecret: this.clientSecret } : {})
         })
@@ -69,12 +69,7 @@ export class StripePaymentElementComponent implements OnChanges, OnDestroy {
       updateElements = true;
     }
 
-    if (
-      changes.options ||
-      changes.containerClass ||
-      !this.element ||
-      updateElements
-    ) {
+    if (changes.options || changes.containerClass || !this.element || updateElements) {
       if (this.element && !updateElements) {
         this.update(options);
       } else if (this.elements && updateElements) {
