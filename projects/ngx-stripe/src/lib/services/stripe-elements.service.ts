@@ -13,7 +13,8 @@ import {
   StripeFpxBankElementOptions,
   StripeIbanElementOptions,
   StripeIdealBankElementOptions,
-  StripePaymentRequestButtonElementOptions
+  StripePaymentRequestButtonElementOptions,
+  StripePaymentElementOptions
 } from '@stripe/stripe-js';
 
 import { StripeService } from './stripe.service';
@@ -22,10 +23,7 @@ import { StripeService } from './stripe.service';
 export class StripeElementsService {
   constructor(private stripeService: StripeService) {}
 
-  elements(
-    stripe,
-    options: StripeElementsOptions = {}
-  ): Observable<StripeElements> {
+  elements(stripe, options: StripeElementsOptions = {}): Observable<StripeElements> {
     if (stripe) {
       if (Object.keys(options).length > 0) {
         return stripe.elements(options);
@@ -39,47 +37,22 @@ export class StripeElementsService {
     }
   }
 
-  paymentRequest(
-    stripe,
-    options: PaymentRequestOptions
-  ): PaymentRequest | undefined {
-    return stripe
-      ? stripe.paymentRequest(options)
-      : this.stripeService.paymentRequest(options);
+  paymentRequest(stripe, options: PaymentRequestOptions): PaymentRequest | undefined {
+    return stripe ? stripe.paymentRequest(options) : this.stripeService.paymentRequest(options);
   }
 
-  mergeOptions(
-    options: StripeCardElementOptions,
-    containerClass: string
-  ): StripeCardElementOptions;
-  mergeOptions(
-    options: StripeCardNumberElementOptions,
-    containerClass: string
-  ): StripeCardNumberElementOptions;
-  mergeOptions(
-    options: StripeCardExpiryElementOptions,
-    containerClass: string
-  ): StripeCardExpiryElementOptions;
-  mergeOptions(
-    options: StripeFpxBankElementOptions,
-    containerClass: string
-  ): StripeFpxBankElementOptions;
-  mergeOptions(
-    options: StripeIbanElementOptions,
-    containerClass: string
-  ): StripeIbanElementOptions;
-  mergeOptions(
-    options: StripeIdealBankElementOptions,
-    containerClass: string
-  ): StripeIdealBankElementOptions;
-  mergeOptions(
-    options: StripeAuBankAccountElementOptions,
-    containerClass: string
-  ): StripeAuBankAccountElementOptions;
+  mergeOptions(options: StripeCardElementOptions, containerClass: string): StripeCardElementOptions;
+  mergeOptions(options: StripeCardNumberElementOptions, containerClass: string): StripeCardNumberElementOptions;
+  mergeOptions(options: StripeCardExpiryElementOptions, containerClass: string): StripeCardExpiryElementOptions;
+  mergeOptions(options: StripeFpxBankElementOptions, containerClass: string): StripeFpxBankElementOptions;
+  mergeOptions(options: StripeIbanElementOptions, containerClass: string): StripeIbanElementOptions;
+  mergeOptions(options: StripeIdealBankElementOptions, containerClass: string): StripeIdealBankElementOptions;
+  mergeOptions(options: StripeAuBankAccountElementOptions, containerClass: string): StripeAuBankAccountElementOptions;
   mergeOptions(
     options: StripePaymentRequestButtonElementOptions,
     containerClass: string
   ): StripePaymentRequestButtonElementOptions;
+  mergeOptions(options: StripePaymentElementOptions, containerClass: string): StripePaymentElementOptions;
   mergeOptions(options, containerClass: string) {
     if (!containerClass || (options && options.classes)) {
       return options || {};
