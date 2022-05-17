@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { StripeConstructorOptions } from '@stripe/stripe-js';
@@ -10,15 +11,13 @@ import { StripeFpxBankComponent } from './components/fpx-bank.component';
 import { StripeIdealBankComponent } from './components/ideal-bank.component';
 import { StripeIbanComponent } from './components/iban.component';
 import { StripeAuBankAccountComponent } from './components/au-bank-account.component';
+import { StripePaymentElementComponent } from './components/payment-element.component';
 import { StripePaymentRequestButtonComponent } from './components/payment-request-button.component';
 
 import { StripeCardGroupDirective } from './directives/card-group.directive';
+import { NgxStripeElementLoadingTemplateDirective } from './directives/stripe-element-loading-template.directive';
 
-import {
-  NGX_STRIPE_VERSION,
-  STRIPE_OPTIONS,
-  STRIPE_PUBLISHABLE_KEY
-} from './interfaces/ngx-stripe.interface';
+import { NGX_STRIPE_VERSION, STRIPE_OPTIONS, STRIPE_PUBLISHABLE_KEY } from './interfaces/ngx-stripe.interface';
 
 import { LazyStripeAPILoader } from './services/api-loader.service';
 import { WindowRef } from './services/window-ref.service';
@@ -36,16 +35,18 @@ const components = [
   StripeIdealBankComponent,
   StripeIbanComponent,
   StripeAuBankAccountComponent,
+  StripePaymentElementComponent,
   StripePaymentRequestButtonComponent
 ];
 
-const directives = [StripeCardGroupDirective];
+const directives = [StripeCardGroupDirective, NgxStripeElementLoadingTemplateDirective];
 
-const currentVersion = '10.2.0';
+const currentVersion = '10.3.0';
 
 @NgModule({
   declarations: [...components, ...directives],
-  exports: [...components, ...directives]
+  exports: [...components, ...directives],
+  imports: [CommonModule]
 })
 export class NgxStripeModule {
   public static forRoot(

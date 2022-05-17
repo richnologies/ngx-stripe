@@ -8,7 +8,9 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
-  OnDestroy
+  OnDestroy,
+  ContentChild,
+  TemplateRef
 } from '@angular/core';
 
 import {
@@ -19,14 +21,22 @@ import {
   StripeCardElementChangeEvent
 } from '@stripe/stripe-js';
 
+import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
+
 import { StripeInstance } from '../services/stripe-instance.class';
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
   selector: 'ngx-stripe-card',
-  template: `<div class="field" #stripeElementRef></div>`
+  template: `
+    <div class="field" #stripeElementRef>
+      <ng-container *ngIf="state !== 'ready' && loadingTemplate" [ngTemplateOutlet]="loadingTemplate"></ng-container>
+    </div>
+  `
 })
 export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
+  @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })
+  loadingTemplate?: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeCardElement;
 
@@ -51,25 +61,15 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
   async ngOnChanges(changes: SimpleChanges) {
     this.state = 'starting';
 
-    const options = this.stripeElementsService.mergeOptions(
-      this.options,
-      this.containerClass
-    );
+    const options = this.stripeElementsService.mergeOptions(this.options, this.containerClass);
     let updateElements = false;
 
     if (changes.elementsOptions || changes.stripe || !this.elements) {
-      this.elements = await this.stripeElementsService
-        .elements(this.stripe, this.elementsOptions)
-        .toPromise();
+      this.elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
       updateElements = true;
     }
 
-    if (
-      changes.options ||
-      changes.containerClass ||
-      !this.element ||
-      updateElements
-    ) {
+    if (changes.options || changes.containerClass || !this.element || updateElements) {
       if (this.element && !updateElements) {
         this.update(options);
       } else if (this.elements && updateElements) {
@@ -84,9 +84,7 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
     if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await this.stripeElementsService
-        .elements(this.stripe)
-        .toPromise();
+      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
       this.createElement();
 
       this.state = 'ready';
