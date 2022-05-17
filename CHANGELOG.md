@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.2.0 - 2022-04-27
+
+- [#103](https://github.com/richnologies/ngx-stripe/issues/169) Fix a little bug related to Payment Request Button
+
 ## 13.1.0 - 2022-04-27
 
 - Update whole project to use Angular v13

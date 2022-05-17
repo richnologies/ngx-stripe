@@ -1,10 +1,106 @@
 import { Component } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
+
+import { PaymentRequestPaymentMethodEvent, PaymentRequestShippingAddressEvent } from '@stripe/stripe-js';
+import { StripeService } from 'ngx-stripe';
+
+import { NgStrPlutoService } from '../../core';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'ngstr-payment-request-button',
   templateUrl: './payment-request-button.component.html'
 })
 export class NgStrPaymentRequestButtonComponent {
+  paymentRequestOptions = {
+    country: 'US',
+    currency: 'usd',
+    total: {
+      label: 'Demo Total',
+      amount: 1099,
+    },
+    requestPayerName: true,
+    requestPayerEmail: true,
+  };
+
+  constructor(
+    private plutoService: NgStrPlutoService,
+    private stripeService: StripeService
+  ) {}
+
+  onPaymentMethod(ev: PaymentRequestPaymentMethodEvent) {
+    this.plutoService
+      .createPaymentIntent({
+        amount: this.paymentRequestOptions.total.amount,
+        currency: this.paymentRequestOptions.currency
+      })
+      .pipe(
+        switchMap((pi) => {
+          return this.stripeService
+            .confirmCardPayment(
+              pi.client_secret,
+              { payment_method: ev.paymentMethod.id },
+              { handleActions: false }
+            )
+            .pipe(
+              switchMap((confirmResult) => {
+                if (confirmResult.error) {
+                  // Report to the browser that the payment failed,
+                  // prompting it to re-show the payment interface,
+                  // or show an error message and close the payment.
+                  ev.complete('fail');
+                  return of({
+                    error: new Error('Error Confirming the payment'),
+                  });
+                } else {
+                  // Report to the browser that the confirmation was
+                  // successful, prompting it to close the browser
+                  // payment method collection interface.
+                  ev.complete('success');
+
+                  if (confirmResult.paymentIntent.status === "requires_action") {
+                    // Let Stripe.js handle the rest of the payment flow.
+                    return this.stripeService.confirmCardPayment(
+                      pi.client_secret
+                    );
+                  }
+                }
+
+                return of({ error: null })
+              })
+            );
+        })
+      )
+      .subscribe((result) => {
+        console.log('R', result);
+        if (result.error) {
+          // The payment failed -- ask your customer for a new payment method.
+        } else {
+          // The payment has succeeded.
+        }
+      });
+  }
+
+  onShippingAddressChange(ev: PaymentRequestShippingAddressEvent) {
+    if (ev.shippingAddress.country !== 'US') {
+      ev.updateWith({ status: 'invalid_shipping_address' });
+    } else {
+      // Replace this with your own custom implementation if needed
+      fetch('/calculateShipping', {
+        data: JSON.stringify({
+          shippingAddress: ev.shippingAddress,
+        }),
+      } as any)
+        .then((response) => response.json())
+        .then((result) =>
+          ev.updateWith({
+            status: 'success',
+            shippingOptions: result.supportedShippingOptions,
+          })
+        );
+    }
+  }
+
   paymentButtonTS = `
     import { Component } from '@angular/core';
     import { HttpClient } from '@angular/common/http';
