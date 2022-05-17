@@ -90,13 +90,6 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
           ...options
         });
 
-        console.log({
-          pm: this.paymentMethod,
-          source: this.source,
-          pmo: this.paymentMethod.observers.length > 0,
-          soo: this.source.observers.length > 0
-        })
-
         this.canMakePayment().subscribe((result) => {
           if (result) {
             this.element.on('click', (ev) => this.change.emit(ev));

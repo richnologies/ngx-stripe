@@ -41,7 +41,7 @@ const components = [
 
 const directives = [StripeCardGroupDirective, NgxStripeElementLoadingTemplateDirective];
 
-const currentVersion = '12.8.1';
+const currentVersion = '12.8.2';
 
 @NgModule({
   declarations: [...components, ...directives],
