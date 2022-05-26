@@ -81,7 +81,8 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
         this.paymentRequest = this.stripeElementsService.paymentRequest(stripe, this.paymentOptions);
         this.paymentRequest.on('token', (ev) => this.token.emit(ev));
         if (this.paymentMethod.observed) this.paymentRequest.on('paymentmethod', (ev) => this.paymentMethod.emit(ev));
-        if (this.source.observed && !this.paymentMethod.observed) this.paymentRequest.on('source', (ev) => this.source.emit(ev));
+        if (this.source.observed && !this.paymentMethod.observed)
+          this.paymentRequest.on('source', (ev) => this.source.emit(ev));
         this.paymentRequest.on('cancel', () => this.cancel.emit());
         this.paymentRequest.on('shippingaddresschange', (ev) => this.shippingaddresschange.emit(ev));
         this.paymentRequest.on('shippingoptionchange', (ev) => this.shippingoptionchange.emit(ev));

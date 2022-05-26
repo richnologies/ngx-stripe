@@ -5,7 +5,10 @@ import { NgStrCodeComponent } from '../code/code.component';
 @Component({
   selector: 'ngstr-code-group',
   template: `
-    <span class="relative z-0 inline-flex shadow-sm rounded-md max-w-full overflow-x-auto" *ngIf="buttons && buttons.length > 0">
+    <span
+      class="relative z-0 inline-flex shadow-sm rounded-md max-w-full overflow-x-auto"
+      *ngIf="buttons && buttons.length > 0"
+    >
       <button
         type="button"
         class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"

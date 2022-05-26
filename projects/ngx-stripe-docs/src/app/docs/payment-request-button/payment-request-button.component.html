@@ -51,9 +51,7 @@
   </ng-container>
   <div class="sm:mx-auto sm:w-full sm:max-w-md" ngStrSectionAside>
     <div class="py-4 px-4 shadow sm:rounded-lg sm:px-10 bg-slate-100">
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-        Payment Request Button
-      </h2>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Payment Request Button</h2>
       <ngx-stripe-payment-request-button
         [paymentOptions]="paymentRequestOptions"
         (paymentMethod)="onPaymentMethod($event)"

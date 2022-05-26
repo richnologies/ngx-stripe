@@ -17,11 +17,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [NgStrPaymentRequestButtonComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    NgxStripeModule,
-    DocsElementsModule
-  ]
+  imports: [CommonModule, RouterModule.forChild(routes), NgxStripeModule, DocsElementsModule]
 })
 export class NgStrPaymentRequestButtonModule {}

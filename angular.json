@@ -48,7 +48,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngx-stripe-docs",
+            "outputPath": "dist/ngx-stripe-docs/browser",
             "index": "projects/ngx-stripe-docs/src/index.html",
             "main": "projects/ngx-stripe-docs/src/main.ts",
             "polyfills": "projects/ngx-stripe-docs/src/polyfills.ts",
@@ -138,6 +138,58 @@
               "**/node_modules/**"
             ]
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/ngx-stripe-docs/server",
+            "main": "projects/ngx-stripe-docs/server.ts",
+            "tsConfig": "projects/ngx-stripe-docs/tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngx-stripe-docs/src/environments/environment.ts",
+                  "with": "projects/ngx-stripe-docs/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-stripe-docs:build:production",
+              "serverTarget": "ngx-stripe-docs:server:production"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-stripe-docs:build:production",
+              "serverTarget": "ngx-stripe-docs:server:production"
+            },
+            "development": {
+              "browserTarget": "ngx-stripe-docs:build:development",
+              "serverTarget": "ngx-stripe-docs:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

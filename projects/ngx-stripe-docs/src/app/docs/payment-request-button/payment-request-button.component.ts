@@ -17,16 +17,13 @@ export class NgStrPaymentRequestButtonComponent {
     currency: 'usd',
     total: {
       label: 'Demo Total',
-      amount: 1099,
+      amount: 1099
     },
     requestPayerName: true,
-    requestPayerEmail: true,
+    requestPayerEmail: true
   };
 
-  constructor(
-    private plutoService: NgStrPlutoService,
-    private stripeService: StripeService
-  ) {}
+  constructor(private plutoService: NgStrPlutoService, private stripeService: StripeService) {}
 
   onPaymentMethod(ev: PaymentRequestPaymentMethodEvent) {
     this.plutoService
@@ -37,11 +34,7 @@ export class NgStrPaymentRequestButtonComponent {
       .pipe(
         switchMap((pi) => {
           return this.stripeService
-            .confirmCardPayment(
-              pi.client_secret,
-              { payment_method: ev.paymentMethod.id },
-              { handleActions: false }
-            )
+            .confirmCardPayment(pi.client_secret, { payment_method: ev.paymentMethod.id }, { handleActions: false })
             .pipe(
               switchMap((confirmResult) => {
                 if (confirmResult.error) {
@@ -50,7 +43,7 @@ export class NgStrPaymentRequestButtonComponent {
                   // or show an error message and close the payment.
                   ev.complete('fail');
                   return of({
-                    error: new Error('Error Confirming the payment'),
+                    error: new Error('Error Confirming the payment')
                   });
                 } else {
                   // Report to the browser that the confirmation was
@@ -58,15 +51,13 @@ export class NgStrPaymentRequestButtonComponent {
                   // payment method collection interface.
                   ev.complete('success');
 
-                  if (confirmResult.paymentIntent.status === "requires_action") {
+                  if (confirmResult.paymentIntent.status === 'requires_action') {
                     // Let Stripe.js handle the rest of the payment flow.
-                    return this.stripeService.confirmCardPayment(
-                      pi.client_secret
-                    );
+                    return this.stripeService.confirmCardPayment(pi.client_secret);
                   }
                 }
 
-                return of({ error: null })
+                return of({ error: null });
               })
             );
         })
@@ -88,14 +79,14 @@ export class NgStrPaymentRequestButtonComponent {
       // Replace this with your own custom implementation if needed
       fetch('/calculateShipping', {
         data: JSON.stringify({
-          shippingAddress: ev.shippingAddress,
-        }),
+          shippingAddress: ev.shippingAddress
+        })
       } as any)
         .then((response) => response.json())
         .then((result) =>
           ev.updateWith({
             status: 'success',
-            shippingOptions: result.supportedShippingOptions,
+            shippingOptions: result.supportedShippingOptions
           })
         );
     }

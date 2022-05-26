@@ -46,10 +46,10 @@ export class NgStrGoogleTagManagerService {
   }
 
   pageView(path: string) {
-    if (this.trackingCode && this.enable) {
+    if (this.trackingCode && this.enable && this.window) {
       this.gtag('config', this.trackingCode, {
         page_title: this.titleService.getTitle(),
-        page_location: `${location.origin}${path}`,
+        page_location: `${this.window.location.origin}${path}`,
         page_path: path
       });
     }

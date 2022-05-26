@@ -1,8 +1,10 @@
+import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   Component,
   ContentChildren,
   ElementRef,
+  Inject,
   Input,
   OnDestroy,
   QueryList,
@@ -29,26 +31,33 @@ export class NgStrSectionComponent implements AfterViewInit, OnDestroy {
 
   private onDestroy = new Subject<void>();
 
-  constructor(private router: Router) {}
+  private get window() {
+    return this.document ? this.document.defaultView || (this.document as any).parentWindow : null;
+  }
+
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router) {}
 
   ngAfterViewInit() {
-    merge(fromEvent(this.section.nativeElement, 'scroll').pipe(throttleTime(250)), fromEvent(window, 'resize'))
-      .pipe(takeUntil(this.onDestroy))
-      .subscribe(() => {
-        const sectionClientReact = this.section.nativeElement.getBoundingClientRect();
-        const trigger = sectionClientReact && sectionClientReact.height ? Math.floor(sectionClientReact.height / 6) : 150;
+    if (this.window) {
+      merge(fromEvent(this.section.nativeElement, 'scroll').pipe(throttleTime(250)), fromEvent(this.window, 'resize'))
+        .pipe(takeUntil(this.onDestroy))
+        .subscribe(() => {
+          const sectionClientReact = this.section.nativeElement.getBoundingClientRect();
+          const trigger =
+            sectionClientReact && sectionClientReact.height ? Math.floor(sectionClientReact.height / 6) : 150;
 
-        this.activeSection = this.contents
-          .filter((content) => {
-            const el = document.getElementById(content.id);
-            if (!el) return false;
+          this.activeSection = this.contents
+            .filter((content) => {
+              const el = document.getElementById(content.id);
+              if (!el) return false;
 
-            const { y } = el.getBoundingClientRect();
+              const { y } = el.getBoundingClientRect();
 
-            return y < trigger;
-          })
-          .reverse()[0];
-      });
+              return y < trigger;
+            })
+            .reverse()[0];
+        });
+    }
 
     this.contents = this.subheaders
       .filter(
