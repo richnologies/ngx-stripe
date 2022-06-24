@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.0.0 - 2022-06-24
+
+- Support for Angular 14
+
 ## 13.2.1 - 2022-05-17
 
 - Fixing mess with versions :(

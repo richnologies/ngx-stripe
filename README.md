@@ -63,6 +63,7 @@ Choose the version corresponding to your Angular version:
 
 | Angular | ngx-stripe (legacy) | ngx-stripe        |
 | ------- | ------------------- | ----------------- |
+| 14      | **Not Available**   | 14.x+             |
 | 13      | **Not Available**   | 13.x+             |
 | 12      | **Not Available**   | 12.x+             |
 | 11      | **Not Available**   | 11.x+             |

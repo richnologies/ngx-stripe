@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
 import { StripeService, StripeCardComponent, StripeFactoryService } from 'ngx-stripe';
@@ -61,7 +61,7 @@ export class Test05Component {
   paying = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private plutoService: NgStrPlutoService,
     private factory: StripeFactoryService,
     private stripeService: StripeService

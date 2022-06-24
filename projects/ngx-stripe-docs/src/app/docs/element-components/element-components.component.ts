@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
@@ -48,7 +48,7 @@ export class NgStrElementComponentsComponent {
   creatingToken = false;
   paying = false;
 
-  constructor(private fb: FormBuilder, private stripeService: StripeService, private plutoService: NgStrPlutoService) {}
+  constructor(private fb: UntypedFormBuilder, private stripeService: StripeService, private plutoService: NgStrPlutoService) {}
 
   createToken() {
     const name = this.createTokenForm.get('name').value;

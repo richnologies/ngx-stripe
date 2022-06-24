@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 
 import { StripeService, StripePaymentElementComponent } from 'ngx-stripe';
 import { StripeElementsOptions } from '@stripe/stripe-js';
@@ -40,7 +40,7 @@ export class Test06Component implements OnInit {
 
   paying = false;
 
-  constructor(private fb: FormBuilder, private plutoService: NgStrPlutoService, private stripeService: StripeService) {}
+  constructor(private fb: UntypedFormBuilder, private plutoService: NgStrPlutoService, private stripeService: StripeService) {}
 
   ngOnInit() {
     this.plutoService

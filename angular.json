@@ -194,5 +194,7 @@
       }
     }
   },
-  "defaultProject": "ngx-stripe"
+  "cli": {
+    "analytics": "ab84504c-eb9a-4b17-b204-6ee954517770"
+  }
 }
