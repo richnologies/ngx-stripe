@@ -1,5 +1,11 @@
 # Changelog
 
+## 14.1.0 - 2022-06-24
+
+- Add support for `fetchUpdates` for Payment Element
+- Add support for `loaderror` for Payment Element
+- Add `abort` and `isShowing` for Payment Request Button
+
 ## 14.0.0 - 2022-06-24
 
 - Support for Angular 14

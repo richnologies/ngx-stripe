@@ -9,11 +9,13 @@ import {
   EventEmitter,
   SimpleChanges
 } from '@angular/core';
+import { from } from 'rxjs';
 
 import {
   Appearance,
   StripeElements,
   StripeElementsOptions,
+  StripeError,
   StripePaymentElement,
   StripePaymentElementChangeEvent,
   StripePaymentElementOptions
@@ -42,11 +44,12 @@ export class StripePaymentElementComponent implements OnChanges, OnDestroy {
 
   @Output() load = new EventEmitter<StripePaymentElement>();
 
-  @Output() blur = new EventEmitter<void>();
+  @Output() blur = new EventEmitter<{ elementType: 'payment' }>();
   @Output() change = new EventEmitter<StripePaymentElementChangeEvent>();
-  @Output() focus = new EventEmitter<void>();
-  @Output() ready = new EventEmitter<void>();
-  @Output() escape = new EventEmitter<void>();
+  @Output() focus = new EventEmitter<{ elementType: 'payment' }>();
+  @Output() ready = new EventEmitter<{ elementType: 'payment' }>();
+  @Output() escape = new EventEmitter<{ elementType: 'payment' }>();
+  @Output() loaderror = new EventEmitter<{ elementType: 'payment'; error: StripeError }>();
 
   state: 'notready' | 'starting' | 'ready' = 'notready';
 
@@ -94,6 +97,10 @@ export class StripePaymentElementComponent implements OnChanges, OnDestroy {
     return this.element.collapse();
   }
 
+  fetchUpdates() {
+    return from(this.elements.fetchUpdates());
+  }
+
   private createElement(options: Partial<StripePaymentElementOptions> = {}) {
     try {
       this.element = this.elements.create('payment', options);
@@ -103,10 +110,11 @@ export class StripePaymentElementComponent implements OnChanges, OnDestroy {
     }
 
     this.element.on('change', (ev) => this.change.emit(ev));
-    this.element.on('blur', () => this.blur.emit());
-    this.element.on('focus', () => this.focus.emit());
-    this.element.on('ready', () => this.ready.emit());
-    this.element.on('escape', () => this.escape.emit());
+    this.element.on('blur', (ev) => this.blur.emit(ev));
+    this.element.on('focus', (ev) => this.focus.emit(ev));
+    this.element.on('ready', (ev) => this.ready.emit(ev));
+    this.element.on('escape', (ev) => this.escape.emit(ev));
+    this.element.on('loaderror', (ev) => this.loaderror.emit(ev));
 
     this.element.mount(this.stripeElementRef.nativeElement);
 

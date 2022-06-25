@@ -1,4 +1,13 @@
-import { Component, Input, ViewChild, ElementRef, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  ViewChild,
+  ElementRef,
+  EventEmitter,
+  Output,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import { Observable, from } from 'rxjs';
 
 import {
@@ -131,8 +140,16 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
     });
   }
 
-  show() {
+  show(): void {
     this.paymentRequest.show();
+  }
+
+  abort(): void {
+    this.paymentRequest.abort();
+  }
+
+  isShowing(): boolean {
+    return this.paymentRequest.isShowing();
   }
 
   /**
