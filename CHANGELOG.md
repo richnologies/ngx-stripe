@@ -1,5 +1,8 @@
 # Changelog
 
+## 14.2.0 - 2022-06-24
+- Fix peer dependencies
+
 ## 14.1.0 - 2022-06-24
 
 - Add support for `fetchUpdates` for Payment Element
