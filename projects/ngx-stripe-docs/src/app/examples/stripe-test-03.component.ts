@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { StripeService, StripeCardComponent } from 'ngx-stripe';
+import { StripeService, StripeCardComponent, NgxStripeModule } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 @Component({
@@ -16,7 +16,9 @@ import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-
       </div>
     </div>
   `,
-  styles: []
+  styles: [],
+  standalone: true,
+  imports: [NgxStripeModule]
 })
 export class Test03Component {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;

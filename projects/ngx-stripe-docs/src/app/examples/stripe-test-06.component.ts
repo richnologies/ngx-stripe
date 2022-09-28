@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { StripeService, StripePaymentElementComponent } from 'ngx-stripe';
+import { StripeService, StripePaymentElementComponent, NgxStripeModule } from 'ngx-stripe';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 
-import { NgStrPlutoService } from '../../core';
+import { NgStrPlutoService } from '../core';
 
 @Component({
   selector: 'ngstr-test-06',
@@ -23,7 +23,9 @@ import { NgStrPlutoService } from '../../core';
       </div>
     </div>
   `,
-  styles: []
+  styles: [],
+  standalone: true,
+  imports: [ReactiveFormsModule, NgxStripeModule]
 })
 export class Test06Component implements OnInit {
   @ViewChild(StripePaymentElementComponent)

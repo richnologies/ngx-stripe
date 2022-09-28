@@ -1,15 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { StripeService, StripePaymentElementComponent } from 'ngx-stripe';
+import { StripeService, StripePaymentElementComponent, NgxStripeModule } from 'ngx-stripe';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../../core';
+import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
 
 @Component({
   selector: 'ngstr-payment-element',
-  templateUrl: './payment-element.component.html'
+  templateUrl: './payment-element.component.html',
+  standalone: true,
+  imports: [ReactiveFormsModule, NgxStripeModule, DocsElementsModule]
 })
 export class NgStrPaymentElementComponent implements OnInit {
   @ViewChild(StripePaymentElementComponent)

@@ -48,7 +48,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngx-stripe-docs/browser",
+            "outputPath": "dist/ngx-stripe-docs",
             "index": "projects/ngx-stripe-docs/src/index.html",
             "main": "projects/ngx-stripe-docs/src/main.ts",
             "polyfills": "projects/ngx-stripe-docs/src/polyfills.ts",
@@ -158,35 +158,6 @@
               "optimization": true,
               "sourceMap": false,
               "extractLicenses": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
-          "configurations": {
-            "production": {
-              "browserTarget": "ngx-stripe-docs:build:production",
-              "serverTarget": "ngx-stripe-docs:server:production"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "prerender": {
-          "builder": "@nguniversal/builders:prerender",
-          "options": {
-            "routes": [
-              "/"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "ngx-stripe-docs:build:production",
-              "serverTarget": "ngx-stripe-docs:server:production"
-            },
-            "development": {
-              "browserTarget": "ngx-stripe-docs:build:development",
-              "serverTarget": "ngx-stripe-docs:server:development"
             }
           },
           "defaultConfiguration": "production"

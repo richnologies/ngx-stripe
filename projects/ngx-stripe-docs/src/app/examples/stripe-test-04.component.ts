@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { StripeService, StripePaymentRequestButtonComponent } from 'ngx-stripe';
+import { StripeService, StripePaymentRequestButtonComponent, NgxStripeModule } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 @Component({
@@ -20,7 +20,9 @@ import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-
       </div>
     </div>
   `,
-  styles: []
+  styles: [],
+  standalone: true,
+  imports: [NgxStripeModule]
 })
 export class Test04Component {
   @ViewChild(StripePaymentRequestButtonComponent)

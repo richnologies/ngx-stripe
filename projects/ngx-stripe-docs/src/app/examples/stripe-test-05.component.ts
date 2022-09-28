@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
-import { StripeService, StripeCardComponent, StripeFactoryService } from 'ngx-stripe';
+import { StripeService, StripeCardComponent, StripeFactoryService, NgxStripeModule } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
-import { NgStrPlutoService } from '../../core';
+import { NgStrPlutoService } from '../core';
 
 @Component({
   selector: 'ngstr-test-05',
@@ -24,7 +24,9 @@ import { NgStrPlutoService } from '../../core';
       </div>
     </div>
   `,
-  styles: []
+  styles: [],
+  standalone: true,
+  imports: [ReactiveFormsModule, NgxStripeModule]
 })
 export class Test05Component {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;

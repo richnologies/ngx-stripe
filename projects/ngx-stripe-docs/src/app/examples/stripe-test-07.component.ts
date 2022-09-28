@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { StripeService, StripeFpxBankComponent } from 'ngx-stripe';
+import { StripeService, StripeFpxBankComponent, NgxStripeModule } from 'ngx-stripe';
 
-import { NgStrPlutoService } from '../../core';
+import { NgStrPlutoService } from '../core';
 
 @Component({
   selector: 'ngstr-test-06',
@@ -20,7 +20,9 @@ import { NgStrPlutoService } from '../../core';
       </div>
     </div>
   `,
-  styles: []
+  styles: [],
+  standalone: true,
+  imports: [ReactiveFormsModule, NgxStripeModule]
 })
 export class Test07Component implements OnInit {
   @ViewChild(StripeFpxBankComponent) fpxPayment: StripeFpxBankComponent;

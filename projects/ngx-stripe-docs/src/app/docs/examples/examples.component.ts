@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
 
 @Component({
   selector: 'ngstr-examples',
-  templateUrl: './examples.component.html'
+  templateUrl: './examples.component.html',
+  standalone: true,
+  imports: [DocsElementsModule]
 })
 export class NgStrExamplesComponent {
   createTokenTS = `

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
 
 @Component({
   selector: 'ngstr-migration',
-  templateUrl: './migration.component.html'
+  templateUrl: './migration.component.html',
+  standalone: true,
+  imports: [DocsElementsModule]
 })
 export class NgStrMigrationComponent {
   paymentIntentResultNext = '{ paymentIntent?: PaymentIntent; error?: StripeError; }';

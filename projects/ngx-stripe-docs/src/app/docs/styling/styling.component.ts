@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
 
 @Component({
   selector: 'ngstr-styling',
-  templateUrl: './styling.component.html'
+  templateUrl: './styling.component.html',
+  standalone: true,
+  imports: [DocsElementsModule]
 })
 export class NgStrStylingComponent {
   stylingOne = `

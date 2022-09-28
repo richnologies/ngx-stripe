@@ -2,14 +2,17 @@ import { Component } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 
 import { PaymentRequestPaymentMethodEvent, PaymentRequestShippingAddressEvent } from '@stripe/stripe-js';
-import { StripeService } from 'ngx-stripe';
+import { NgxStripeModule, StripeService } from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../../core';
 import { of } from 'rxjs';
+import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
 
 @Component({
   selector: 'ngstr-payment-request-button',
-  templateUrl: './payment-request-button.component.html'
+  templateUrl: './payment-request-button.component.html',
+  standalone: true,
+  imports: [NgxStripeModule, DocsElementsModule]
 })
 export class NgStrPaymentRequestButtonComponent {
   paymentRequestOptions = {

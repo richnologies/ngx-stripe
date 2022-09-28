@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 
 import { NgStrGoogleTagManagerService } from './core';
 
 @Component({
+  standalone: true,
   selector: 'ngstr-root',
-  templateUrl: './app.component.html'
+  template: `<router-outlet></router-outlet>`,
+  imports: [RouterModule]
 })
 export class AppComponent implements OnInit {
   constructor(private router: Router, private titleService: Title, private gtag: NgStrGoogleTagManagerService) {}

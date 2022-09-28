@@ -46,7 +46,7 @@ const pipes = [NgStrCodeFormatPipe, NgStrGroupNamePipe];
 
 @NgModule({
   declarations: [...components, ...directives, ...pipes],
-  exports: [...components, ...directives, ...pipes, HighlightModule],
+  exports: [CommonModule, ...components, ...directives, ...pipes, HighlightModule],
   imports: [CommonModule, RouterModule, HighlightModule]
 })
 export class DocsElementsModule {}

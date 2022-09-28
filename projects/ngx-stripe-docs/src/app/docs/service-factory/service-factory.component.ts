@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
 
 @Component({
   selector: 'ngstr-service-factory',
-  templateUrl: './service-factory.component.html'
+  templateUrl: './service-factory.component.html',
+  standalone: true,
+  imports: [DocsElementsModule]
 })
 export class NgStrServiceFactoryComponent {
   serviceFactoryTS = `

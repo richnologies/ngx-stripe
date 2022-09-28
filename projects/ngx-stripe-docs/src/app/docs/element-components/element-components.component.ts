@@ -1,15 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
-import { StripeCardComponent, StripeService } from 'ngx-stripe';
+import { NgxStripeModule, StripeCardComponent, StripeService } from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../../core';
+import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
 
 @Component({
   selector: 'ngstr-element-components',
-  templateUrl: './element-components.component.html'
+  templateUrl: './element-components.component.html',
+  standalone: true,
+  imports: [ReactiveFormsModule, NgxStripeModule, DocsElementsModule]
 })
 export class NgStrElementComponentsComponent {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { StripeService, StripeIbanComponent } from 'ngx-stripe';
+import { StripeService, StripeIbanComponent, NgxStripeModule } from 'ngx-stripe';
 import { StripeElementsOptions, StripeIbanElementOptions, CreateTokenIbanData } from '@stripe/stripe-js';
 
 @Component({
@@ -16,7 +16,9 @@ import { StripeElementsOptions, StripeIbanElementOptions, CreateTokenIbanData } 
       </div>
     </div>
   `,
-  styles: []
+  styles: [],
+  standalone: true,
+  imports: [NgxStripeModule]
 })
 export class Test02Component {
   @ViewChild(StripeIbanComponent) iban: StripeIbanComponent;

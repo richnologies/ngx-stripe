@@ -5,7 +5,7 @@ import { NgStrDocsShellComponent } from './docs-elements/docs-shell/docs-shell.c
 export const ROUTES: Routes = [
   {
     path: '',
-    loadChildren: () => import('./welcome/welcome.module').then((m) => m.NgStrWelcomeModule)
+    loadComponent: () => import('./welcome/welcome.component').then(m => m.NgStrWelcomeComponent)
   },
   {
     path: 'docs',
@@ -13,126 +13,126 @@ export const ROUTES: Routes = [
     children: [
       {
         path: 'introduction',
-        loadChildren: () => import('./docs/introduction/introduction.module').then((m) => m.NgStrIntroductionModule),
+        loadComponent: () => import('./docs/introduction/introduction.component').then((m) => m.NgStrIntroductionComponent),
         data: { title: 'Introduction' }
       },
       {
         path: 'installation',
-        loadChildren: () => import('./docs/installation/installation.module').then((m) => m.NgStrInstallationModule),
+        loadComponent: () => import('./docs/installation/installation.component').then((m) => m.NgStrInstallationComponent),
         data: { title: 'Installation' }
       },
       {
         path: 'setup-application',
-        loadChildren: () =>
-          import('./docs/setup-application/setup-application.module').then((m) => m.NgStrSetupApplicationModule),
+        loadComponent: () =>
+          import('./docs/setup-application/setup-application.component').then((m) => m.NgStrSetupApplicationComponent),
         data: { title: 'Installation' }
       },
       {
         path: 'checkout',
-        loadChildren: () => import('./docs/checkout/checkout.module').then((m) => m.NgStrCheckoutModule),
+        loadComponent: () => import('./docs/checkout/checkout.component').then(m => m.NgStrCheckoutComponent),
         data: { title: 'Checkout' }
       },
       {
         path: 'payment-element',
-        loadChildren: () =>
-          import('./docs/payment-element/payment-element.module').then((m) => m.NgStrPaymentElementModule),
+        loadComponent: () =>
+          import('./docs/payment-element/payment-element.component').then((m) => m.NgStrPaymentElementComponent),
         data: { title: 'Payment Element' }
       },
       {
         path: 'element-components',
-        loadChildren: () =>
-          import('./docs/element-components/element-components.module').then((m) => m.NgStrElementComponentsModule),
+        loadComponent: () =>
+          import('./docs/element-components/element-components.component').then((m) => m.NgStrElementComponentsComponent),
         data: { title: 'Elements' }
       },
       {
         path: 'identity',
-        loadChildren: () => import('./docs/identity/identity.module').then((m) => m.NgStrIdentityModule),
+        loadComponent: () => import('./docs/identity/identity.component').then((m) => m.NgStrIdentityComponent),
         data: { title: 'Identity' }
       },
       {
         path: 'payment-request-button',
-        loadChildren: () =>
-          import('./docs/payment-request-button/payment-request-button.module').then(
-            (m) => m.NgStrPaymentRequestButtonModule
+        loadComponent: () =>
+          import('./docs/payment-request-button/payment-request-button.component').then(
+            (m) => m.NgStrPaymentRequestButtonComponent
           ),
         data: { title: 'Payment Request Button' }
       },
       {
         path: 'service',
-        loadChildren: () => import('./docs/service/service.module').then((m) => m.NgStrServiceModule),
+        loadComponent: () => import('./docs/service/service.component').then((m) => m.NgStrServiceComponent),
         data: { title: 'Stripe Service' }
       },
       {
         path: 'styling',
-        loadChildren: () => import('./docs/styling/styling.module').then((m) => m.NgStrStylingModule),
+        loadComponent: () => import('./docs/styling/styling.component').then((m) => m.NgStrStylingComponent),
         data: { title: 'Styling' }
       },
       {
         path: 'service-factory',
-        loadChildren: () =>
-          import('./docs/service-factory/service-factory.module').then((m) => m.NgStrServiceFactoryModule),
+        loadComponent: () =>
+          import('./docs/service-factory/service-factory.component').then((m) => m.NgStrServiceFactoryComponent),
         data: { title: 'Stripe Factory' }
       },
       {
         path: 'reference-instance',
-        loadChildren: () =>
-          import('./docs/reference-instance/reference-instance.module').then((m) => m.NgStrReferenceInstanceModule),
+        loadComponent: () =>
+          import('./docs/reference-instance/reference-instance.component').then((m) => m.NgStrReferenceInstanceComponent),
         data: { title: 'Reference Instance' }
       },
       {
         path: 'manually-mount-your-element',
-        loadChildren: () =>
-          import('./docs/manually-mount/manually-mount.module').then((m) => m.NgStrManuallyMountModule),
+        loadComponent: () =>
+          import('./docs/manually-mount/manually-mount.component').then((m) => m.NgStrManuallyMountComponent),
         data: { title: 'Manually Mount your Element' }
       },
       {
         path: 'faqs',
-        loadChildren: () => import('./docs/faqs/faqs.module').then((m) => m.NgStrFAQSModule),
+        loadComponent: () => import('./docs/faqs/faqs.component').then((m) => m.NgStrFAQSComponent),
         data: { title: 'FAQS' }
       },
       {
         path: 'examples',
-        loadChildren: () => import('./docs/examples/examples.module').then((m) => m.NgStrExamplesModule),
+        loadComponent: () => import('./docs/examples/examples.component').then((m) => m.NgStrExamplesComponent),
         data: { title: 'Examples' }
       },
       {
         path: 'migration',
-        loadChildren: () => import('./docs/migration/migration.module').then((m) => m.NgStrMigrationModule),
+        loadComponent: () => import('./docs/migration/migration.component').then((m) => m.NgStrMigrationComponent),
         data: { title: 'Migration' }
       },
       {
         path: 'test-01',
-        loadChildren: () => import('./examples/stripe-test-01/stripe-test-01.module').then((m) => m.StripeTest01Module),
+        loadComponent: () => import('./examples/stripe-test-01.component').then(m => m.Test01Component),
         data: { title: 'Test 01' }
       },
       {
         path: 'test-02',
-        loadChildren: () => import('./examples/stripe-test-02/stripe-test-02.module').then((m) => m.StripeTest02Module),
+        loadComponent: () => import('./examples/stripe-test-02.component').then(m => m.Test02Component),
         data: { title: 'Test 02' }
       },
       {
         path: 'test-03',
-        loadChildren: () => import('./examples/stripe-test-03/stripe-test-03.module').then((m) => m.StripeTest03Module),
+        loadComponent: () => import('./examples/stripe-test-03.component').then(m => m.Test03Component),
         data: { title: 'Test 03' }
       },
       {
         path: 'test-04',
-        loadChildren: () => import('./examples/stripe-test-04/stripe-test-04.module').then((m) => m.StripeTest04Module),
+        loadComponent: () => import('./examples/stripe-test-04.component').then(m => m.Test04Component),
         data: { title: 'Test 04' }
       },
       {
         path: 'test-05',
-        loadChildren: () => import('./examples/stripe-test-05/stripe-test-05.module').then((m) => m.StripeTest05Module),
+        loadComponent: () => import('./examples/stripe-test-05.component').then(m => m.Test05Component),
         data: { title: 'Test 05' }
       },
       {
         path: 'test-06',
-        loadChildren: () => import('./examples/stripe-test-06/stripe-test-06.module').then((m) => m.StripeTest06Module),
+        loadComponent: () => import('./examples/stripe-test-06.component').then(m => m.Test06Component),
         data: { title: 'Test 06' }
       },
       {
         path: 'test-07',
-        loadChildren: () => import('./examples/stripe-test-07/stripe-test-07.module').then((m) => m.StripeTest07Module),
+        loadComponent: () => import('./examples/stripe-test-07.component').then(m => m.Test07Component),
         data: { title: 'Test 07' }
       },
       {

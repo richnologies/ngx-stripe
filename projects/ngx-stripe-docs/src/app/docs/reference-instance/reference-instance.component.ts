@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
 
 @Component({
   selector: 'ngstr-reference-instance',
-  templateUrl: './reference-instance.component.html'
+  templateUrl: './reference-instance.component.html',
+  standalone: true,
+  imports: [DocsElementsModule]
 })
 export class NgStrReferenceInstanceComponent {
   referenceAndInstance = `
