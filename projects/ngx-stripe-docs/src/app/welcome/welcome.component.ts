@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  standalone: true,
   selector: 'ngstr-welcome',
-  templateUrl: './welcome.component.html'
+  templateUrl: './welcome.component.html',
+  standalone: true,
+  imports: [RouterModule]
 })
 export class NgStrWelcomeComponent {}
