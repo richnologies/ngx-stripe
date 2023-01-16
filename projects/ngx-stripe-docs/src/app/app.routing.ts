@@ -151,6 +151,11 @@ export const ROUTES: Routes = [
         data: { title: 'P24 Bank Example' }
       },
       {
+        path: 'examples/payment-element-inject',
+        loadComponent: () => import('./examples/payment-element-inject.component').then(m => m.PaymentElementInjectExampleComponent),
+        data: { title: 'Payment Element with Inject' }
+      },
+      {
         path: 'examples/payment-element',
         loadComponent: () => import('./examples/payment-element.component').then(m => m.PaymentElementExampleComponent),
         data: { title: 'Payment Element' }

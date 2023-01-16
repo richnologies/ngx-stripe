@@ -33,5 +33,7 @@ export { StripeElementsService } from './lib/services/stripe-elements.service';
 export { WindowRef } from './lib/services/window-ref.service';
 export { DocumentRef } from './lib/services/document-ref.service';
 
-export { STRIPE_PUBLISHABLE_KEY, STRIPE_OPTIONS } from './lib/interfaces/ngx-stripe.interface';
+export { STRIPE_PUBLISHABLE_KEY, STRIPE_OPTIONS, NGX_STRIPE_VERSION } from './lib/interfaces/ngx-stripe.interface';
 export { StripeServiceInterface } from './lib/interfaces/stripe-instance.interface';
+
+export { injectStripe } from './lib/utils/inject-stripe';

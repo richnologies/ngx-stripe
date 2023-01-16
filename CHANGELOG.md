@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.0.1 - 2023-01-17
+
+- Add `injectStripe` build on the new Angular `inject` function
+
 ## 15.0.0 - 2023-01-16
 
 - Add support for Angular v15
