@@ -24,7 +24,7 @@ function bootstrap() {
       importProvidersFrom(
         BrowserModule.withServerTransition({ appId: 'serverApp' }),
         HttpClientModule,
-        RouterModule.forRoot(ROUTES, { relativeLinkResolution: 'legacy', initialNavigation: 'enabledBlocking' }),
+        RouterModule.forRoot(ROUTES, { initialNavigation: 'enabledBlocking' }),
         NgxStripeModule.forRoot(),
         ReactiveFormsModule,
         BrowserAnimationsModule,

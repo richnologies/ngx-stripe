@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.0.0 - 2023-01-16
+
+- Add support for Angular v15
+
 ## 14.3.0 - 2023-01-16
 
 - Add Elements Directive to share elements group between components
