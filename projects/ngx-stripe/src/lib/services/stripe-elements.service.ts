@@ -14,7 +14,13 @@ import {
   StripeIbanElementOptions,
   StripeIdealBankElementOptions,
   StripePaymentRequestButtonElementOptions,
-  StripePaymentElementOptions
+  StripePaymentElementOptions,
+  StripeAffirmMessageElementOptions,
+  StripeAfterpayClearpayMessageElementOptions,
+  StripeEpsBankElementOptions,
+  StripeP24BankElementOptions,
+  StripeAddressElementOptions,
+  StripeLinkAuthenticationElementOptions
 } from '@stripe/stripe-js';
 
 import { StripeService } from './stripe.service';
@@ -48,6 +54,12 @@ export class StripeElementsService {
   mergeOptions(options: StripeIbanElementOptions, containerClass: string): StripeIbanElementOptions;
   mergeOptions(options: StripeIdealBankElementOptions, containerClass: string): StripeIdealBankElementOptions;
   mergeOptions(options: StripeAuBankAccountElementOptions, containerClass: string): StripeAuBankAccountElementOptions;
+  mergeOptions(options: StripeAffirmMessageElementOptions, containerClass: string): StripeAffirmMessageElementOptions;
+  mergeOptions(options: StripeAfterpayClearpayMessageElementOptions, containerClass: string): StripeAfterpayClearpayMessageElementOptions;
+  mergeOptions(options: StripeEpsBankElementOptions, containerClass: string): StripeEpsBankElementOptions;
+  mergeOptions(options: StripeP24BankElementOptions, containerClass: string): StripeP24BankElementOptions;
+  mergeOptions(options: StripeAddressElementOptions, containerClass: string): StripeAddressElementOptions;
+  mergeOptions(options: StripeLinkAuthenticationElementOptions, containerClass: string): StripeLinkAuthenticationElementOptions;
   mergeOptions(
     options: StripePaymentRequestButtonElementOptions,
     containerClass: string

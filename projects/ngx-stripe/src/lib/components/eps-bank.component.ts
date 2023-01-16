@@ -18,9 +18,9 @@ import { lastValueFrom, Subscription } from 'rxjs';
 import {
   StripeElementsOptions,
   StripeElements,
-  StripeFpxBankElement,
-  StripeFpxBankElementChangeEvent,
-  StripeFpxBankElementOptions
+  StripeEpsBankElementOptions,
+  StripeEpsBankElement,
+  StripeEpsBankElementChangeEvent
 } from '@stripe/stripe-js';
 
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
@@ -30,28 +30,28 @@ import { StripeInstance } from '../services/stripe-instance.class';
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
-  selector: 'ngx-stripe-fpx-bank',
+  selector: 'ngx-stripe-eps-bank',
   template: `
     <div class="field" #stripeElementRef>
       <ng-container *ngIf="state !== 'ready' && loadingTemplate" [ngTemplateOutlet]="loadingTemplate"></ng-container>
     </div>
   `
 })
-export class StripeFpxBankComponent implements OnInit, OnChanges, OnDestroy {
+export class StripeEpsBankComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })
   loadingTemplate?: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
-  element!: StripeFpxBankElement;
+  element!: StripeEpsBankElement;
 
   @Input() containerClass: string;
-  @Input() options: StripeFpxBankElementOptions;
+  @Input() options: StripeEpsBankElementOptions;
   @Input() elementsOptions: Partial<StripeElementsOptions>;
   @Input() stripe: StripeInstance;
 
-  @Output() load = new EventEmitter<StripeFpxBankElement>();
+  @Output() load = new EventEmitter<StripeEpsBankElement>();
 
   @Output() blur = new EventEmitter<void>();
-  @Output() change = new EventEmitter<StripeFpxBankElementChangeEvent>();
+  @Output() change = new EventEmitter<StripeEpsBankElementChangeEvent>();
   @Output() focus = new EventEmitter<void>();
   @Output() ready = new EventEmitter<void>();
   @Output() escape = new EventEmitter<void>();
@@ -114,24 +114,24 @@ export class StripeFpxBankComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  update(options: Partial<StripeFpxBankElementOptions>) {
+  update(options: Partial<StripeEpsBankElementOptions>) {
     this.element.update(options);
   }
 
   /**
    * @deprecated
    */
-  getFpxBank() {
+  getEpsBankelement() {
     return this.element;
   }
 
-  private createElement(options: StripeFpxBankElementOptions = { accountHolderType: 'individual' }) {
+  private createElement(options: StripeEpsBankElementOptions) {
     if (this.element) {
       this.element.unmount();
     }
 
-    this.element = this.elements.create('fpxBank', options);
-    this.element.on('change', (ev) => this.change.emit(ev));
+    this.element = this.elements.create('epsBank', options);
+    this.element.on('change', (ev: StripeEpsBankElementChangeEvent) => this.change.emit(ev));
     this.element.on('blur', () => this.blur.emit());
     this.element.on('focus', () => this.focus.emit());
     this.element.on('ready', () => this.ready.emit());

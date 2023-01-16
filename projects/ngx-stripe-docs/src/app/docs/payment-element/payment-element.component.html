@@ -91,7 +91,7 @@
             </div>
           </div>
           <ng-container *ngIf="elementsOptions?.clientSecret as clientSecret">
-            <ngx-stripe-payment [clientSecret]="clientSecret"></ngx-stripe-payment>
+            <ngx-stripe-payment [stripe]="stripe" [clientSecret]="clientSecret"></ngx-stripe-payment>
           </ng-container>
           <button
             type="button"

@@ -2,13 +2,13 @@ import { Component, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
-import { StripeService, StripeCardComponent, StripeFactoryService, NgxStripeModule } from 'ngx-stripe';
+import { StripeCardComponent, StripeFactoryService, NgxStripeModule } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
 
 @Component({
-  selector: 'ngstr-test-05',
+  selector: 'ngstr-card-payment-intent-example',
   template: `
     <div maxWidth="900">
       <div color="secondary" section-content-header>
@@ -17,7 +17,7 @@ import { NgStrPlutoService } from '../core';
       <div section-content [formGroup]="stripeTest">
         <input placeholder="name" formControlName="name" />
         <input placeholder="amount" type="number" formControlName="amount" />
-        <ngx-stripe-card [options]="cardOptions">
+        <ngx-stripe-card [stripe]="stripe" [options]="cardOptions">
           <span class="text-green-400" *ngxStripeLoadingTemplate> Loading Stripe Card... </span>
         </ngx-stripe-card>
         <button (click)="pay()">PAY</button>
@@ -28,13 +28,10 @@ import { NgStrPlutoService } from '../core';
   standalone: true,
   imports: [ReactiveFormsModule, NgxStripeModule]
 })
-export class Test05Component {
+export class CardPaymentIntentExampleComponent {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
-  stripe = this.factory.create(
-    'pk_test_51IvkafL0RbPb0ITBwzybjdb6C24qabOLoPgyig6ZoPhhQDUpu0ghKJISVKVMwIarXnxI2r4LTJyPS3dMkdol1WS2007tHNTSok',
-    { apiVersion: '2020-08-27' }
-  );
+  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
 
   stripeTest = this.fb.group({
     name: ['Angular v11', [Validators.required]],
@@ -65,8 +62,7 @@ export class Test05Component {
   constructor(
     private fb: UntypedFormBuilder,
     private plutoService: NgStrPlutoService,
-    private factory: StripeFactoryService,
-    private stripeService: StripeService
+    private stripeFactory: StripeFactoryService
   ) {}
 
   pay() {
@@ -79,7 +75,7 @@ export class Test05Component {
         })
         .pipe(
           switchMap((pi) =>
-            this.stripeService.confirmCardPayment(pi.client_secret, {
+            this.stripe.confirmCardPayment(pi.client_secret, {
               payment_method: {
                 card: this.card.element,
                 billing_details: {

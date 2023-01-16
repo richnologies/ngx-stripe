@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { StripeService, StripePaymentElementComponent, NgxStripeModule } from 'ngx-stripe';
+import { StripePaymentElementComponent, NgxStripeModule, StripeFactoryService } from 'ngx-stripe';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../../core';
@@ -31,10 +31,15 @@ export class NgStrPaymentElementComponent implements OnInit {
     locale: 'en'
   };
 
+  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
   paying = false;
   completed = false;
 
-  constructor(private fb: UntypedFormBuilder, private plutoService: NgStrPlutoService, private stripeService: StripeService) {}
+  constructor(
+    private fb: UntypedFormBuilder,
+    private plutoService: NgStrPlutoService,
+    private stripeFactory: StripeFactoryService
+  ) {}
 
   ngOnInit() {
     this.plutoService
@@ -50,7 +55,7 @@ export class NgStrPaymentElementComponent implements OnInit {
   pay() {
     if (this.paymentElementForm.valid) {
       this.paying = true;
-      this.stripeService
+      this.stripe
         .confirmPayment({
           elements: this.paymentElement.elements,
           confirmParams: {

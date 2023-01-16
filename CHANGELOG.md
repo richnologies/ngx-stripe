@@ -1,6 +1,23 @@
 # Changelog
 
-## 14.2.0 - 2022-06-24
+## 14.3.0 - 2023-01-16
+
+- Add Elements Directive to share elements group between components
+- Address Element support
+- Affirm Message Element support
+- Afterpay Clearpay Message Element support
+- Eps Bank Element support
+- Link Authentication Element support
+- P24 Bank Element support
+- Better typings for Intents results
+- Pix Payments support
+- Radar session
+- Orders support
+- Boleto Payments support
+- Financial Connections support
+- Ephemeral Key Nonce support
+
+## 14.2.0 - 2022-09-28
 - Fix peer dependencies
 
 ## 14.1.0 - 2022-06-24

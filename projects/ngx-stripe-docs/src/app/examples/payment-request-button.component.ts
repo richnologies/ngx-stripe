@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { StripeService, StripePaymentRequestButtonComponent, NgxStripeModule } from 'ngx-stripe';
+import { StripePaymentRequestButtonComponent, NgxStripeModule, StripeFactoryService } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
+import { NgStrPlutoService } from '../core';
 
 @Component({
   selector: 'ngstr-test-04',
@@ -12,6 +13,7 @@ import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-
       <div section-content>
         <p>Minimum example, just fill the form and get your token</p>
         <ngx-stripe-payment-request-button
+          [stripe]="stripe"
           [options]="paymentRequestButtonOptions"
           [paymentOptions]="paymentRequestOptions"
           [elementsOptions]="elementsOptions"
@@ -24,9 +26,11 @@ import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-
   standalone: true,
   imports: [NgxStripeModule]
 })
-export class Test04Component {
+export class PaymentRequestButtonExampleComponent {
   @ViewChild(StripePaymentRequestButtonComponent)
   button: StripePaymentRequestButtonComponent;
+
+  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
   paymentRequestOptions = {
     country: 'ES',
     currency: 'eur',
@@ -54,7 +58,10 @@ export class Test04Component {
     locale: 'es'
   };
 
-  constructor(private stripeService: StripeService) {}
+  constructor(
+    private stripeFactory: StripeFactoryService,
+    private plutoService: NgStrPlutoService
+  ) {}
 
   buy() {}
 }

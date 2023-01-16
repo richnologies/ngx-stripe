@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 
 import { PaymentRequestPaymentMethodEvent, PaymentRequestShippingAddressEvent } from '@stripe/stripe-js';
-import { NgxStripeModule, StripeService } from 'ngx-stripe';
+import { NgxStripeModule, StripeFactoryService } from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../../core';
 import { of } from 'rxjs';
@@ -15,6 +15,7 @@ import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
   imports: [NgxStripeModule, DocsElementsModule]
 })
 export class NgStrPaymentRequestButtonComponent {
+  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
   paymentRequestOptions = {
     country: 'US',
     currency: 'usd',
@@ -26,7 +27,10 @@ export class NgStrPaymentRequestButtonComponent {
     requestPayerEmail: true
   };
 
-  constructor(private plutoService: NgStrPlutoService, private stripeService: StripeService) {}
+  constructor(
+    private plutoService: NgStrPlutoService,
+    private stripeFactory: StripeFactoryService
+  ) {}
 
   onPaymentMethod(ev: PaymentRequestPaymentMethodEvent) {
     this.plutoService
@@ -36,7 +40,7 @@ export class NgStrPaymentRequestButtonComponent {
       })
       .pipe(
         switchMap((pi) => {
-          return this.stripeService
+          return this.stripe
             .confirmCardPayment(pi.client_secret, { payment_method: ev.paymentMethod.id }, { handleActions: false })
             .pipe(
               switchMap((confirmResult) => {
@@ -56,7 +60,7 @@ export class NgStrPaymentRequestButtonComponent {
 
                   if (confirmResult.paymentIntent.status === 'requires_action') {
                     // Let Stripe.js handle the rest of the payment flow.
-                    return this.stripeService.confirmCardPayment(pi.client_secret);
+                    return this.stripe.confirmCardPayment(pi.client_secret);
                   }
                 }
 

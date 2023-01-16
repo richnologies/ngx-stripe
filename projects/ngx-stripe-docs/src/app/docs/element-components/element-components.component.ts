@@ -51,7 +51,11 @@ export class NgStrElementComponentsComponent {
   creatingToken = false;
   paying = false;
 
-  constructor(private fb: UntypedFormBuilder, private stripeService: StripeService, private plutoService: NgStrPlutoService) {}
+  constructor(
+    private fb: UntypedFormBuilder,
+    private stripeService: StripeService,
+    private plutoService: NgStrPlutoService
+  ) {}
 
   createToken() {
     const name = this.createTokenForm.get('name').value;

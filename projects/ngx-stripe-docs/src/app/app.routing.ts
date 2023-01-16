@@ -101,39 +101,69 @@ export const ROUTES: Routes = [
         data: { title: 'Migration' }
       },
       {
-        path: 'test-01',
-        loadComponent: () => import('./examples/stripe-test-01.component').then(m => m.Test01Component),
-        data: { title: 'Test 01' }
+        path: 'examples/address-element',
+        loadComponent: () => import('./examples/address-element.component').then(m => m.AddressElementExampleComponent),
+        data: { title: 'Address Element Example' }
       },
       {
-        path: 'test-02',
-        loadComponent: () => import('./examples/stripe-test-02.component').then(m => m.Test02Component),
-        data: { title: 'Test 02' }
+        path: 'examples/affirm-message',
+        loadComponent: () => import('./examples/affirm-message-element.component').then(m => m.AffirmMessageExampleComponent),
+        data: { title: 'Affirm Message Example' }
       },
       {
-        path: 'test-03',
-        loadComponent: () => import('./examples/stripe-test-03.component').then(m => m.Test03Component),
-        data: { title: 'Test 03' }
+        path: 'examples/afterpay-clearpay-message',
+        loadComponent: () => import('./examples/afterpay-clearpay-message-element.component').then(m => m.AfterpayClearpayMessageExampleComponent),
+        data: { title: 'Clearpay Afterpay Message Example' }
       },
       {
-        path: 'test-04',
-        loadComponent: () => import('./examples/stripe-test-04.component').then(m => m.Test04Component),
-        data: { title: 'Test 04' }
+        path: 'examples/card-one-element',
+        loadComponent: () => import('./examples/card-one-element.component').then(m => m.CardOneElementExampleComponent),
+        data: { title: 'Basic Card Example' }
       },
       {
-        path: 'test-05',
-        loadComponent: () => import('./examples/stripe-test-05.component').then(m => m.Test05Component),
-        data: { title: 'Test 05' }
+        path: 'examples/card-payment-intent',
+        loadComponent: () => import('./examples/card-payment-intent.component').then(m => m.CardPaymentIntentExampleComponent),
+        data: { title: 'Card Example - Payment Intent' }
       },
       {
-        path: 'test-06',
-        loadComponent: () => import('./examples/stripe-test-06.component').then(m => m.Test06Component),
-        data: { title: 'Test 06' }
+        path: 'examples/eps-bank-element',
+        loadComponent: () => import('./examples/eps-bank-element.component').then(m => m.EpsBankExampleComponent),
+        data: { title: 'EPS Bank Example' }
       },
       {
-        path: 'test-07',
-        loadComponent: () => import('./examples/stripe-test-07.component').then(m => m.Test07Component),
-        data: { title: 'Test 07' }
+        path: 'examples/fpx-element',
+        loadComponent: () => import('./examples/fpx-element.component').then(m => m.FpxExampleComponent),
+        data: { title: 'FPX Example' }
+      },
+      {
+        path: 'examples/iban-element',
+        loadComponent: () => import('./examples/iban-element.component').then(m => m.IbanElementExampleComponent),
+        data: { title: 'IBAN Example' }
+      },
+      {
+        path: 'examples/link-authentication-element',
+        loadComponent: () => import('./examples/link-authentication-element.component').then(m => m.LinkAuthenticationElementExampleComponent),
+        data: { title: 'Link Authentication Example' }
+      },
+      {
+        path: 'examples/p24-bank-element',
+        loadComponent: () => import('./examples/p24-bank-element.component').then(m => m.P24BankExampleComponent),
+        data: { title: 'P24 Bank Example' }
+      },
+      {
+        path: 'examples/payment-element',
+        loadComponent: () => import('./examples/payment-element.component').then(m => m.PaymentElementExampleComponent),
+        data: { title: 'Payment Element' }
+      },
+      {
+        path: 'examples/payment-request-button',
+        loadComponent: () => import('./examples/payment-request-button.component').then(m => m.PaymentRequestButtonExampleComponent),
+        data: { title: 'Payment Request Button' }
+      },
+      {
+        path: 'examples/verify-microdeposits',
+        loadComponent: () => import('./examples/verify-microdeposits.component').then(m => m.VerifyMicrodepositsExampleComponent),
+        data: { title: 'Verify Microdeposits Example' }
       },
       {
         path: '**',

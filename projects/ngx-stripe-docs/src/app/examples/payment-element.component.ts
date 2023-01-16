@@ -1,75 +1,84 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { StripeService, StripeFpxBankComponent, NgxStripeModule } from 'ngx-stripe';
+import { StripePaymentElementComponent, NgxStripeModule, StripeFactoryService } from 'ngx-stripe';
+import { StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
 
 @Component({
-  selector: 'ngstr-test-06',
+  selector: 'ngstr-payment-element-example',
   template: `
     <div maxWidth="900">
       <div color="secondary" section-content-header>
-        <span>FPX Payment Test</span>
+        <span>Payment Element</span>
       </div>
       <div section-content [formGroup]="stripeTest">
         <input matInput placeholder="name" formControlName="name" />
         <input matInput placeholder="amount" type="number" formControlName="amount" />
-        <ngx-stripe-fpx-bank></ngx-stripe-fpx-bank>
+        <ng-container *ngIf="elementsOptions?.clientSecret as clientSecret">
+          <ngx-stripe-payment [stripe]="stripe" [clientSecret]="clientSecret"></ngx-stripe-payment>
+        </ng-container>
         <button (click)="pay()">PAY</button>
       </div>
     </div>
   `,
   styles: [],
   standalone: true,
-  imports: [ReactiveFormsModule, NgxStripeModule]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NgxStripeModule
+  ]
 })
-export class Test07Component implements OnInit {
-  @ViewChild(StripeFpxBankComponent) fpxPayment: StripeFpxBankComponent;
+export class PaymentElementExampleComponent implements OnInit {
+  @ViewChild(StripePaymentElementComponent)
+  paymentElement: StripePaymentElementComponent;
 
   stripeTest = this.fb.group({
-    name: ['FPX - Test', [Validators.required]],
+    name: ['Angular v12', [Validators.required]],
     amount: [1109, [Validators.required, Validators.pattern(/\d+/)]]
   });
 
-  elementOptions = {
-    style: {
-      base: {
-        padding: '10px 12px',
-        color: '#32325d',
-        fontSize: '16px'
-      }
-    },
-    accountHolderType: 'individual'
+  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+  elementsOptions: StripeElementsOptions = {
+    locale: 'en'
   };
 
   paying = false;
-  clientSecret: string;
 
-  constructor(private fb: UntypedFormBuilder, private plutoService: NgStrPlutoService, private stripeService: StripeService) {}
+  constructor(
+    private fb: UntypedFormBuilder,
+    private plutoService: NgStrPlutoService,
+    private stripeFactory: StripeFactoryService
+  ) {}
 
   ngOnInit() {
     this.plutoService
       .createPaymentIntent({
-        payment_method_types: ['fpx'],
         amount: this.stripeTest.get('amount').value,
-        currency: 'myr'
+        currency: 'eur'
       })
       .subscribe((pi) => {
-        this.clientSecret = pi.client_secret;
+        this.elementsOptions.clientSecret = pi.client_secret;
       });
   }
 
   pay() {
     if (this.stripeTest.valid) {
       this.paying = true;
-
-      this.stripeService
-        .confirmFpxPayment(this.clientSecret, {
-          payment_method: {
-            fpx: this.fpxPayment.element
+      this.stripe
+        .confirmPayment({
+          elements: this.paymentElement.elements,
+          confirmParams: {
+            payment_method_data: {
+              billing_details: {
+                name: this.stripeTest.get('name').value
+              }
+            }
           },
-          return_url: ''
+          redirect: 'if_required'
         })
         .subscribe((result) => {
           this.paying = false;

@@ -18,9 +18,8 @@ import { lastValueFrom, Subscription } from 'rxjs';
 import {
   StripeElementsOptions,
   StripeElements,
-  StripeFpxBankElement,
-  StripeFpxBankElementChangeEvent,
-  StripeFpxBankElementOptions
+  StripeAfterpayClearpayMessageElementOptions,
+  StripeAfterpayClearpayMessageElement
 } from '@stripe/stripe-js';
 
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
@@ -30,31 +29,26 @@ import { StripeInstance } from '../services/stripe-instance.class';
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
-  selector: 'ngx-stripe-fpx-bank',
+  selector: 'ngx-stripe-afterpay-clearpay-message',
   template: `
     <div class="field" #stripeElementRef>
       <ng-container *ngIf="state !== 'ready' && loadingTemplate" [ngTemplateOutlet]="loadingTemplate"></ng-container>
     </div>
   `
 })
-export class StripeFpxBankComponent implements OnInit, OnChanges, OnDestroy {
+export class StripeAfterpayClearpayMessageComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })
   loadingTemplate?: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
-  element!: StripeFpxBankElement;
+  element!: StripeAfterpayClearpayMessageElement;
 
   @Input() containerClass: string;
-  @Input() options: StripeFpxBankElementOptions;
+  @Input() options: StripeAfterpayClearpayMessageElementOptions;
   @Input() elementsOptions: Partial<StripeElementsOptions>;
   @Input() stripe: StripeInstance;
 
-  @Output() load = new EventEmitter<StripeFpxBankElement>();
-
-  @Output() blur = new EventEmitter<void>();
-  @Output() change = new EventEmitter<StripeFpxBankElementChangeEvent>();
-  @Output() focus = new EventEmitter<void>();
+  @Output() load = new EventEmitter<StripeAfterpayClearpayMessageElement>();
   @Output() ready = new EventEmitter<void>();
-  @Output() escape = new EventEmitter<void>();
 
   elements: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
@@ -114,28 +108,24 @@ export class StripeFpxBankComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  update(options: Partial<StripeFpxBankElementOptions>) {
+  update(options: Partial<StripeAfterpayClearpayMessageElementOptions>) {
     this.element.update(options);
   }
 
   /**
    * @deprecated
    */
-  getFpxBank() {
+  getAfterpayClearpayMessage() {
     return this.element;
   }
 
-  private createElement(options: StripeFpxBankElementOptions = { accountHolderType: 'individual' }) {
+  private createElement(options: StripeAfterpayClearpayMessageElementOptions) {
     if (this.element) {
       this.element.unmount();
     }
 
-    this.element = this.elements.create('fpxBank', options);
-    this.element.on('change', (ev) => this.change.emit(ev));
-    this.element.on('blur', () => this.blur.emit());
-    this.element.on('focus', () => this.focus.emit());
+    this.element = this.elements.create('afterpayClearpayMessage', options);
     this.element.on('ready', () => this.ready.emit());
-    this.element.on('escape', () => this.escape.emit());
 
     this.element.mount(this.stripeElementRef.nativeElement);
 
