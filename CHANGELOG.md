@@ -1,6 +1,10 @@
 # Changelog
 
-## 15.0.1 - 2023-01-17
+## 15.1.1 - 2023-01-17
+
+- Fix type error for `paymentRequest` method
+
+## 15.1.1 - 2023-01-17
 
 - Add `injectStripe` build on the new Angular `inject` function
 
