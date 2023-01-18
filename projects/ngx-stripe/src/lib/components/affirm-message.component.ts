@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
@@ -28,13 +29,16 @@ import { StripeElementsDirective } from '../directives/elements.directive';
 import { StripeInstance } from '../services/stripe-instance.class';
 import { StripeElementsService } from '../services/stripe-elements.service';
 
+
 @Component({
   selector: 'ngx-stripe-affirm-message',
+  standalone: true,
   template: `
     <div class="field" #stripeElementRef>
       <ng-container *ngIf="state !== 'ready' && loadingTemplate" [ngTemplateOutlet]="loadingTemplate"></ng-container>
     </div>
-  `
+  `,
+  imports: [CommonModule]
 })
 export class StripeAffirmMessageComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })

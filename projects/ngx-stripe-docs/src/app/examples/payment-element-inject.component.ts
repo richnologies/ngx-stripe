@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { StripePaymentElementComponent, NgxStripeModule, injectStripe } from 'ngx-stripe';
+import { StripePaymentElementComponent, injectStripe } from 'ngx-stripe';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -29,7 +29,7 @@ import { NgStrPlutoService } from '../core';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgxStripeModule
+    StripePaymentElementComponent
   ]
 })
 export class PaymentElementInjectExampleComponent implements OnInit {

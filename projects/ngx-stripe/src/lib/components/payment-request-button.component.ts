@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
@@ -36,7 +37,9 @@ import { StripeElementsDirective } from '../directives/elements.directive';
 
 @Component({
   selector: 'ngx-stripe-payment-request-button',
-  template: `<div class="field" #stripeElementRef></div>`
+  standalone: true,
+  template: `<div class="field" #stripeElementRef></div>`,
+  imports: [CommonModule]
 })
 export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;

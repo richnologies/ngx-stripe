@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { StripeCardComponent, NgxStripeModule, StripeFactoryService } from 'ngx-stripe';
+import { StripeCardComponent, StripeFactoryService, StripeElementsDirective } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -31,7 +31,10 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [NgxStripeModule]
+  imports: [
+    StripeCardComponent,
+    StripeElementsDirective
+  ]
 })
 export class CardOneElementExampleComponent {
   @ViewChild('cardWithoutElements') cardWithoutElements: StripeCardComponent;

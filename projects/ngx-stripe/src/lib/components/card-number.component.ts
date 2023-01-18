@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
@@ -29,6 +30,7 @@ import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
   selector: 'ngx-stripe-card-number',
+  standalone: true,
   template: `
     <div class="field" #stripeElementRef>
       <ng-container
@@ -36,7 +38,8 @@ import { StripeElementsService } from '../services/stripe-elements.service';
         [ngTemplateOutlet]="loadingTemplate"
       ></ng-container>
     </div>
-  `
+  `,
+  imports: [CommonModule]
 })
 export class StripeCardNumberComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })

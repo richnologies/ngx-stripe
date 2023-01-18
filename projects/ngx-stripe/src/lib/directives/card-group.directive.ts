@@ -6,7 +6,8 @@ import { StripeInstance } from '../services/stripe-instance.class';
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Directive({
-  selector: 'ngx-stripe-card-group,[ngxStripeCardGroup]'
+  selector: 'ngx-stripe-card-group,[ngxStripeCardGroup]',
+  standalone: true,
 })
 export class StripeCardGroupDirective implements OnInit, OnChanges {
   @Input() elementsOptions: Partial<StripeElementsOptions>;

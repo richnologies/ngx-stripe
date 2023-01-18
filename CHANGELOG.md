@@ -1,10 +1,14 @@
 # Changelog
 
+## 15.2.0 - 2023-01-18
+
+- Add support for Standalone Components
+
 ## 15.1.1 - 2023-01-17
 
 - Fix type error for `paymentRequest` method
 
-## 15.1.1 - 2023-01-17
+## 15.1.0 - 2023-01-17
 
 - Add `injectStripe` build on the new Angular `inject` function
 
