@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.3.1 - 2023-01-28
+
+- Fix type error for `paymentRequest` method
+
 ## 14.3.0 - 2023-01-16
 
 - Add Elements Directive to share elements group between components

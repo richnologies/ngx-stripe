@@ -536,7 +536,7 @@ export class StripeService implements StripeServiceInterface {
     return this.stripe.retrieveOrder(clientSecret);
   }
 
-  paymentRequest(options: PaymentRequestOptions): PaymentRequest | undefined {
+  paymentRequest(options: PaymentRequestOptions): PaymentRequest {
     return this.stripe.paymentRequest(options);
   }
 

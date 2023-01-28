@@ -142,7 +142,7 @@ export class StripeInstance implements StripeServiceInterface {
       });
   }
 
-  getInstance(): Stripe | undefined {
+  getInstance(): Stripe {
     return this.stripe$.getValue();
   }
 
