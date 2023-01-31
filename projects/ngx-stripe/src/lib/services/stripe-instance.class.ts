@@ -677,10 +677,9 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
-  paymentRequest(options: PaymentRequestOptions): PaymentRequest | undefined {
+  paymentRequest(options: PaymentRequestOptions): PaymentRequest {
     const stripe = this.getInstance();
-
-    return stripe ? stripe.paymentRequest(options) : undefined;
+    return stripe.paymentRequest(options);
   }
 
   createToken(

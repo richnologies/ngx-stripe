@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.3.2 - 2023-01-31
+
+- Fix type error for `paymentRequest` method -- Round 2
+
 ## 14.3.1 - 2023-01-28
 
 - Fix type error for `paymentRequest` method
