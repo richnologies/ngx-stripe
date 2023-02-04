@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.3.0 - 2023-02-04
+
+- Add support for `Issuing Elements`
+
 ## 15.2.0 - 2023-01-18
 
 - Add support for Standalone Components
