@@ -35,4 +35,13 @@ export class NgStrPlutoService {
       { headers: { merchant: options.clientId ?? this.clientId } }
     );
   }
+
+  createEphemeralKeys(
+    params: Stripe.EphemeralKeyCreateParams,
+    options: { clientId?: string } = {}
+  ): Observable<{ ephemeralKeySecret: string }> {
+    return this.http.post<{ ephemeralKeySecret: string }>(`${this.BASE_URL}/payments/ephemeral-keys`, params, {
+      headers: { merchant: options.clientId ?? this.clientId }
+    });
+  }
 }

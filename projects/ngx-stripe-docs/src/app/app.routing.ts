@@ -141,6 +141,11 @@ export const ROUTES: Routes = [
         data: { title: 'IBAN Example' }
       },
       {
+        path: 'examples/issuing-elements',
+        loadComponent: () => import('./examples/issuing-elements.component').then(m => m.IssuingElementsExampleComponent),
+        data: { title: 'Issuing Elements Example' }
+      },
+      {
         path: 'examples/link-authentication-element',
         loadComponent: () => import('./examples/link-authentication-element.component').then(m => m.LinkAuthenticationElementExampleComponent),
         data: { title: 'Link Authentication Example' }
