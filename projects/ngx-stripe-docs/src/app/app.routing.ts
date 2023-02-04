@@ -116,6 +116,11 @@ export const ROUTES: Routes = [
         data: { title: 'Clearpay Afterpay Message Example' }
       },
       {
+        path: 'examples/card-events',
+        loadComponent: () => import('./examples/card-events.component').then(m => m.CardEventsExampleComponent),
+        data: { title: 'Card Events Example' }
+      },
+      {
         path: 'examples/card-one-element',
         loadComponent: () => import('./examples/card-one-element.component').then(m => m.CardOneElementExampleComponent),
         data: { title: 'Basic Card Example' }

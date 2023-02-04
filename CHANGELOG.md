@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.4.0 - 2023-02-05
+
+- Add events to `NgxStripeCardGroup` directive
+
 ## 15.3.0 - 2023-02-04
 
 - Add support for `Issuing Elements`
