@@ -31,9 +31,11 @@ import {
   PaymentRequestShippingOptionEvent
 } from '@stripe/stripe-js';
 
-import { StripeInstance } from '../services/stripe-instance.class';
-import { StripeElementsService } from '../services/stripe-elements.service';
 import { StripeElementsDirective } from '../directives/elements.directive';
+
+import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
+
+import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
   selector: 'ngx-stripe-payment-request-button',
@@ -50,7 +52,7 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
   @Input() paymentOptions: PaymentRequestOptions;
   @Input() options: StripePaymentRequestButtonElementOptions;
   @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeInstance;
+  @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<{
     paymentRequestButton: StripePaymentRequestButtonElement;

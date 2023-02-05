@@ -116,7 +116,7 @@ import { LazyStripeAPILoader, LazyStripeAPILoaderStatus } from './api-loader.ser
 
 export class StripeInstance implements StripeServiceInterface {
   private stripe$ = new BehaviorSubject<Stripe | undefined>(undefined);
-  stripe = this.stripe$.asObservable().pipe(filter((stripe) => Boolean(stripe)));
+  stripe = this.stripe$.asObservable().pipe(filter((stripe) => Boolean(stripe))) as Observable<Stripe>;
 
   constructor(
     private version: string,
@@ -143,18 +143,17 @@ export class StripeInstance implements StripeServiceInterface {
   }
 
   getInstance(): Stripe {
-    return this.stripe$.getValue();
+    return this.stripe$.getValue() as Stripe;
   }
 
   elements(options?: StripeElementsOptions): Observable<StripeElements> {
-    return this.stripe$.asObservable().pipe(
-      filter((stripe) => Boolean(stripe)),
-      map((stripe) => stripe.elements(options)),
+    return this.stripe.pipe(
+      map((stripe: Stripe) => stripe.elements(options)),
       first()
     );
   }
 
-  redirectToCheckout(options?: RedirectToCheckoutOptions): Observable<never | { error: StripeError }> {
+  redirectToCheckout(options: RedirectToCheckoutOptions): Observable<never | { error: StripeError }> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.redirectToCheckout(options))),
       first()
@@ -255,8 +254,8 @@ export class StripeInstance implements StripeServiceInterface {
 
   confirmCustomerBalancePayment(
     clientSecret: string,
-    data?: ConfirmCustomerBalancePaymentData,
-    options?: ConfirmCustomerBalancePaymentOptions
+    data: ConfirmCustomerBalancePaymentData,
+    options: ConfirmCustomerBalancePaymentOptions
   ): Observable<PaymentIntentResult> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.confirmCustomerBalancePayment(clientSecret, data, options))),
@@ -771,14 +770,11 @@ export class StripeInstance implements StripeServiceInterface {
     clientSecret: string,
     element?,
     data?
-  ): Observable<{
-    paymentIntent?: PaymentIntent;
-    error?: StripeError;
-  }> {
+  ) {
     return this.stripe.pipe(
       switchMap((stripe) => from((stripe as any).handleCardPayment(clientSecret, element, data))),
       first()
-    );
+    ) as Observable<PaymentIntentResult>;
   }
 
   /**
@@ -788,14 +784,11 @@ export class StripeInstance implements StripeServiceInterface {
     clientSecret: string,
     element?,
     data?
-  ): Observable<{
-    paymentIntent?: PaymentIntent;
-    error?: StripeError;
-  }> {
+  ) {
     return this.stripe.pipe(
       switchMap((stripe) => from((stripe as any).confirmPaymentIntent(clientSecret, element, data))),
       first()
-    );
+    ) as Observable<PaymentIntentResult>;
   }
 
   /**
@@ -805,14 +798,11 @@ export class StripeInstance implements StripeServiceInterface {
     clientSecret: string,
     element?,
     data?
-  ): Observable<{
-    setupIntent?: SetupIntent;
-    error?: StripeError;
-  }> {
+  ) {
     return this.stripe.pipe(
       switchMap((stripe) => from((stripe as any).handleCardSetup(clientSecret, element, data))),
       first()
-    );
+    ) as Observable<SetupIntentResult>;
   }
 
   /**
@@ -822,14 +812,11 @@ export class StripeInstance implements StripeServiceInterface {
     clientSecret: string,
     element?,
     data?
-  ): Observable<{
-    setupIntent?: SetupIntent;
-    error?: StripeError;
-  }> {
+  ) {
     return this.stripe.pipe(
       switchMap((stripe) => from((stripe as any).confirmSetupIntent(clientSecret, element, data))),
       first()
-    );
+    ) as Observable<SetupIntentResult>;
   }
 
   /**
@@ -839,14 +826,11 @@ export class StripeInstance implements StripeServiceInterface {
     clientSecret: string,
     element?,
     data?
-  ): Observable<{
-    setupIntent?: SetupIntent;
-    error?: StripeError;
-  }> {
+  ) {
     return this.stripe.pipe(
       switchMap((stripe) => from((stripe as any).handleFpxPayment(clientSecret, element, data))),
       first()
-    );
+    ) as Observable<SetupIntentResult>;
   }
 
   private getNgxStripeAppInfo(version: string): WrapperLibrary {

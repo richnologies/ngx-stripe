@@ -47,7 +47,7 @@ export class StripeElementsService {
     }
   }
 
-  paymentRequest(stripe, options: PaymentRequestOptions): PaymentRequest | undefined {
+  paymentRequest(stripe, options: PaymentRequestOptions): PaymentRequest {
     return stripe ? stripe.paymentRequest(options) : this.stripeService.paymentRequest(options);
   }
 

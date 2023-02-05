@@ -27,7 +27,8 @@ import {
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
 import { StripeElementsDirective } from '../directives/elements.directive';
 
-import { StripeInstance } from '../services/stripe-instance.class';
+import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
+
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
@@ -49,7 +50,7 @@ export class StripeIssuingCardCvcDisplayComponent implements OnInit, OnChanges, 
   @Input() containerClass: string;
   @Input() options: StripeIssuingCardCvcDisplayElementOptions;
   @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeInstance;
+  @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeIssuingCardCvcDisplayElement>();
 

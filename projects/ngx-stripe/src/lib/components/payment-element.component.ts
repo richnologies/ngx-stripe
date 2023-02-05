@@ -26,8 +26,9 @@ import {
 
 import { StripeElementsDirective } from '../directives/elements.directive';
 
+import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
+
 import { StripeElementsService } from '../services/stripe-elements.service';
-import { StripeInstance } from '../services/stripe-instance.class';
 
 @Component({
   selector: 'ngx-stripe-payment',
@@ -43,7 +44,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
   @Input() containerClass: string;
   @Input() options: Partial<StripePaymentElementOptions>;
   @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeInstance;
+  @Input() stripe: StripeServiceInterface;
 
   @Input() appearance: Appearance;
   @Input() clientSecret: string;

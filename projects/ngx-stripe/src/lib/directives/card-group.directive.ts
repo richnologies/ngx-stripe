@@ -5,9 +5,9 @@ import {
   OnChanges,
   SimpleChanges,
   Output,
-  EventEmitter,
-  ContentChild
+  EventEmitter
 } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 
 import {
   StripeCardCvcElement,
@@ -20,11 +20,8 @@ import {
   StripeElementsOptions
 } from '@stripe/stripe-js';
 
-import { StripeCardNumberComponent } from '../components/card-number.component';
-import { StripeCardExpiryComponent } from '../components/card-expiry.component';
-import { StripeCardCvcComponent } from '../components/card-cvc.component';
+import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
 
-import { StripeInstance } from '../services/stripe-instance.class';
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 type NgxStripeCardGroupChangeEvent =
@@ -42,12 +39,8 @@ type NgxStripeCardGroupElements =
   standalone: true,
 })
 export class StripeCardGroupDirective implements OnInit, OnChanges {
-  @ContentChild(StripeCardNumberComponent) cardNumber: StripeCardNumberComponent;
-  @ContentChild(StripeCardExpiryComponent) cardExpiry: StripeCardExpiryComponent;
-  @ContentChild(StripeCardCvcComponent) cardCvc: StripeCardCvcComponent;
-
   @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeInstance;
+  @Input() stripe: StripeServiceInterface;
 
   @Output() elements = new EventEmitter<StripeElements>();
 
@@ -71,7 +64,7 @@ export class StripeCardGroupDirective implements OnInit, OnChanges {
     const stripe = this.stripe;
 
     if (changes.elementsOptions || changes.stripe || !this._elements) {
-      this._elements = await this.stripeElementsService.elements(stripe, elementsOptions).toPromise();
+      this._elements = await lastValueFrom(this.stripeElementsService.elements(stripe, elementsOptions));
       this.elements.emit(this._elements);
     }
 
@@ -82,7 +75,7 @@ export class StripeCardGroupDirective implements OnInit, OnChanges {
     if (this.state === 'notready') {
       this.state = 'starting';
 
-      this._elements = await this.stripeElementsService.elements(this.stripe).toPromise();
+      this._elements = await lastValueFrom(this.stripeElementsService.elements(this.stripe));
       this.elements.emit(this._elements);
 
       this.state = 'ready';
