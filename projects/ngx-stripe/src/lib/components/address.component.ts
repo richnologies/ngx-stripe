@@ -26,7 +26,8 @@ import {
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
 import { StripeElementsDirective } from '../directives/elements.directive';
 
-import { StripeInstance } from '../services/stripe-instance.class';
+import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
+
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
@@ -46,7 +47,7 @@ export class StripeAddressComponent implements OnInit, OnChanges, OnDestroy {
   @Input() containerClass: string;
   @Input() options: StripeAddressElementOptions;
   @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeInstance;
+  @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeAddressElement>();
 
@@ -135,8 +136,8 @@ export class StripeAddressComponent implements OnInit, OnChanges, OnDestroy {
         state: string;
         country: string;
         postal_code: string;
-      }
-    }
+      };
+    };
   }> {
     const address = this.elements.getElement('address');
     return (address as any).getValue();

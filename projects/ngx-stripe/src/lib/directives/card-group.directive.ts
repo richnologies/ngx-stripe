@@ -1,18 +1,42 @@
 import { Directive, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 
-import { StripeElements, StripeElementsOptions } from '@stripe/stripe-js';
+import {
+  StripeCardCvcElement,
+  StripeCardCvcElementChangeEvent,
+  StripeCardExpiryElement,
+  StripeCardExpiryElementChangeEvent,
+  StripeCardNumberElement,
+  StripeCardNumberElementChangeEvent,
+  StripeElements,
+  StripeElementsOptions
+} from '@stripe/stripe-js';
 
-import { StripeInstance } from '../services/stripe-instance.class';
+import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
+
 import { StripeElementsService } from '../services/stripe-elements.service';
 
-@Directive({
-  selector: 'ngx-stripe-card-group,[ngxStripeCardGroup]'
-})
+type NgxStripeCardGroupChangeEvent =
+  | StripeCardNumberElementChangeEvent
+  | StripeCardExpiryElementChangeEvent
+  | StripeCardCvcElementChangeEvent;
+
+type NgxStripeCardGroupElements = StripeCardNumberElement | StripeCardExpiryElement | StripeCardCvcElement;
+
+@Directive({ selector: 'ngx-stripe-card-group,[ngxStripeCardGroup]' })
 export class StripeCardGroupDirective implements OnInit, OnChanges {
   @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeInstance;
+  @Input() stripe: StripeServiceInterface;
 
   @Output() elements = new EventEmitter<StripeElements>();
+
+  @Output() load = new EventEmitter<NgxStripeCardGroupElements>();
+
+  @Output() blur = new EventEmitter<void>();
+  @Output() change = new EventEmitter<NgxStripeCardGroupChangeEvent>();
+  @Output() focus = new EventEmitter<void>();
+  @Output() ready = new EventEmitter<void>();
+  @Output() escape = new EventEmitter<void>();
 
   _elements: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
@@ -26,7 +50,7 @@ export class StripeCardGroupDirective implements OnInit, OnChanges {
     const stripe = this.stripe;
 
     if (changes.elementsOptions || changes.stripe || !this._elements) {
-      this._elements = await this.stripeElementsService.elements(stripe, elementsOptions).toPromise();
+      this._elements = await lastValueFrom(this.stripeElementsService.elements(stripe, elementsOptions));
       this.elements.emit(this._elements);
     }
 
@@ -37,7 +61,7 @@ export class StripeCardGroupDirective implements OnInit, OnChanges {
     if (this.state === 'notready') {
       this.state = 'starting';
 
-      this._elements = await this.stripeElementsService.elements(this.stripe).toPromise();
+      this._elements = await lastValueFrom(this.stripeElementsService.elements(this.stripe));
       this.elements.emit(this._elements);
 
       this.state = 'ready';

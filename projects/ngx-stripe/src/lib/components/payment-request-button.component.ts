@@ -30,9 +30,11 @@ import {
   PaymentRequestShippingOptionEvent
 } from '@stripe/stripe-js';
 
-import { StripeInstance } from '../services/stripe-instance.class';
-import { StripeElementsService } from '../services/stripe-elements.service';
 import { StripeElementsDirective } from '../directives/elements.directive';
+
+import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
+
+import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
   selector: 'ngx-stripe-payment-request-button',
@@ -47,7 +49,7 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
   @Input() paymentOptions: PaymentRequestOptions;
   @Input() options: StripePaymentRequestButtonElementOptions;
   @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeInstance;
+  @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<{
     paymentRequestButton: StripePaymentRequestButtonElement;
@@ -169,7 +171,8 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
     this.paymentRequest = this.stripeElementsService.paymentRequest(this.stripe, this.paymentOptions);
     this.paymentRequest.on('token', (ev) => this.token.emit(ev));
     if (this.paymentMethod.observed) this.paymentRequest.on('paymentmethod', (ev) => this.paymentMethod.emit(ev));
-    if (this.source.observed && !this.paymentMethod.observed) this.paymentRequest.on('source', (ev) => this.source.emit(ev));
+    if (this.source.observed && !this.paymentMethod.observed)
+      this.paymentRequest.on('source', (ev) => this.source.emit(ev));
     this.paymentRequest.on('cancel', () => this.cancel.emit());
     this.paymentRequest.on('shippingaddresschange', (ev) => this.shippingaddresschange.emit(ev));
     this.paymentRequest.on('shippingoptionchange', (ev) => this.shippingoptionchange.emit(ev));
