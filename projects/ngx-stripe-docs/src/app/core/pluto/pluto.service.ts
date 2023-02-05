@@ -13,7 +13,8 @@ export class NgStrPlutoService {
 
   readonly KEYS = {
     main: 'pk_test_51Ii5RpH2XTJohkGafOSn3aoFFDjfCE4G9jmW48Byd8OS0u2707YHusT5PojHOwWAys9HbvNylw7qDk0KkMZomdG600TJYNYj20',
-    malaysia: 'pk_test_51KRdewCuu3LJxlmKq4Oeixoi5GcBSiT3cMOdwhhkZ2jCXeUuGZ8xjblOlbEKUob30aC9P3l07Qxn2IKWm6tncYPY00w6Kem6tg',
+    malaysia:
+      'pk_test_51KRdewCuu3LJxlmKq4Oeixoi5GcBSiT3cMOdwhhkZ2jCXeUuGZ8xjblOlbEKUob30aC9P3l07Qxn2IKWm6tncYPY00w6Kem6tg',
     usa: 'pk_test_51MHzdHCFzZvO65bFwNvBHBPwn6oefQ8chNt0Q324OC0XzqFk15awlmiyBqtpmyddjTia69ex8A3cQqvLnBLEvrYn006yHaznBY'
   };
 

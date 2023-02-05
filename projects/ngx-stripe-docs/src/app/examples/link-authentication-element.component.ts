@@ -2,8 +2,17 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { StripePaymentElementComponent, NgxStripeModule, StripeFactoryService, StripeAddressComponent } from 'ngx-stripe';
-import { StripeAddressElementOptions, StripeElementsOptions, StripeLinkAuthenticationElementOptions } from '@stripe/stripe-js';
+import {
+  StripePaymentElementComponent,
+  NgxStripeModule,
+  StripeFactoryService,
+  StripeAddressComponent
+} from 'ngx-stripe';
+import {
+  StripeAddressElementOptions,
+  StripeElementsOptions,
+  StripeLinkAuthenticationElementOptions
+} from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
 
@@ -17,14 +26,13 @@ import { NgStrPlutoService } from '../core';
       <div section-content [formGroup]="stripeTest">
         <input matInput placeholder="name" formControlName="name" />
         <input matInput placeholder="amount" type="number" formControlName="amount" />
-        <ng-container ngxStripeElements
+        <ng-container
+          ngxStripeElements
           [stripe]="stripe"
           [elementsOptions]="elementsOptions"
           *ngIf="elementsOptions?.clientSecret as clientSecret"
         >
-          <ngx-stripe-link-authentication [stripe]="stripe"
-            [options]="linkOptions"
-          ></ngx-stripe-link-authentication>
+          <ngx-stripe-link-authentication [stripe]="stripe" [options]="linkOptions"></ngx-stripe-link-authentication>
           <ngx-stripe-address [options]="addressOptions"></ngx-stripe-address>
           <ngx-stripe-payment></ngx-stripe-payment>
         </ng-container>
@@ -34,11 +42,7 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NgxStripeModule
-  ]
+  imports: [CommonModule, ReactiveFormsModule, NgxStripeModule]
 })
 export class LinkAuthenticationElementExampleComponent implements OnInit {
   @ViewChild(StripeAddressComponent) addressElement: StripeAddressComponent;
@@ -61,7 +65,7 @@ export class LinkAuthenticationElementExampleComponent implements OnInit {
     defaultValues: {
       email: 'me@ricardosanchez.dev'
     }
-  }
+  };
 
   paying = false;
 

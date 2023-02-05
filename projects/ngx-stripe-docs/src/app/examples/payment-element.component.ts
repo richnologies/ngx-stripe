@@ -26,11 +26,7 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NgxStripeModule
-  ]
+  imports: [CommonModule, ReactiveFormsModule, NgxStripeModule]
 })
 export class PaymentElementExampleComponent implements OnInit {
   @ViewChild(StripePaymentElementComponent)

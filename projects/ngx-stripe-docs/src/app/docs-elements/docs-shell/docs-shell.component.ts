@@ -11,8 +11,5 @@ import { NgStrContentService } from '../../core';
 export class NgStrDocsShellComponent {
   showMenu = false;
 
-  constructor(
-    @Inject(NGX_STRIPE_VERSION) public version: string,
-    public content: NgStrContentService
-  ) {}
+  constructor(@Inject(NGX_STRIPE_VERSION) public version: string, public content: NgStrContentService) {}
 }

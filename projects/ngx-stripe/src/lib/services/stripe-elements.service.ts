@@ -59,15 +59,33 @@ export class StripeElementsService {
   mergeOptions(options: StripeIdealBankElementOptions, containerClass: string): StripeIdealBankElementOptions;
   mergeOptions(options: StripeAuBankAccountElementOptions, containerClass: string): StripeAuBankAccountElementOptions;
   mergeOptions(options: StripeAffirmMessageElementOptions, containerClass: string): StripeAffirmMessageElementOptions;
-  mergeOptions(options: StripeAfterpayClearpayMessageElementOptions, containerClass: string): StripeAfterpayClearpayMessageElementOptions;
+  mergeOptions(
+    options: StripeAfterpayClearpayMessageElementOptions,
+    containerClass: string
+  ): StripeAfterpayClearpayMessageElementOptions;
   mergeOptions(options: StripeEpsBankElementOptions, containerClass: string): StripeEpsBankElementOptions;
   mergeOptions(options: StripeP24BankElementOptions, containerClass: string): StripeP24BankElementOptions;
   mergeOptions(options: StripeAddressElementOptions, containerClass: string): StripeAddressElementOptions;
-  mergeOptions(options: StripeLinkAuthenticationElementOptions, containerClass: string): StripeLinkAuthenticationElementOptions;
-  mergeOptions(options: StripeIssuingCardNumberDisplayElementOptions, containerClass: string): StripeIssuingCardNumberDisplayElementOptions;
-  mergeOptions(options: StripeIssuingCardCvcDisplayElementOptions, containerClass: string): StripeIssuingCardCvcDisplayElementOptions;
-  mergeOptions(options: StripeIssuingCardExpiryDisplayElementOptions, containerClass: string): StripeIssuingCardExpiryDisplayElementOptions;
-  mergeOptions(options: StripeIssuingCardPinDisplayElementOptions, containerClass: string): StripeIssuingCardPinDisplayElementOptions;
+  mergeOptions(
+    options: StripeLinkAuthenticationElementOptions,
+    containerClass: string
+  ): StripeLinkAuthenticationElementOptions;
+  mergeOptions(
+    options: StripeIssuingCardNumberDisplayElementOptions,
+    containerClass: string
+  ): StripeIssuingCardNumberDisplayElementOptions;
+  mergeOptions(
+    options: StripeIssuingCardCvcDisplayElementOptions,
+    containerClass: string
+  ): StripeIssuingCardCvcDisplayElementOptions;
+  mergeOptions(
+    options: StripeIssuingCardExpiryDisplayElementOptions,
+    containerClass: string
+  ): StripeIssuingCardExpiryDisplayElementOptions;
+  mergeOptions(
+    options: StripeIssuingCardPinDisplayElementOptions,
+    containerClass: string
+  ): StripeIssuingCardPinDisplayElementOptions;
   mergeOptions(
     options: StripePaymentRequestButtonElementOptions,
     containerClass: string

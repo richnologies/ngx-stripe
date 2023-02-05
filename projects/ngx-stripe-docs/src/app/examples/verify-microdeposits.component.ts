@@ -37,32 +37,30 @@ export class VerifyMicrodepositsExampleComponent {
   paying = false;
   clientSecret = 'seti_1MHzwWCFzZvO65bF1voT4xPv_secret_N2443bqf1USOXVX7lc2N3rmDhH2n9yM';
 
-  constructor(
-    private stripeFactory: StripeFactoryService,
-    private plutoService: NgStrPlutoService
-  ) {}
+  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 
   pay() {
-    this.stripe.confirmAcssDebitSetup(
-      this.clientSecret,
-      {
+    this.stripe
+      .confirmAcssDebitSetup(this.clientSecret, {
         payment_method: {
           billing_details: {
             name: 'Ricardo Sanchez',
-            email: 'ric.sanchez@me.com',
-          },
-        },
-      }
-    ).subscribe(({ setupIntent, error }) => {
-      console.log({ setupIntent, error })
-    });
+            email: 'ric.sanchez@me.com'
+          }
+        }
+      })
+      .subscribe(({ setupIntent, error }) => {
+        console.log({ setupIntent, error });
+      });
   }
 
   verifyMicrodeposits() {
-    this.stripe.verifyMicrodepositsForSetup(this.clientSecret, {
-      amounts: [32, 45],
-    }).subscribe((result) => {
-      console.log('result', result);
-    })
+    this.stripe
+      .verifyMicrodepositsForSetup(this.clientSecret, {
+        amounts: [32, 45]
+      })
+      .subscribe((result) => {
+        console.log('result', result);
+      });
   }
 }

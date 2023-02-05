@@ -12,13 +12,17 @@ import { NgStrPlutoService } from '../core';
       </div>
       <div section-content>
         <p>Minimum example, just fill the form and get your token</p>
-        <ngx-stripe-iban #ibanWithoutElements [stripe]="stripe" [options]="ibanOptions" [elementsOptions]="elementsOptions"></ngx-stripe-iban>
+        <ngx-stripe-iban
+          #ibanWithoutElements
+          [stripe]="stripe"
+          [options]="ibanOptions"
+          [elementsOptions]="elementsOptions"
+        ></ngx-stripe-iban>
         <button (click)="buy()">CLICK</button>
 
         <p>Another example where we use the new Elements Provider to create the IBAN, should work the same way</p>
         <div ngxStripeElements [stripe]="stripe" [elementsOptions]="elementsOptions">
-          <ngx-stripe-iban #ibanWithElements [options]="ibanOptions">
-          </ngx-stripe-iban>
+          <ngx-stripe-iban #ibanWithElements [options]="ibanOptions"> </ngx-stripe-iban>
         </div>
         <button (click)="buyWithElements()">CLICK</button>
       </div>
@@ -53,10 +57,7 @@ export class IbanElementExampleComponent {
     locale: 'es'
   };
 
-  constructor(
-    private stripeFactory: StripeFactoryService,
-    private plutoService: NgStrPlutoService
-  ) {}
+  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 
   buy() {
     this.stripe

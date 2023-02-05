@@ -26,11 +26,7 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    StripePaymentElementComponent
-  ]
+  imports: [CommonModule, ReactiveFormsModule, StripePaymentElementComponent]
 })
 export class PaymentElementInjectExampleComponent implements OnInit {
   @ViewChild(StripePaymentElementComponent)
@@ -48,10 +44,7 @@ export class PaymentElementInjectExampleComponent implements OnInit {
 
   paying = false;
 
-  constructor(
-    private fb: UntypedFormBuilder,
-    private plutoService: NgStrPlutoService
-  ) {}
+  constructor(private fb: UntypedFormBuilder, private plutoService: NgStrPlutoService) {}
 
   ngOnInit() {
     this.plutoService

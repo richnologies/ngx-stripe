@@ -35,8 +35,5 @@ export class AffirmMessageExampleComponent {
     locale: 'en'
   };
 
-  constructor(
-    private stripeFactory: StripeFactoryService,
-    private plutoService: NgStrPlutoService
-  ) {}
+  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 }

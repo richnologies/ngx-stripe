@@ -60,24 +60,13 @@ const components = [
   StripePaymentRequestButtonComponent
 ];
 
-const directives = [
-  StripeCardGroupDirective,
-  StripeElementsDirective,
-  NgxStripeElementLoadingTemplateDirective
-];
+const directives = [StripeCardGroupDirective, StripeElementsDirective, NgxStripeElementLoadingTemplateDirective];
 
 const currentVersion = '15.4.3';
 
 @NgModule({
-  exports: [
-    ...components,
-    ...directives
-  ],
-  imports: [
-    CommonModule,
-    ...components,
-    ...directives
-  ]
+  exports: [...components, ...directives],
+  imports: [CommonModule, ...components, ...directives]
 })
 export class NgxStripeModule {
   public static forRoot(

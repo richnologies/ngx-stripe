@@ -57,7 +57,10 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
   @Output() focus = new EventEmitter<{ elementType: 'payment' }>();
   @Output() ready = new EventEmitter<{ elementType: 'payment' }>();
   @Output() escape = new EventEmitter<{ elementType: 'payment' }>();
-  @Output() loaderror = new EventEmitter<{ elementType: 'payment'; error: StripeError }>();
+  @Output() loaderror = new EventEmitter<{
+    elementType: 'payment';
+    error: StripeError;
+  }>();
 
   state: 'notready' | 'starting' | 'ready' = 'notready';
   private elementsSubscription: Subscription;
@@ -71,13 +74,17 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
     this.state = 'starting';
     let updateElements = false;
 
-    if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || changes.clientSecret || changes.appearance || !this.elements)) {
-      this.elements = await lastValueFrom(this.stripeElementsService
-        .elements(this.stripe, {
+    if (
+      !this.elementsProvider &&
+      (changes.elementsOptions || changes.stripe || changes.clientSecret || changes.appearance || !this.elements)
+    ) {
+      this.elements = await lastValueFrom(
+        this.stripeElementsService.elements(this.stripe, {
           ...(this.elementsOptions || {}),
           ...(this.appearance ? { appearance: this.appearance } : {}),
           ...(this.clientSecret ? { clientSecret: this.clientSecret } : {})
-        }));
+        })
+      );
       updateElements = true;
     }
 
@@ -105,12 +112,13 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await lastValueFrom(this.stripeElementsService
-        .elements(this.stripe, {
+      this.elements = await lastValueFrom(
+        this.stripeElementsService.elements(this.stripe, {
           ...(this.elementsOptions || {}),
           ...(this.appearance ? { appearance: this.appearance } : {}),
           ...(this.clientSecret ? { clientSecret: this.clientSecret } : {})
-        }));
+        })
+      );
       this.createElement(options);
 
       this.state = 'ready';

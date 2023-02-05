@@ -59,8 +59,7 @@ function bootstrap() {
         }
       }
     ]
-  })
-    .catch((err) => console.error(err));
+  }).catch((err) => console.error(err));
 }
 
 if (document.readyState === 'complete') {

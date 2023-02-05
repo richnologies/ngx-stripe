@@ -1,12 +1,4 @@
-import {
-  Directive,
-  Input,
-  OnInit,
-  OnChanges,
-  SimpleChanges,
-  Output,
-  EventEmitter
-} from '@angular/core';
+import { Directive, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 
 import {
@@ -29,14 +21,11 @@ type NgxStripeCardGroupChangeEvent =
   | StripeCardExpiryElementChangeEvent
   | StripeCardCvcElementChangeEvent;
 
-type NgxStripeCardGroupElements =
-  | StripeCardNumberElement
-  | StripeCardExpiryElement
-  | StripeCardCvcElement;
+type NgxStripeCardGroupElements = StripeCardNumberElement | StripeCardExpiryElement | StripeCardCvcElement;
 
 @Directive({
   selector: 'ngx-stripe-card-group,[ngxStripeCardGroup]',
-  standalone: true,
+  standalone: true
 })
 export class StripeCardGroupDirective implements OnInit, OnChanges {
   @Input() elementsOptions: Partial<StripeElementsOptions>;

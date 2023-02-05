@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
 
-import { StripeCardComponent, StripeFactoryService, StripeElementsDirective, StripeCardNumberComponent, StripeCardExpiryComponent, StripeCardCvcComponent, StripeCardGroupDirective } from 'ngx-stripe';
+import {
+  StripeCardComponent,
+  StripeFactoryService,
+  StripeElementsDirective,
+  StripeCardNumberComponent,
+  StripeCardExpiryComponent,
+  StripeCardCvcComponent,
+  StripeCardGroupDirective
+} from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -14,7 +22,8 @@ import { NgStrPlutoService } from '../core';
       </div>
       <div section-content>
         <ngx-stripe-elements [stripe]="stripe" [elementsOptions]="elementsOptions">
-          <ngx-stripe-card [options]="cardOptions"
+          <ngx-stripe-card
+            [options]="cardOptions"
             (load)="onEvent('load', $event)"
             (blur)="onEvent('blur', $event)"
             (change)="onEvent('change', $event)"
@@ -24,7 +33,11 @@ import { NgStrPlutoService } from '../core';
           ></ngx-stripe-card>
         </ngx-stripe-elements>
         <hr />
-        <ngx-stripe-card-group [stripe]="stripe" (change)="onEvent('change', $event)" [elementsOptions]="elementsOptions">
+        <ngx-stripe-card-group
+          [stripe]="stripe"
+          (change)="onEvent('change', $event)"
+          [elementsOptions]="elementsOptions"
+        >
           <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
           <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
           <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
@@ -63,10 +76,7 @@ export class CardEventsExampleComponent {
     locale: 'es'
   };
 
-  constructor(
-    private stripeFactory: StripeFactoryService,
-    private plutoService: NgStrPlutoService
-  ) {}
+  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 
   onEvent(source, ev) {
     console.log({ source, ev });

@@ -58,10 +58,7 @@ export class PaymentRequestButtonExampleComponent {
     locale: 'es'
   };
 
-  constructor(
-    private stripeFactory: StripeFactoryService,
-    private plutoService: NgStrPlutoService
-  ) {}
+  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 
   buy() {}
 }

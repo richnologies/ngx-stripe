@@ -2,7 +2,12 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { StripePaymentElementComponent, NgxStripeModule, StripeFactoryService, StripeAddressComponent } from 'ngx-stripe';
+import {
+  StripePaymentElementComponent,
+  NgxStripeModule,
+  StripeFactoryService,
+  StripeAddressComponent
+} from 'ngx-stripe';
 import { StripeAddressElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -19,7 +24,8 @@ import { NgStrPlutoService } from '../core';
 
         <input matInput placeholder="name" formControlName="name" />
         <input matInput placeholder="amount" type="number" formControlName="amount" />
-        <ng-container ngxStripeElements
+        <ng-container
+          ngxStripeElements
           [stripe]="stripe"
           [elementsOptions]="elementsOptions"
           *ngIf="elementsOptions?.clientSecret as clientSecret"
@@ -33,11 +39,7 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NgxStripeModule
-  ]
+  imports: [CommonModule, ReactiveFormsModule, NgxStripeModule]
 })
 export class AddressElementExampleComponent implements OnInit, AfterViewInit {
   @ViewChild(StripeAddressComponent) addressElement: StripeAddressComponent;
@@ -77,7 +79,7 @@ export class AddressElementExampleComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.addressElement.change.subscribe(async ev => {
+    this.addressElement.change.subscribe(async (ev) => {
       console.log('Address Event', ev);
 
       const { complete, value } = await this.addressElement.getValue();

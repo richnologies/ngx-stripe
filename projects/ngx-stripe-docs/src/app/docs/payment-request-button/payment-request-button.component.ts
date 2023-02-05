@@ -27,10 +27,7 @@ export class NgStrPaymentRequestButtonComponent {
     requestPayerEmail: true
   };
 
-  constructor(
-    private plutoService: NgStrPlutoService,
-    private stripeFactory: StripeFactoryService
-  ) {}
+  constructor(private plutoService: NgStrPlutoService, private stripeFactory: StripeFactoryService) {}
 
   onPaymentMethod(ev: PaymentRequestPaymentMethodEvent) {
     this.plutoService

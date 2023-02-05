@@ -31,10 +31,7 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [
-    StripeCardComponent,
-    StripeElementsDirective
-  ]
+  imports: [StripeCardComponent, StripeElementsDirective]
 })
 export class CardOneElementExampleComponent {
   @ViewChild('cardWithoutElements') cardWithoutElements: StripeCardComponent;
@@ -59,10 +56,7 @@ export class CardOneElementExampleComponent {
     locale: 'es'
   };
 
-  constructor(
-    private stripeFactory: StripeFactoryService,
-    private plutoService: NgStrPlutoService
-  ) {}
+  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 
   buy() {
     this.stripe.createToken(this.cardWithoutElements.element, { name: 'Ricardo' }).subscribe((result) => {

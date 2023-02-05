@@ -5,7 +5,7 @@ import { NgStrDocsShellComponent } from './docs-elements/docs-shell/docs-shell.c
 export const ROUTES: Routes = [
   {
     path: '',
-    loadComponent: () => import('./welcome/welcome.component').then(m => m.NgStrWelcomeComponent)
+    loadComponent: () => import('./welcome/welcome.component').then((m) => m.NgStrWelcomeComponent)
   },
   {
     path: 'docs',
@@ -13,12 +13,14 @@ export const ROUTES: Routes = [
     children: [
       {
         path: 'introduction',
-        loadComponent: () => import('./docs/introduction/introduction.component').then((m) => m.NgStrIntroductionComponent),
+        loadComponent: () =>
+          import('./docs/introduction/introduction.component').then((m) => m.NgStrIntroductionComponent),
         data: { title: 'Introduction' }
       },
       {
         path: 'installation',
-        loadComponent: () => import('./docs/installation/installation.component').then((m) => m.NgStrInstallationComponent),
+        loadComponent: () =>
+          import('./docs/installation/installation.component').then((m) => m.NgStrInstallationComponent),
         data: { title: 'Installation' }
       },
       {
@@ -29,7 +31,7 @@ export const ROUTES: Routes = [
       },
       {
         path: 'checkout',
-        loadComponent: () => import('./docs/checkout/checkout.component').then(m => m.NgStrCheckoutComponent),
+        loadComponent: () => import('./docs/checkout/checkout.component').then((m) => m.NgStrCheckoutComponent),
         data: { title: 'Checkout' }
       },
       {
@@ -41,7 +43,9 @@ export const ROUTES: Routes = [
       {
         path: 'element-components',
         loadComponent: () =>
-          import('./docs/element-components/element-components.component').then((m) => m.NgStrElementComponentsComponent),
+          import('./docs/element-components/element-components.component').then(
+            (m) => m.NgStrElementComponentsComponent
+          ),
         data: { title: 'Elements' }
       },
       {
@@ -76,7 +80,9 @@ export const ROUTES: Routes = [
       {
         path: 'reference-instance',
         loadComponent: () =>
-          import('./docs/reference-instance/reference-instance.component').then((m) => m.NgStrReferenceInstanceComponent),
+          import('./docs/reference-instance/reference-instance.component').then(
+            (m) => m.NgStrReferenceInstanceComponent
+          ),
         data: { title: 'Reference Instance' }
       },
       {
@@ -102,82 +108,97 @@ export const ROUTES: Routes = [
       },
       {
         path: 'examples/address-element',
-        loadComponent: () => import('./examples/address-element.component').then(m => m.AddressElementExampleComponent),
+        loadComponent: () =>
+          import('./examples/address-element.component').then((m) => m.AddressElementExampleComponent),
         data: { title: 'Address Element Example' }
       },
       {
         path: 'examples/affirm-message',
-        loadComponent: () => import('./examples/affirm-message-element.component').then(m => m.AffirmMessageExampleComponent),
+        loadComponent: () =>
+          import('./examples/affirm-message-element.component').then((m) => m.AffirmMessageExampleComponent),
         data: { title: 'Affirm Message Example' }
       },
       {
         path: 'examples/afterpay-clearpay-message',
-        loadComponent: () => import('./examples/afterpay-clearpay-message-element.component').then(m => m.AfterpayClearpayMessageExampleComponent),
+        loadComponent: () =>
+          import('./examples/afterpay-clearpay-message-element.component').then(
+            (m) => m.AfterpayClearpayMessageExampleComponent
+          ),
         data: { title: 'Clearpay Afterpay Message Example' }
       },
       {
         path: 'examples/card-events',
-        loadComponent: () => import('./examples/card-events.component').then(m => m.CardEventsExampleComponent),
+        loadComponent: () => import('./examples/card-events.component').then((m) => m.CardEventsExampleComponent),
         data: { title: 'Card Events Example' }
       },
       {
         path: 'examples/card-one-element',
-        loadComponent: () => import('./examples/card-one-element.component').then(m => m.CardOneElementExampleComponent),
+        loadComponent: () =>
+          import('./examples/card-one-element.component').then((m) => m.CardOneElementExampleComponent),
         data: { title: 'Basic Card Example' }
       },
       {
         path: 'examples/card-payment-intent',
-        loadComponent: () => import('./examples/card-payment-intent.component').then(m => m.CardPaymentIntentExampleComponent),
+        loadComponent: () =>
+          import('./examples/card-payment-intent.component').then((m) => m.CardPaymentIntentExampleComponent),
         data: { title: 'Card Example - Payment Intent' }
       },
       {
         path: 'examples/eps-bank-element',
-        loadComponent: () => import('./examples/eps-bank-element.component').then(m => m.EpsBankExampleComponent),
+        loadComponent: () => import('./examples/eps-bank-element.component').then((m) => m.EpsBankExampleComponent),
         data: { title: 'EPS Bank Example' }
       },
       {
         path: 'examples/fpx-element',
-        loadComponent: () => import('./examples/fpx-element.component').then(m => m.FpxExampleComponent),
+        loadComponent: () => import('./examples/fpx-element.component').then((m) => m.FpxExampleComponent),
         data: { title: 'FPX Example' }
       },
       {
         path: 'examples/iban-element',
-        loadComponent: () => import('./examples/iban-element.component').then(m => m.IbanElementExampleComponent),
+        loadComponent: () => import('./examples/iban-element.component').then((m) => m.IbanElementExampleComponent),
         data: { title: 'IBAN Example' }
       },
       {
         path: 'examples/issuing-elements',
-        loadComponent: () => import('./examples/issuing-elements.component').then(m => m.IssuingElementsExampleComponent),
+        loadComponent: () =>
+          import('./examples/issuing-elements.component').then((m) => m.IssuingElementsExampleComponent),
         data: { title: 'Issuing Elements Example' }
       },
       {
         path: 'examples/link-authentication-element',
-        loadComponent: () => import('./examples/link-authentication-element.component').then(m => m.LinkAuthenticationElementExampleComponent),
+        loadComponent: () =>
+          import('./examples/link-authentication-element.component').then(
+            (m) => m.LinkAuthenticationElementExampleComponent
+          ),
         data: { title: 'Link Authentication Example' }
       },
       {
         path: 'examples/p24-bank-element',
-        loadComponent: () => import('./examples/p24-bank-element.component').then(m => m.P24BankExampleComponent),
+        loadComponent: () => import('./examples/p24-bank-element.component').then((m) => m.P24BankExampleComponent),
         data: { title: 'P24 Bank Example' }
       },
       {
         path: 'examples/payment-element-inject',
-        loadComponent: () => import('./examples/payment-element-inject.component').then(m => m.PaymentElementInjectExampleComponent),
+        loadComponent: () =>
+          import('./examples/payment-element-inject.component').then((m) => m.PaymentElementInjectExampleComponent),
         data: { title: 'Payment Element with Inject' }
       },
       {
         path: 'examples/payment-element',
-        loadComponent: () => import('./examples/payment-element.component').then(m => m.PaymentElementExampleComponent),
+        loadComponent: () =>
+          import('./examples/payment-element.component').then((m) => m.PaymentElementExampleComponent),
         data: { title: 'Payment Element' }
       },
       {
         path: 'examples/payment-request-button',
-        loadComponent: () => import('./examples/payment-request-button.component').then(m => m.PaymentRequestButtonExampleComponent),
+        loadComponent: () =>
+          import('./examples/payment-request-button.component').then((m) => m.PaymentRequestButtonExampleComponent),
         data: { title: 'Payment Request Button' }
       },
       {
         path: 'examples/verify-microdeposits',
-        loadComponent: () => import('./examples/verify-microdeposits.component').then(m => m.VerifyMicrodepositsExampleComponent),
+        loadComponent: () =>
+          import('./examples/verify-microdeposits.component').then((m) => m.VerifyMicrodepositsExampleComponent),
         data: { title: 'Verify Microdeposits Example' }
       },
       {

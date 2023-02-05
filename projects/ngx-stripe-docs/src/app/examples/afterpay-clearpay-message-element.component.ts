@@ -36,8 +36,5 @@ export class AfterpayClearpayMessageExampleComponent {
     locale: 'en'
   };
 
-  constructor(
-    private stripeFactory: StripeFactoryService,
-    private plutoService: NgStrPlutoService
-  ) {}
+  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 }

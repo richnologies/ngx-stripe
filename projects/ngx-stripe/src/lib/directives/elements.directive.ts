@@ -9,7 +9,7 @@ import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Directive({
   selector: 'ngx-stripe-elements,[ngxStripeElements]',
-  standalone: true,
+  standalone: true
 })
 export class StripeElementsDirective implements OnInit, OnChanges {
   @Input() elementsOptions: Partial<StripeElementsOptions>;

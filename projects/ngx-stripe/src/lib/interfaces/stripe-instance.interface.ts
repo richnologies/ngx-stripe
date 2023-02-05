@@ -103,7 +103,10 @@ import {
   EphemeralKeyNonceResult
 } from '@stripe/stripe-js';
 import { ProcessOrderParams } from '@stripe/stripe-js/types/stripe-js/orders';
-import { CollectBankAccountTokenOptions, CollectFinancialConnectionsAccountsOptions } from '@stripe/stripe-js/types/stripe-js/financial-connections';
+import {
+  CollectBankAccountTokenOptions,
+  CollectFinancialConnectionsAccountsOptions
+} from '@stripe/stripe-js/types/stripe-js/financial-connections';
 import { EphemeralKeyNonceOptions } from '@stripe/stripe-js/types/stripe-js/ephemeral-keys';
 
 export interface StripeServiceInterface {
@@ -208,10 +211,7 @@ export interface StripeServiceInterface {
     data?: ConfirmPayNowPaymentData,
     options?: ConfirmPayNowPaymentOptions
   ): Observable<PaymentIntentResult>;
-  confirmPayPalPayment(
-    clientSecret: string,
-    data?: ConfirmPayPalPaymentData
-  ): Observable<PaymentIntentResult>;
+  confirmPayPalPayment(clientSecret: string, data?: ConfirmPayPalPaymentData): Observable<PaymentIntentResult>;
   confirmPixPayment(
     clientSecret: string,
     data?: ConfirmPixPaymentData,
@@ -222,10 +222,7 @@ export interface StripeServiceInterface {
     data?: ConfirmPromptPayPaymentData,
     options?: ConfirmPromptPayPaymentOptions
   ): Observable<PaymentIntentResult>;
-  confirmSepaDebitPayment(
-    clientSecret: string,
-    data?: ConfirmSepaDebitPaymentData
-  ): Observable<PaymentIntentResult>;
+  confirmSepaDebitPayment(clientSecret: string, data?: ConfirmSepaDebitPaymentData): Observable<PaymentIntentResult>;
   confirmSofortPayment(
     clientSecret: string,
     data?: ConfirmSofortPaymentData,
@@ -242,12 +239,8 @@ export interface StripeServiceInterface {
     data?: VerifyMicrodepositsForPaymentData
   ): Observable<PaymentIntentResult>;
   createRadarSession(): Observable<RadarSessionPayload>;
-  collectBankAccountForPayment(
-    options: CollectBankAccountForPaymentOptions
-  ): Observable<PaymentIntentResult>;
-  createPaymentMethod(
-    paymentMethodData: CreatePaymentMethodData
-  ): Observable<PaymentMethodResult>;
+  collectBankAccountForPayment(options: CollectBankAccountForPaymentOptions): Observable<PaymentIntentResult>;
+  createPaymentMethod(paymentMethodData: CreatePaymentMethodData): Observable<PaymentMethodResult>;
   retrievePaymentIntent(clientSecret: string): Observable<PaymentIntentResult>;
   confirmSetup(options: {
     elements: StripeElements;
@@ -264,39 +257,18 @@ export interface StripeServiceInterface {
     data?: ConfirmAcssDebitSetupData,
     options?: ConfirmAcssDebitSetupOptions
   ): Observable<SetupIntentResult>;
-  confirmUsBankAccountSetup(
-    clientSecret: string,
-    data?: ConfirmUsBankAccountSetupData
-  ): Observable<SetupIntentResult>;
-  confirmAuBecsDebitSetup(
-    clientSecret: string,
-    data?: ConfirmAuBecsDebitSetupData
-  ): Observable<SetupIntentResult>;
-  confirmBacsDebitSetup(
-    clientSecret: string,
-    data?: ConfirmBacsDebitSetupData
-  ): Observable<SetupIntentResult>;
-  confirmBancontactSetup(
-    clientSecret: string,
-    data?: ConfirmBancontactSetupData
-  ): Observable<SetupIntentResult>;
+  confirmUsBankAccountSetup(clientSecret: string, data?: ConfirmUsBankAccountSetupData): Observable<SetupIntentResult>;
+  confirmAuBecsDebitSetup(clientSecret: string, data?: ConfirmAuBecsDebitSetupData): Observable<SetupIntentResult>;
+  confirmBacsDebitSetup(clientSecret: string, data?: ConfirmBacsDebitSetupData): Observable<SetupIntentResult>;
+  confirmBancontactSetup(clientSecret: string, data?: ConfirmBancontactSetupData): Observable<SetupIntentResult>;
   confirmCardSetup(
     clientSecret: string,
     data?: ConfirmCardSetupData,
     options?: ConfirmCardSetupOptions
   ): Observable<SetupIntentResult>;
-  confirmIdealSetup(
-    clientSecret: string,
-    data?: ConfirmIdealSetupData
-  ): Observable<SetupIntentResult>;
-  confirmPayPalSetup(
-    clientSecret: string,
-    data?: ConfirmPayPalSetupData
-  ): Observable<SetupIntentResult>;
-  confirmSepaDebitSetup(
-    clientSecret: string,
-    data?: ConfirmSepaDebitSetupData
-  ): Observable<SetupIntentResult>;
+  confirmIdealSetup(clientSecret: string, data?: ConfirmIdealSetupData): Observable<SetupIntentResult>;
+  confirmPayPalSetup(clientSecret: string, data?: ConfirmPayPalSetupData): Observable<SetupIntentResult>;
+  confirmSepaDebitSetup(clientSecret: string, data?: ConfirmSepaDebitSetupData): Observable<SetupIntentResult>;
   confirmSofortSetup(
     clientSecret: string,
     data?: ConfirmSofortSetupData,
@@ -316,9 +288,7 @@ export interface StripeServiceInterface {
     clientSecret: string,
     data?: VerifyMicrodepositsForSetupData
   ): Observable<PaymentIntentResult>;
-  collectBankAccountForSetup(
-    options: CollectBankAccountForSetupOptions
-  ): Observable<SetupIntentResult>;
+  collectBankAccountForSetup(options: CollectBankAccountForSetupOptions): Observable<SetupIntentResult>;
   retrieveSetupIntent(clientSecret: string): Observable<SetupIntentResult>;
   processOrder(options: {
     elements: StripeElements;
@@ -329,53 +299,28 @@ export interface StripeServiceInterface {
     elements: StripeElements;
     confirmParams: ProcessOrderParams;
     redirect?: 'always';
-  }): Observable<never | {error: StripeError}>;
+  }): Observable<never | { error: StripeError }>;
   retrieveOrder(clientSecret: string): Observable<RetrieveOrderResult>;
   paymentRequest(options: PaymentRequestOptions): PaymentRequest;
-  createToken(
-    tokenType: StripeIbanElement,
-    data: CreateTokenIbanData
-  ): Observable<TokenResult>;
+  createToken(tokenType: StripeIbanElement, data: CreateTokenIbanData): Observable<TokenResult>;
   createToken(
     tokenType: StripeCardElement | StripeCardNumberElement,
     data?: CreateTokenCardData
   ): Observable<TokenResult>;
-  createToken(
-    tokenType: 'pii',
-    data: CreateTokenPiiData
-  ): Observable<TokenResult>;
-  createToken(
-    tokenType: 'bank_account',
-    data: CreateTokenBankAccountData
-  ): Observable<TokenResult>;
-  createToken(
-    tokenType: 'cvc_update',
-    element?: StripeCardCvcElement
-  ): Observable<TokenResult>;
-  createToken(
-    tokenType: 'account',
-    data: TokenCreateParams.Account
-  ): Observable<TokenResult>;
-  createToken(
-    tokenType: 'person',
-    data: TokenCreateParams.Person
-  ): Observable<TokenResult>;
-  createSource(
-    element: StripeElement,
-    sourceData: CreateSourceData
-  ): Observable<SourceResult>;
+  createToken(tokenType: 'pii', data: CreateTokenPiiData): Observable<TokenResult>;
+  createToken(tokenType: 'bank_account', data: CreateTokenBankAccountData): Observable<TokenResult>;
+  createToken(tokenType: 'cvc_update', element?: StripeCardCvcElement): Observable<TokenResult>;
+  createToken(tokenType: 'account', data: TokenCreateParams.Account): Observable<TokenResult>;
+  createToken(tokenType: 'person', data: TokenCreateParams.Person): Observable<TokenResult>;
+  createSource(element: StripeElement, sourceData: CreateSourceData): Observable<SourceResult>;
   createSource(sourceData: CreateSourceData): Observable<SourceResult>;
   retrieveSource(source: RetrieveSourceParam): Observable<SourceResult>;
   verifyIdentity(clientSecret: string): Observable<VerificationSessionResult>;
   collectFinancialConnectionsAccounts(
     options: CollectFinancialConnectionsAccountsOptions
   ): Observable<FinancialConnectionsSessionResult>;
-  collectBankAccountToken(
-    options: CollectBankAccountTokenOptions
-  ): Observable<CollectBankAccountTokenResult>;
-  createEphemeralKeyNonce(
-    options: EphemeralKeyNonceOptions
-  ): Observable<EphemeralKeyNonceResult>;
+  collectBankAccountToken(options: CollectBankAccountTokenOptions): Observable<CollectBankAccountTokenResult>;
+  createEphemeralKeyNonce(options: EphemeralKeyNonceOptions): Observable<EphemeralKeyNonceResult>;
   /**
    * @deprecated
    */

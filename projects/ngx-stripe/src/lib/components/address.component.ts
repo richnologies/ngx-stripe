@@ -139,8 +139,8 @@ export class StripeAddressComponent implements OnInit, OnChanges, OnDestroy {
         state: string;
         country: string;
         postal_code: string;
-      }
-    }
+      };
+    };
   }> {
     const address = this.elements.getElement('address');
     return (address as any).getValue();

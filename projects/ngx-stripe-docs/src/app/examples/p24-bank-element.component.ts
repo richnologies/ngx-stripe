@@ -43,8 +43,5 @@ export class P24BankExampleComponent {
   paying = false;
   clientSecret: string;
 
-  constructor(
-    private plutoService: NgStrPlutoService,
-    private stripeFactory: StripeFactoryService
-  ) {}
+  constructor(private plutoService: NgStrPlutoService, private stripeFactory: StripeFactoryService) {}
 }
