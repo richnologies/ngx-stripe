@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.4.1 - 2023-02-05
+
+- Cleaner implementation for events in `NgxStripeCardGroup`
+
 ## 15.4.0 - 2023-02-05
 
 - Add events to `NgxStripeCardGroup` directive

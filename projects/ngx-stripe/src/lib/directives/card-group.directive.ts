@@ -6,11 +6,8 @@ import {
   SimpleChanges,
   Output,
   EventEmitter,
-  AfterViewInit,
-  ContentChild,
-  OnDestroy
+  ContentChild
 } from '@angular/core';
-import { merge, Subscription } from 'rxjs';
 
 import {
   StripeCardCvcElement,
@@ -44,7 +41,7 @@ type NgxStripeCardGroupElements =
   selector: 'ngx-stripe-card-group,[ngxStripeCardGroup]',
   standalone: true,
 })
-export class StripeCardGroupDirective implements OnInit, OnChanges, OnDestroy, AfterViewInit {
+export class StripeCardGroupDirective implements OnInit, OnChanges {
   @ContentChild(StripeCardNumberComponent) cardNumber: StripeCardNumberComponent;
   @ContentChild(StripeCardExpiryComponent) cardExpiry: StripeCardExpiryComponent;
   @ContentChild(StripeCardCvcComponent) cardCvc: StripeCardCvcComponent;
@@ -65,28 +62,7 @@ export class StripeCardGroupDirective implements OnInit, OnChanges, OnDestroy, A
   _elements: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
 
-  private subscriptions: Subscription = new Subscription();
-
   constructor(public stripeElementsService: StripeElementsService) {}
-
-  ngAfterViewInit() {
-    ['load', 'blur', 'change', 'focus', 'ready', 'escape']
-      .map(ev => {
-        console.log(ev);
-        return merge(
-          this.cardNumber[ev],
-          this.cardExpiry[ev],
-          this.cardCvc[ev]
-        ).subscribe(result => this[ev].emit(result));
-      })
-      .forEach(subscriber => this.subscriptions.add(subscriber));
-  }
-
-  ngOnDestroy() {
-    if (this.subscriptions) {
-      this.subscriptions.unsubscribe();
-    }
-  }
 
   async ngOnChanges(changes: SimpleChanges) {
     this.state = 'starting';
