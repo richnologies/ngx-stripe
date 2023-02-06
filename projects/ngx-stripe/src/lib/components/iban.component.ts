@@ -127,7 +127,6 @@ export class StripeIbanComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private createElement(options: Partial<StripeIbanElementOptions> = {}) {
-    console.log('CreateElement', options);
     if (this.element) {
       this.element.unmount();
     }
