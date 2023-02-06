@@ -18,9 +18,9 @@ import { lastValueFrom, Subscription } from 'rxjs';
 import {
   StripeElementsOptions,
   StripeElements,
-  StripeIbanElement,
-  StripeIbanElementOptions,
-  StripeIbanElementChangeEvent
+  StripeEpsBankElementOptions,
+  StripeEpsBankElement,
+  StripeEpsBankElementChangeEvent
 } from '@stripe/stripe-js';
 
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
@@ -31,28 +31,28 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
-  selector: 'ngx-stripe-iban',
+  selector: 'ngx-stripe-eps-bank',
   template: `
     <div class="field" #stripeElementRef>
       <ng-container *ngIf="state !== 'ready' && loadingTemplate" [ngTemplateOutlet]="loadingTemplate"></ng-container>
     </div>
   `
 })
-export class StripeIbanComponent implements OnInit, OnChanges, OnDestroy {
+export class StripeEpsBankComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })
   loadingTemplate?: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
-  element!: StripeIbanElement;
+  element!: StripeEpsBankElement;
 
   @Input() containerClass: string;
-  @Input() options: Partial<StripeIbanElementOptions>;
+  @Input() options: StripeEpsBankElementOptions;
   @Input() elementsOptions: Partial<StripeElementsOptions>;
   @Input() stripe: StripeServiceInterface;
 
-  @Output() load = new EventEmitter<StripeIbanElement>();
+  @Output() load = new EventEmitter<StripeEpsBankElement>();
 
   @Output() blur = new EventEmitter<void>();
-  @Output() change = new EventEmitter<StripeIbanElementChangeEvent>();
+  @Output() change = new EventEmitter<StripeEpsBankElementChangeEvent>();
   @Output() focus = new EventEmitter<void>();
   @Output() ready = new EventEmitter<void>();
   @Output() escape = new EventEmitter<void>();
@@ -115,24 +115,24 @@ export class StripeIbanComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  update(options: Partial<StripeIbanElementOptions>) {
+  update(options: Partial<StripeEpsBankElementOptions>) {
     this.element.update(options);
   }
 
   /**
    * @deprecated
    */
-  getIban() {
+  getEpsBankelement() {
     return this.element;
   }
 
-  private createElement(options: Partial<StripeIbanElementOptions> = {}) {
+  private createElement(options: StripeEpsBankElementOptions) {
     if (this.element) {
       this.element.unmount();
     }
 
-    this.element = this.elements.create('iban', options);
-    this.element.on('change', (ev) => this.change.emit(ev));
+    this.element = this.elements.create('epsBank', options);
+    this.element.on('change', (ev: StripeEpsBankElementChangeEvent) => this.change.emit(ev));
     this.element.on('blur', () => this.blur.emit());
     this.element.on('focus', () => this.focus.emit());
     this.element.on('ready', () => this.ready.emit());

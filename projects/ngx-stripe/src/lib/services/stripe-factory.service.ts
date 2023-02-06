@@ -21,7 +21,9 @@ export class StripeFactoryService {
 
   public create(key?: string, options?: StripeConstructorOptions): StripeInstance {
     if (!key && !this.baseKey) {
-      return null;
+      throw new Error(
+        'No key defined! Either you need to pass it as a parameter or define it when you call NgxStripeModule.forRoot()'
+      );
     }
 
     return new StripeInstance(this.version, this.loader, this.window, key || this.baseKey, options || this.baseOptions);

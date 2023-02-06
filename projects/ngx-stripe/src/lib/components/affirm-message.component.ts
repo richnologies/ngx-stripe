@@ -18,9 +18,8 @@ import { lastValueFrom, Subscription } from 'rxjs';
 import {
   StripeElementsOptions,
   StripeElements,
-  StripeIbanElement,
-  StripeIbanElementOptions,
-  StripeIbanElementChangeEvent
+  StripeAffirmMessageElement,
+  StripeAffirmMessageElementOptions
 } from '@stripe/stripe-js';
 
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
@@ -31,31 +30,26 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
-  selector: 'ngx-stripe-iban',
+  selector: 'ngx-stripe-affirm-message',
   template: `
     <div class="field" #stripeElementRef>
       <ng-container *ngIf="state !== 'ready' && loadingTemplate" [ngTemplateOutlet]="loadingTemplate"></ng-container>
     </div>
   `
 })
-export class StripeIbanComponent implements OnInit, OnChanges, OnDestroy {
+export class StripeAffirmMessageComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })
   loadingTemplate?: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
-  element!: StripeIbanElement;
+  element!: StripeAffirmMessageElement;
 
   @Input() containerClass: string;
-  @Input() options: Partial<StripeIbanElementOptions>;
+  @Input() options: StripeAffirmMessageElementOptions;
   @Input() elementsOptions: Partial<StripeElementsOptions>;
   @Input() stripe: StripeServiceInterface;
 
-  @Output() load = new EventEmitter<StripeIbanElement>();
-
-  @Output() blur = new EventEmitter<void>();
-  @Output() change = new EventEmitter<StripeIbanElementChangeEvent>();
-  @Output() focus = new EventEmitter<void>();
+  @Output() load = new EventEmitter<StripeAffirmMessageElement>();
   @Output() ready = new EventEmitter<void>();
-  @Output() escape = new EventEmitter<void>();
 
   elements: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
@@ -115,28 +109,24 @@ export class StripeIbanComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  update(options: Partial<StripeIbanElementOptions>) {
+  update(options: Partial<StripeAffirmMessageElementOptions>) {
     this.element.update(options);
   }
 
   /**
    * @deprecated
    */
-  getIban() {
+  getAffirmMessage() {
     return this.element;
   }
 
-  private createElement(options: Partial<StripeIbanElementOptions> = {}) {
+  private createElement(options: StripeAffirmMessageElementOptions) {
     if (this.element) {
       this.element.unmount();
     }
 
-    this.element = this.elements.create('iban', options);
-    this.element.on('change', (ev) => this.change.emit(ev));
-    this.element.on('blur', () => this.blur.emit());
-    this.element.on('focus', () => this.focus.emit());
+    this.element = this.elements.create('affirmMessage', options);
     this.element.on('ready', () => this.ready.emit());
-    this.element.on('escape', () => this.escape.emit());
 
     this.element.mount(this.stripeElementRef.nativeElement);
 

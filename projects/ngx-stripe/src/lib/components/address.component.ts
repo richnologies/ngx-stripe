@@ -18,9 +18,9 @@ import { lastValueFrom, Subscription } from 'rxjs';
 import {
   StripeElementsOptions,
   StripeElements,
-  StripeIbanElement,
-  StripeIbanElementOptions,
-  StripeIbanElementChangeEvent
+  StripeAddressElement,
+  StripeAddressElementOptions,
+  StripeAddressElementChangeEvent
 } from '@stripe/stripe-js';
 
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
@@ -31,31 +31,33 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
-  selector: 'ngx-stripe-iban',
+  selector: 'ngx-stripe-address',
   template: `
     <div class="field" #stripeElementRef>
       <ng-container *ngIf="state !== 'ready' && loadingTemplate" [ngTemplateOutlet]="loadingTemplate"></ng-container>
     </div>
   `
 })
-export class StripeIbanComponent implements OnInit, OnChanges, OnDestroy {
+export class StripeAddressComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })
   loadingTemplate?: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
-  element!: StripeIbanElement;
+  element!: StripeAddressElement;
 
   @Input() containerClass: string;
-  @Input() options: Partial<StripeIbanElementOptions>;
+  @Input() options: StripeAddressElementOptions;
   @Input() elementsOptions: Partial<StripeElementsOptions>;
   @Input() stripe: StripeServiceInterface;
 
-  @Output() load = new EventEmitter<StripeIbanElement>();
+  @Output() load = new EventEmitter<StripeAddressElement>();
 
   @Output() blur = new EventEmitter<void>();
-  @Output() change = new EventEmitter<StripeIbanElementChangeEvent>();
+  @Output() change = new EventEmitter<StripeAddressElementChangeEvent>();
   @Output() focus = new EventEmitter<void>();
   @Output() ready = new EventEmitter<void>();
   @Output() escape = new EventEmitter<void>();
+  @Output() loaderror = new EventEmitter<void>();
+  @Output() loaderstart = new EventEmitter<void>();
 
   elements: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
@@ -115,28 +117,52 @@ export class StripeIbanComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  update(options: Partial<StripeIbanElementOptions>) {
-    this.element.update(options);
+  update(options: Partial<StripeAddressElementOptions>): StripeAddressElement {
+    return this.element.update(options);
+  }
+
+  getValue(): Promise<{
+    complete: boolean;
+    isNewAddress: boolean;
+    value: {
+      name: string;
+      firstName?: string;
+      lastName?: string;
+      phone?: string;
+      address: {
+        line1: string;
+        line2: string | null;
+        city: string;
+        state: string;
+        country: string;
+        postal_code: string;
+      };
+    };
+  }> {
+    const address = this.elements.getElement('address');
+    return (address as any).getValue();
   }
 
   /**
    * @deprecated
    */
-  getIban() {
+  getAddressElement() {
     return this.element;
   }
 
-  private createElement(options: Partial<StripeIbanElementOptions> = {}) {
+  private createElement(options: StripeAddressElementOptions) {
     if (this.element) {
       this.element.unmount();
     }
 
-    this.element = this.elements.create('iban', options);
-    this.element.on('change', (ev) => this.change.emit(ev));
+    this.element = this.elements.create('address', options);
+    this.element.on('change', (ev: StripeAddressElementChangeEvent) => this.change.emit(ev));
     this.element.on('blur', () => this.blur.emit());
     this.element.on('focus', () => this.focus.emit());
     this.element.on('ready', () => this.ready.emit());
     this.element.on('escape', () => this.escape.emit());
+    this.element.on('loaderror', () => this.loaderror.emit());
+    this.element.on('loaderstart', () => this.loaderstart.emit());
 
     this.element.mount(this.stripeElementRef.nativeElement);
 

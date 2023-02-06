@@ -1,5 +1,17 @@
-import { Component, Input, ViewChild, ElementRef, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import {
+  Component,
+  Input,
+  ViewChild,
+  ElementRef,
+  EventEmitter,
+  Output,
+  OnChanges,
+  SimpleChanges,
+  Optional,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
+import { Observable, from, Subscription, lastValueFrom } from 'rxjs';
 
 import {
   StripeElementsOptions,
@@ -18,14 +30,17 @@ import {
   PaymentRequestShippingOptionEvent
 } from '@stripe/stripe-js';
 
-import { StripeInstance } from '../services/stripe-instance.class';
+import { StripeElementsDirective } from '../directives/elements.directive';
+
+import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
+
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
   selector: 'ngx-stripe-payment-request-button',
   template: `<div class="field" #stripeElementRef></div>`
 })
-export class StripePaymentRequestButtonComponent implements OnChanges {
+export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripePaymentRequestButtonElement;
   paymentRequest!: PaymentRequest;
@@ -34,7 +49,7 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
   @Input() paymentOptions: PaymentRequestOptions;
   @Input() options: StripePaymentRequestButtonElementOptions;
   @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeInstance;
+  @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<{
     paymentRequestButton: StripePaymentRequestButtonElement;
@@ -55,17 +70,19 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
   @Output() notavailable = new EventEmitter<void>();
 
   elements: StripeElements;
+  private state: 'notready' | 'starting' | 'ready' = 'notready';
+  private elementsSubscription: Subscription;
 
-  constructor(public stripeElementsService: StripeElementsService) {}
+  constructor(
+    public stripeElementsService: StripeElementsService,
+    @Optional() private elementsProvider: StripeElementsDirective
+  ) {}
 
   async ngOnChanges(changes: SimpleChanges) {
-    const options = this.stripeElementsService.mergeOptions(this.options, this.containerClass);
-    const elementsOptions = this.elementsOptions;
-    const stripe = this.stripe;
     let updateElements = false;
 
-    if (changes.elementsOptions || changes.stripe || !this.elements) {
-      const elements = await this.stripeElementsService.elements(stripe, elementsOptions).toPromise();
+    if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {
+      const elements = await lastValueFrom(this.stripeElementsService.elements(this.stripe, this.elementsOptions));
       this.elements = elements;
       updateElements = true;
     }
@@ -74,41 +91,41 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
       this.updateRequest(this.paymentOptions);
     }
 
+    const options = this.stripeElementsService.mergeOptions(this.options, this.containerClass);
     if (changes.options || changes.containerClass || !this.element || updateElements) {
       if (this.element && !updateElements) {
         this.update(options);
       } else if (this.elements && updateElements) {
-        this.paymentRequest = this.stripeElementsService.paymentRequest(stripe, this.paymentOptions);
-        this.paymentRequest.on('token', (ev) => this.token.emit(ev));
-        if (this.paymentMethod.observed) this.paymentRequest.on('paymentmethod', (ev) => this.paymentMethod.emit(ev));
-        if (this.source.observed && !this.paymentMethod.observed)
-          this.paymentRequest.on('source', (ev) => this.source.emit(ev));
-        this.paymentRequest.on('cancel', () => this.cancel.emit());
-        this.paymentRequest.on('shippingaddresschange', (ev) => this.shippingaddresschange.emit(ev));
-        this.paymentRequest.on('shippingoptionchange', (ev) => this.shippingoptionchange.emit(ev));
-        this.element = this.elements.create('paymentRequestButton', {
-          paymentRequest: this.paymentRequest,
-          ...options
-        });
-
-        this.canMakePayment().subscribe((result) => {
-          if (result) {
-            this.element.on('click', (ev) => this.change.emit(ev));
-            this.element.on('blur', () => this.blur.emit());
-            this.element.on('focus', () => this.focus.emit());
-            this.element.on('ready', () => this.ready.emit());
-
-            this.element.mount(this.stripeElementRef.nativeElement);
-
-            this.load.emit({
-              paymentRequestButton: this.element,
-              paymentRequest: this.paymentRequest
-            });
-          } else {
-            this.notavailable.emit();
-          }
-        });
+        this.createElement(options);
       }
+    }
+  }
+
+  async ngOnInit() {
+    const options = this.stripeElementsService.mergeOptions(this.options, this.containerClass);
+
+    if (this.elementsProvider) {
+      this.elementsSubscription = this.elementsProvider.elements.subscribe((elements) => {
+        this.elements = elements;
+        this.createElement(options);
+        this.state = 'ready';
+      });
+    } else if (this.state === 'notready') {
+      this.state = 'starting';
+
+      this.elements = await lastValueFrom(this.stripeElementsService.elements(this.stripe));
+      this.createElement(options);
+
+      this.state = 'ready';
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.element) {
+      this.element.destroy();
+    }
+    if (this.elementsSubscription) {
+      this.elementsSubscription.unsubscribe();
     }
   }
 
@@ -131,8 +148,16 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
     });
   }
 
-  show() {
+  show(): void {
     this.paymentRequest.show();
+  }
+
+  abort(): void {
+    this.paymentRequest.abort();
+  }
+
+  isShowing(): boolean {
+    return this.paymentRequest.isShowing();
   }
 
   /**
@@ -140,5 +165,41 @@ export class StripePaymentRequestButtonComponent implements OnChanges {
    */
   getButton() {
     return this.element;
+  }
+
+  private async createElement(options: Partial<StripePaymentRequestButtonElementOptions> = {}) {
+    this.paymentRequest = this.stripeElementsService.paymentRequest(this.stripe, this.paymentOptions);
+    this.paymentRequest.on('token', (ev) => this.token.emit(ev));
+    if (this.paymentMethod.observed) this.paymentRequest.on('paymentmethod', (ev) => this.paymentMethod.emit(ev));
+    if (this.source.observed && !this.paymentMethod.observed)
+      this.paymentRequest.on('source', (ev) => this.source.emit(ev));
+    this.paymentRequest.on('cancel', () => this.cancel.emit());
+    this.paymentRequest.on('shippingaddresschange', (ev) => this.shippingaddresschange.emit(ev));
+    this.paymentRequest.on('shippingoptionchange', (ev) => this.shippingoptionchange.emit(ev));
+
+    if (this.element) {
+      this.element.unmount();
+    }
+    this.element = this.elements.create('paymentRequestButton', {
+      paymentRequest: this.paymentRequest,
+      ...options
+    });
+
+    const result = await this.paymentRequest.canMakePayment();
+    if (result) {
+      this.element.on('click', (ev) => this.change.emit(ev));
+      this.element.on('blur', () => this.blur.emit());
+      this.element.on('focus', () => this.focus.emit());
+      this.element.on('ready', () => this.ready.emit());
+
+      this.element.mount(this.stripeElementRef.nativeElement);
+
+      this.load.emit({
+        paymentRequestButton: this.element,
+        paymentRequest: this.paymentRequest
+      });
+    } else {
+      this.notavailable.emit();
+    }
   }
 }

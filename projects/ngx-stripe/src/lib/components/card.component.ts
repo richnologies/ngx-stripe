@@ -10,8 +10,11 @@ import {
   SimpleChanges,
   OnDestroy,
   ContentChild,
-  TemplateRef
+  TemplateRef,
+  Optional,
+  ChangeDetectorRef
 } from '@angular/core';
+import { lastValueFrom, Subscription } from 'rxjs';
 
 import {
   StripeElementsOptions,
@@ -22,8 +25,10 @@ import {
 } from '@stripe/stripe-js';
 
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
+import { StripeElementsDirective } from '../directives/elements.directive';
 
-import { StripeInstance } from '../services/stripe-instance.class';
+import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
+
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
@@ -43,7 +48,7 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
   @Input() containerClass: string;
   @Input() options: Partial<StripeCardElementOptions>;
   @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeInstance;
+  @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeCardElement>();
 
@@ -55,20 +60,24 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
 
   elements: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
+  private elementsSubscription: Subscription;
 
-  constructor(public stripeElementsService: StripeElementsService) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    public stripeElementsService: StripeElementsService,
+    @Optional() private elementsProvider: StripeElementsDirective
+  ) {}
 
   async ngOnChanges(changes: SimpleChanges) {
     this.state = 'starting';
-
-    const options = this.stripeElementsService.mergeOptions(this.options, this.containerClass);
     let updateElements = false;
 
-    if (changes.elementsOptions || changes.stripe || !this.elements) {
-      this.elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
+    if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {
+      this.elements = await lastValueFrom(this.stripeElementsService.elements(this.stripe, this.elementsOptions));
       updateElements = true;
     }
 
+    const options = this.stripeElementsService.mergeOptions(this.options, this.containerClass);
     if (changes.options || changes.containerClass || !this.element || updateElements) {
       if (this.element && !updateElements) {
         this.update(options);
@@ -76,24 +85,30 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
         this.createElement(options);
       }
     }
-
-    this.state = 'ready';
   }
 
   async ngOnInit() {
-    if (this.state === 'notready') {
+    const options = this.stripeElementsService.mergeOptions(this.options, this.containerClass);
+
+    if (this.elementsProvider) {
+      this.elementsSubscription = this.elementsProvider.elements.subscribe((elements) => {
+        this.elements = elements;
+        this.createElement(options);
+      });
+    } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
-      this.createElement();
-
-      this.state = 'ready';
+      this.elements = await lastValueFrom(this.stripeElementsService.elements(this.stripe));
+      this.createElement(options);
     }
   }
 
   ngOnDestroy() {
     if (this.element) {
       this.element.destroy();
+    }
+    if (this.elementsSubscription) {
+      this.elementsSubscription.unsubscribe();
     }
   }
 
@@ -109,6 +124,13 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private createElement(options: Partial<StripeCardElementOptions> = {}) {
+    this.state = 'ready';
+    this.cdr.detectChanges();
+
+    if (this.element) {
+      this.element.unmount();
+    }
+
     this.element = this.elements.create('card', options);
     this.element.on('change', (ev) => this.change.emit(ev));
     this.element.on('blur', () => this.blur.emit());

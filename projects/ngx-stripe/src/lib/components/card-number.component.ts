@@ -107,15 +107,31 @@ export class StripeCardNumberComponent implements OnInit, OnChanges, OnDestroy {
       this.update(options);
     } else if (this.elements && source === 'elements') {
       this.element = this.elements.create('cardNumber', options);
-      this.element.on('change', (ev) => this.change.emit(ev));
-      this.element.on('blur', () => this.blur.emit());
-      this.element.on('focus', () => this.focus.emit());
-      this.element.on('ready', () => this.ready.emit());
-      this.element.on('escape', () => this.escape.emit());
+      this.element.on('change', (ev) => {
+        this.change.emit(ev);
+        this.cardGroup?.change.emit(ev);
+      });
+      this.element.on('blur', () => {
+        this.blur.emit();
+        this.cardGroup?.blur.emit();
+      });
+      this.element.on('focus', () => {
+        this.focus.emit();
+        this.cardGroup?.focus.emit();
+      });
+      this.element.on('ready', () => {
+        this.ready.emit();
+        this.cardGroup?.ready.emit();
+      });
+      this.element.on('escape', () => {
+        this.escape.emit();
+        this.cardGroup?.escape.emit();
+      });
 
       this.element.mount(this.stripeElementRef.nativeElement);
 
       this.load.emit(this.element);
+      this.cardGroup?.load.emit(this.element);
     }
   }
 }
