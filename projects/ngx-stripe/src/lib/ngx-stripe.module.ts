@@ -62,7 +62,7 @@ const components = [
 
 const directives = [StripeCardGroupDirective, StripeElementsDirective, NgxStripeElementLoadingTemplateDirective];
 
-const currentVersion = '15.4.4';
+const currentVersion = '15.5.0';
 
 @NgModule({
   exports: [...components, ...directives],
@@ -98,6 +98,9 @@ export class NgxStripeModule {
     };
   }
 
+  /**
+   * @deprecated
+   */
   public static forChild(
     publishableKey?: string,
     options?: StripeConstructorOptions

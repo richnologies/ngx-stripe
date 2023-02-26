@@ -124,26 +124,9 @@ export class StripeAddressComponent implements OnInit, OnChanges, OnDestroy {
     return this.element.update(options);
   }
 
-  getValue(): Promise<{
-    complete: boolean;
-    isNewAddress: boolean;
-    value: {
-      name: string;
-      firstName?: string;
-      lastName?: string;
-      phone?: string;
-      address: {
-        line1: string;
-        line2: string | null;
-        city: string;
-        state: string;
-        country: string;
-        postal_code: string;
-      };
-    };
-  }> {
+  getValue(): Promise<Pick<StripeAddressElementChangeEvent, 'complete' | 'isNewAddress' | 'value'>> {
     const address = this.elements.getElement('address');
-    return (address as any).getValue();
+    return address.getValue();
   }
 
   /**

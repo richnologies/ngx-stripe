@@ -106,7 +106,11 @@ import {
   FinancialConnectionsSessionResult,
   CollectBankAccountTokenResult,
   EphemeralKeyNonceResult,
-  RadarSessionPayload
+  RadarSessionPayload,
+  ProcessOrderParams,
+  CollectFinancialConnectionsAccountsOptions,
+  CollectBankAccountTokenOptions,
+  EphemeralKeyNonceOptions
 } from '@stripe/stripe-js';
 
 import { STRIPE_PUBLISHABLE_KEY, STRIPE_OPTIONS, NGX_STRIPE_VERSION } from '../interfaces/ngx-stripe.interface';
@@ -116,12 +120,6 @@ import { WindowRef } from './window-ref.service';
 import { LazyStripeAPILoader, LazyStripeAPILoaderStatus } from './api-loader.service';
 
 import { StripeInstance } from './stripe-instance.class';
-import { ProcessOrderParams } from '@stripe/stripe-js/types/stripe-js/orders';
-import {
-  CollectBankAccountTokenOptions,
-  CollectFinancialConnectionsAccountsOptions
-} from '@stripe/stripe-js/types/stripe-js/financial-connections';
-import { EphemeralKeyNonceOptions } from '@stripe/stripe-js/types/stripe-js/ephemeral-keys';
 
 @Injectable()
 export class StripeService implements StripeServiceInterface {
@@ -476,7 +474,7 @@ export class StripeService implements StripeServiceInterface {
   verifyMicrodepositsForSetup(
     clientSecret: string,
     data?: VerifyMicrodepositsForSetupData
-  ): Observable<PaymentIntentResult> {
+  ): Observable<SetupIntentResult> {
     return this.stripe.verifyMicrodepositsForSetup(clientSecret, data);
   }
 
