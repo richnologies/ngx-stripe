@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.4.2 - 2023-03-14
+
+- Removing use of Observable `lastValueFrom` to bring back support for RxJS@6
+
 ## 14.3.2 - 2023-01-31
 
 - Fix type error for `paymentRequest` method -- Round 2
