@@ -99,6 +99,9 @@ export class NgxStripeModule {
     };
   }
 
+  /**
+   * @deprecated
+   */
   public static forChild(
     publishableKey?: string,
     options?: StripeConstructorOptions

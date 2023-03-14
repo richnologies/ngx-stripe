@@ -48,12 +48,10 @@ import {
   CreateTokenCardData,
   CreateTokenPiiData,
   CreateTokenBankAccountData,
-  PaymentIntent,
   PaymentRequest,
   PaymentRequestOptions,
   RedirectToCheckoutOptions,
   RetrieveSourceParam,
-  SetupIntent,
   Stripe,
   StripeCardElement,
   StripeCardNumberElement,
@@ -103,14 +101,12 @@ import {
   RetrieveOrderResult,
   FinancialConnectionsSessionResult,
   CollectBankAccountTokenResult,
-  EphemeralKeyNonceResult
-} from '@stripe/stripe-js';
-import { ProcessOrderParams } from '@stripe/stripe-js/types/stripe-js/orders';
-import {
+  EphemeralKeyNonceResult,
+  ProcessOrderParams,
+  CollectFinancialConnectionsAccountsOptions,
   CollectBankAccountTokenOptions,
-  CollectFinancialConnectionsAccountsOptions
-} from '@stripe/stripe-js/types/stripe-js/financial-connections';
-import { EphemeralKeyNonceOptions } from '@stripe/stripe-js/types/stripe-js/ephemeral-keys';
+  EphemeralKeyNonceOptions
+} from '@stripe/stripe-js';
 
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
 
@@ -603,7 +599,7 @@ export class StripeInstance implements StripeServiceInterface {
   verifyMicrodepositsForSetup(
     clientSecret: string,
     data?: VerifyMicrodepositsForSetupData
-  ): Observable<PaymentIntentResult> {
+  ): Observable<SetupIntentResult> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.verifyMicrodepositsForSetup(clientSecret, data))),
       first()
