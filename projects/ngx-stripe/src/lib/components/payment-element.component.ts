@@ -11,7 +11,7 @@ import {
   Optional,
   OnInit
 } from '@angular/core';
-import { lastValueFrom, Subscription, from } from 'rxjs';
+import { Subscription, from } from 'rxjs';
 
 import {
   Appearance,
@@ -75,13 +75,11 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
       !this.elementsProvider &&
       (changes.elementsOptions || changes.stripe || changes.clientSecret || changes.appearance || !this.elements)
     ) {
-      this.elements = await lastValueFrom(
-        this.stripeElementsService.elements(this.stripe, {
-          ...(this.elementsOptions || {}),
-          ...(this.appearance ? { appearance: this.appearance } : {}),
-          ...(this.clientSecret ? { clientSecret: this.clientSecret } : {})
-        })
-      );
+      this.elements = await this.stripeElementsService.elements(this.stripe, {
+        ...(this.elementsOptions || {}),
+        ...(this.appearance ? { appearance: this.appearance } : {}),
+        ...(this.clientSecret ? { clientSecret: this.clientSecret } : {})
+      }).toPromise();
       updateElements = true;
     }
 
@@ -109,13 +107,11 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await lastValueFrom(
-        this.stripeElementsService.elements(this.stripe, {
-          ...(this.elementsOptions || {}),
-          ...(this.appearance ? { appearance: this.appearance } : {}),
-          ...(this.clientSecret ? { clientSecret: this.clientSecret } : {})
-        })
-      );
+      this.elements = await this.stripeElementsService.elements(this.stripe, {
+        ...(this.elementsOptions || {}),
+        ...(this.appearance ? { appearance: this.appearance } : {}),
+        ...(this.clientSecret ? { clientSecret: this.clientSecret } : {})
+      }).toPromise();
       this.createElement(options);
 
       this.state = 'ready';

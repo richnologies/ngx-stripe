@@ -601,7 +601,7 @@ export class StripeInstance implements StripeServiceInterface {
   verifyMicrodepositsForSetup(
     clientSecret: string,
     data?: VerifyMicrodepositsForSetupData
-  ): Observable<PaymentIntentResult> {
+  ): Observable<SetupIntentResult> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.verifyMicrodepositsForSetup(clientSecret, data))),
       first()

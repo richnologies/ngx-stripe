@@ -13,7 +13,7 @@ import {
   TemplateRef,
   Optional
 } from '@angular/core';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import {
   StripeElementsOptions,
@@ -73,7 +73,7 @@ export class StripeLinkAuthenticationComponent implements OnInit, OnChanges, OnD
     let updateElements = false;
 
     if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {
-      this.elements = await lastValueFrom(this.stripeElementsService.elements(this.stripe, this.elementsOptions));
+      this.elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
       updateElements = true;
     }
 
@@ -99,7 +99,7 @@ export class StripeLinkAuthenticationComponent implements OnInit, OnChanges, OnD
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await lastValueFrom(this.stripeElementsService.elements(this.stripe));
+      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
       this.createElement(options);
 
       this.state = 'ready';

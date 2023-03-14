@@ -1,5 +1,4 @@
 import { Directive, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
 
 import { StripeElements, StripeElementsOptions } from '@stripe/stripe-js';
 
@@ -28,7 +27,7 @@ export class StripeElementsDirective implements OnInit, OnChanges {
     const stripe = this.stripe;
 
     if (changes.elementsOptions || changes.stripe || !this._elements) {
-      this._elements = await lastValueFrom(this.stripeElementsService.elements(stripe, elementsOptions));
+      this._elements = await this.stripeElementsService.elements(stripe, elementsOptions).toPromise();
       this.elements.emit(this._elements);
     }
 
@@ -39,7 +38,7 @@ export class StripeElementsDirective implements OnInit, OnChanges {
     if (this.state === 'notready') {
       this.state = 'starting';
 
-      this._elements = await lastValueFrom(this.stripeElementsService.elements(this.stripe));
+      this._elements = await this.stripeElementsService.elements(this.stripe).toPromise();
       this.elements.emit(this._elements);
 
       this.state = 'ready';

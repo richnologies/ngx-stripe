@@ -476,7 +476,7 @@ export class StripeService implements StripeServiceInterface {
   verifyMicrodepositsForSetup(
     clientSecret: string,
     data?: VerifyMicrodepositsForSetupData
-  ): Observable<PaymentIntentResult> {
+  ): Observable<SetupIntentResult> {
     return this.stripe.verifyMicrodepositsForSetup(clientSecret, data);
   }
 

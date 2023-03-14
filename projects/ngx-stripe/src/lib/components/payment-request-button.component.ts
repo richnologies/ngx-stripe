@@ -11,7 +11,7 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
-import { Observable, from, Subscription, lastValueFrom } from 'rxjs';
+import { Observable, from, Subscription } from 'rxjs';
 
 import {
   StripeElementsOptions,
@@ -82,7 +82,7 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
     let updateElements = false;
 
     if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {
-      const elements = await lastValueFrom(this.stripeElementsService.elements(this.stripe, this.elementsOptions));
+      const elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
       this.elements = elements;
       updateElements = true;
     }
@@ -113,7 +113,7 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await lastValueFrom(this.stripeElementsService.elements(this.stripe));
+      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
       this.createElement(options);
 
       this.state = 'ready';
