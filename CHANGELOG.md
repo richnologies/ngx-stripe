@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.5.1 - 2023-03-14
+
+- Removing use of Observable `lastValueFrom` to bring back support for RxJS@6
+
 ## 15.4.1 - 2023-02-05
 
 - Cleaner implementation for events in `NgxStripeCardGroup`
