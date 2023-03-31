@@ -3,7 +3,7 @@ import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/fo
 import { switchMap } from 'rxjs/operators';
 
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
-import { NgxStripeModule, StripeCardComponent, StripeService } from 'ngx-stripe';
+import { NgxStripeModule, StripeCardComponent, StripeCardCvcComponent, StripeCardExpiryComponent, StripeCardGroupDirective, StripeCardNumberComponent, StripeFactoryService } from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../../core';
 import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
@@ -12,7 +12,16 @@ import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
   selector: 'ngstr-element-components',
   templateUrl: './element-components.component.html',
   standalone: true,
-  imports: [ReactiveFormsModule, NgxStripeModule, DocsElementsModule]
+  imports: [
+    ReactiveFormsModule,
+    NgxStripeModule,
+    DocsElementsModule,
+    StripeCardGroupDirective,
+    StripeCardCvcComponent,
+    StripeCardExpiryComponent,
+    StripeCardNumberComponent,
+    StripeCardComponent
+  ]
 })
 export class NgStrElementComponentsComponent {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
@@ -48,19 +57,20 @@ export class NgStrElementComponentsComponent {
     locale: 'en'
   };
 
+  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
   creatingToken = false;
   paying = false;
 
   constructor(
     private fb: UntypedFormBuilder,
-    private stripeService: StripeService,
-    private plutoService: NgStrPlutoService
+    private plutoService: NgStrPlutoService,
+    private stripeFactory: StripeFactoryService
   ) {}
 
   createToken() {
     const name = this.createTokenForm.get('name').value;
     this.creatingToken = true;
-    this.stripeService.createToken(this.card.element, { name }).subscribe((result) => {
+    this.stripe.createToken(this.card.element, { name }).subscribe((result) => {
       this.creatingToken = false;
       if (result.token) {
         // Use the token
@@ -81,7 +91,7 @@ export class NgStrElementComponentsComponent {
         })
         .pipe(
           switchMap((pi) =>
-            this.stripeService.confirmCardPayment(pi.client_secret, {
+            this.stripe.confirmCardPayment(pi.client_secret, {
               payment_method: {
                 card: this.card.element,
                 billing_details: {

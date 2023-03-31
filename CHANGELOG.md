@@ -1,5 +1,12 @@
 # Changelog
 
+## 15.6.0 - 2023-03-31
+
+- Improve typing with the new `StripeElementsOptions`
+- Add support for `StripeCardElementUpdateOptions` new typing
+- Fix small issue with one docs example
+- Update peer dependencies on `@stripe/stripe-js`
+
 ## 15.5.1 - 2023-03-14
 
 - Removing use of Observable `lastValueFrom` to bring back support for RxJS@6

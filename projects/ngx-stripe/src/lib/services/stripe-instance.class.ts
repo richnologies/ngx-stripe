@@ -48,19 +48,16 @@ import {
   CreateTokenCardData,
   CreateTokenPiiData,
   CreateTokenBankAccountData,
-  PaymentIntent,
   PaymentRequest,
   PaymentRequestOptions,
   RedirectToCheckoutOptions,
   RetrieveSourceParam,
-  SetupIntent,
   Stripe,
   StripeCardElement,
   StripeCardNumberElement,
   StripeCardCvcElement,
   StripeConstructorOptions,
   StripeElements,
-  StripeElementsOptions,
   StripeElement,
   StripeError,
   StripeIbanElement,
@@ -107,7 +104,10 @@ import {
   ProcessOrderParams,
   CollectFinancialConnectionsAccountsOptions,
   CollectBankAccountTokenOptions,
-  EphemeralKeyNonceOptions
+  EphemeralKeyNonceOptions,
+  StripeElementsOptionsClientSecret,
+  StripeElementsOptionsMode,
+  StripeElementsOptions
 } from '@stripe/stripe-js';
 
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
@@ -147,7 +147,10 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe$.getValue() as Stripe;
   }
 
-  elements(options?: StripeElementsOptions): Observable<StripeElements> {
+  elements(options?: StripeElementsOptionsClientSecret): Observable<StripeElements>;
+  elements(options?: StripeElementsOptionsMode): Observable<StripeElements>;
+  elements(options?: StripeElementsOptions): Observable<StripeElements>;
+  elements(options?): Observable<StripeElements> {
     return this.stripe.pipe(
       map((stripe: Stripe) => stripe.elements(options)),
       first()

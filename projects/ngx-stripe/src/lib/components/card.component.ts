@@ -22,7 +22,8 @@ import {
   StripeCardElementOptions,
   StripeCardElement,
   StripeElements,
-  StripeCardElementChangeEvent
+  StripeCardElementChangeEvent,
+  StripeCardElementUpdateOptions
 } from '@stripe/stripe-js';
 
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
@@ -115,7 +116,7 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  update(options: Partial<StripeCardElementOptions>) {
+  update(options: StripeCardElementUpdateOptions) {
     this.element.update(options);
   }
 

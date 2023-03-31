@@ -110,7 +110,9 @@ import {
   ProcessOrderParams,
   CollectFinancialConnectionsAccountsOptions,
   CollectBankAccountTokenOptions,
-  EphemeralKeyNonceOptions
+  EphemeralKeyNonceOptions,
+  StripeElementsOptionsClientSecret,
+  StripeElementsOptionsMode
 } from '@stripe/stripe-js';
 
 import { STRIPE_PUBLISHABLE_KEY, STRIPE_OPTIONS, NGX_STRIPE_VERSION } from '../interfaces/ngx-stripe.interface';
@@ -158,7 +160,10 @@ export class StripeService implements StripeServiceInterface {
     return this.stripe;
   }
 
-  elements(options?: StripeElementsOptions): Observable<StripeElements> {
+  elements(options?: StripeElementsOptionsClientSecret): Observable<StripeElements>;
+  elements(options?: StripeElementsOptionsMode): Observable<StripeElements>;
+  elements(options?: StripeElementsOptions): Observable<StripeElements>;
+  elements(options?): Observable<StripeElements> {
     return this.stripe.elements(options);
   }
 

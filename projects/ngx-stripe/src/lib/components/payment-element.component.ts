@@ -82,7 +82,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
         ...(this.elementsOptions || {}),
         ...(this.appearance ? { appearance: this.appearance } : {}),
         ...(this.clientSecret ? { clientSecret: this.clientSecret } : {})
-      }).toPromise();
+      } as StripeElementsOptions).toPromise();
       updateElements = true;
     }
 
@@ -114,7 +114,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
         ...(this.elementsOptions || {}),
         ...(this.appearance ? { appearance: this.appearance } : {}),
         ...(this.clientSecret ? { clientSecret: this.clientSecret } : {})
-      }).toPromise();
+      } as StripeElementsOptions).toPromise();
       this.createElement(options);
 
       this.state = 'ready';
