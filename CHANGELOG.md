@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.0.0 - 2023-05-04
+
+- Add support for Angular v16
+
 ## 15.6.0 - 2023-03-31
 
 - Improve typing with the new `StripeElementsOptions`
