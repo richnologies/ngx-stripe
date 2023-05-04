@@ -100,9 +100,9 @@ export class NgStrCheckoutComponent {
         private stripeService: StripeService
       ) {}
 
-      checkout() {
+      checkout(priceId) {
         // Check the server.js tab to see an example implementation
-        this.https.post('/create-checkout-session', { priceId })
+        this.http.post('/create-checkout-session', { priceId })
           .pipe(
             switchMap(session => {
               return this.stripeService.redirectToCheckout({ sessionId: session.id })
