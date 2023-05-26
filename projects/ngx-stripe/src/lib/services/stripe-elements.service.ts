@@ -26,7 +26,8 @@ import {
   StripeIssuingCardPinDisplayElementOptions,
   StripeElementsOptionsClientSecret,
   StripeElementsOptionsMode,
-  StripeElementsOptions
+  StripeElementsOptions,
+  StripePaymentMethodMessagingElementOptions
 } from '@stripe/stripe-js';
 
 import { StripeService } from './stripe.service';
@@ -91,6 +92,10 @@ export class StripeElementsService {
     options: StripeIssuingCardPinDisplayElementOptions,
     containerClass: string
   ): StripeIssuingCardPinDisplayElementOptions;
+  mergeOptions(
+    options: StripePaymentMethodMessagingElementOptions,
+    containerClass: string
+  ): StripePaymentMethodMessagingElementOptions;
   mergeOptions(
     options: StripePaymentRequestButtonElementOptions,
     containerClass: string

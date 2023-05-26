@@ -1,5 +1,15 @@
 # Changelog
 
+## 16.1.0 - 2023-05-27
+
+- Payment Method Messaging Element support
+- Add support for Blik Payemnts
+- Add support for Cashapp Payments
+- Add new types for `ConfirmPaymet`
+- Add new types for `createPaymentMethod`
+- Add new types for `confirmSetup`
+- Add support for `handleNextAction`
+
 ## 16.0.0 - 2023-05-04
 
 - Add support for Angular v16

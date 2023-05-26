@@ -38,7 +38,7 @@
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/platform-server": "^16.0.0",
     "@angular/router": "^16.0.0",
-    "@stripe/stripe-js": "^1.52.0",
+    "@stripe/stripe-js": "^1.53.0",
     "highlight.js": "^11.7.0",
     "highlightjs-line-numbers.js": "^2.8.0",
     "ngx-highlightjs": "^7.0.1",

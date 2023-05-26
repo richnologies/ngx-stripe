@@ -190,6 +190,12 @@ export const ROUTES: Routes = [
         data: { title: 'Payment Element' }
       },
       {
+        path: 'examples/payment-method-messaging',
+        loadComponent: () =>
+          import('./examples/payment-method-messaging.component').then((m) => m.PaymentMethodMessagingExampleComponent),
+        data: { title: 'Payment Method Messaging' }
+      },
+      {
         path: 'examples/payment-request-button',
         loadComponent: () =>
           import('./examples/payment-request-button.component').then((m) => m.PaymentRequestButtonExampleComponent),
