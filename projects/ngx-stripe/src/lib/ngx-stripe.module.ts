@@ -22,6 +22,7 @@ import { StripeLinkAuthenticationComponent } from './components/link-authenticat
 import { StripeP24BankComponent } from './components/p24-bank.component';
 import { StripeAuBankAccountComponent } from './components/au-bank-account.component';
 import { StripePaymentElementComponent } from './components/payment-element.component';
+import { StripePaymentMethodMessagingComponent } from './components/payment-method-messaging.component';
 import { StripePaymentRequestButtonComponent } from './components/payment-request-button.component';
 
 import { StripeCardGroupDirective } from './directives/card-group.directive';
@@ -57,12 +58,13 @@ const components = [
   StripeP24BankComponent,
   StripeAuBankAccountComponent,
   StripePaymentElementComponent,
+  StripePaymentMethodMessagingComponent,
   StripePaymentRequestButtonComponent
 ];
 
 const directives = [StripeCardGroupDirective, StripeElementsDirective, NgxStripeElementLoadingTemplateDirective];
 
-const currentVersion = '15.6.0';
+const currentVersion = '15.7.0';
 
 @NgModule({
   exports: [...components, ...directives],

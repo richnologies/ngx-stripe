@@ -22,6 +22,7 @@ export { StripeLinkAuthenticationComponent } from './lib/components/link-authent
 export { StripeP24BankComponent } from './lib/components/p24-bank.component';
 export { StripeAuBankAccountComponent } from './lib/components/au-bank-account.component';
 export { StripePaymentElementComponent } from './lib/components/payment-element.component';
+export { StripePaymentMethodMessagingComponent } from './lib/components/payment-method-messaging.component';
 export { StripePaymentRequestButtonComponent } from './lib/components/payment-request-button.component';
 
 export { StripeCardGroupDirective } from './lib/directives/card-group.directive';

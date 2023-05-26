@@ -104,7 +104,16 @@ import {
   ProcessOrderParams,
   CollectFinancialConnectionsAccountsOptions,
   CollectBankAccountTokenOptions,
-  EphemeralKeyNonceOptions
+  EphemeralKeyNonceOptions,
+  ConfirmBlikPaymentData,
+  ConfirmBlikPaymentOptions,
+  ConfirmCashappPaymentData,
+  ConfirmCashappPaymentOptions,
+  PaymentIntentOrSetupIntentResult,
+  CreatePaymentMethodFromElements,
+  CreatePaymentMethodFromElement,
+  ConfirmCashappSetupData,
+  ConfirmCashappSetupOptions
 } from '@stripe/stripe-js';
 
 export interface StripeServiceInterface {
@@ -117,10 +126,22 @@ export interface StripeServiceInterface {
     redirect: 'if_required';
   }): Observable<PaymentIntentResult>;
   confirmPayment(options: {
+    elements?: StripeElements;
+    clientSecret: string;
+    confirmParams?: Partial<ConfirmPaymentData>;
+    redirect: 'if_required';
+  }): Observable<PaymentIntentResult>;
+  confirmPayment(options: {
     elements: StripeElements;
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
   }): Observable<never | { error: StripeError }>;
+  confirmPayment(options: {
+    elements?: StripeElements;
+    clientSecret: string;
+    confirmParams: ConfirmPaymentData;
+    redirect?: 'always';
+  }): Observable<never | {error: StripeError}>;
   confirmAcssDebitPayment(
     clientSecret: string,
     data?: ConfirmAcssDebitPaymentData,
@@ -144,6 +165,11 @@ export interface StripeServiceInterface {
     data?: ConfirmBancontactPaymentData,
     options?: ConfirmBancontactPaymentOptions
   ): Observable<PaymentIntentResult>;
+  confirmBlikPayment(
+    clientSecret: string,
+    data: ConfirmBlikPaymentData,
+    options?: ConfirmBlikPaymentOptions
+  ): Observable<PaymentIntentResult>;
   confirmBoletoPayment(
     clientSecret: string,
     data?: ConfirmBoletoPaymentData,
@@ -153,6 +179,11 @@ export interface StripeServiceInterface {
     clientSecret: string,
     data?: ConfirmCardPaymentData,
     options?: ConfirmCardPaymentOptions
+  ): Observable<PaymentIntentResult>;
+  confirmCashappPayment(
+    clientSecret: string,
+    data?: ConfirmCashappPaymentData,
+    options?: ConfirmCashappPaymentOptions
   ): Observable<PaymentIntentResult>;
   confirmCustomerBalancePayment(
     clientSecret: string,
@@ -232,6 +263,7 @@ export interface StripeServiceInterface {
     options?: ConfirmWechatPayPaymentOptions
   ): Observable<PaymentIntentResult>;
   handleCardAction(clientSecret: string): Observable<PaymentIntentResult>;
+  handleNextAction(options: { clientSecret: string; }): Observable<PaymentIntentOrSetupIntentResult>;
   verifyMicrodepositsForPayment(
     clientSecret: string,
     data?: VerifyMicrodepositsForPaymentData
@@ -239,9 +271,17 @@ export interface StripeServiceInterface {
   createRadarSession(): Observable<RadarSessionPayload>;
   collectBankAccountForPayment(options: CollectBankAccountForPaymentOptions): Observable<PaymentIntentResult>;
   createPaymentMethod(paymentMethodData: CreatePaymentMethodData): Observable<PaymentMethodResult>;
+  createPaymentMethod(options: CreatePaymentMethodFromElements): Observable<PaymentMethodResult>;
+  createPaymentMethod(options: CreatePaymentMethodFromElement): Observable<PaymentMethodResult>;
   retrievePaymentIntent(clientSecret: string): Observable<PaymentIntentResult>;
   confirmSetup(options: {
     elements: StripeElements;
+    confirmParams?: Partial<ConfirmPaymentData>;
+    redirect: 'if_required';
+  }): Observable<SetupIntentResult>;
+  confirmSetup(options: {
+    elements?: StripeElements;
+    clientSecret: string;
     confirmParams?: Partial<ConfirmPaymentData>;
     redirect: 'if_required';
   }): Observable<SetupIntentResult>;
@@ -250,6 +290,12 @@ export interface StripeServiceInterface {
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
   }): Observable<never | { error: StripeError }>;
+  confirmSetup(options: {
+    elements?: StripeElements;
+    clientSecret: string;
+    confirmParams: ConfirmPaymentData;
+    redirect?: 'always';
+  }): Observable<never | {error: StripeError}>;
   confirmAcssDebitSetup(
     clientSecret: string,
     data?: ConfirmAcssDebitSetupData,
@@ -263,6 +309,11 @@ export interface StripeServiceInterface {
     clientSecret: string,
     data?: ConfirmCardSetupData,
     options?: ConfirmCardSetupOptions
+  ): Observable<SetupIntentResult>;
+  confirmCashappSetup(
+    clientSecret: string,
+    data?: ConfirmCashappSetupData,
+    options?: ConfirmCashappSetupOptions
   ): Observable<SetupIntentResult>;
   confirmIdealSetup(clientSecret: string, data?: ConfirmIdealSetupData): Observable<SetupIntentResult>;
   confirmPayPalSetup(clientSecret: string, data?: ConfirmPayPalSetupData): Observable<SetupIntentResult>;

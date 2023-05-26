@@ -1,5 +1,15 @@
 # Changelog
 
+## 15.7.0 - 2023-06-01
+
+- Payment Method Messaging Element support
+- Add support for Blik Payemnts
+- Add support for Cashapp Payments
+- Add new types for `ConfirmPaymet`
+- Add new types for `createPaymentMethod`
+- Add new types for `confirmSetup`
+- Add support for `handleNextAction`
+
 ## 15.6.0 - 2023-03-31
 
 - Improve typing with the new `StripeElementsOptions`
