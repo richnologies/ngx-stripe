@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.7.1 - 2023-06-02
+
+- Update stripe peer dependency to `1.54.0`
+
 ## 15.7.0 - 2023-06-01
 
 - Payment Method Messaging Element support
