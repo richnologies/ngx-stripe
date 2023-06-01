@@ -9,7 +9,6 @@ import {
   StripeCardNumberElementOptions,
   StripeCardExpiryElementOptions,
   StripeElements,
-  StripeElementsOptions,
   StripeFpxBankElementOptions,
   StripeIbanElementOptions,
   StripeIdealBankElementOptions,
@@ -24,7 +23,11 @@ import {
   StripeIssuingCardNumberDisplayElementOptions,
   StripeIssuingCardCvcDisplayElementOptions,
   StripeIssuingCardExpiryDisplayElementOptions,
-  StripeIssuingCardPinDisplayElementOptions
+  StripeIssuingCardPinDisplayElementOptions,
+  StripeElementsOptionsClientSecret,
+  StripeElementsOptionsMode,
+  StripeElementsOptions,
+  StripePaymentMethodMessagingElementOptions
 } from '@stripe/stripe-js';
 
 import { StripeService } from './stripe.service';
@@ -33,7 +36,10 @@ import { StripeService } from './stripe.service';
 export class StripeElementsService {
   constructor(private stripeService: StripeService) {}
 
-  elements(stripe, options: StripeElementsOptions = {}): Observable<StripeElements> {
+  elements(stripe, options?: StripeElementsOptionsClientSecret): Observable<StripeElements>;
+  elements(stripe, options?: StripeElementsOptionsMode): Observable<StripeElements>;
+  elements(stripe, options?: StripeElementsOptions): Observable<StripeElements>;
+  elements(stripe, options = {}): Observable<StripeElements> {
     if (stripe) {
       if (Object.keys(options).length > 0) {
         return stripe.elements(options);
@@ -86,6 +92,10 @@ export class StripeElementsService {
     options: StripeIssuingCardPinDisplayElementOptions,
     containerClass: string
   ): StripeIssuingCardPinDisplayElementOptions;
+  mergeOptions(
+    options: StripePaymentMethodMessagingElementOptions,
+    containerClass: string
+  ): StripePaymentMethodMessagingElementOptions;
   mergeOptions(
     options: StripePaymentRequestButtonElementOptions,
     containerClass: string

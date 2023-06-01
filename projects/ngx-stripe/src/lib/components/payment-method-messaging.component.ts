@@ -11,18 +11,15 @@ import {
   OnDestroy,
   ContentChild,
   TemplateRef,
-  Optional,
-  ChangeDetectorRef
+  Optional
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import {
   StripeElementsOptions,
-  StripeCardElementOptions,
-  StripeCardElement,
   StripeElements,
-  StripeCardElementChangeEvent,
-  StripeCardElementUpdateOptions
+  StripePaymentMethodMessagingElement,
+  StripePaymentMethodMessagingElementOptions
 } from '@stripe/stripe-js';
 
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
@@ -33,38 +30,32 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
-  selector: 'ngx-stripe-card',
+  selector: 'ngx-stripe-payment-method-messaging',
   template: `
     <div class="field" #stripeElementRef>
       <ng-container *ngIf="state !== 'ready' && loadingTemplate" [ngTemplateOutlet]="loadingTemplate"></ng-container>
     </div>
   `
 })
-export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
+export class StripePaymentMethodMessagingComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })
   loadingTemplate?: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
-  element!: StripeCardElement;
+  element!: StripePaymentMethodMessagingElement;
 
   @Input() containerClass: string;
-  @Input() options: Partial<StripeCardElementOptions>;
+  @Input() options: StripePaymentMethodMessagingElementOptions;
   @Input() elementsOptions: Partial<StripeElementsOptions>;
   @Input() stripe: StripeServiceInterface;
 
-  @Output() load = new EventEmitter<StripeCardElement>();
-
-  @Output() blur = new EventEmitter<void>();
-  @Output() change = new EventEmitter<StripeCardElementChangeEvent>();
-  @Output() focus = new EventEmitter<void>();
+  @Output() load = new EventEmitter<StripePaymentMethodMessagingElement>();
   @Output() ready = new EventEmitter<void>();
-  @Output() escape = new EventEmitter<void>();
 
   elements: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
   private elementsSubscription: Subscription;
 
   constructor(
-    private cdr: ChangeDetectorRef,
     public stripeElementsService: StripeElementsService,
     @Optional() private elementsProvider: StripeElementsDirective
   ) {}
@@ -86,6 +77,8 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
         this.createElement(options);
       }
     }
+
+    this.state = 'ready';
   }
 
   async ngOnInit() {
@@ -95,12 +88,15 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
       this.elementsSubscription = this.elementsProvider.elements.subscribe((elements) => {
         this.elements = elements;
         this.createElement(options);
+        this.state = 'ready';
       });
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
       this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
       this.createElement(options);
+
+      this.state = 'ready';
     }
   }
 
@@ -113,31 +109,24 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  update(options: StripeCardElementUpdateOptions) {
+  update(options: Partial<StripePaymentMethodMessagingElementOptions>) {
     this.element.update(options);
   }
 
   /**
    * @deprecated
    */
-  getCard() {
+  getPaymentMethodMessaging() {
     return this.element;
   }
 
-  private createElement(options: Partial<StripeCardElementOptions> = {}) {
-    this.state = 'ready';
-    this.cdr.detectChanges();
-
+  private createElement(options: StripePaymentMethodMessagingElementOptions) {
     if (this.element) {
       this.element.unmount();
     }
 
-    this.element = this.elements.create('card', options);
-    this.element.on('change', (ev) => this.change.emit(ev));
-    this.element.on('blur', () => this.blur.emit());
-    this.element.on('focus', () => this.focus.emit());
+    this.element = this.elements.create('paymentMethodMessaging', options);
     this.element.on('ready', () => this.ready.emit());
-    this.element.on('escape', () => this.escape.emit());
 
     this.element.mount(this.stripeElementRef.nativeElement);
 

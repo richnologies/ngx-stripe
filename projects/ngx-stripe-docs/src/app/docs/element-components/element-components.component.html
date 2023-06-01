@@ -119,7 +119,7 @@
       <div class="my-1">
         <label for="name" class="block text-sm font-medium text-gray-700"> Credit Card </label>
         <div class="mt-1 bg-white border border-gray-300 rounded-md px-3 py-2">
-          <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+          <ngx-stripe-card [stripe]="stripe" [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
         </div>
       </div>
       <button
@@ -138,7 +138,7 @@
       [formGroup]="createTokenForm"
     >
       <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Card Group Example</h2>
-      <ngx-stripe-card-group [formGroup]="cardGroupForm" [elementsOptions]="elementsOptions">
+      <ngx-stripe-card-group [formGroup]="cardGroupForm" [stripe]="stripe" [elementsOptions]="elementsOptions">
         <div class="my-1">
           <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
           <div class="mt-1">
