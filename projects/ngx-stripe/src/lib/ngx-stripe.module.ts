@@ -14,10 +14,15 @@ import { StripeEpsBankComponent } from './components/eps-bank.component';
 import { StripeFpxBankComponent } from './components/fpx-bank.component';
 import { StripeIbanComponent } from './components/iban.component';
 import { StripeIdealBankComponent } from './components/ideal-bank.component';
+import { StripeIssuingCardCvcDisplayComponent } from './components/issuing-card-cvc.component';
+import { StripeIssuingCardExpiryDisplayComponent } from './components/issuing-card-expiry.component';
+import { StripeIssuingCardNumberDisplayComponent } from './components/issuing-card-number.component';
+import { StripeIssuingCardPinDisplayComponent } from './components/issuing-card-pin.component';
 import { StripeLinkAuthenticationComponent } from './components/link-authentication.component';
 import { StripeP24BankComponent } from './components/p24-bank.component';
 import { StripeAuBankAccountComponent } from './components/au-bank-account.component';
 import { StripePaymentElementComponent } from './components/payment-element.component';
+import { StripePaymentMethodMessagingComponent } from './components/payment-method-messaging.component';
 import { StripePaymentRequestButtonComponent } from './components/payment-request-button.component';
 
 import { StripeCardGroupDirective } from './directives/card-group.directive';
@@ -45,16 +50,21 @@ const components = [
   StripeFpxBankComponent,
   StripeIbanComponent,
   StripeIdealBankComponent,
+  StripeIssuingCardCvcDisplayComponent,
+  StripeIssuingCardExpiryDisplayComponent,
+  StripeIssuingCardNumberDisplayComponent,
+  StripeIssuingCardPinDisplayComponent,
   StripeLinkAuthenticationComponent,
   StripeP24BankComponent,
   StripeAuBankAccountComponent,
   StripePaymentElementComponent,
+  StripePaymentMethodMessagingComponent,
   StripePaymentRequestButtonComponent
 ];
 
 const directives = [StripeCardGroupDirective, StripeElementsDirective, NgxStripeElementLoadingTemplateDirective];
 
-const currentVersion = '13.3.1';
+const currentVersion = '13.4.0';
 
 @NgModule({
   declarations: [...components, ...directives],

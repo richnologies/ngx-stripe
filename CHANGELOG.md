@@ -1,5 +1,15 @@
 # Changelog
 
+## 13.4.0 - 2023-06-04
+
+- Payment Method Messaging Element support
+- Add support for Blik Payemnts
+- Add support for Cashapp Payments
+- Add new types for ConfirmPaymet
+- Add new types for createPaymentMethod
+- Add new types for confirmSetup
+- Add support for handleNextAction
+
 ## 13.2.1 - 2022-05-17
 
 - Fixing mess with versions :(

@@ -58,7 +58,6 @@ import {
   StripeCardCvcElement,
   StripeConstructorOptions,
   StripeElements,
-  StripeElementsOptions,
   StripeElement,
   StripeError,
   StripeIbanElement,
@@ -101,14 +100,24 @@ import {
   RetrieveOrderResult,
   FinancialConnectionsSessionResult,
   CollectBankAccountTokenResult,
-  EphemeralKeyNonceResult
-} from '@stripe/stripe-js';
-import { ProcessOrderParams } from '@stripe/stripe-js/types/stripe-js/orders';
-import {
+  EphemeralKeyNonceResult,
+  ProcessOrderParams,
+  CollectFinancialConnectionsAccountsOptions,
   CollectBankAccountTokenOptions,
-  CollectFinancialConnectionsAccountsOptions
-} from '@stripe/stripe-js/types/stripe-js/financial-connections';
-import { EphemeralKeyNonceOptions } from '@stripe/stripe-js/types/stripe-js/ephemeral-keys';
+  EphemeralKeyNonceOptions,
+  StripeElementsOptionsClientSecret,
+  StripeElementsOptionsMode,
+  StripeElementsOptions,
+  ConfirmBlikPaymentData,
+  ConfirmBlikPaymentOptions,
+  ConfirmCashappPaymentData,
+  ConfirmCashappPaymentOptions,
+  PaymentIntentOrSetupIntentResult,
+  CreatePaymentMethodFromElements,
+  CreatePaymentMethodFromElement,
+  ConfirmCashappSetupData,
+  ConfirmCashappSetupOptions
+} from '@stripe/stripe-js';
 
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
 
@@ -147,7 +156,10 @@ export class StripeInstance implements StripeServiceInterface {
     return this.stripe$.getValue() as Stripe;
   }
 
-  elements(options?: StripeElementsOptions): Observable<StripeElements> {
+  elements(options?: StripeElementsOptionsClientSecret): Observable<StripeElements>;
+  elements(options?: StripeElementsOptionsMode): Observable<StripeElements>;
+  elements(options?: StripeElementsOptions): Observable<StripeElements>;
+  elements(options?): Observable<StripeElements> {
     return this.stripe.pipe(
       map((stripe: Stripe) => stripe.elements(options)),
       first()
@@ -167,10 +179,22 @@ export class StripeInstance implements StripeServiceInterface {
     redirect: 'if_required';
   }): Observable<PaymentIntentResult>;
   confirmPayment(options: {
+    elements?: StripeElements;
+    clientSecret: string;
+    confirmParams?: Partial<ConfirmPaymentData>;
+    redirect: 'if_required';
+  }): Observable<PaymentIntentResult>;
+  confirmPayment(options: {
     elements: StripeElements;
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
   }): Observable<never | { error: StripeError }>;
+  confirmPayment(options: {
+    elements?: StripeElements;
+    clientSecret: string;
+    confirmParams: ConfirmPaymentData;
+    redirect?: 'always';
+  }): Observable<never | {error: StripeError}>;
   confirmPayment(options) {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.confirmPayment(options))),
@@ -231,6 +255,17 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  confirmBlikPayment(
+    clientSecret: string,
+    data?: ConfirmBlikPaymentData,
+    options?: ConfirmBlikPaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.confirmBlikPayment(clientSecret, data, options))),
+      first()
+    );
+  }
+
   confirmBoletoPayment(
     clientSecret: string,
     data?: ConfirmBoletoPaymentData,
@@ -249,6 +284,17 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<PaymentIntentResult> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.confirmCardPayment(clientSecret, data, options))),
+      first()
+    );
+  }
+
+  confirmCashappPayment(
+    clientSecret: string,
+    data?: ConfirmCashappPaymentData,
+    options?: ConfirmCashappPaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.confirmCashappPayment(clientSecret, data, options))),
       first()
     );
   }
@@ -439,6 +485,13 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  handleNextAction(options: { clientSecret: string; }): Observable<PaymentIntentOrSetupIntentResult> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.handleNextAction(options))),
+      first()
+    );
+  }
+
   verifyMicrodepositsForPayment(
     clientSecret: string,
     data?: VerifyMicrodepositsForPaymentData
@@ -463,9 +516,12 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
-  createPaymentMethod(paymentMethodData: CreatePaymentMethodData): Observable<PaymentMethodResult> {
+  createPaymentMethod(paymentMethodData: CreatePaymentMethodData): Observable<PaymentMethodResult>;
+  createPaymentMethod(options: CreatePaymentMethodFromElements): Observable<PaymentMethodResult>;
+  createPaymentMethod(options: CreatePaymentMethodFromElement): Observable<PaymentMethodResult>;
+  createPaymentMethod(options) {
     return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.createPaymentMethod(paymentMethodData))),
+      switchMap((stripe) => from(stripe.createPaymentMethod(options))),
       first()
     );
   }
@@ -483,10 +539,22 @@ export class StripeInstance implements StripeServiceInterface {
     redirect: 'if_required';
   }): Observable<SetupIntentResult>;
   confirmSetup(options: {
+    elements?: StripeElements;
+    clientSecret: string;
+    confirmParams?: Partial<ConfirmPaymentData>;
+    redirect: 'if_required';
+  }): Observable<SetupIntentResult>;
+  confirmSetup(options: {
     elements: StripeElements;
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
   }): Observable<never | { error: StripeError }>;
+  confirmSetup(options: {
+    elements?: StripeElements;
+    clientSecret: string;
+    confirmParams: ConfirmPaymentData;
+    redirect?: 'always';
+  }): Observable<never | {error: StripeError}>;
   confirmSetup(options) {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.confirmSetup(options))),
@@ -540,6 +608,17 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<SetupIntentResult> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.confirmCardSetup(clientSecret, data, options))),
+      first()
+    );
+  }
+
+  confirmCashappSetup(
+    clientSecret: string,
+    data?: ConfirmCashappSetupData,
+    options?: ConfirmCashappSetupOptions
+  ): Observable<SetupIntentResult> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.confirmCashappSetup(clientSecret, data, options))),
       first()
     );
   }

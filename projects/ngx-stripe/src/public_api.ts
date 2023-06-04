@@ -14,10 +14,15 @@ export { StripeEpsBankComponent } from './lib/components/eps-bank.component';
 export { StripeFpxBankComponent } from './lib/components/fpx-bank.component';
 export { StripeIbanComponent } from './lib/components/iban.component';
 export { StripeIdealBankComponent } from './lib/components/ideal-bank.component';
+export { StripeIssuingCardCvcDisplayComponent } from './lib/components/issuing-card-cvc.component';
+export { StripeIssuingCardExpiryDisplayComponent } from './lib/components/issuing-card-expiry.component';
+export { StripeIssuingCardNumberDisplayComponent } from './lib/components/issuing-card-number.component';
+export { StripeIssuingCardPinDisplayComponent } from './lib/components/issuing-card-pin.component';
 export { StripeLinkAuthenticationComponent } from './lib/components/link-authentication.component';
 export { StripeP24BankComponent } from './lib/components/p24-bank.component';
 export { StripeAuBankAccountComponent } from './lib/components/au-bank-account.component';
 export { StripePaymentElementComponent } from './lib/components/payment-element.component';
+export { StripePaymentMethodMessagingComponent } from './lib/components/payment-method-messaging.component';
 export { StripePaymentRequestButtonComponent } from './lib/components/payment-request-button.component';
 
 export { StripeCardGroupDirective } from './lib/directives/card-group.directive';
