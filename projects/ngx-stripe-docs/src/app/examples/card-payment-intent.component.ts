@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
-import { StripeCardComponent, StripeFactoryService, NgxStripeModule } from 'ngx-stripe';
+import { StripeCardComponent, StripeFactoryService } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -26,7 +26,7 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [ReactiveFormsModule, NgxStripeModule]
+  imports: [ReactiveFormsModule, StripeCardComponent]
 })
 export class CardPaymentIntentExampleComponent {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;

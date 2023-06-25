@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { NgxStripeModule, StripeFactoryService } from 'ngx-stripe';
+import { StripeFactoryService } from 'ngx-stripe';
 import { NgStrPlutoService } from '../core';
 
 @Component({
@@ -19,7 +19,7 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [ReactiveFormsModule, NgxStripeModule]
+  imports: [ReactiveFormsModule]
 })
 export class VerifyMicrodepositsExampleComponent {
   stripe = this.stripeFactory.create(this.plutoService.KEYS.usa);

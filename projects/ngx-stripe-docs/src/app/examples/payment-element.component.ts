@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { StripePaymentElementComponent, NgxStripeModule, StripeFactoryService } from 'ngx-stripe';
+import { StripePaymentElementComponent, StripeFactoryService } from 'ngx-stripe';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -26,7 +26,7 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgxStripeModule]
+  imports: [CommonModule, ReactiveFormsModule, StripePaymentElementComponent]
 })
 export class PaymentElementExampleComponent implements OnInit {
   @ViewChild(StripePaymentElementComponent)
