@@ -5,7 +5,7 @@ import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HighlightModule, HighlightOptions, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
-import { provideStripe } from 'ngx-stripe';
+import { provideNgxStripe } from 'ngx-stripe';
 import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app/app.component';
 import { ROUTES } from './app/app.routing';
@@ -21,7 +21,7 @@ if (environment.production) {
 function bootstrap() {
   bootstrapApplication(AppComponent, {
     providers: [
-      provideStripe(),
+      provideNgxStripe(),
       importProvidersFrom(
         BrowserModule.withServerTransition({ appId: 'serverApp' }),
         HttpClientModule,

@@ -66,7 +66,7 @@ const directives = [StripeCardGroupDirective, StripeElementsDirective, NgxStripe
 
 const currentVersion = '16.1.1';
 
-function _provideStripe(publishableKey?: string, options?: StripeConstructorOptions) {
+function _provideNgxStripe(publishableKey?: string, options?: StripeConstructorOptions) {
   return [
     LazyStripeAPILoader,
     StripeService,
@@ -98,12 +98,12 @@ function _provideStripe(publishableKey?: string, options?: StripeConstructorOpti
  *
  * ```ts
  * bootstrapApplication(AppComponent, {
- *   providers: [provideStripe(STRIPE_KEY)],
+ *   providers: [provideNgxStripe(STRIPE_KEY)],
  * });
  * ```
  */
-export function provideStripe(publishableKey?: string, options?: StripeConstructorOptions): EnvironmentProviders {
-  return makeEnvironmentProviders([..._provideStripe(publishableKey, options)]);
+export function provideNgxStripe(publishableKey?: string, options?: StripeConstructorOptions): EnvironmentProviders {
+  return makeEnvironmentProviders([..._provideNgxStripe(publishableKey, options)]);
 }
 
 @NgModule({
@@ -117,7 +117,7 @@ export class NgxStripeModule {
   ): ModuleWithProviders<NgxStripeModule> {
     return {
       ngModule: NgxStripeModule,
-      providers: [..._provideStripe(publishableKey, options)]
+      providers: [..._provideNgxStripe(publishableKey, options)]
     };
   }
 
@@ -130,7 +130,7 @@ export class NgxStripeModule {
   ): ModuleWithProviders<NgxStripeModule> {
     return {
       ngModule: NgxStripeModule,
-      providers: [..._provideStripe(publishableKey, options)]
+      providers: [..._provideNgxStripe(publishableKey, options)]
     };
   }
 }

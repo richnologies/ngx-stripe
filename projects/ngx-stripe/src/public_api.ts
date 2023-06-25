@@ -1,7 +1,7 @@
 /*
  * Public API Surface of ngx-stripe
  */
-export { NgxStripeModule, provideStripe } from './lib/ngx-stripe.module';
+export { NgxStripeModule, provideNgxStripe } from './lib/ngx-stripe.module';
 
 export { StripeAddressComponent } from './lib/components/address.component';
 export { StripeAffirmMessageComponent } from './lib/components/affirm-message.component';

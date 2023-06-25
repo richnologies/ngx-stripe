@@ -30,10 +30,10 @@ export class NgStrSetupApplicationComponent {
     export class AppModule { }
   `;
   appConfig = `
-    import { provideStripe } from 'ngx-stripe';
+    import { provideNgxStripe } from 'ngx-stripe';
 
     bootstrapApplication(AppComponent, {
-      providers: [provideStripe('***your-stripe-publishable-key***')]
+      providers: [provideNgxStripe('***your-stripe-publishable-key***')]
     });
   `;
   options = `options?: { stripeAccount?: string; }`;
