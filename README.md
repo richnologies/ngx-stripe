@@ -115,6 +115,16 @@ import { NgxStripeModule } from 'ngx-stripe';
 export class AppModule {}
 ```
 
+or using the provider function on bootstrap app config
+
+```ts
+import { provideNgxStripe } from 'ngx-stripe';
+
+bootstrapApplication(AppComponent, {
+  providers: [provideNgxStripe('***your-stripe-publishable-key***')]
+});
+```
+
 ## Card Element Component
 
 Once the module has been imported, you can collect credit card details using the ngx-stripe-card component.

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 
 import { PaymentRequestPaymentMethodEvent, PaymentRequestShippingAddressEvent } from '@stripe/stripe-js';
-import { NgxStripeModule, StripeFactoryService } from 'ngx-stripe';
+import { StripeFactoryService, StripePaymentRequestButtonComponent } from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../../core';
 import { of } from 'rxjs';
@@ -12,7 +12,7 @@ import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
   selector: 'ngstr-payment-request-button',
   templateUrl: './payment-request-button.component.html',
   standalone: true,
-  imports: [NgxStripeModule, DocsElementsModule]
+  imports: [DocsElementsModule, StripePaymentRequestButtonComponent]
 })
 export class NgStrPaymentRequestButtonComponent {
   stripe = this.stripeFactory.create(this.plutoService.KEYS.main);

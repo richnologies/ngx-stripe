@@ -4,9 +4,9 @@ import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/fo
 
 import {
   StripePaymentElementComponent,
-  NgxStripeModule,
   StripeFactoryService,
-  StripeAddressComponent
+  StripeAddressComponent,
+  StripeElementsDirective
 } from 'ngx-stripe';
 import { StripeAddressElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
@@ -39,7 +39,13 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgxStripeModule]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    StripeAddressComponent,
+    StripePaymentElementComponent,
+    StripeElementsDirective
+  ]
 })
 export class AddressElementExampleComponent implements OnInit, AfterViewInit {
   @ViewChild(StripeAddressComponent) addressElement: StripeAddressComponent;

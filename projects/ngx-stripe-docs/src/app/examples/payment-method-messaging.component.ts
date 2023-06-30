@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NgxStripeModule, StripeFactoryService } from 'ngx-stripe';
+import { StripeElementsDirective, StripeFactoryService, StripePaymentMethodMessagingComponent } from 'ngx-stripe';
 import { StripeElementsOptions, StripePaymentMethodMessagingElementOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -23,7 +23,7 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [NgxStripeModule]
+  imports: [StripePaymentMethodMessagingComponent, StripeElementsDirective]
 })
 export class PaymentMethodMessagingExampleComponent {
   stripe = this.stripeFactory.create(this.plutoService.KEYS.main);

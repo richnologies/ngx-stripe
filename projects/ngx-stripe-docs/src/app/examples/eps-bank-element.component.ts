@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 
-import { NgxStripeModule, StripeFactoryService } from 'ngx-stripe';
+import { StripeElementsDirective, StripeEpsBankComponent, StripeFactoryService } from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../core';
 
@@ -23,7 +23,7 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [NgxStripeModule]
+  imports: [StripeEpsBankComponent, StripeElementsDirective]
 })
 export class EpsBankExampleComponent {
   stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
