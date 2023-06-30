@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.1.2 - 2023-06-30
+
+- Update stripe peer dependency to `1.54.1`
+
 ## 16.1.1 - 2023-06-02
 
 - Update stripe peer dependency to `1.54.0`
