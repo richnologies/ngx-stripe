@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
 import { StripePaymentElementComponent, NgxStripeModule, StripeFactoryService } from 'ngx-stripe';
-import { StripeElementsOptions } from '@stripe/stripe-js';
+import { StripeElementsOptions, StripePaymentElementOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../../core';
 import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
@@ -28,7 +28,19 @@ export class NgStrPaymentElementComponent implements OnInit {
   });
 
   elementsOptions: StripeElementsOptions = {
-    locale: 'en'
+    locale: 'en',
+     appearance: {
+      theme: 'flat',
+    },
+  };
+
+  paymentElementOptions: StripePaymentElementOptions = {
+    layout: {
+      type: 'tabs',
+      defaultCollapsed: false,
+      radios: false,
+      spacedAccordionItems: false
+    }
   };
 
   stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
@@ -111,7 +123,11 @@ export class NgStrPaymentElementComponent implements OnInit {
     import { HttpClient } from '@angular/common/http';
     import { Observable } from 'rxjs';
 
-    import { StripeService, StripePaymentElementComponent } from 'ngx-stripe';
+    import { 
+      StripeService, 
+      StripePaymentElementComponent, 
+      StripeElementsOptions, 
+      StripePaymentElementOptions } from 'ngx-stripe';
     import {
       StripeElementsOptions,
       PaymentIntent
@@ -135,7 +151,19 @@ export class NgStrPaymentElementComponent implements OnInit {
       });
 
       elementsOptions: StripeElementsOptions = {
-        locale: 'en'
+        locale: 'en',
+        appearance: {
+          theme: 'flat',
+        },
+      };
+
+      paymentElementOptions: StripePaymentElementOptions = {
+        layout: {
+          type: 'tabs',
+          defaultCollapsed: false,
+          radios: false,
+          spacedAccordionItems: false
+        }
       };
 
       paying = false;
@@ -217,7 +245,7 @@ export class NgStrPaymentElementComponent implements OnInit {
         <input matInput placeholder="city" formControlName="city" />
       </mat-form-field>
       <ng-container *ngIf="elementsOptions?.clientSecret as clientSecret">
-        <ngx-stripe-payment [clientSecret]="clientSecret">
+        <ngx-stripe-payment [clientSecret]="clientSecret" [options]="paymentElementOptions" [elementsOptions]="elementsOptions">
         </ngx-stripe-payment>
       </ng-container>
       <button (click)="pay()">PAY</button>

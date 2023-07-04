@@ -11,15 +11,15 @@
       payments experience.
     </p>
     <p>
-      If you want more information about what the Payment Element and how to use it, you can visit official Stripe
+      If you want more information about what the Payment Element is and how to use it, you can visit the official Stripe
       <ngstr-link url="https://stripe.com/docs/payments/payment-element">docs</ngstr-link>.
     </p>
     <p>
-      In this guide we are going to focus on how to use the Payment Element with Angular using ngx-stripe As we any
+      In this guide we are going to focus on how to use the Payment Element with Angular using ngx-stripe. As with any
       other Stripe Element,
-      <ngstr-highlight>ngx-stripe</ngstr-highlight> tries to provide a similar API. Here as an example on how to
-      collection card payments using the
-      <ngstr-highlight>Payment Element</ngstr-highlight>
+      <ngstr-highlight>ngx-stripe</ngstr-highlight> tries to provide a similar API. Here is an example on how to
+      perform card payments collection using the
+      <ngstr-highlight>Payment Element</ngstr-highlight>.
     </p>
     <ngstr-subheader subheader="Usage" link="usage"></ngstr-subheader>
     <ngstr-code-group>
@@ -91,8 +91,8 @@
             </div>
           </div>
           <ng-container *ngIf="elementsOptions?.clientSecret as clientSecret">
-            <ngx-stripe-payment [stripe]="stripe" [clientSecret]="clientSecret"></ngx-stripe-payment>
-          </ng-container>
+            <ngx-stripe-payment [stripe]="stripe" [clientSecret]="clientSecret" [options]="paymentElementOptions"  [elementsOptions]="elementsOptions"></ngx-stripe-payment>
+          </ng-container> 
           <button
             type="button"
             (click)="pay()"
