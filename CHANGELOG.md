@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.2.0 - 2023-07-17
+
+- Adding `provideNgxStripe` method for Standalone Applications
+
 ## 16.1.2 - 2023-06-30
 
 - Update stripe peer dependency to `1.54.1`

@@ -64,7 +64,7 @@ const components = [
 
 const directives = [StripeCardGroupDirective, StripeElementsDirective, NgxStripeElementLoadingTemplateDirective];
 
-const currentVersion = '16.1.2';
+const currentVersion = '16.2.0';
 
 function _provideNgxStripe(publishableKey?: string, options?: StripeConstructorOptions) {
   return [
