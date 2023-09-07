@@ -21,7 +21,7 @@ if (environment.production) {
 function bootstrap() {
   bootstrapApplication(AppComponent, {
     providers: [
-      provideNgxStripe(),
+      provideNgxStripe('pk_test_51Ii5RpH2XTJohkGafOSn3aoFFDjfCE4G9jmW48Byd8OS0u2707YHusT5PojHOwWAys9HbvNylw7qDk0KkMZomdG600TJYNYj20'),
       importProvidersFrom(
         BrowserModule.withServerTransition({ appId: 'serverApp' }),
         HttpClientModule,

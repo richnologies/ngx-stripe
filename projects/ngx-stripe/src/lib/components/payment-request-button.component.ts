@@ -75,6 +75,7 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
   elements: StripeElements;
   private state: 'notready' | 'starting' | 'ready' = 'notready';
   private elementsSubscription: Subscription;
+  private creatingElement = false;
 
   constructor(
     public stripeElementsService: StripeElementsService,
@@ -171,38 +172,55 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
   }
 
   private async createElement(options: Partial<StripePaymentRequestButtonElementOptions> = {}) {
-    this.paymentRequest = this.stripeElementsService.paymentRequest(this.stripe, this.paymentOptions);
-    this.paymentRequest.on('token', (ev) => this.token.emit(ev));
-    if (this.paymentMethod.observed) this.paymentRequest.on('paymentmethod', (ev) => this.paymentMethod.emit(ev));
-    if (this.source.observed && !this.paymentMethod.observed)
-      this.paymentRequest.on('source', (ev) => this.source.emit(ev));
-    this.paymentRequest.on('cancel', () => this.cancel.emit());
-    this.paymentRequest.on('shippingaddresschange', (ev) => this.shippingaddresschange.emit(ev));
-    this.paymentRequest.on('shippingoptionchange', (ev) => this.shippingoptionchange.emit(ev));
-
-    if (this.element) {
-      this.element.unmount();
+    console.log(options);
+    if (this.creatingElement) {
+      console.log('Already Creating... Skipping');
+      return;
     }
-    this.element = this.elements.create('paymentRequestButton', {
-      paymentRequest: this.paymentRequest,
-      ...options
-    });
+    this.creatingElement = true;
 
-    const result = await this.paymentRequest.canMakePayment();
-    if (result) {
-      this.element.on('click', (ev) => this.change.emit(ev));
-      this.element.on('blur', () => this.blur.emit());
-      this.element.on('focus', () => this.focus.emit());
-      this.element.on('ready', () => this.ready.emit());
-
-      this.element.mount(this.stripeElementRef.nativeElement);
-
-      this.load.emit({
-        paymentRequestButton: this.element,
-        paymentRequest: this.paymentRequest
+    try {
+      this.paymentRequest = this.stripeElementsService.paymentRequest(this.stripe, this.paymentOptions);
+      this.paymentRequest.on('token', (ev) => this.token.emit(ev));
+      if (this.paymentMethod.observed) this.paymentRequest.on('paymentmethod', (ev) => this.paymentMethod.emit(ev));
+      if (this.source.observed && !this.paymentMethod.observed)
+        this.paymentRequest.on('source', (ev) => this.source.emit(ev));
+      this.paymentRequest.on('cancel', () => this.cancel.emit());
+      this.paymentRequest.on('shippingaddresschange', (ev) => {
+        console.log('AAAAA');
+        this.shippingaddresschange.emit(ev)
       });
-    } else {
-      this.notavailable.emit();
+      this.paymentRequest.on('shippingoptionchange', (ev) => {
+        console.log('BBBB');
+        this.shippingoptionchange.emit(ev);
+      });
+
+      if (this.element) {
+        this.element.unmount();
+      }
+      this.element = this.elements.create('paymentRequestButton', {
+        paymentRequest: this.paymentRequest,
+        ...options
+      });
+
+      const result = await this.paymentRequest.canMakePayment();
+      if (result) {
+        this.element.on('click', (ev) => this.change.emit(ev));
+        this.element.on('blur', () => this.blur.emit());
+        this.element.on('focus', () => this.focus.emit());
+        this.element.on('ready', () => this.ready.emit());
+
+        this.element.mount(this.stripeElementRef.nativeElement);
+
+        this.load.emit({
+          paymentRequestButton: this.element,
+          paymentRequest: this.paymentRequest
+        });
+      } else {
+        this.notavailable.emit();
+      }
+    } finally {
+      this.creatingElement = false;
     }
   }
 }

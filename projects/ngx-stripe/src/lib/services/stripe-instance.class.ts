@@ -1,5 +1,5 @@
 import { BehaviorSubject, from, Observable } from 'rxjs';
-import { filter, first, map, switchMap } from 'rxjs/operators';
+import { filter, first, map, switchMap, tap } from 'rxjs/operators';
 
 import {
   ConfirmAcssDebitPaymentData,
@@ -139,14 +139,17 @@ export class StripeInstance implements StripeServiceInterface {
       .asStream()
       .pipe(
         filter((status: LazyStripeAPILoaderStatus) => status.loaded === true),
+        tap(console.log),
         first(),
         map(() => (this.window.getNativeWindow() as any).Stripe)
       )
       .subscribe((stripeInstance: any) => {
+        console.log('A');
         const stripe = this.options
           ? (stripeInstance(this.key, this.options) as Stripe)
           : (stripeInstance(this.key) as Stripe);
 
+        console.log('B');
         stripe.registerAppInfo(this.getNgxStripeAppInfo(this.version));
         this.stripe$.next(stripe);
       });

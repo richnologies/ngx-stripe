@@ -154,6 +154,11 @@ export const ROUTES: Routes = [
         data: { title: 'FPX Example' }
       },
       {
+        path: 'examples/inject-stripe',
+        loadComponent: () => import('./examples/inject-stripe.component').then((m) => m.InjectExampleComponent),
+        data: { title: 'Inject Stripe Example' }
+      },
+      {
         path: 'examples/iban-element',
         loadComponent: () => import('./examples/iban-element.component').then((m) => m.IbanElementExampleComponent),
         data: { title: 'IBAN Example' }

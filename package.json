@@ -20,6 +20,7 @@
     "package": "npm run build:lib && npm run copy:docs && npm run pack:lib",
     "publish": "npm publish dist/ngx-stripe/ngx-stripe-X.X.X.tgz",
     "start": "ng serve ngx-stripe-docs",
+    "start:dev": "ng serve ngx-stripe-docs --host 0.0.0.0 --disable-host-check",
     "test": "ng test ngx-stripe",
     "lint": "ng lint",
     "format": "prettier --config ./.prettierrc --list-different --write \"projects/**/src/**/*{.ts,.html,.css,.scss}\"",

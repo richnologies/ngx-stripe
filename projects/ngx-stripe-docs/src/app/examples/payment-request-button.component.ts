@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { StripePaymentRequestButtonComponent, StripeFactoryService } from 'ngx-stripe';
-import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
+import { PaymentRequestOptions, StripeElementsOptions } from '@stripe/stripe-js';
 import { NgStrPlutoService } from '../core';
 
 @Component({
@@ -14,9 +14,12 @@ import { NgStrPlutoService } from '../core';
         <p>Minimum example, just fill the form and get your token</p>
         <ngx-stripe-payment-request-button
           [stripe]="stripe"
-          [options]="paymentRequestButtonOptions"
           [paymentOptions]="paymentRequestOptions"
           [elementsOptions]="elementsOptions"
+          (paymentMethod)="onEvent('paymentMethod', $event)"
+          (shippingaddresschange)="onEvent('onshippingaddresschange', $event)"
+          (shippingoptionchange)="onEvent('onshippingoptionchange', $event)"
+          (notavailable)="onEvent('notAvailable', $event)"
         ></ngx-stripe-payment-request-button>
         <button (click)="buy()">CLICK</button>
       </div>
@@ -31,27 +34,13 @@ export class PaymentRequestButtonExampleComponent {
   button: StripePaymentRequestButtonComponent;
 
   stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
-  paymentRequestOptions = {
+  paymentRequestOptions: PaymentRequestOptions = {
     country: 'ES',
     currency: 'eur',
     total: { label: 'Demo total', amount: 1099 },
     requestPayerName: true,
-    requestPayerEmail: true
-  };
-
-  paymentRequestButtonOptions: StripeCardElementOptions = {
-    style: {
-      base: {
-        iconColor: '#666EE8',
-        color: '#31325F',
-        fontWeight: '300',
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSize: '18px',
-        '::placeholder': {
-          color: '#CFD7E0'
-        }
-      }
-    }
+    requestPayerEmail: true,
+    requestShipping: true
   };
 
   elementsOptions: StripeElementsOptions = {
@@ -61,4 +50,11 @@ export class PaymentRequestButtonExampleComponent {
   constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 
   buy() {}
+
+  onEvent(eventType, ev) {
+    if (eventType === 'onshippingaddresschange') {
+      ev.updateWith({ status: 'success' });
+    }
+    console.log(eventType, ev);
+  }
 }
