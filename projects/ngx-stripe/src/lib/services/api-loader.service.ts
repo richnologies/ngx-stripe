@@ -1,10 +1,11 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { ApplicationRef, Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, concatMap } from 'rxjs';
 
 import { WindowRef } from './window-ref.service';
 import { DocumentRef } from './document-ref.service';
+import { filter, first } from 'rxjs/operators';
 
 export interface LazyStripeAPILoaderStatus {
   loaded: boolean;
@@ -20,11 +21,19 @@ export class LazyStripeAPILoader {
     loading: false
   });
 
-  constructor(@Inject(PLATFORM_ID) public platformId: any, public window: WindowRef, public document: DocumentRef) {}
+  constructor(
+    @Inject(PLATFORM_ID) public platformId: any,
+    public window: WindowRef,
+    public document: DocumentRef,
+    public applicationRef: ApplicationRef
+  ) {}
 
   public asStream(): Observable<LazyStripeAPILoaderStatus> {
-    this.load();
-    return this.status.asObservable();
+    return this.applicationRef.isStable.pipe(
+      filter((stable) => stable),
+      first(),
+      concatMap(() => this.status)
+    );
   }
 
   public isReady(): boolean {
