@@ -1,7 +1,7 @@
-import { ApplicationRef, Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { ApplicationRef, Inject, Injectable, isDevMode, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 
-import { Observable, BehaviorSubject, concatMap } from 'rxjs';
+import { Observable, BehaviorSubject, concatMap, timeout, catchError, EMPTY } from 'rxjs';
 
 import { WindowRef } from './window-ref.service';
 import { DocumentRef } from './document-ref.service';
@@ -31,6 +31,14 @@ export class LazyStripeAPILoader {
   public asStream(): Observable<LazyStripeAPILoaderStatus> {
     return this.applicationRef.isStable.pipe(
       filter((stable) => stable),
+      timeout(10_000),
+      catchError(() => {
+        if (isDevMode()) {
+          console.warn(`Application failed to become stable within 10000ms. Loading the Stripe script now.`)
+        }
+
+        return EMPTY;
+      }),
       first(),
       concatMap(() => this.status)
     );
