@@ -1,7 +1,7 @@
 import { ApplicationRef, Inject, Injectable, isDevMode, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 
-import { Observable, BehaviorSubject, concatMap, timeout, catchError, EMPTY } from 'rxjs';
+import { Observable, BehaviorSubject, concatMap, timeout, catchError, EMPTY, shareReplay } from 'rxjs';
 
 import { WindowRef } from './window-ref.service';
 import { DocumentRef } from './document-ref.service';
@@ -21,6 +21,20 @@ export class LazyStripeAPILoader {
     loading: false
   });
 
+  private readonly isStable$ = this.applicationRef.isStable.pipe(
+    filter((stable) => stable),
+    timeout(10_000),
+    catchError(() => {
+      if (isDevMode()) {
+        console.warn(`Application failed to become stable within 10000ms. Loading the Stripe script now.`)
+      }
+
+      return EMPTY;
+    }),
+    first(),
+    shareReplay(1)
+  )
+
   constructor(
     @Inject(PLATFORM_ID) public platformId: any,
     public window: WindowRef,
@@ -29,19 +43,7 @@ export class LazyStripeAPILoader {
   ) {}
 
   public asStream(): Observable<LazyStripeAPILoaderStatus> {
-    // Once the app is stable or stability has timed out then load the script.
-    this.applicationRef.isStable.pipe(
-      filter((stable) => stable),
-      timeout(10_000),
-      catchError(() => {
-        if (isDevMode()) {
-          console.warn(`Application failed to become stable within 10000ms. Loading the Stripe script now.`)
-        }
-
-        return EMPTY;
-      }),
-      first()
-    ).subscribe(() => this.load())
+    this.isStable$.subscribe(() => this.load())
 
     return this.status.asObservable();
   }
