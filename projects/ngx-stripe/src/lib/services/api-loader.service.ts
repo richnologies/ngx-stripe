@@ -29,7 +29,8 @@ export class LazyStripeAPILoader {
   ) {}
 
   public asStream(): Observable<LazyStripeAPILoaderStatus> {
-    return this.applicationRef.isStable.pipe(
+    // Once the app is stable or stability has timed out then load the script.
+    this.applicationRef.isStable.pipe(
       filter((stable) => stable),
       timeout(10_000),
       catchError(() => {
@@ -39,9 +40,10 @@ export class LazyStripeAPILoader {
 
         return EMPTY;
       }),
-      first(),
-      concatMap(() => this.status)
-    );
+      first()
+    ).subscribe(() => this.load())
+
+    return this.status.asObservable();
   }
 
   public isReady(): boolean {
