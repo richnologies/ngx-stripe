@@ -11,6 +11,7 @@ import { StripeCardNumberComponent } from './components/card-number.component';
 import { StripeCardExpiryComponent } from './components/card-expiry.component';
 import { StripeCardCvcComponent } from './components/card-cvc.component';
 import { StripeEpsBankComponent } from './components/eps-bank.component';
+import { StripeExpressCheckoutComponent } from './components/express-checkout.component';
 import { StripeFpxBankComponent } from './components/fpx-bank.component';
 import { StripeIbanComponent } from './components/iban.component';
 import { StripeIdealBankComponent } from './components/ideal-bank.component';
@@ -47,6 +48,7 @@ const components = [
   StripeCardExpiryComponent,
   StripeCardCvcComponent,
   StripeEpsBankComponent,
+  StripeExpressCheckoutComponent,
   StripeFpxBankComponent,
   StripeIbanComponent,
   StripeIdealBankComponent,
@@ -64,7 +66,7 @@ const components = [
 
 const directives = [StripeCardGroupDirective, StripeElementsDirective, NgxStripeElementLoadingTemplateDirective];
 
-const currentVersion = '16.2.0';
+const currentVersion = '16.3.0';
 
 function _provideNgxStripe(publishableKey?: string, options?: StripeConstructorOptions) {
   return [

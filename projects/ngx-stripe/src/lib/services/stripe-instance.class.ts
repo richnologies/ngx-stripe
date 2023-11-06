@@ -116,7 +116,11 @@ import {
   CreatePaymentMethodFromElements,
   CreatePaymentMethodFromElement,
   ConfirmCashappSetupData,
-  ConfirmCashappSetupOptions
+  ConfirmCashappSetupOptions,
+  StripeCustomCheckoutOptions,
+  StripeCustomCheckout,
+  StripeEmbeddedCheckoutOptions,
+  StripeEmbeddedCheckout
 } from '@stripe/stripe-js';
 
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
@@ -789,6 +793,20 @@ export class StripeInstance implements StripeServiceInterface {
   createEphemeralKeyNonce(options: EphemeralKeyNonceOptions): Observable<EphemeralKeyNonceResult> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.createEphemeralKeyNonce(options))),
+      first()
+    );
+  }
+
+  initCustomCheckout(options: StripeCustomCheckoutOptions): Observable<StripeCustomCheckout> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.initCustomCheckout(options))),
+      first()
+    );
+  }
+
+  initEmbeddedCheckout(options: StripeEmbeddedCheckoutOptions): Observable<StripeEmbeddedCheckout> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.initEmbeddedCheckout(options))),
       first()
     );
   }

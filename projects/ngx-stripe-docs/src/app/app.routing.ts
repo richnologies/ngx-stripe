@@ -149,6 +149,11 @@ export const ROUTES: Routes = [
         data: { title: 'EPS Bank Example' }
       },
       {
+        path: 'examples/express-checkout-element',
+        loadComponent: () => import('./examples/express-checkout-element.component').then((m) => m.ExpressCheckoutElementExampleComponent),
+        data: { title: 'Express Checkout Example' }
+      },
+      {
         path: 'examples/fpx-element',
         loadComponent: () => import('./examples/fpx-element.component').then((m) => m.FpxExampleComponent),
         data: { title: 'FPX Example' }

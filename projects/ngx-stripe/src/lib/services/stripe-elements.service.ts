@@ -27,7 +27,8 @@ import {
   StripeElementsOptionsClientSecret,
   StripeElementsOptionsMode,
   StripeElementsOptions,
-  StripePaymentMethodMessagingElementOptions
+  StripePaymentMethodMessagingElementOptions,
+  StripeExpressCheckoutElementOptions
 } from '@stripe/stripe-js';
 
 import { StripeService } from './stripe.service';
@@ -101,6 +102,7 @@ export class StripeElementsService {
     containerClass: string
   ): StripePaymentRequestButtonElementOptions;
   mergeOptions(options: StripePaymentElementOptions, containerClass: string): StripePaymentElementOptions;
+  mergeOptions(options: StripeExpressCheckoutElementOptions, containerClass: string): StripeExpressCheckoutElementOptions;
   mergeOptions(options, containerClass: string) {
     if (!containerClass || (options && options.classes)) {
       return options || {};

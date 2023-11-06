@@ -113,11 +113,17 @@ import {
   CreatePaymentMethodFromElements,
   CreatePaymentMethodFromElement,
   ConfirmCashappSetupData,
-  ConfirmCashappSetupOptions
+  ConfirmCashappSetupOptions,
+  StripeElementsOptionsClientSecret,
+  StripeCustomCheckoutOptions,
+  StripeCustomCheckout,
+  StripeEmbeddedCheckoutOptions,
+  StripeEmbeddedCheckout
 } from '@stripe/stripe-js';
 
 export interface StripeServiceInterface {
   getInstance(): Stripe | undefined;
+  elements(options?: StripeElementsOptionsClientSecret): Observable<StripeElements>;
   elements(options?: StripeElementsOptions): Observable<StripeElements>;
   redirectToCheckout(options?: RedirectToCheckoutOptions): Observable<never | { error: StripeError }>;
   confirmPayment(options: {
@@ -370,6 +376,8 @@ export interface StripeServiceInterface {
   ): Observable<FinancialConnectionsSessionResult>;
   collectBankAccountToken(options: CollectBankAccountTokenOptions): Observable<CollectBankAccountTokenResult>;
   createEphemeralKeyNonce(options: EphemeralKeyNonceOptions): Observable<EphemeralKeyNonceResult>;
+  initCustomCheckout(options: StripeCustomCheckoutOptions): Observable<StripeCustomCheckout>;
+  initEmbeddedCheckout(options: StripeEmbeddedCheckoutOptions): Observable<StripeEmbeddedCheckout>;
   /**
    * @deprecated
    */

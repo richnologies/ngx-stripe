@@ -11,6 +11,7 @@ export { StripeCardNumberComponent } from './lib/components/card-number.componen
 export { StripeCardExpiryComponent } from './lib/components/card-expiry.component';
 export { StripeCardCvcComponent } from './lib/components/card-cvc.component';
 export { StripeEpsBankComponent } from './lib/components/eps-bank.component';
+export { StripeExpressCheckoutComponent } from './lib/components/express-checkout.component';
 export { StripeFpxBankComponent } from './lib/components/fpx-bank.component';
 export { StripeIbanComponent } from './lib/components/iban.component';
 export { StripeIdealBankComponent } from './lib/components/ideal-bank.component';
