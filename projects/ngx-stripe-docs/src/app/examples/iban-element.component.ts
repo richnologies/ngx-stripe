@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { StripeIbanComponent, NgxStripeModule, StripeFactoryService } from 'ngx-stripe';
+import { StripeIbanComponent, StripeFactoryService, StripeElementsDirective } from 'ngx-stripe';
 import { StripeElementsOptions, StripeIbanElementOptions, CreateTokenIbanData } from '@stripe/stripe-js';
 import { NgStrPlutoService } from '../core';
 
@@ -30,7 +30,7 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [NgxStripeModule]
+  imports: [StripeIbanComponent, StripeElementsDirective]
 })
 export class IbanElementExampleComponent {
   @ViewChild('ibanWithoutElements') ibanWithoutElements: StripeIbanComponent;

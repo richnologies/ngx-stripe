@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { EnvironmentProviders, makeEnvironmentProviders, ModuleWithProviders, NgModule } from '@angular/core';
 
 import { StripeConstructorOptions } from '@stripe/stripe-js';
 
@@ -11,6 +11,7 @@ import { StripeCardNumberComponent } from './components/card-number.component';
 import { StripeCardExpiryComponent } from './components/card-expiry.component';
 import { StripeCardCvcComponent } from './components/card-cvc.component';
 import { StripeEpsBankComponent } from './components/eps-bank.component';
+import { StripeExpressCheckoutComponent } from './components/express-checkout.component';
 import { StripeFpxBankComponent } from './components/fpx-bank.component';
 import { StripeIbanComponent } from './components/iban.component';
 import { StripeIdealBankComponent } from './components/ideal-bank.component';
@@ -47,6 +48,7 @@ const components = [
   StripeCardExpiryComponent,
   StripeCardCvcComponent,
   StripeEpsBankComponent,
+  StripeExpressCheckoutComponent,
   StripeFpxBankComponent,
   StripeIbanComponent,
   StripeIdealBankComponent,
@@ -64,7 +66,47 @@ const components = [
 
 const directives = [StripeCardGroupDirective, StripeElementsDirective, NgxStripeElementLoadingTemplateDirective];
 
-const currentVersion = '16.1.1';
+const currentVersion = '16.3.0';
+
+function _provideNgxStripe(publishableKey?: string, options?: StripeConstructorOptions) {
+  return [
+    LazyStripeAPILoader,
+    StripeService,
+    StripeFactoryService,
+    StripeElementsService,
+    WindowRef,
+    DocumentRef,
+    {
+      provide: STRIPE_PUBLISHABLE_KEY,
+      useValue: publishableKey
+    },
+    {
+      provide: STRIPE_OPTIONS,
+      useValue: options
+    },
+    {
+      provide: NGX_STRIPE_VERSION,
+      useValue: currentVersion
+    }
+  ];
+}
+
+/**
+ * Provides the global NgxStripe providers and initializes.
+ *
+ * @usageNotes
+ *
+ * ### Providing the Global NgxStripe
+ *
+ * ```ts
+ * bootstrapApplication(AppComponent, {
+ *   providers: [provideNgxStripe(STRIPE_KEY)],
+ * });
+ * ```
+ */
+export function provideNgxStripe(publishableKey?: string, options?: StripeConstructorOptions): EnvironmentProviders {
+  return makeEnvironmentProviders([..._provideNgxStripe(publishableKey, options)]);
+}
 
 @NgModule({
   exports: [...components, ...directives],
@@ -77,26 +119,7 @@ export class NgxStripeModule {
   ): ModuleWithProviders<NgxStripeModule> {
     return {
       ngModule: NgxStripeModule,
-      providers: [
-        LazyStripeAPILoader,
-        StripeService,
-        StripeFactoryService,
-        StripeElementsService,
-        WindowRef,
-        DocumentRef,
-        {
-          provide: STRIPE_PUBLISHABLE_KEY,
-          useValue: publishableKey
-        },
-        {
-          provide: STRIPE_OPTIONS,
-          useValue: options
-        },
-        {
-          provide: NGX_STRIPE_VERSION,
-          useValue: currentVersion
-        }
-      ]
+      providers: [..._provideNgxStripe(publishableKey, options)]
     };
   }
 
@@ -109,26 +132,7 @@ export class NgxStripeModule {
   ): ModuleWithProviders<NgxStripeModule> {
     return {
       ngModule: NgxStripeModule,
-      providers: [
-        LazyStripeAPILoader,
-        StripeService,
-        StripeFactoryService,
-        StripeElementsService,
-        WindowRef,
-        DocumentRef,
-        {
-          provide: STRIPE_PUBLISHABLE_KEY,
-          useValue: publishableKey
-        },
-        {
-          provide: STRIPE_OPTIONS,
-          useValue: options
-        },
-        {
-          provide: NGX_STRIPE_VERSION,
-          useValue: currentVersion
-        }
-      ]
+      providers: [..._provideNgxStripe(publishableKey, options)]
     };
   }
 }

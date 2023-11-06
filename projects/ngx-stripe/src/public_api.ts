@@ -1,7 +1,7 @@
 /*
  * Public API Surface of ngx-stripe
  */
-export { NgxStripeModule } from './lib/ngx-stripe.module';
+export { NgxStripeModule, provideNgxStripe } from './lib/ngx-stripe.module';
 
 export { StripeAddressComponent } from './lib/components/address.component';
 export { StripeAffirmMessageComponent } from './lib/components/affirm-message.component';
@@ -11,6 +11,7 @@ export { StripeCardNumberComponent } from './lib/components/card-number.componen
 export { StripeCardExpiryComponent } from './lib/components/card-expiry.component';
 export { StripeCardCvcComponent } from './lib/components/card-cvc.component';
 export { StripeEpsBankComponent } from './lib/components/eps-bank.component';
+export { StripeExpressCheckoutComponent } from './lib/components/express-checkout.component';
 export { StripeFpxBankComponent } from './lib/components/fpx-bank.component';
 export { StripeIbanComponent } from './lib/components/iban.component';
 export { StripeIdealBankComponent } from './lib/components/ideal-bank.component';

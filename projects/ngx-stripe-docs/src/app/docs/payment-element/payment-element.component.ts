@@ -12,7 +12,7 @@ import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
   selector: 'ngstr-payment-element',
   templateUrl: './payment-element.component.html',
   standalone: true,
-  imports: [ReactiveFormsModule, NgxStripeModule, DocsElementsModule]
+  imports: [ReactiveFormsModule, DocsElementsModule, StripePaymentElementComponent]
 })
 export class NgStrPaymentElementComponent implements OnInit {
   @ViewChild(StripePaymentElementComponent)

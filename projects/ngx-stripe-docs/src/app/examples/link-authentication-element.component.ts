@@ -4,9 +4,10 @@ import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/fo
 
 import {
   StripePaymentElementComponent,
-  NgxStripeModule,
   StripeFactoryService,
-  StripeAddressComponent
+  StripeAddressComponent,
+  StripeElementsDirective,
+  StripeLinkAuthenticationComponent
 } from 'ngx-stripe';
 import {
   StripeAddressElementOptions,
@@ -42,7 +43,14 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgxStripeModule]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    StripeElementsDirective,
+    StripeLinkAuthenticationComponent,
+    StripeAddressComponent,
+    StripePaymentElementComponent
+  ]
 })
 export class LinkAuthenticationElementExampleComponent implements OnInit {
   @ViewChild(StripeAddressComponent) addressElement: StripeAddressComponent;

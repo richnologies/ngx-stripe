@@ -3,7 +3,14 @@ import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/fo
 import { switchMap } from 'rxjs/operators';
 
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
-import { NgxStripeModule, StripeCardComponent, StripeCardCvcComponent, StripeCardExpiryComponent, StripeCardGroupDirective, StripeCardNumberComponent, StripeFactoryService } from 'ngx-stripe';
+import {
+  StripeCardComponent,
+  StripeCardCvcComponent,
+  StripeCardExpiryComponent,
+  StripeCardGroupDirective,
+  StripeCardNumberComponent,
+  StripeFactoryService
+} from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../../core';
 import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
@@ -14,7 +21,6 @@ import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgxStripeModule,
     DocsElementsModule,
     StripeCardGroupDirective,
     StripeCardCvcComponent,

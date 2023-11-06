@@ -1,5 +1,18 @@
 # Changelog
 
+## 16.3.0 - 2023-11-07
+
+- Update stripe peer dependency to `2.1.11`. This is a major change, but the breaking change is minimum so we believe is better to stay aligned with Angular instead of bump a new major.
+- Add support for `Express Checkout Element`
+
+## 16.2.0 - 2023-07-17
+
+- Adding `provideNgxStripe` method for Standalone Applications
+
+## 16.1.2 - 2023-06-30
+
+- Update stripe peer dependency to `1.54.1`
+
 ## 16.1.1 - 2023-06-02
 
 - Update stripe peer dependency to `1.54.0`

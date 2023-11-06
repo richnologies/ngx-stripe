@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NgxStripeModule, StripeFactoryService } from 'ngx-stripe';
+import { StripeAffirmMessageComponent, StripeElementsDirective, StripeFactoryService } from 'ngx-stripe';
 import { StripeAffirmMessageElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -23,7 +23,7 @@ import { NgStrPlutoService } from '../core';
   `,
   styles: [],
   standalone: true,
-  imports: [NgxStripeModule]
+  imports: [StripeAffirmMessageComponent, StripeElementsDirective]
 })
 export class AffirmMessageExampleComponent {
   stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
