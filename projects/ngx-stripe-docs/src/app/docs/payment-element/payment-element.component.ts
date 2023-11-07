@@ -62,6 +62,13 @@ export class NgStrPaymentElementComponent implements OnInit {
       .subscribe((pi) => {
         this.elementsOptions.clientSecret = pi.client_secret;
       });
+
+
+    setTimeout(() => {
+      console.log('AAAA');
+      const stripe = this.stripe.getInstance();
+      console.log('Stripe', stripe);
+    }, 25000);
   }
 
   pay() {

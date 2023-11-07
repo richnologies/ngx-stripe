@@ -1,10 +1,11 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { ApplicationRef, Inject, Injectable, isDevMode, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, concatMap, timeout, catchError, EMPTY, shareReplay, of } from 'rxjs';
 
 import { WindowRef } from './window-ref.service';
 import { DocumentRef } from './document-ref.service';
+import { filter, first, tap } from 'rxjs/operators';
 
 export interface LazyStripeAPILoaderStatus {
   loaded: boolean;
@@ -20,10 +21,46 @@ export class LazyStripeAPILoader {
     loading: false
   });
 
-  constructor(@Inject(PLATFORM_ID) public platformId: any, public window: WindowRef, public document: DocumentRef) {}
+  private readonly isStable$ = this.applicationRef.isStable.pipe(
+    tap((isStable) => {
+      console.log('isStable', isStable);
+    }),
+    filter((stable) => stable),
+    tap((isStable) => {
+      console.log('isStable [B]', isStable);
+    }),
+    timeout(10_000),
+    tap((isStable) => {
+      console.log('isStable [C]', isStable);
+    }),
+    catchError(() => {
+      console.log('Catching error!!!');
+      if (isDevMode()) {
+        console.warn(`Application failed to become stable within 10000ms. Loading the Stripe script now.`)
+      }
+
+      return of(true);
+    }),
+    tap((isStable) => {
+      console.log('isStable [D]', isStable);
+    }),
+    first(),
+    tap((isStable) => {
+      console.log('isStable [E]', isStable);
+    }),
+    shareReplay(1)
+  )
+
+  constructor(
+    @Inject(PLATFORM_ID) public platformId: any,
+    public window: WindowRef,
+    public document: DocumentRef,
+    public applicationRef: ApplicationRef
+  ) {}
 
   public asStream(): Observable<LazyStripeAPILoaderStatus> {
-    this.load();
+    this.isStable$.subscribe(() => this.load())
+
     return this.status.asObservable();
   }
 
