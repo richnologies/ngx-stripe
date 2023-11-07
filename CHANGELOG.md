@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.7.2 - 2023-06-02
+
+- [#231](https://github.com/richnologies/ngx-stripe/issues/231) Fix an error with `Payment Request Button Element`
+
 ## 15.7.1 - 2023-06-02
 
 - Update stripe peer dependency to `1.54.0`
