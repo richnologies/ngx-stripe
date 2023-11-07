@@ -82,6 +82,7 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
   ) {}
 
   async ngOnChanges(changes: SimpleChanges) {
+    this.state = 'starting';
     let updateElements = false;
 
     if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {

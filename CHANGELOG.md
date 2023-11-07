@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.3.1 - 2023-11-08
+
+- [#231](https://github.com/richnologies/ngx-stripe/issues/231) Fix an error with `Payment Request Button Element`
+
 ## 16.3.0 - 2023-11-07
 
 - Update stripe peer dependency to `2.1.11`. This is a major change, but the breaking change is minimum so we believe is better to stay aligned with Angular instead of bump a new major.
