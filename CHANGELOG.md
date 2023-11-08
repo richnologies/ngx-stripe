@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.0.0 - 2023-11-08
+
+- Add support for Angular v17
+
 ## 16.3.1 - 2023-11-08
 
 - [#231](https://github.com/richnologies/ngx-stripe/issues/231) Fix an error with `Payment Request Button Element`
