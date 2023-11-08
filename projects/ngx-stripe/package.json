@@ -1,6 +1,6 @@
 {
   "name": "ngx-stripe",
-  "version": "16.3.1",
+  "version": "16.3.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/richnologies/ngx-stripe"

@@ -17,7 +17,6 @@ import { Subscription, from } from 'rxjs';
 import {
   Appearance,
   StripeElements,
-  StripeElementsOptions,
   StripeError,
   StripePaymentElement,
   StripePaymentElementChangeEvent,
@@ -26,6 +25,7 @@ import {
 
 import { StripeElementsDirective } from '../directives/elements.directive';
 
+import { NgxStripeElementsOptions } from '../interfaces/ngx-stripe-element-options.interface';
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
 
 import { StripeElementsService } from '../services/stripe-elements.service';
@@ -43,7 +43,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
 
   @Input() containerClass: string;
   @Input() options: Partial<StripePaymentElementOptions>;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: Partial<NgxStripeElementsOptions>;
   @Input() stripe: StripeServiceInterface;
 
   @Input() appearance: Appearance;
@@ -82,7 +82,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
         ...(this.elementsOptions || {}),
         ...(this.appearance ? { appearance: this.appearance } : {}),
         ...(this.clientSecret ? { clientSecret: this.clientSecret } : {})
-      } as StripeElementsOptions).toPromise();
+      } as NgxStripeElementsOptions).toPromise();
       updateElements = true;
     }
 
@@ -114,7 +114,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
         ...(this.elementsOptions || {}),
         ...(this.appearance ? { appearance: this.appearance } : {}),
         ...(this.clientSecret ? { clientSecret: this.clientSecret } : {})
-      } as StripeElementsOptions).toPromise();
+      } as NgxStripeElementsOptions).toPromise();
       this.createElement(options);
 
       this.state = 'ready';

@@ -2,8 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { StripePaymentElementComponent, StripeFactoryService } from 'ngx-stripe';
-import { StripeElementsOptions } from '@stripe/stripe-js';
+import {
+  StripePaymentElementComponent,
+  StripeFactoryService,
+  NgxStripeElementsOptions
+} from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../core';
 
@@ -18,7 +21,7 @@ import { NgStrPlutoService } from '../core';
         <input matInput placeholder="name" formControlName="name" />
         <input matInput placeholder="amount" type="number" formControlName="amount" />
         <ng-container *ngIf="elementsOptions?.clientSecret as clientSecret">
-          <ngx-stripe-payment [stripe]="stripe" [clientSecret]="clientSecret"></ngx-stripe-payment>
+          <ngx-stripe-payment [stripe]="stripe" [elementsOptions]="elementsOptions" [clientSecret]="clientSecret"></ngx-stripe-payment>
         </ng-container>
         <button (click)="pay()">PAY</button>
       </div>
@@ -38,8 +41,9 @@ export class PaymentElementExampleComponent implements OnInit {
   });
 
   stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
-  elementsOptions: StripeElementsOptions = {
-    locale: 'en'
+  elementsOptions: NgxStripeElementsOptions = {
+    disallowedCardBrands: ['american_express'],
+    locale: 'es'
   };
 
   paying = false;

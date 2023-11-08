@@ -17,7 +17,6 @@ import {
 import { Subscription } from 'rxjs';
 
 import {
-  StripeElementsOptions,
   StripeElements,
   StripeExpressCheckoutElement,
   StripeExpressCheckoutElementOptions,
@@ -33,6 +32,7 @@ import {
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
 import { StripeElementsDirective } from '../directives/elements.directive';
 
+import { NgxStripeElementsOptions } from '../interfaces/ngx-stripe-element-options.interface';
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
 
 import { StripeElementsService } from '../services/stripe-elements.service';
@@ -60,7 +60,7 @@ export class StripeExpressCheckoutComponent implements OnInit, OnChanges, OnDest
 
   @Input() containerClass: string;
   @Input() options: StripeExpressCheckoutElementOptions;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: Partial<NgxStripeElementsOptions>;
   @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeExpressCheckoutElement>();

@@ -43,3 +43,10 @@ export { STRIPE_PUBLISHABLE_KEY, STRIPE_OPTIONS, NGX_STRIPE_VERSION } from './li
 export { StripeServiceInterface } from './lib/interfaces/stripe-instance.interface';
 
 export { injectStripe } from './lib/utils/inject-stripe';
+
+// Temporary export for beta support user
+export {
+  NgxStripeElementsOptions,
+  NgxStripeElementsOptionsClientSecret,
+  NgxStripeElementsOptionsMode
+} from './lib/interfaces/ngx-stripe-element-options.interface';
