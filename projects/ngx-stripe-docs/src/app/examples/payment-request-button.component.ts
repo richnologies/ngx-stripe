@@ -1,6 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
-import { StripePaymentRequestButtonComponent, StripeFactoryService } from 'ngx-stripe';
+import { Component, ViewChild, inject } from '@angular/core';
+
+import { StripePaymentRequestButtonComponent, injectStripe } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
+
 import { NgStrPlutoService } from '../core';
 
 @Component({
@@ -17,20 +19,21 @@ import { NgStrPlutoService } from '../core';
           [options]="paymentRequestButtonOptions"
           [paymentOptions]="paymentRequestOptions"
           [elementsOptions]="elementsOptions"
-        ></ngx-stripe-payment-request-button>
+        />
         <button (click)="buy()">CLICK</button>
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [StripePaymentRequestButtonComponent]
 })
-export class PaymentRequestButtonExampleComponent {
+export default class PaymentRequestButtonExampleComponent {
   @ViewChild(StripePaymentRequestButtonComponent)
   button: StripePaymentRequestButtonComponent;
 
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+  private readonly plutoService = inject(NgStrPlutoService);
+
+  stripe = injectStripe(this.plutoService.KEYS.main);
   paymentRequestOptions = {
     country: 'ES',
     currency: 'eur',
@@ -57,8 +60,6 @@ export class PaymentRequestButtonExampleComponent {
   elementsOptions: StripeElementsOptions = {
     locale: 'es'
   };
-
-  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 
   buy() {}
 }

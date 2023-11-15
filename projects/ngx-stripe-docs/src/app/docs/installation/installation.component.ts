@@ -1,12 +1,23 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+import {
+  NgStrCodeComponent,
+  NgStrDocsHeaderComponent,
+  NgStrHighlightComponent,
+  NgStrSectionComponent,
+  NgStrSubheaderComponent
+} from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-installation',
   templateUrl: './installation.component.html',
   standalone: true,
-  imports: [ReactiveFormsModule, DocsElementsModule]
+  imports: [
+    NgStrCodeComponent,
+    NgStrDocsHeaderComponent,
+    NgStrHighlightComponent,
+    NgStrSectionComponent,
+    NgStrSubheaderComponent
+  ]
 })
-export class NgStrInstallationComponent {}
+export default class NgStrInstallationComponent {}

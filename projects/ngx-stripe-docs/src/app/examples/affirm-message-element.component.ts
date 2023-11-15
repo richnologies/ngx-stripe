@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
-import { StripeAffirmMessageComponent, StripeElementsDirective, StripeFactoryService } from 'ngx-stripe';
+import { StripeAffirmMessageComponent, StripeElementsDirective, injectStripe } from 'ngx-stripe';
 import { StripeAffirmMessageElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -21,12 +21,13 @@ import { NgStrPlutoService } from '../core';
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [StripeAffirmMessageComponent, StripeElementsDirective]
 })
-export class AffirmMessageExampleComponent {
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+export default class AffirmMessageExampleComponent {
+  private readonly plutoService = inject(NgStrPlutoService);
+
+  stripe = injectStripe(this.plutoService.KEYS.main);
   affirmOptions: StripeAffirmMessageElementOptions = {
     amount: 5000,
     currency: 'USD'
@@ -34,6 +35,4 @@ export class AffirmMessageExampleComponent {
   elementsOptions: StripeElementsOptions = {
     locale: 'en'
   };
-
-  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 }

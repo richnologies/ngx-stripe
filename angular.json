@@ -46,7 +46,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
             "outputPath": "dist/ngx-stripe-docs",
             "index": "projects/ngx-stripe-docs/src/index.html",
@@ -122,8 +122,7 @@
             "scripts": [],
             "assets": [
               "projects/ngx-stripe-docs/src/favicon.ico",
-              "projects/ngx-stripe-docs/src/assets",
-              "projects/ngx-stripe-docs/src/manifest.webmanifest"
+              "projects/ngx-stripe-docs/src/assets"
             ]
           }
         },

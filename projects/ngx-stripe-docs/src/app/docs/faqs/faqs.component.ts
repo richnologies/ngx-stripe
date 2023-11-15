@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+
+import { NgStrDocsHeaderComponent, NgStrSectionComponent, NgStrSubheaderComponent } from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-faqs',
   templateUrl: './faqs.component.html',
   standalone: true,
-  imports: [DocsElementsModule]
+  imports: [NgStrDocsHeaderComponent, NgStrSectionComponent, NgStrSubheaderComponent]
 })
-export class NgStrFAQSComponent {
+export default class NgStrFAQSComponent {
   appModule = `
     import { BrowserModule } from '@angular/platform-browser';
     import { NgModule } from '@angular/core';

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 
-import { StripeElementsDirective, StripeEpsBankComponent, StripeFactoryService } from 'ngx-stripe';
+import { StripeElementsDirective, StripeEpsBankComponent, injectStripe } from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../core';
 
@@ -13,20 +13,21 @@ import { NgStrPlutoService } from '../core';
         <span>EPS Bank</span>
       </div>
       <div section-content>
-        <ngx-stripe-eps-bank [stripe]="stripe"></ngx-stripe-eps-bank>
+        <ngx-stripe-eps-bank [stripe]="stripe" />
 
         <div ngxStripeElements [stripe]="stripe" [elementsOptions]="elementsOptions">
-          <ngx-stripe-eps-bank></ngx-stripe-eps-bank>
+          <ngx-stripe-eps-bank />
         </div>
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [StripeEpsBankComponent, StripeElementsDirective]
 })
-export class EpsBankExampleComponent {
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+export default class EpsBankExampleComponent {
+  private readonly plutoService = inject(NgStrPlutoService);
+
+  stripe = injectStripe(this.plutoService.KEYS.main);
   elementsOptions: StripeElementsOptions = {
     locale: 'es'
   };
@@ -42,6 +43,4 @@ export class EpsBankExampleComponent {
 
   paying = false;
   clientSecret: string;
-
-  constructor(private plutoService: NgStrPlutoService, private stripeFactory: StripeFactoryService) {}
 }

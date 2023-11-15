@@ -102,7 +102,10 @@ export class StripeElementsService {
     containerClass: string
   ): StripePaymentRequestButtonElementOptions;
   mergeOptions(options: StripePaymentElementOptions, containerClass: string): StripePaymentElementOptions;
-  mergeOptions(options: StripeExpressCheckoutElementOptions, containerClass: string): StripeExpressCheckoutElementOptions;
+  mergeOptions(
+    options: StripeExpressCheckoutElementOptions,
+    containerClass: string
+  ): StripeExpressCheckoutElementOptions;
   mergeOptions(options, containerClass: string) {
     if (!containerClass || (options && options.classes)) {
       return options || {};

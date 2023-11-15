@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { switchMap } from 'rxjs';
 
 import {
-  StripeFactoryService,
   StripeElementsDirective,
   StripeIssuingCardNumberDisplayComponent,
   StripeIssuingCardCvcDisplayComponent,
   StripeIssuingCardExpiryDisplayComponent,
-  StripeIssuingCardPinDisplayComponent
+  StripeIssuingCardPinDisplayComponent,
+  injectStripe
 } from 'ngx-stripe';
 import {
   StripeElementsOptions,
@@ -26,19 +26,20 @@ import { NgStrPlutoService } from '../core';
         <span>One Card Example</span>
       </div>
       <div section-content>
-        <ngx-stripe-elements [stripe]="stripe" [elementsOptions]="elementsOptions" *ngIf="cardOptions">
-          <ngx-stripe-issuing-card-number-display [options]="cardOptions"></ngx-stripe-issuing-card-number-display>
-          <br />
-          <ngx-stripe-issuing-card-expiry-display [options]="cardOptions"></ngx-stripe-issuing-card-expiry-display>
-          <br />
-          <ngx-stripe-issuing-card-cvc-display [options]="cardOptions"></ngx-stripe-issuing-card-cvc-display>
-          <br />
-          <ngx-stripe-issuing-card-pin-display [options]="cardOptions"></ngx-stripe-issuing-card-pin-display>
-        </ngx-stripe-elements>
+        @if (cardOptions) {
+          <ngx-stripe-elements [stripe]="stripe" [elementsOptions]="elementsOptions">
+            <ngx-stripe-issuing-card-number-display [options]="cardOptions" />
+            <br />
+            <ngx-stripe-issuing-card-expiry-display [options]="cardOptions" />
+            <br />
+            <ngx-stripe-issuing-card-cvc-display [options]="cardOptions" />
+            <br />
+            <ngx-stripe-issuing-card-pin-display [options]="cardOptions" />
+          </ngx-stripe-elements>
+        }
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [
     CommonModule,
@@ -49,20 +50,20 @@ import { NgStrPlutoService } from '../core';
     StripeIssuingCardPinDisplayComponent
   ]
 })
-export class IssuingElementsExampleComponent implements OnInit {
+export default class IssuingElementsExampleComponent implements OnInit {
   @ViewChild('card') card: StripeIssuingCardNumberDisplayElement;
+
+  private readonly plutoService = inject(NgStrPlutoService);
 
   cardId = 'ic_1MXkbPCFzZvO65bFj561Zea7';
   nonce: string;
   ek: string;
 
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.usa);
+  stripe = injectStripe(this.plutoService.KEYS.usa);
   cardOptions: StripeIssuingCardNumberDisplayElementOptions;
   elementsOptions: StripeElementsOptions = {
     locale: 'es'
   };
-
-  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 
   ngOnInit() {
     this.stripe

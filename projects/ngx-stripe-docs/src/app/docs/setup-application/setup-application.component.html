@@ -1,18 +1,58 @@
 <ngstr-section>
   <ng-container ngStrSectionMain>
     <ngstr-header title="Setup Application"></ngstr-header>
-    <p>Import the <ngstr-highlight>NgxStripeModule</ngstr-highlight> into your application</p>
     <p>
-      The module takes the same parameters as the global Stripe object. The
-      <ngstr-highlight>APIKey</ngstr-highlight> and the optional <ngstr-highlight>Options</ngstr-highlight> to use
-      <strong>Stripe</strong> connect.
+      This section guides you through setting up ngx-stripe in your Angular application, explaining how to configure the
+      library for optimal integration with Stripe's payment processing capabilities.
     </p>
+    <p>
+      This doc assumes that you already have a basic working knowledge of Angular and that you have already set up an
+      Angular project. If you're new to Angular, we recommend that you take a look at the new
+      <ngstr-link url="https://angular.dev">Angular Documention site</ngstr-link>.
+    </p>
+    <ngstr-subheader subheader="Initializing" link="initializing"></ngstr-subheader>
+    <p>
+      Ngx Stripe initialization is designed to align closely with the StripeJS initialization process. The parameters
+      you pass to ngx-stripe's <ngstr-highlight>forRoot</ngstr-highlight> method or
+      <ngstr-highlight>provideNgxStripe</ngstr-highlight> are equivalent to those you would pass to the Stripe
+      constructor as per <ngstr-link url="https://stripe.com/docs/js/initializing">StripeJS documentation</ngstr-link>.
+    </p>
+    <p>When initializing Ngx Stripe, you can pass the following parameters:</p>
     <ul role="list">
-      <li>apiKey: string</li>
-      <li>{{ options }}</li>
+      <li>
+        <strong>Stripe Publishable Key</strong>: Your Stripe account's publishable key. This key is used to identify
+        your Stripe account and to tokenize payment information client-side before it's sent to Stripe's servers.
+      </li>
+      <li>
+        <strong>StripeJS Options</strong>: Additional options for configuring the StripeJS instance, such as locale,
+        apiVersion or stripeAccount.
+      </li>
     </ul>
-    <ngstr-code [code]="appModule"></ngstr-code>
-    <p>or using the provider function on bootstrap app config</p>
+    <p>
+      If you're using standalone architecture, you can use <ngstr-highlight>provideNgxStripe</ngstr-highlight> to setup
+      the services. This is the recommended way to do it.
+    </p>
     <ngstr-code [code]="appConfig"></ngstr-code>
+    <p>or if you're still using mdoules, you do it as usual using <ngstr-highlight>forRoot</ngstr-highlight></p>
+    <ngstr-code [code]="appModule"></ngstr-code>
+    <ngstr-subheader subheader="Dynamic Key Management" link="dynamic-key-management"></ngstr-subheader>
+    <p>
+      It's important to note that passing the Stripe publishable key and options during initialization is not mandatory.
+      In scenarios where your Stripe keys are fetched dynamically, or you need to initialize Stripe instances with
+      different configurations, you have two flexible options:
+    </p>
+    <ol role="list">
+      <li>
+        <strong>Use injectStripe Method</strong>: You can inject a Stripe instance into your components when you don't
+        have the keys at the initialization phase. This method allows for dynamic Stripe instance creation based on your
+        application's logic. For an implementation example, refer to the injectStripe usage example.
+      </li>
+      <li>
+        <strong>Stripe Service Factory</strong>: allows you to create a Stripe instance on demand with specific
+        parameters. This method is particularly useful when working with multiple Stripe accounts or configurations.
+        Learn more about it in the
+        <ngstr-link url="/docs/service-factory">StripeServiceFactory documentation</ngstr-link>.
+      </li>
+    </ol>
   </ng-container>
 </ngstr-section>

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { StripeFactoryService } from 'ngx-stripe';
+import { injectStripe } from 'ngx-stripe';
+
 import { NgStrPlutoService } from '../core';
 
 @Component({
@@ -17,12 +18,13 @@ import { NgStrPlutoService } from '../core';
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [ReactiveFormsModule]
 })
-export class VerifyMicrodepositsExampleComponent {
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.usa);
+export default class VerifyMicrodepositsExampleComponent {
+  private readonly plutoService = inject(NgStrPlutoService);
+
+  stripe = injectStripe(this.plutoService.KEYS.usa);
   elementOptions = {
     style: {
       base: {
@@ -36,8 +38,6 @@ export class VerifyMicrodepositsExampleComponent {
 
   paying = false;
   clientSecret = 'seti_1MHzwWCFzZvO65bF1voT4xPv_secret_N2443bqf1USOXVX7lc2N3rmDhH2n9yM';
-
-  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 
   pay() {
     this.stripe

@@ -1,10 +1,23 @@
 import { Component } from '@angular/core';
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+
+import {
+  NgStrDocsHeaderComponent,
+  NgStrHighlightComponent,
+  NgStrLinkComponent,
+  NgStrSectionComponent,
+  NgStrSubheaderComponent
+} from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-introduction',
   templateUrl: './introduction.component.html',
   standalone: true,
-  imports: [DocsElementsModule]
+  imports: [
+    NgStrDocsHeaderComponent,
+    NgStrHighlightComponent,
+    NgStrLinkComponent,
+    NgStrSectionComponent,
+    NgStrSubheaderComponent
+  ]
 })
-export class NgStrIntroductionComponent {}
+export default class NgStrIntroductionComponent {}

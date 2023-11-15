@@ -1,21 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { PaymentRequestPaymentMethodEvent, PaymentRequestShippingAddressEvent } from '@stripe/stripe-js';
-import { StripeFactoryService, StripePaymentRequestButtonComponent } from 'ngx-stripe';
+import { StripePaymentRequestButtonComponent, injectStripe } from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../../core';
-import { of } from 'rxjs';
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+
+import {
+  NgStrCodeComponent,
+  NgStrCodeGroupComponent,
+  NgStrDocsHeaderComponent,
+  NgStrLinkComponent,
+  NgStrPanelComponent,
+  NgStrSectionAsideDirective,
+  NgStrSectionComponent,
+  NgStrSubheaderComponent
+} from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-payment-request-button',
   templateUrl: './payment-request-button.component.html',
   standalone: true,
-  imports: [DocsElementsModule, StripePaymentRequestButtonComponent]
+  imports: [
+    StripePaymentRequestButtonComponent,
+    NgStrCodeComponent,
+    NgStrCodeGroupComponent,
+    NgStrDocsHeaderComponent,
+    NgStrLinkComponent,
+    NgStrPanelComponent,
+    NgStrSectionComponent,
+    NgStrSectionAsideDirective,
+    NgStrSubheaderComponent
+  ]
 })
-export class NgStrPaymentRequestButtonComponent {
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+export default class NgStrPaymentRequestButtonComponent {
+  private readonly plutoService = inject(NgStrPlutoService);
+
+  stripe = injectStripe(this.plutoService.KEYS.main);
   paymentRequestOptions = {
     country: 'US',
     currency: 'usd',
@@ -26,8 +48,6 @@ export class NgStrPaymentRequestButtonComponent {
     requestPayerName: true,
     requestPayerEmail: true
   };
-
-  constructor(private plutoService: NgStrPlutoService, private stripeFactory: StripeFactoryService) {}
 
   onPaymentMethod(ev: PaymentRequestPaymentMethodEvent) {
     this.plutoService

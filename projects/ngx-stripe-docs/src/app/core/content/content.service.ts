@@ -25,14 +25,26 @@ export class NgStrContentService {
     {
       group: 'Core Concepts',
       type: 'page',
-      name: 'Checkout',
-      path: 'checkout'
+      name: 'Elements',
+      path: 'elements'
     },
     {
       group: 'Core Concepts',
       type: 'page',
       name: 'Payment Element',
       path: 'payment-element'
+    },
+    {
+      group: 'Core Concepts',
+      type: 'page',
+      name: 'Express Checkout',
+      path: 'express-checkout'
+    },
+    {
+      group: 'Core Concepts',
+      type: 'page',
+      name: 'Checkout',
+      path: 'checkout'
     },
     {
       group: 'Core Concepts',

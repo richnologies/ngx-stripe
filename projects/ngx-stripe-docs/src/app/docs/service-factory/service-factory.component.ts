@@ -1,13 +1,28 @@
 import { Component } from '@angular/core';
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+
+import {
+  NgStrCodeComponent,
+  NgStrCodeGroupComponent,
+  NgStrDocsHeaderComponent,
+  NgStrHighlightComponent,
+  NgStrSectionComponent,
+  NgStrSubheaderComponent
+} from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-service-factory',
   templateUrl: './service-factory.component.html',
   standalone: true,
-  imports: [DocsElementsModule]
+  imports: [
+    NgStrCodeComponent,
+    NgStrCodeGroupComponent,
+    NgStrDocsHeaderComponent,
+    NgStrHighlightComponent,
+    NgStrSectionComponent,
+    NgStrSubheaderComponent
+  ]
 })
-export class NgStrServiceFactoryComponent {
+export default class NgStrServiceFactoryComponent {
   serviceFactoryTS = `
     import { Component, OnInit, ViewChild } from '@angular/core';
     import { FormGroup, FormBuilder, Validators } from "@angular/forms";

@@ -2,102 +2,95 @@
   <ng-container ngStrSectionMain>
     <ngstr-header title="Installation"></ngstr-header>
     <p>
-      Since the release of the last major update for the library, two main branches are available. The
-      <ngstr-highlight>legacy</ngstr-highlight> and the <ngstr-highlight>active</ngstr-highlight> versions.
+      Welcome to the Ngx Stripe installation guide. This guide provides detailed instructions for integrating Ngx Stripe
+      into your Angular project, ensuring you're set up for a smooth implementation.
     </p>
-    <ngstr-subheader subheader="Active Versions" link="active-versions"></ngstr-subheader>
-    <p>To install the last active version:</p>
-    <ngstr-code code="$ npm install ngx-stripe @stripe/stripe-js"></ngstr-code>
+    <ngstr-subheader subheader="Prerequisites" link="prerequisites"></ngstr-subheader>
+    <p>Before proceeding with the installation, make sure to note the following prerequisites:</p>
+    <ul role="list">
+      <li>
+        <strong>Angular Version Compatibility</strong>: Ngx Stripe major versions are aligned with Angular versions. For
+        Angular version 16, use Ngx Stripe version 16
+      </li>
+      <li>
+        <strong>StripeJS Peer Dependency</strong>: ngx-stripe requires
+        <ngstr-highlight>&#64;stripe/stripe-js</ngstr-highlight>
+        as a peer dependency for types:
+      </li>
+    </ul>
+    <ngstr-code code="$ npm install ngx-stripe stripe/stripe-js"></ngstr-code>
     <p>
       To install an specific version for an older Angular major, use the lts npm tags or check the table below to pick
-      the right version, for example, for v8:
+      the right version, for example, for v16:
     </p>
-    <ngstr-code code="$ npm install ngx-stripe@v8-lts @stripe/stripe-js"></ngstr-code>
-    <ngstr-subheader subheader="Legacy Versions" link="legacy-versions"></ngstr-subheader>
-    <p>
-      To install some of the older versions of the library use the legacy npm tags or check the table below to pick the
-      right version, for example, for v7:
-    </p>
-    <ngstr-code code="$ npm install ngx-stripe@v7-legacy"></ngstr-code>
+    <ngstr-code code="$ npm install ngx-stripe@v16-lts @stripe/stripe-js"></ngstr-code>
+    <ngstr-subheader subheader="Important Notes" link="important-notes">Important Notes</ngstr-subheader>
+    <ul role="list">
+      <li>
+        <strong>Major Update in &#64;stripe/stripe-js v2</strong>: Be aware that &#64;stripe/stripe-js has undergone
+        significant changes from v1 to v2. While these changes are major, the breaking changes are minimal. ngx-stripe
+        will maintain its release cycle independent of these changes. Review the &#64;stripe/stripe-js v2 documentation
+        to ensure full compatibility with your project.
+      </li>
+      <li>
+        <strong>Lazy Loading of StripeJS</strong>: ngx-stripe efficiently handles the lazy loading of StripeJS, meaning
+        you don't need to add it manually to your project. If StripeJS is detected in your environment, ngx-stripe will
+        not load it again, preventing duplicate instances.
+      </li>
+      <li>
+        <strong>Direct Loading of StripeJS</strong>: Should you opt to load StripeJS directly, always use the Stripe
+        CDN. Do not store a local copy of StripeJS, as it's important to use the most secure and up-to-date version for
+        payment processing security and compliance.
+      </li>
+    </ul>
     <ngstr-subheader subheader="Table Versions" link="table-versions">Table Versions</ngstr-subheader>
     <table class="mb-8">
       <thead>
         <tr>
           <th>Angular</th>
-          <th>ngx-stripe (legacy)</th>
           <th>ngx-stripe</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>17</td>
-          <td><strong>Not Available</strong></td>
           <td>17.x+</td>
         </tr>
         <tr>
           <td>16</td>
-          <td><strong>Not Available</strong></td>
           <td>16.x+</td>
         </tr>
         <tr>
           <td>15</td>
-          <td><strong>Not Available</strong></td>
           <td>15.x+</td>
         </tr>
         <tr>
           <td>14</td>
-          <td><strong>Not Available</strong></td>
           <td>14.x+</td>
         </tr>
         <tr>
           <td>13</td>
-          <td><strong>Not Available</strong></td>
           <td>13.x+</td>
         </tr>
         <tr>
           <td>12</td>
-          <td><strong>Not Available</strong></td>
           <td>12.x+</td>
         </tr>
         <tr>
           <td>11</td>
-          <td><strong>Not Available</strong></td>
           <td>11.x+</td>
         </tr>
         <tr>
           <td>10</td>
-          <td><strong>Not Available</strong></td>
           <td>10.x+</td>
         </tr>
         <tr>
           <td>9</td>
-          <td>v9-legacy / 9.0.x+</td>
-          <td>v9-lts / 9.1.x+</td>
+          <td>v9-lts / 9.4.0</td>
         </tr>
         <tr>
           <td>8</td>
-          <td>v8-legacy / 7.4.4+</td>
-          <td>v8-lts / 9.1.x+</td>
-        </tr>
-        <tr>
-          <td>7</td>
-          <td>v7-legacy / 7.x+</td>
-          <td>v7-lts / 9.1.x+</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>v6-legacy / 0.6.x+</td>
-          <td>v6-lts / 9.1.x+</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>0.5.x or less</td>
-          <td><strong>Not Available</strong></td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>0.5.x or less</td>
-          <td><strong>Not Available</strong></td>
+          <td>v8-lts / 8.2.0</td>
         </tr>
       </tbody>
     </table>

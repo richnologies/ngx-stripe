@@ -1,13 +1,28 @@
 import { Component } from '@angular/core';
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+
+import {
+  NgStrCodeComponent,
+  NgStrDocsHeaderComponent,
+  NgStrHighlightComponent,
+  NgStrLinkComponent,
+  NgStrSectionComponent,
+  NgStrSubheaderComponent
+} from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-setup-application',
   templateUrl: './setup-application.component.html',
   standalone: true,
-  imports: [DocsElementsModule]
+  imports: [
+    NgStrCodeComponent,
+    NgStrHighlightComponent,
+    NgStrLinkComponent,
+    NgStrSectionComponent,
+    NgStrDocsHeaderComponent,
+    NgStrSubheaderComponent
+  ]
 })
-export class NgStrSetupApplicationComponent {
+export default class NgStrSetupApplicationComponent {
   appModule = `
     import { BrowserModule } from '@angular/platform-browser';
     import { NgModule } from '@angular/core';

@@ -1,13 +1,28 @@
 import { Component } from '@angular/core';
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+
+import {
+  NgStrCodeComponent,
+  NgStrCodeGroupComponent,
+  NgStrDocsHeaderComponent,
+  NgStrPanelComponent,
+  NgStrSectionComponent,
+  NgStrSubheaderComponent
+} from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-manually-mount',
   templateUrl: './manually-mount.component.html',
   standalone: true,
-  imports: [DocsElementsModule]
+  imports: [
+    NgStrCodeComponent,
+    NgStrCodeGroupComponent,
+    NgStrDocsHeaderComponent,
+    NgStrPanelComponent,
+    NgStrSectionComponent,
+    NgStrSubheaderComponent
+  ]
 })
-export class NgStrManuallyMountComponent {
+export default class NgStrManuallyMountComponent {
   stripeMountTS = `
     import { Component, OnInit, ViewChild } from '@angular/core';
     import { FormGroup, FormBuilder, Validators } from "@angular/forms";

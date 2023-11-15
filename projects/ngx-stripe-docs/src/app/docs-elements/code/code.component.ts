@@ -1,12 +1,21 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+
+import { HighlightModule } from 'ngx-highlightjs';
+
+import { NgStrCodeFormatPipe } from './code-format.pipe';
 
 @Component({
   selector: 'ngstr-code',
   template: `
-    <pre class="ngstr-code not-prose" *ngIf="!hidden">
-      <code [highlight]="code | ngStrCodeFormat"></code>
-    </pre>
-  `
+    @if (!hidden) {
+    <pre class="ngstr-code not-prose">
+        <code [highlight]="code | ngStrCodeFormat"></code>
+      </pre>
+    }
+  `,
+  standalone: true,
+  encapsulation: ViewEncapsulation.None,
+  imports: [HighlightModule, NgStrCodeFormatPipe]
 })
 export class NgStrCodeComponent {
   @Input() name?: string;

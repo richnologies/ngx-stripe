@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
@@ -12,7 +12,9 @@ import { NgStrGoogleTagManagerService } from './core';
   imports: [RouterModule]
 })
 export class AppComponent implements OnInit {
-  constructor(private router: Router, private titleService: Title, private gtag: NgStrGoogleTagManagerService) {}
+  private readonly router = inject(Router);
+  private readonly titleService = inject(Title);
+  private readonly gtag = inject(NgStrGoogleTagManagerService);
 
   ngOnInit() {
     this.gtag.setup();

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
-import { StripeAfterpayClearpayMessageComponent, StripeElementsDirective, StripeFactoryService } from 'ngx-stripe';
+import { StripeAfterpayClearpayMessageComponent, StripeElementsDirective, injectStripe } from 'ngx-stripe';
 import { StripeAfterpayClearpayMessageElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -21,12 +21,13 @@ import { NgStrPlutoService } from '../core';
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [StripeAfterpayClearpayMessageComponent, StripeElementsDirective]
 })
-export class AfterpayClearpayMessageExampleComponent {
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+export default class AfterpayClearpayMessageExampleComponent {
+  private readonly plutoService = inject(NgStrPlutoService);
+
+  stripe = injectStripe(this.plutoService.KEYS.main);
   afterpayClearpayOptions: StripeAfterpayClearpayMessageElementOptions = {
     amount: 5000,
     currency: 'USD',
@@ -35,6 +36,4 @@ export class AfterpayClearpayMessageExampleComponent {
   elementsOptions: StripeElementsOptions = {
     locale: 'en'
   };
-
-  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 }

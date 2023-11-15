@@ -38,16 +38,18 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 export type NgxStripeExpressCheckoutElementLoadErrorEvent = {
-    elementType: 'expressCheckout';
-    error: StripeError;
-}
+  elementType: 'expressCheckout';
+  error: StripeError;
+};
 
 @Component({
   selector: 'ngx-stripe-express-checkout',
   standalone: true,
   template: `
     <div class="field" #stripeElementRef>
-      <ng-container *ngIf="state !== 'ready' && loadingTemplate" [ngTemplateOutlet]="loadingTemplate"></ng-container>
+      @if (state !== 'ready' && loadingTemplate) {
+        <ng-container [ngTemplateOutlet]="loadingTemplate" />
+      }
     </div>
   `,
   imports: [CommonModule]
@@ -157,8 +159,12 @@ export class StripeExpressCheckoutComponent implements OnInit, OnChanges, OnDest
     this.element.on('ready', (ev: StripeExpressCheckoutElementReadyEvent) => this.ready.emit(ev));
     this.element.on('escape', () => this.escape.emit());
     this.element.on('loaderror', (err: NgxStripeExpressCheckoutElementLoadErrorEvent) => this.loaderror.emit(err));
-    this.element.on('shippingaddresschange', (ev: StripeExpressCheckoutElementShippingAddressChangeEvent) => this.shippingaddresschange.emit(ev));
-    this.element.on('shippingratechange', (ev: StripeExpressCheckoutElementShippingRateChangeEvent) => this.shippingratechange.emit(ev));
+    this.element.on('shippingaddresschange', (ev: StripeExpressCheckoutElementShippingAddressChangeEvent) =>
+      this.shippingaddresschange.emit(ev)
+    );
+    this.element.on('shippingratechange', (ev: StripeExpressCheckoutElementShippingRateChangeEvent) =>
+      this.shippingratechange.emit(ev)
+    );
 
     this.element.mount(this.stripeElementRef.nativeElement);
 

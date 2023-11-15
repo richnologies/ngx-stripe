@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -15,14 +15,13 @@ import { NgStrClipboardService } from '../../core';
       <span class="material-icons text-sm mr-3">content_copy</span>
       <span>Copy Link</span>
     </div>
-  `
+  `,
+  standalone: true
 })
 export class NgStrCopyLinkComponent {
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    private clipboard: NgStrClipboardService,
-    private toastr: ToastrService
-  ) {}
+  private readonly document = inject(DOCUMENT);
+  private readonly clipboard = inject(NgStrClipboardService);
+  private readonly toastr = inject(ToastrService);
 
   copyLink() {
     try {

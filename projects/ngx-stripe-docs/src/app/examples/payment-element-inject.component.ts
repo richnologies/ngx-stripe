@@ -1,5 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
 import { StripePaymentElementComponent, injectStripe } from 'ngx-stripe';
@@ -17,20 +16,22 @@ import { NgStrPlutoService } from '../core';
       <div section-content [formGroup]="stripeTest">
         <input matInput placeholder="name" formControlName="name" />
         <input matInput placeholder="amount" type="number" formControlName="amount" />
-        <ng-container *ngIf="elementsOptions?.clientSecret as clientSecret">
-          <ngx-stripe-payment [stripe]="stripe" [clientSecret]="clientSecret"></ngx-stripe-payment>
-        </ng-container>
+        @if (elementsOptions?.clientSecret; as clientSecret) {
+          <ngx-stripe-payment [stripe]="stripe" [clientSecret]="clientSecret" />
+        }
         <button (click)="pay()">PAY</button>
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, StripePaymentElementComponent]
+  imports: [ReactiveFormsModule, StripePaymentElementComponent]
 })
-export class PaymentElementInjectExampleComponent implements OnInit {
+export default class PaymentElementInjectExampleComponent implements OnInit {
   @ViewChild(StripePaymentElementComponent)
   paymentElement: StripePaymentElementComponent;
+
+  private readonly fb = inject(UntypedFormBuilder);
+  private readonly plutoService = inject(NgStrPlutoService);
 
   stripeTest = this.fb.group({
     name: ['Angular v12', [Validators.required]],
@@ -43,8 +44,6 @@ export class PaymentElementInjectExampleComponent implements OnInit {
   };
 
   paying = false;
-
-  constructor(private fb: UntypedFormBuilder, private plutoService: NgStrPlutoService) {}
 
   ngOnInit() {
     this.plutoService

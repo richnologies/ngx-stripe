@@ -1,13 +1,30 @@
 import { Component } from '@angular/core';
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+
+import {
+  NgStrCodeComponent,
+  NgStrCodeGroupComponent,
+  NgStrDocsHeaderComponent,
+  NgStrLinkComponent,
+  NgStrPanelComponent,
+  NgStrSectionComponent,
+  NgStrSubheaderComponent
+} from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-identity',
   templateUrl: './identity.component.html',
   standalone: true,
-  imports: [DocsElementsModule]
+  imports: [
+    NgStrCodeComponent,
+    NgStrCodeGroupComponent,
+    NgStrDocsHeaderComponent,
+    NgStrLinkComponent,
+    NgStrPanelComponent,
+    NgStrSectionComponent,
+    NgStrSubheaderComponent
+  ]
 })
-export class NgStrIdentityComponent {
+export default class NgStrIdentityComponent {
   identityOneTS = `
     import { Component } from '@angular/core';
     import { HttpClient } from '@angular/common/http';

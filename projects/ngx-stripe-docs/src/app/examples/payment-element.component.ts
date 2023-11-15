@@ -1,8 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { StripePaymentElementComponent, StripeFactoryService } from 'ngx-stripe';
+import { StripePaymentElementComponent, injectStripe } from 'ngx-stripe';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -17,38 +16,34 @@ import { NgStrPlutoService } from '../core';
       <div section-content [formGroup]="stripeTest">
         <input matInput placeholder="name" formControlName="name" />
         <input matInput placeholder="amount" type="number" formControlName="amount" />
-        <ng-container *ngIf="elementsOptions?.clientSecret as clientSecret">
-          <ngx-stripe-payment [stripe]="stripe" [clientSecret]="clientSecret"></ngx-stripe-payment>
-        </ng-container>
+        @if (elementsOptions?.clientSecret; as clientSecret) {
+          <ngx-stripe-payment [stripe]="stripe" [clientSecret]="clientSecret" />
+        }
         <button (click)="pay()">PAY</button>
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, StripePaymentElementComponent]
+  imports: [ReactiveFormsModule, StripePaymentElementComponent]
 })
-export class PaymentElementExampleComponent implements OnInit {
+export default class PaymentElementExampleComponent implements OnInit {
   @ViewChild(StripePaymentElementComponent)
   paymentElement: StripePaymentElementComponent;
+
+  private readonly fb = inject(UntypedFormBuilder);
+  private readonly plutoService = inject(NgStrPlutoService);
 
   stripeTest = this.fb.group({
     name: ['Angular v12', [Validators.required]],
     amount: [1109, [Validators.required, Validators.pattern(/\d+/)]]
   });
 
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+  stripe = injectStripe(this.plutoService.KEYS.main);
   elementsOptions: StripeElementsOptions = {
     locale: 'en'
   };
 
   paying = false;
-
-  constructor(
-    private fb: UntypedFormBuilder,
-    private plutoService: NgStrPlutoService,
-    private stripeFactory: StripeFactoryService
-  ) {}
 
   ngOnInit() {
     this.plutoService

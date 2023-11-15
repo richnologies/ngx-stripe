@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { StripeFpxBankComponent, StripeFactoryService } from 'ngx-stripe';
+import { StripeFpxBankComponent, injectStripe } from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../core';
 
@@ -15,24 +15,26 @@ import { NgStrPlutoService } from '../core';
       <div section-content [formGroup]="stripeTest">
         <input matInput placeholder="name" formControlName="name" />
         <input matInput placeholder="amount" type="number" formControlName="amount" />
-        <ngx-stripe-fpx-bank [stripe]="stripe"></ngx-stripe-fpx-bank>
+        <ngx-stripe-fpx-bank [stripe]="stripe" />
         <button (click)="pay()">PAY</button>
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [ReactiveFormsModule, StripeFpxBankComponent]
 })
-export class FpxExampleComponent implements OnInit {
+export default class FpxExampleComponent implements OnInit {
   @ViewChild(StripeFpxBankComponent) fpxPayment: StripeFpxBankComponent;
+
+  private readonly fb = inject(UntypedFormBuilder);
+  private readonly plutoService = inject(NgStrPlutoService);
 
   stripeTest = this.fb.group({
     name: ['FPX - Test', [Validators.required]],
     amount: [1109, [Validators.required, Validators.pattern(/\d+/)]]
   });
 
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+  stripe = injectStripe(this.plutoService.KEYS.main);
   elementOptions = {
     style: {
       base: {
@@ -46,12 +48,6 @@ export class FpxExampleComponent implements OnInit {
 
   paying = false;
   clientSecret: string;
-
-  constructor(
-    private fb: UntypedFormBuilder,
-    private plutoService: NgStrPlutoService,
-    private stripeFactory: StripeFactoryService
-  ) {}
 
   ngOnInit() {
     this.plutoService

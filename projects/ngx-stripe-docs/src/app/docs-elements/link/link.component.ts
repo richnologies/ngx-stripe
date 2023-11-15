@@ -11,7 +11,8 @@ import { Component, Input } from '@angular/core';
     >
       <ng-content></ng-content>
     </a>
-  `
+  `,
+  standalone: true
 })
 export class NgStrLinkComponent {
   @Input() url: string;

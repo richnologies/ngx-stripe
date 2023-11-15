@@ -1,8 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
-import { StripeCardComponent, StripeFactoryService } from 'ngx-stripe';
+import { StripeCardComponent, injectStripe } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -24,14 +24,16 @@ import { NgStrPlutoService } from '../core';
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [ReactiveFormsModule, StripeCardComponent]
 })
-export class CardPaymentIntentExampleComponent {
+export default class CardPaymentIntentExampleComponent {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+  private readonly fb = inject(UntypedFormBuilder);
+  private readonly plutoService = inject(NgStrPlutoService);
+
+  stripe = injectStripe(this.plutoService.KEYS.main);
 
   stripeTest = this.fb.group({
     name: ['Angular v11', [Validators.required]],
@@ -58,12 +60,6 @@ export class CardPaymentIntentExampleComponent {
   };
 
   paying = false;
-
-  constructor(
-    private fb: UntypedFormBuilder,
-    private plutoService: NgStrPlutoService,
-    private stripeFactory: StripeFactoryService
-  ) {}
 
   pay() {
     if (this.stripeTest.valid) {

@@ -1,6 +1,3 @@
-@import '~highlight.js/styles/xcode.css';
-@import '~ngx-toastr/toastr';
-
 html,
 body {
   height: 100%;

@@ -35,7 +35,8 @@ import { Component, Input } from '@angular/core';
         display: block;
       }
     `
-  ]
+  ],
+  standalone: true
 })
 export class NgStrFlipContainerComponent {
   @Input() showBack = false;

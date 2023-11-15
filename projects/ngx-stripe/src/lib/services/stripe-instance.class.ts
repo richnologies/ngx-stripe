@@ -198,7 +198,7 @@ export class StripeInstance implements StripeServiceInterface {
     clientSecret: string;
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
-  }): Observable<never | {error: StripeError}>;
+  }): Observable<never | { error: StripeError }>;
   confirmPayment(options) {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.confirmPayment(options))),
@@ -489,7 +489,7 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
-  handleNextAction(options: { clientSecret: string; }): Observable<PaymentIntentOrSetupIntentResult> {
+  handleNextAction(options: { clientSecret: string }): Observable<PaymentIntentOrSetupIntentResult> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.handleNextAction(options))),
       first()
@@ -558,7 +558,7 @@ export class StripeInstance implements StripeServiceInterface {
     clientSecret: string;
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
-  }): Observable<never | {error: StripeError}>;
+  }): Observable<never | { error: StripeError }>;
   confirmSetup(options) {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.confirmSetup(options))),

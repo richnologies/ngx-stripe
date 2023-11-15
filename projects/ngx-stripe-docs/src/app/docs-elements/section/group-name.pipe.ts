@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'ngStrGroupName',
-  pure: true
+  pure: true,
+  standalone: true
 })
 export class NgStrGroupNamePipe implements PipeTransform {
   transform(group: string, direction: 'next' | 'previous'): string {

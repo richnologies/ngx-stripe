@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+
 import { NgStrContentService, NgStrMenuItem } from '../../core';
+
+import { NgStrGroupNamePipe } from '../section/group-name.pipe';
 
 @Component({
   selector: 'ngstr-section-navigator',
   template: `
-    <div class="flex flex-col md:flex-row gap-4 mt-2 px-2 sm:px-0" *ngIf="next || previous">
-      <a
-        class="inline-block w-full cursor-pointer no-underline"
-        [routerLink]="['/docs', previous.path]"
-        *ngIf="previous"
-      >
+    @if (next || previous) {
+    <div class="flex flex-col md:flex-row gap-4 mt-2 px-2 sm:px-0">
+      @if (previous) {
+      <a class="inline-block w-full cursor-pointer no-underline" [routerLink]="['/docs', previous.path]">
         <div
           class="flex flex-row grow rounded justify-between px-4 py-2 border border-gray-300 hover:border-indigo-500 bg-white"
         >
@@ -24,7 +25,8 @@ import { NgStrContentService, NgStrMenuItem } from '../../core';
           </div>
         </div>
       </a>
-      <a class="inline-block w-full cursor-pointer no-underline" [routerLink]="['/docs', next.path]" *ngIf="next">
+      } @if (next) {
+      <a class="inline-block w-full cursor-pointer no-underline" [routerLink]="['/docs', next.path]">
         <div
           class="flex flex-row grow rounded justify-between px-4 py-2 border border-gray-300 hover:border-indigo-500 bg-white"
         >
@@ -38,17 +40,22 @@ import { NgStrContentService, NgStrMenuItem } from '../../core';
           </div>
         </div>
       </a>
+      }
     </div>
-  `
+    }
+  `,
+  imports: [RouterModule, NgStrGroupNamePipe],
+  standalone: true
 })
 export class NgStrSectionNavigatorComponent implements OnInit {
+  private readonly router = inject(Router);
+  private readonly contentService = inject(NgStrContentService);
+
   next: NgStrMenuItem;
   previous: NgStrMenuItem;
 
-  constructor(private router: Router, private contentService: NgStrContentService) {}
-
   ngOnInit() {
-    if (this.router.url && this.router.url) {
+    if (this.router.url) {
       const fragments = this.router.url.split('/');
       const docsPath = fragments.slice(fragments.indexOf('docs') + 1).join('/');
       const { next, previous } = this.contentService.getNavigationElements(docsPath);

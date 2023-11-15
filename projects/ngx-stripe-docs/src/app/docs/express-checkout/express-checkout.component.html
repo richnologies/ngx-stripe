@@ -1,0 +1,70 @@
+<ngstr-section>
+  <ng-container ngStrSectionMain>
+    <ngstr-header title="Express Checkout Element" />
+    <p>
+      The <ngstr-link url="https://stripe.com/docs/elements/express-checkout-element">Express Checkout Element</ngstr-link>
+      gives you a single integration for accepting payments through one-click payment buttons.
+      Supported payment methods include 
+      <ngstr-link url="https://stripe.com/docs/payments/link/what-is-link">Link</ngstr-link>, 
+      <ngstr-link url="https://stripe.com/docs/apple-pay">Apple Pay</ngstr-link>,
+      <ngstr-link url="https://stripe.com/docs/google-pay">Google Pay</ngstr-link>, and 
+      <ngstr-link url="PayPal">Paypal</ngstr-link>.
+    </p>
+    <ngstr-subheader subheader="Basic Example" link="basic-example"></ngstr-subheader>
+    <p>
+      Integrating the Express Checkout Element with ngx-stripe involves a few straightforward steps.
+      Below, we provide an example of how to set up and use the Express Checkout Element in your Angular application.
+    </p>
+    <p>
+      For detailed information about the Express Checkout Element and its usage, refer to the official Stripe
+      <ngstr-link url="https://stripe.com/docs/js/element/express_checkout_element">documentation</ngstr-link>.
+    </p>
+    <ngstr-code [code]="expressCheckoutTS"></ngstr-code>
+
+    <ngstr-subheader subheader="Click Event" link="click-event"></ngstr-subheader>
+    <p>
+      The <ngstr-link url="https://stripe.com/docs/js/elements_object/express_checkout_element_click_event">click event</ngstr-link>
+      is triggered from an Express Checkout Element when the customer clicks a payment button.
+      Use this event to configure the payment interface.
+    </p>
+    <p>
+      You must call the resolve function with all the status info to display the payment interface. Refer to
+      the official docs for more details.
+    </p>
+    <ngstr-panel type="danger">
+      Notice the event name is <strong>clicked</strong>, not click that could cause a conflict with the native click event.
+    </ngstr-panel>
+    <ngstr-code [code]="expressCheckoutClickEventTS"></ngstr-code>
+
+    <ngstr-subheader subheader="Confirm Event" link="confirm-event"></ngstr-subheader>
+    <p>
+      The <ngstr-link url="https://stripe.com/docs/js/elements_object/express_checkout_element_confirm_event">confirm event</ngstr-link>
+      is triggered from an Express Checkout Element when the customer finalizes their payment.
+      Use this event to trigger payment confirmation.
+    </p>
+    <ngstr-code [code]="expressCheckoutConfirmEventTS"></ngstr-code>
+
+    <ngstr-subheader subheader="Cancel Event" link="cancel-event"></ngstr-subheader>
+    <p>
+      The <ngstr-link url="https://stripe.com/docs/js/elements_object/express_checkout_element_cancel_event">cancel event</ngstr-link>
+      is triggered from an Express Checkout Element when the payment interface is dismissed.
+    </p>
+    <ngstr-panel type="warning">
+      Note that in some browsers, the payment interface might be dismissed by the customer even after they authorize the payment.
+      This means that you might receive a cancel event after receiving a confirm event.
+      If you're using the cancel event as a hook for canceling the customer's order, make sure you also refund the payment that you just created.
+    </ngstr-panel>
+    <ngstr-code [code]="expressCheckoutCancelEventTS"></ngstr-code>
+
+    <ngstr-subheader subheader="Shipping Events" link="shipping-events"></ngstr-subheader>
+    <p>
+      The <ngstr-link url="https://stripe.com/docs/js/elements_object/express_checkout_element_shippingaddresschange_event">shippingaddresschange event</ngstr-link>
+      is triggered from an Express Checkout Element whenever the customer selects a new address in the payment interface.
+    </p>
+    <p>
+      The <ngstr-link url="https://stripe.com/docs/js/elements_object/express_checkout_element_shippingratechange_event">shippingratechange event</ngstr-link>
+      is triggered from an Express Checkout Element whenever the customer selects a new shipping rate in the payment interface.
+    </p>
+    <ngstr-code [code]="expressCheckoutShippingEventsTS"></ngstr-code>
+  </ng-container>
+</ngstr-section>

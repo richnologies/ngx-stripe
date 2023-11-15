@@ -1,9 +1,9 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class NgStrClipboardService {
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  private readonly document: Document = inject(DOCUMENT);
 
   copy(content) {
     try {

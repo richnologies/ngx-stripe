@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 
-import { StripeElementsDirective, StripeFactoryService, StripeP24BankComponent } from 'ngx-stripe';
+import { StripeElementsDirective, StripeP24BankComponent, injectStripe } from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../core';
 
@@ -13,20 +13,21 @@ import { NgStrPlutoService } from '../core';
         <span>P24 Bank</span>
       </div>
       <div section-content>
-        <ngx-stripe-p24-bank [stripe]="stripe"></ngx-stripe-p24-bank>
+        <ngx-stripe-p24-bank [stripe]="stripe" />
 
         <div ngxStripeElements [stripe]="stripe" [elementsOptions]="elementsOptions">
-          <ngx-stripe-p24-bank></ngx-stripe-p24-bank>
+          <ngx-stripe-p24-bank />
         </div>
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [StripeElementsDirective, StripeP24BankComponent]
 })
-export class P24BankExampleComponent {
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+export default class P24BankExampleComponent {
+  private readonly plutoService = inject(NgStrPlutoService);
+
+  stripe = injectStripe(this.plutoService.KEYS.main);
   elementsOptions: StripeElementsOptions = {
     locale: 'es'
   };
@@ -42,6 +43,4 @@ export class P24BankExampleComponent {
 
   paying = false;
   clientSecret: string;
-
-  constructor(private plutoService: NgStrPlutoService, private stripeFactory: StripeFactoryService) {}
 }

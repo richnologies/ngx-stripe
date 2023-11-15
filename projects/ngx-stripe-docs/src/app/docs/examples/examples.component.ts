@@ -1,13 +1,26 @@
 import { Component } from '@angular/core';
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+
+import {
+  NgStrCodeComponent,
+  NgStrCodeGroupComponent,
+  NgStrDocsHeaderComponent,
+  NgStrSectionComponent,
+  NgStrSubheaderComponent
+} from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-examples',
   templateUrl: './examples.component.html',
   standalone: true,
-  imports: [DocsElementsModule]
+  imports: [
+    NgStrCodeComponent,
+    NgStrCodeGroupComponent,
+    NgStrDocsHeaderComponent,
+    NgStrSectionComponent,
+    NgStrSubheaderComponent
+  ]
 })
-export class NgStrExamplesComponent {
+export default class NgStrExamplesComponent {
   createTokenTS = `
     import { Component, OnInit, ViewChild } from '@angular/core';
     import { FormGroup, FormBuilder, Validators } from "@angular/forms";

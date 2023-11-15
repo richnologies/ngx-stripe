@@ -1,0 +1,73 @@
+<ngstr-section>
+  <ng-container ngStrSectionMain>
+    <ngstr-header title="Elements" />
+    <p>
+      Stripe Elements are pre-built UI components designed to securely collect payment details,
+      simplifying the integration of Stripe's payment processing capabilities.
+    </p>
+
+    <ngstr-subheader subheader="Create an Elements Instance" link="elements-instance" />
+    <p>
+      Use an Elements instance to create and manage a group of individual Element instances.
+      In Ngx Stripe, the Elements instance is created using the <ngstr-highlight>StripeElementsDirective</ngstr-highlight>.
+    </p>
+    <p>
+      For more information on customization details, refer to the official
+      <ngstr-link url="https://stripe.com/docs/js/elements_object/create">
+        Stripe documentation
+      </ngstr-link>.
+    </p>
+    <ngstr-code-group>
+      <ngstr-code name="Modern Angular" [code]="elementsWithInject" />
+      <ngstr-code name="Classic Angular" [code]="elementsWithModules" />
+    </ngstr-code-group>
+
+    <ngstr-subheader subheader="Fetch Updates" link="fetch-updates" />
+    <p>
+      If you're using the Payment Element, you can <ngstr-link url="https://stripe.com/docs/js/elements_object/fetch_updates">fetch updates</ngstr-link> from the associated card
+      PaymentIntent or SetupIntent on an existing Element instance, and reflect those updates
+      in the Payment Element.
+    </p>
+    <ngstr-code [code]="fetchUpdates" />
+
+    <ngstr-subheader subheader="Update Elements" link="update-elements" />
+    <p>
+      You can update the options of an existing Element instance by calling the <ngstr-highlight>update</ngstr-highlight> method,
+      similar to how you call <ngstr-highlight>fetchUpdates</ngstr-highlight>.
+      However, there is an easier way. You can update the Elements instance simply by changing the options object.
+      The component will calculate the differences and update the Elements instance accordingly.
+    </p>
+    <ngstr-code [code]="updateElements" />
+
+    <ngstr-subheader subheader="Get Element" link="get-element" />
+    <p>
+      Use this method to retrieve an Element instance from the Elements instance.
+    </p>
+    <ngstr-code [code]="getElement" />
+
+    <ngstr-subheader subheader="Submit" link="submit" />
+    <p>
+      Use <ngstr-highlight>submit</ngstr-highlight> when creating the Elements object without an Intent.
+      Before confirming a payment, call <ngstr-highlight>submit</ngstr-highlight> to validate
+      the form fields and collect any data required for wallets.
+    </p>
+    <ngstr-code [code]="submit" />
+
+    <ngstr-subheader subheader="Default Stripe Instance" link="default-instance" />
+    <p>
+      If you have set your Stripe Key in either the <ngstr-highlight>forRoot</ngstr-highlight> call
+      or the <ngstr-highlight>provideNgxStripe</ngstr-highlight>, a default Stripe instance will be automatically created.
+      This instance can be used to create Elements. Fetch it by calling <ngstr-highlight>injectStripe</ngstr-highlight> with no parameters.
+    </p>
+    <ngstr-code [code]="defaultInstanceWithInject" />
+
+    <ngstr-subheader subheader="Implicit Elements" link="implicit-elements" />
+    <p>
+      Certain elements, such as the Payment Element, can be used without an Elements instance. You can directly pass
+      the elements' options for creation. However, this approach is considered deprecated
+      and is maintained solely for backward compatibility. It is recommended to use an Elements instance, especially
+      when combining multiple elements. Below is an example of how to use the Payment Element without an Elements instance.
+    </p>
+    <ngstr-code [code]="implicitElements" />
+  </ng-container>
+</ngstr-section>

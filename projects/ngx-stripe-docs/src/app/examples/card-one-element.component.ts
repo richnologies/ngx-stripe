@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 
-import { StripeCardComponent, StripeFactoryService, StripeElementsDirective } from 'ngx-stripe';
+import { StripeCardComponent, StripeElementsDirective, injectStripe } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -29,15 +29,16 @@ import { NgStrPlutoService } from '../core';
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [StripeCardComponent, StripeElementsDirective]
 })
-export class CardOneElementExampleComponent {
+export default class CardOneElementExampleComponent {
   @ViewChild('cardWithoutElements') cardWithoutElements: StripeCardComponent;
   @ViewChild('cardWithElements') cardFromElements: StripeCardComponent;
 
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+  private readonly plutoService = inject(NgStrPlutoService);
+
+  stripe = injectStripe(this.plutoService.KEYS.main);
   cardOptions: StripeCardElementOptions = {
     style: {
       base: {
@@ -55,8 +56,6 @@ export class CardOneElementExampleComponent {
   elementsOptions: StripeElementsOptions = {
     locale: 'es'
   };
-
-  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 
   buy() {
     this.stripe.createToken(this.cardWithoutElements.element, { name: 'Ricardo' }).subscribe((result) => {

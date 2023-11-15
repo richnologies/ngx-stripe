@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+
+import {
+  NgStrCodeComponent,
+  NgStrDocsHeaderComponent,
+  NgStrSectionComponent,
+  NgStrSubheaderComponent
+} from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-styling',
   templateUrl: './styling.component.html',
   standalone: true,
-  imports: [DocsElementsModule]
+  imports: [NgStrCodeComponent, NgStrDocsHeaderComponent, NgStrSectionComponent, NgStrSubheaderComponent]
 })
-export class NgStrStylingComponent {
+export default class NgStrStylingComponent {
   stylingOne = `
     import { Component, OnInit, ViewChild } from '@angular/core';
 

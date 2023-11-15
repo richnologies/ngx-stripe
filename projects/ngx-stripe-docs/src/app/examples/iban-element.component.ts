@@ -1,6 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
-import { StripeIbanComponent, StripeFactoryService, StripeElementsDirective } from 'ngx-stripe';
+import { Component, ViewChild, inject } from '@angular/core';
+
+import { StripeIbanComponent, StripeElementsDirective, injectStripe } from 'ngx-stripe';
 import { StripeElementsOptions, StripeIbanElementOptions, CreateTokenIbanData } from '@stripe/stripe-js';
+
 import { NgStrPlutoService } from '../core';
 
 @Component({
@@ -17,24 +19,25 @@ import { NgStrPlutoService } from '../core';
           [stripe]="stripe"
           [options]="ibanOptions"
           [elementsOptions]="elementsOptions"
-        ></ngx-stripe-iban>
+        />
         <button (click)="buy()">CLICK</button>
 
         <p>Another example where we use the new Elements Provider to create the IBAN, should work the same way</p>
         <div ngxStripeElements [stripe]="stripe" [elementsOptions]="elementsOptions">
-          <ngx-stripe-iban #ibanWithElements [options]="ibanOptions"> </ngx-stripe-iban>
+          <ngx-stripe-iban #ibanWithElements [options]="ibanOptions" />
         </div>
         <button (click)="buyWithElements()">CLICK</button>
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [StripeIbanComponent, StripeElementsDirective]
 })
-export class IbanElementExampleComponent {
+export default class IbanElementExampleComponent {
   @ViewChild('ibanWithoutElements') ibanWithoutElements: StripeIbanComponent;
   @ViewChild('ibanWithElements') ibanFromElements: StripeIbanComponent;
+
+  private readonly plutoService = inject(NgStrPlutoService);
 
   ibanOptions: StripeIbanElementOptions = {
     style: {
@@ -52,12 +55,10 @@ export class IbanElementExampleComponent {
     supportedCountries: ['SEPA']
   };
 
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+  stripe = injectStripe(this.plutoService.KEYS.main);
   elementsOptions: StripeElementsOptions = {
     locale: 'es'
   };
-
-  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 
   buy() {
     this.stripe

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { PaymentIntent } from '@stripe/stripe-js';
@@ -18,7 +18,8 @@ export class NgStrPlutoService {
     usa: 'pk_test_51MHzdHCFzZvO65bFwNvBHBPwn6oefQ8chNt0Q324OC0XzqFk15awlmiyBqtpmyddjTia69ex8A3cQqvLnBLEvrYn006yHaznBY'
   };
 
-  constructor(@Inject(PLUTO_ID) private readonly clientId: string, private readonly http: HttpClient) {}
+  private readonly clientId = inject(PLUTO_ID);
+  private readonly http = inject(HttpClient);
 
   createPaymentIntent(
     params: Stripe.PaymentIntentCreateParams,

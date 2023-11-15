@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
 import {
   StripePaymentElementComponent,
-  StripeFactoryService,
   StripeAddressComponent,
   StripeElementsDirective,
-  StripeLinkAuthenticationComponent
+  StripeLinkAuthenticationComponent,
+  injectStripe
 } from 'ngx-stripe';
 import {
   StripeAddressElementOptions,
@@ -27,21 +27,21 @@ import { NgStrPlutoService } from '../core';
       <div section-content [formGroup]="stripeTest">
         <input matInput placeholder="name" formControlName="name" />
         <input matInput placeholder="amount" type="number" formControlName="amount" />
-        <ng-container
-          ngxStripeElements
-          [stripe]="stripe"
-          [elementsOptions]="elementsOptions"
-          *ngIf="elementsOptions?.clientSecret as clientSecret"
-        >
-          <ngx-stripe-link-authentication [stripe]="stripe" [options]="linkOptions"></ngx-stripe-link-authentication>
-          <ngx-stripe-address [options]="addressOptions"></ngx-stripe-address>
-          <ngx-stripe-payment></ngx-stripe-payment>
-        </ng-container>
+        @if (elementsOptions?.clientSecret; as clientSecret) {
+          <ng-container
+            ngxStripeElements
+            [stripe]="stripe"
+            [elementsOptions]="elementsOptions"
+          >
+            <ngx-stripe-link-authentication [stripe]="stripe" [options]="linkOptions" />
+            <ngx-stripe-address [options]="addressOptions" />
+            <ngx-stripe-payment />
+          </ng-container>
+        }
         <button (click)="pay()">PAY</button>
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [
     CommonModule,
@@ -52,17 +52,20 @@ import { NgStrPlutoService } from '../core';
     StripePaymentElementComponent
   ]
 })
-export class LinkAuthenticationElementExampleComponent implements OnInit {
+export default class LinkAuthenticationElementExampleComponent implements OnInit {
   @ViewChild(StripeAddressComponent) addressElement: StripeAddressComponent;
   @ViewChild(StripePaymentElementComponent)
   paymentElement: StripePaymentElementComponent;
+
+  private readonly fb = inject(UntypedFormBuilder);
+  private readonly plutoService = inject(NgStrPlutoService);
 
   stripeTest = this.fb.group({
     name: ['Angular v12', [Validators.required]],
     amount: [1109, [Validators.required, Validators.pattern(/\d+/)]]
   });
 
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+  stripe = injectStripe(this.plutoService.KEYS.main);
   elementsOptions: StripeElementsOptions = {
     locale: 'en'
   };
@@ -76,12 +79,6 @@ export class LinkAuthenticationElementExampleComponent implements OnInit {
   };
 
   paying = false;
-
-  constructor(
-    private fb: UntypedFormBuilder,
-    private plutoService: NgStrPlutoService,
-    private stripeFactory: StripeFactoryService
-  ) {}
 
   ngOnInit() {
     this.plutoService

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
-import { StripeElementsDirective, StripeFactoryService, StripePaymentMethodMessagingComponent } from 'ngx-stripe';
+import { StripeElementsDirective, StripePaymentMethodMessagingComponent, injectStripe } from 'ngx-stripe';
 import { StripeElementsOptions, StripePaymentMethodMessagingElementOptions } from '@stripe/stripe-js';
 
 import { NgStrPlutoService } from '../core';
@@ -21,12 +21,13 @@ import { NgStrPlutoService } from '../core';
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [StripePaymentMethodMessagingComponent, StripeElementsDirective]
 })
-export class PaymentMethodMessagingExampleComponent {
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+export default class PaymentMethodMessagingExampleComponent {
+  private readonly plutoService = inject(NgStrPlutoService);
+
+  stripe = injectStripe(this.plutoService.KEYS.main);
   options: StripePaymentMethodMessagingElementOptions = {
     amount: 9900, // $99.00 USD
     currency: 'USD',
@@ -37,6 +38,4 @@ export class PaymentMethodMessagingExampleComponent {
   elementsOptions: StripeElementsOptions = {
     locale: 'en'
   };
-
-  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 }

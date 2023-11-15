@@ -1,12 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
 import {
   StripePaymentElementComponent,
-  StripeFactoryService,
   StripeAddressComponent,
-  StripeElementsDirective
+  StripeElementsDirective,
+  injectStripe
 } from 'ngx-stripe';
 import { StripeAddressElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
@@ -20,44 +19,41 @@ import { NgStrPlutoService } from '../core';
         <span>Address Element</span>
       </div>
       <div section-content [formGroup]="stripeTest">
-        <ngx-stripe-address [stripe]="stripe" [options]="addressOptions"></ngx-stripe-address>
+        <ngx-stripe-address [stripe]="stripe" [options]="addressOptions" />
 
         <input matInput placeholder="name" formControlName="name" />
         <input matInput placeholder="amount" type="number" formControlName="amount" />
-        <ng-container
-          ngxStripeElements
-          [stripe]="stripe"
-          [elementsOptions]="elementsOptions"
-          *ngIf="elementsOptions?.clientSecret as clientSecret"
-        >
-          <ngx-stripe-address [options]="addressOptions"></ngx-stripe-address>
-          <ngx-stripe-payment></ngx-stripe-payment>
-        </ng-container>
+        @if (elementsOptions?.clientSecret; as clientSecret) {
+          <ng-container
+            ngxStripeElements
+            [stripe]="stripe"
+            [elementsOptions]="elementsOptions"
+          >
+            <ngx-stripe-address [options]="addressOptions" />
+            <ngx-stripe-payment />
+          </ng-container>
+        }
         <button (click)="pay()">PAY</button>
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    StripeAddressComponent,
-    StripePaymentElementComponent,
-    StripeElementsDirective
-  ]
+  imports: [ReactiveFormsModule, StripeAddressComponent, StripePaymentElementComponent, StripeElementsDirective]
 })
-export class AddressElementExampleComponent implements OnInit, AfterViewInit {
+export default class AddressElementExampleComponent implements OnInit, AfterViewInit {
   @ViewChild(StripeAddressComponent) addressElement: StripeAddressComponent;
   @ViewChild(StripePaymentElementComponent)
   paymentElement: StripePaymentElementComponent;
+
+  private readonly fb = inject(UntypedFormBuilder);
+  private readonly plutoService = inject(NgStrPlutoService);
 
   stripeTest = this.fb.group({
     name: ['Angular v12', [Validators.required]],
     amount: [1109, [Validators.required, Validators.pattern(/\d+/)]]
   });
 
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+  stripe = injectStripe(this.plutoService.KEYS.main);
   elementsOptions: StripeElementsOptions = {
     locale: 'en'
   };
@@ -66,12 +62,6 @@ export class AddressElementExampleComponent implements OnInit, AfterViewInit {
   };
 
   paying = false;
-
-  constructor(
-    private fb: UntypedFormBuilder,
-    private plutoService: NgStrPlutoService,
-    private stripeFactory: StripeFactoryService
-  ) {}
 
   ngOnInit() {
     this.plutoService

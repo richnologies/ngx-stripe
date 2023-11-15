@@ -119,7 +119,11 @@
       <div class="my-1">
         <label for="name" class="block text-sm font-medium text-gray-700"> Credit Card </label>
         <div class="mt-1 bg-white border border-gray-300 rounded-md px-3 py-2">
-          <ngx-stripe-card [stripe]="stripe" [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+          <ngx-stripe-card
+            [stripe]="stripe"
+            [options]="cardOptions"
+            [elementsOptions]="elementsOptions"
+          ></ngx-stripe-card>
         </div>
       </div>
       <button
@@ -128,8 +132,11 @@
         class="mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         (click)="createToken()"
       >
-        <span *ngIf="!creatingToken">CREATE TOKEN</span>
-        <span *ngIf="creatingToken">CREATING...</span>
+        @if (creatingToken) {
+        <span>CREATING...</span>
+        } @else {
+        <span>CREATE TOKEN</span>
+        }
       </button>
     </div>
 
@@ -190,8 +197,11 @@
         class="mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         (click)="pay()"
       >
-        <span *ngIf="!paying">PAY 25$</span>
-        <span *ngIf="paying">PAYING...</span>
+        @if (paying) {
+        <span>PAYING...</span>
+        } @else {
+        <span>PAY 25$</span>
+        }
       </button>
     </div>
   </div>

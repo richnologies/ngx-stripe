@@ -1,13 +1,17 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { filter, first, tap } from 'rxjs/operators';
 
-import { ENV, NgStrEnvironment } from '../../interfaces';
+import { ENV } from '../../interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class NgStrGoogleTagManagerService {
+  private readonly document = inject(DOCUMENT);
+  private readonly env = inject(ENV);
+  private readonly titleService = inject(Title);
+
   private loaded = new BehaviorSubject<boolean>(false);
   private loading = false;
   private enable = true;
@@ -16,12 +20,6 @@ export class NgStrGoogleTagManagerService {
   private get window() {
     return this.document ? this.document.defaultView || (this.document as any).parentWindow : null;
   }
-
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    @Inject(ENV) private env: NgStrEnvironment,
-    private titleService: Title
-  ) {}
 
   async setup() {
     if (this.window && this.trackingCode) this.window[`ga-disable-${this.trackingCode}`] = false;

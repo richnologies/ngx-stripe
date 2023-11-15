@@ -33,10 +33,9 @@ import { StripeElementsService } from '../services/stripe-elements.service';
   standalone: true,
   template: `
     <div class="field" #stripeElementRef>
-      <ng-container
-        *ngIf="cardGroup && cardGroup.state !== 'ready' && loadingTemplate"
-        [ngTemplateOutlet]="loadingTemplate"
-      ></ng-container>
+      @if (cardGroup && cardGroup.state !== 'ready' && loadingTemplate) {
+        <ng-container [ngTemplateOutlet]="loadingTemplate" />
+      }
     </div>
   `,
   imports: [CommonModule]

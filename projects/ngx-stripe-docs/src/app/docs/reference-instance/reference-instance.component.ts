@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+
+import { NgStrCodeComponent, NgStrDocsHeaderComponent, NgStrSectionComponent } from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-reference-instance',
   templateUrl: './reference-instance.component.html',
   standalone: true,
-  imports: [DocsElementsModule]
+  imports: [NgStrCodeComponent, NgStrSectionComponent, NgStrDocsHeaderComponent]
 })
-export class NgStrReferenceInstanceComponent {
+export default class NgStrReferenceInstanceComponent {
   referenceAndInstance = `
     import { Component, OnInit } from '@angular/core';
 

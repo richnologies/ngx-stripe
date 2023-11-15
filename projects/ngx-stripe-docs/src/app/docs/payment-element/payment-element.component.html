@@ -1,31 +1,65 @@
 <ngstr-section>
   <ng-container ngStrSectionMain>
-    <ngstr-header title="Payment Element"></ngstr-header>
+    <ngstr-header title="Payment Element" />
     <p>
-      The
-      <ngstr-link url="https://stripe.com/docs/payments/payment-element">Payment Element</ngstr-link>
-      is an embeddable component for securely collecting payment details. The Payment Element supports dozens of payment
-      methods with a single integration. Whether you're just collecting card payments or dozens of payment methods, the
-      Payment Element is the easiest way to build an
-      <strong>embedded</strong> and <strong>customized</strong>
-      payments experience.
+      The <ngstr-link url="https://stripe.com/docs/payments/payment-element">Payment Element</ngstr-link>
+      is a versatile, embeddable component designed for securely collecting payment details. 
+      It supports numerous payment methods through a single, streamlined integration. 
+      The Payment Element simplifies the construction of both an <strong>embedded</strong> and
+      <strong>customized</strong> payments experience, suitable for a variety of payment types.
     </p>
     <p>
-      If you want more information about what the Payment Element is and how to use it, you can visit the official Stripe
-      <ngstr-link url="https://stripe.com/docs/payments/payment-element">docs</ngstr-link>.
+      For detailed information about the Payment Element and its usage, refer to the official Stripe
+      <ngstr-link url="https://stripe.com/docs/js/element/payment_element">documentation</ngstr-link>.
     </p>
     <p>
-      In this guide we are going to focus on how to use the Payment Element with Angular using ngx-stripe. As with any
-      other Stripe Element,
-      <ngstr-highlight>ngx-stripe</ngstr-highlight> tries to provide a similar API. Here is an example on how to
-      perform card payments collection using the
+      This guide focuses on utilizing the Payment Element within an Angular framework using ngx-stripe.
+      Similar to other Stripe Elements, <ngstr-highlight>ngx-stripe</ngstr-highlight> offers a comparable API.
+      Below is an example demonstrating how to collect card payments using the
       <ngstr-highlight>Payment Element</ngstr-highlight>.
     </p>
-    <ngstr-subheader subheader="Usage" link="usage"></ngstr-subheader>
+    <ngstr-subheader subheader="Using Stripe Elements Directive" link="stripe-elements-directive" />
+    <p>
+      To integrate the Payment Element with ngx-stripe, it is recommended to wrap the Payment Element
+      component using the Stripe Elements Directive. For a detailed guide on the Stripe Elements Directive,
+      visit the <ngstr-link url="/docs/elements">Stripe Elements</ngstr-link> section.
+    </p>
     <ngstr-code-group>
-      <ngstr-code name="element.component.ts" [code]="paymentElementTS"></ngstr-code>
-      <ngstr-code name="element.component.html" [code]="paymentElementHTML"></ngstr-code>
-      <ngstr-code name="server.js" [code]="paymentElementServer"></ngstr-code>
+      <ngstr-code name="element.component.html" [code]="paymentElementHTML" />
+      <ngstr-code name="element.component.ts" [code]="paymentElementTS" />
+    </ngstr-code-group>
+    <ngstr-subheader subheader="Implicit Elements Option" link="implicit-elements-option" />
+    <p>
+      Alternatively, the Payment Element can be used through implicit elements, where you directly
+      pass the Stripe instance and element options, and they are internally created. Note, this approach
+      is deprecated and preserved mainly for backward compatibility.
+    </p>
+    <ngstr-code-group>
+      <ngstr-code name="element.component.html" [code]="paymentElementImplicitHTML" />
+      <ngstr-code name="element.component.ts" [code]="paymentElementImplicitTS" />
+    </ngstr-code-group>
+    <ngstr-subheader subheader="Fetch Updates and Update" link="fetch-updates" />
+    <p>
+      To synchronize the Payment Element with the latest data from the associated PaymentIntent or SetupIntent,
+      utilize the <ngstr-highlight>fetchUpdates</ngstr-highlight> method. This can be executed through
+      either the Payment Element component or the Elements Directive.
+    </p>
+    <p>
+      Additionally, you can imperatively update the Payment Element by invoking the
+      <ngstr-highlight>update</ngstr-highlight> method.
+    </p>
+    <ngstr-code-group>
+      <ngstr-code name="element.component.ts" [code]="paymentElementFetchTS" />
+      <ngstr-code name="element.component.html" [code]="paymentElementHTML" />
+    </ngstr-code-group>
+    <ngstr-subheader subheader="Collapse Method" link="collapse-method" />
+    <p>
+      The <ngstr-highlight>collapse</ngstr-highlight> method is exclusively available
+      for the Payment Element component. It allows you to conceal parts of the element from view.
+    </p>
+    <ngstr-code-group>
+      <ngstr-code name="element.component.ts" [code]="paymentElementCollapseTS" />
+      <ngstr-code name="element.component.html" [code]="paymentElementHTML" />
     </ngstr-code-group>
   </ng-container>
   <div class="sm:mx-auto sm:w-full sm:max-w-md" ngStrSectionAside [formGroup]="paymentElementForm">
@@ -90,17 +124,25 @@
               />
             </div>
           </div>
-          <ng-container *ngIf="elementsOptions?.clientSecret as clientSecret">
-            <ngx-stripe-payment [stripe]="stripe" [clientSecret]="clientSecret" [options]="paymentElementOptions"  [elementsOptions]="elementsOptions"></ngx-stripe-payment>
-          </ng-container> 
+          @if (elementsOptions?.clientSecret; as clientSecret) {
+            <ngx-stripe-payment
+              [stripe]="stripe"
+              [clientSecret]="clientSecret"
+              [options]="paymentElementOptions"
+              [elementsOptions]="elementsOptions"
+            ></ngx-stripe-payment>
+          }
           <button
             type="button"
             (click)="pay()"
             [disabled]="paying"
             class="w-full block text-center mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            <span class="w-full block text-center" *ngIf="!paying">TRY IT</span>
-            <span class="w-full block text-center" *ngIf="paying">PROCESSING...</span>
+            @if (paying) {
+              <span class="w-full block text-center">PROCESSING...</span>
+            } @else {
+              <span class="w-full block text-center">TRY IT</span>
+            }
           </button>
         </div>
         <a

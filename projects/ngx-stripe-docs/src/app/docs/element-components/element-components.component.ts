@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
@@ -9,11 +9,20 @@ import {
   StripeCardExpiryComponent,
   StripeCardGroupDirective,
   StripeCardNumberComponent,
-  StripeFactoryService
+  injectStripe
 } from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../../core';
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+
+import {
+  NgStrCodeComponent,
+  NgStrCodeGroupComponent,
+  NgStrDocsHeaderComponent,
+  NgStrHighlightComponent,
+  NgStrSectionAsideDirective,
+  NgStrSectionComponent,
+  NgStrSubheaderComponent
+} from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-element-components',
@@ -21,16 +30,25 @@ import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    DocsElementsModule,
     StripeCardGroupDirective,
     StripeCardCvcComponent,
     StripeCardExpiryComponent,
     StripeCardNumberComponent,
-    StripeCardComponent
+    StripeCardComponent,
+    NgStrCodeComponent,
+    NgStrCodeGroupComponent,
+    NgStrDocsHeaderComponent,
+    NgStrHighlightComponent,
+    NgStrSectionComponent,
+    NgStrSectionAsideDirective,
+    NgStrSubheaderComponent
   ]
 })
-export class NgStrElementComponentsComponent {
+export default class NgStrElementComponentsComponent {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
+
+  private readonly fb = inject(UntypedFormBuilder);
+  private readonly plutoService = inject(NgStrPlutoService);
 
   createTokenForm = this.fb.group({
     name: ['John Doe', [Validators.required]],
@@ -63,15 +81,9 @@ export class NgStrElementComponentsComponent {
     locale: 'en'
   };
 
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+  stripe = injectStripe(this.plutoService.KEYS.main);
   creatingToken = false;
   paying = false;
-
-  constructor(
-    private fb: UntypedFormBuilder,
-    private plutoService: NgStrPlutoService,
-    private stripeFactory: StripeFactoryService
-  ) {}
 
   createToken() {
     const name = this.createTokenForm.get('name').value;

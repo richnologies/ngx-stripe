@@ -200,7 +200,7 @@ export class StripeService implements StripeServiceInterface {
     clientSecret: string;
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
-  }): Observable<never | {error: StripeError}>;
+  }): Observable<never | { error: StripeError }>;
   confirmPayment(options) {
     return this.stripe.confirmPayment(options);
   }
@@ -407,7 +407,7 @@ export class StripeService implements StripeServiceInterface {
     return this.stripe.handleCardAction(clientSecret);
   }
 
-  handleNextAction(options: { clientSecret: string; }): Observable<PaymentIntentOrSetupIntentResult> {
+  handleNextAction(options: { clientSecret: string }): Observable<PaymentIntentOrSetupIntentResult> {
     return this.stripe.handleNextAction(options);
   }
 
@@ -458,7 +458,7 @@ export class StripeService implements StripeServiceInterface {
     clientSecret: string;
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
-  }): Observable<never | {error: StripeError}>;
+  }): Observable<never | { error: StripeError }>;
   confirmSetup(options) {
     return this.stripe.confirmSetup(options);
   }

@@ -1,14 +1,30 @@
 import { Component } from '@angular/core';
 
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+import {
+  NgStrCodeComponent,
+  NgStrCodeGroupComponent,
+  NgStrDocsHeaderComponent,
+  NgStrHighlightComponent,
+  NgStrLinkComponent,
+  NgStrSectionComponent,
+  NgStrSubheaderComponent
+} from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-checkout',
   templateUrl: './checkout.component.html',
   standalone: true,
-  imports: [DocsElementsModule]
+  imports: [
+    NgStrCodeComponent,
+    NgStrCodeGroupComponent,
+    NgStrDocsHeaderComponent,
+    NgStrHighlightComponent,
+    NgStrLinkComponent,
+    NgStrSectionComponent,
+    NgStrSubheaderComponent
+  ]
 })
-export class NgStrCheckoutComponent {
+export default class NgStrCheckoutComponent {
   checkoutTS = `
     import { Component } from '@angular/core';
     import { HttpClient } from '@angular/common/http';

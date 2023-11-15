@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,13 +6,9 @@ import { Router } from '@angular/router';
   template: `
     <h3 class="ngstr-subheader" [id]="link" (mouseenter)="showHashLink = true" (mouseleave)="showHashLink = false">
       <span>{{ subheader }}</span>
-      <a
-        [href]="url + '#' + link"
-        class="ngstr-link-hash"
-        title="Direct link to heading"
-        *ngIf="showHashLink && link && link.length > 0"
-        >#</a
-      >
+      @if (showHashLink && link && link.length > 0) {
+      <a [href]="url + '#' + link" class="ngstr-link-hash" title="Direct link to heading">#</a>
+      }
     </h3>
   `,
   styles: [
@@ -30,9 +26,12 @@ import { Router } from '@angular/router';
         color: var(--tw-prose-headings);
       }
     `
-  ]
+  ],
+  standalone: true
 })
 export class NgStrSubheaderComponent {
+  private readonly router = inject(Router);
+
   @Input() subheader: string;
   @Input() link: string;
   showHashLink = false;
@@ -40,6 +39,4 @@ export class NgStrSubheaderComponent {
   get url() {
     return this.router.url.split('#')[0];
   }
-
-  constructor(private router: Router) {}
 }

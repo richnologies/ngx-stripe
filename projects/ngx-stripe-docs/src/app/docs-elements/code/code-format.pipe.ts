@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'ngStrCodeFormat',
-  pure: true
+  pure: true,
+  standalone: true
 })
 export class NgStrCodeFormatPipe implements PipeTransform {
   transform(code: string): string {

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { DocsElementsModule } from '../../docs-elements/docs-elements.module';
+
+import { NgStrDocsHeaderComponent, NgStrLinkComponent, NgStrSectionComponent } from '../../docs-elements';
 
 @Component({
   selector: 'ngstr-service',
   templateUrl: './service.component.html',
   standalone: true,
-  imports: [DocsElementsModule]
+  imports: [NgStrDocsHeaderComponent, NgStrLinkComponent, NgStrSectionComponent]
 })
-export class NgStrServiceComponent {}
+export default class NgStrServiceComponent {}

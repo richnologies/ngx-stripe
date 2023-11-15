@@ -147,7 +147,7 @@ export interface StripeServiceInterface {
     clientSecret: string;
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
-  }): Observable<never | {error: StripeError}>;
+  }): Observable<never | { error: StripeError }>;
   confirmAcssDebitPayment(
     clientSecret: string,
     data?: ConfirmAcssDebitPaymentData,
@@ -269,7 +269,7 @@ export interface StripeServiceInterface {
     options?: ConfirmWechatPayPaymentOptions
   ): Observable<PaymentIntentResult>;
   handleCardAction(clientSecret: string): Observable<PaymentIntentResult>;
-  handleNextAction(options: { clientSecret: string; }): Observable<PaymentIntentOrSetupIntentResult>;
+  handleNextAction(options: { clientSecret: string }): Observable<PaymentIntentOrSetupIntentResult>;
   verifyMicrodepositsForPayment(
     clientSecret: string,
     data?: VerifyMicrodepositsForPaymentData
@@ -301,7 +301,7 @@ export interface StripeServiceInterface {
     clientSecret: string;
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
-  }): Observable<never | {error: StripeError}>;
+  }): Observable<never | { error: StripeError }>;
   confirmAcssDebitSetup(
     clientSecret: string,
     data?: ConfirmAcssDebitSetupData,

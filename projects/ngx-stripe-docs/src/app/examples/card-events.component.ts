@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import {
   StripeCardComponent,
-  StripeFactoryService,
   StripeElementsDirective,
   StripeCardNumberComponent,
   StripeCardExpiryComponent,
   StripeCardCvcComponent,
-  StripeCardGroupDirective
+  StripeCardGroupDirective,
+  injectStripe
 } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
@@ -30,7 +30,7 @@ import { NgStrPlutoService } from '../core';
             (focus)="onEvent('focus', $event)"
             (ready)="onEvent('ready', $event)"
             (escape)="onEvent('escape', $event)"
-          ></ngx-stripe-card>
+          />
         </ngx-stripe-elements>
         <hr />
         <ngx-stripe-card-group
@@ -38,14 +38,13 @@ import { NgStrPlutoService } from '../core';
           (change)="onEvent('change', $event)"
           [elementsOptions]="elementsOptions"
         >
-          <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
-          <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
-          <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
+          <ngx-stripe-card-number [options]="cardOptions" />
+          <ngx-stripe-card-expiry [options]="cardOptions" />
+          <ngx-stripe-card-cvc [options]="cardOptions" />
         </ngx-stripe-card-group>
       </div>
     </div>
   `,
-  styles: [],
   standalone: true,
   imports: [
     StripeCardComponent,
@@ -56,8 +55,10 @@ import { NgStrPlutoService } from '../core';
     StripeElementsDirective
   ]
 })
-export class CardEventsExampleComponent {
-  stripe = this.stripeFactory.create(this.plutoService.KEYS.main);
+export default class CardEventsExampleComponent {
+  private readonly plutoService = inject(NgStrPlutoService);
+
+  stripe = injectStripe(this.plutoService.KEYS.main);
   cardOptions: StripeCardElementOptions = {
     style: {
       base: {
@@ -75,8 +76,6 @@ export class CardEventsExampleComponent {
   elementsOptions: StripeElementsOptions = {
     locale: 'es'
   };
-
-  constructor(private stripeFactory: StripeFactoryService, private plutoService: NgStrPlutoService) {}
 
   onEvent(source, ev) {
     console.log({ source, ev });

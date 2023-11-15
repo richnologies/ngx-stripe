@@ -4,25 +4,43 @@ import {
   Component,
   ContentChildren,
   ElementRef,
-  Inject,
   Input,
   OnDestroy,
   QueryList,
-  ViewChild
+  ViewChild,
+  inject
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { fromEvent, merge, Subject } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 
+import { NgStrCopyLinkComponent } from '../copy-link/copy-link.component';
+import { NgStrContentsComponent } from '../contents/contents.component';
+import { NgStrSectionNavigatorComponent } from '../section-navigator/section-navigator.component';
 import { NgStrSubheaderComponent } from '../subheader/subheader.component';
+
+import { NgStrSectionAsideDirective } from './section-aside.directive';
+import { NgStrSectionMainDirective } from './section-main.directive';
 
 @Component({
   selector: 'ngstr-section',
-  templateUrl: './section.component.html'
+  templateUrl: './section.component.html',
+  standalone: true,
+  imports: [
+    NgStrCopyLinkComponent,
+    NgStrContentsComponent,
+    NgStrSectionNavigatorComponent,
+    NgStrSubheaderComponent,
+    NgStrSectionAsideDirective,
+    NgStrSectionMainDirective
+  ]
 })
 export class NgStrSectionComponent implements AfterViewInit, OnDestroy {
   @ViewChild('sectionContainer') section: ElementRef;
   @ContentChildren(NgStrSubheaderComponent) subheaders = new QueryList<NgStrSubheaderComponent>();
+
+  private readonly document = inject(DOCUMENT);
+  private readonly router = inject(Router);
 
   @Input() aside = true;
 
@@ -34,8 +52,6 @@ export class NgStrSectionComponent implements AfterViewInit, OnDestroy {
   private get window() {
     return this.document ? this.document.defaultView || (this.document as any).parentWindow : null;
   }
-
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router) {}
 
   ngAfterViewInit() {
     if (this.window) {

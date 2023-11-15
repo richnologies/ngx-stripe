@@ -3,9 +3,9 @@
     <ngstr-header title="Introduction"></ngstr-header>
     <ngstr-subheader subheader="What is ngx-stripe" link="what-is"></ngstr-subheader>
     <p class="mt-4">
-      Ngx Stripe is a thin wrapper around
-      <ngstr-link url="https://stripe.com/docs/stripe-js">Stripe Elements</ngstr-link>. It allows adding Elements to any
-      <strong>Angular</strong> app.
+      Ngx Stripe is a comprehensive library designed to integrate Stripe's payment processing capabilities into your
+      Angular applications seamlessly. Ngx Stripe leverages the powerful features of StripeJS, making it easier to build
+      robust, secure, and scalable payment solutions.
     </p>
     <p>
       The
@@ -17,53 +17,59 @@
       your business, explore
       <ngstr-link url="https://stripe.com/docs/stripe-js">Stripe Docs</ngstr-link>.
     </p>
-    <p>The library provides three major elements:</p>
+    <p>Key Features:</p>
     <ul role="list">
-      <li>Lazy script loading</li>
-      <li>Element Components</li>
-      <li>Stripe Observable wrapper</li>
+      <li>
+        <strong>Angular Components for Stripe Elements</strong>: Ngx Stripe provides a set of Angular components, each
+        corresponding to a specific Stripe Web Element. These components are designed to simplify the integration of
+        Stripe's UI elements, ensuring a smooth and consistent user experience.
+      </li>
+      <li>
+        <strong>Seamless Integration with StripeJS</strong>: Aligning closely with StripeJS, Ngx Stripe ensures that you
+        have access to the latest features and updates from Stripe, directly within your Angular application.
+      </li>
+      <li>
+        <strong>Lazy Loading of StripeJS</strong>: Enhance your application's performance by lazy loading the StripeJS
+        JavaScript. This feature ensures that the StripeJS library is loaded only when needed, optimizing loading times
+        and improving the overall user experience.
+      </li>
+      <li>
+        <strong>Customizable and Flexible</strong>: Customize the look and feel of your payment forms to match your
+        application's design. Ngx Stripe components are highly flexible, allowing for extensive customization and
+        styling.
+      </li>
+      <li>
+        <strong>Strongly Typed for Angular Development</strong>: Benefit from TypeScript in your payment integration.
+        Ngx Stripe is strongly typed, making your development process more efficient and less prone to errors.
+      </li>
     </ul>
-    <ngstr-subheader subheader="New major version" link="new-major-version"></ngstr-subheader>
+    <ngstr-subheader subheader="Stripe Elements and Angular Components" link="stripe-elements"></ngstr-subheader>
     <p>
-      This project has not been updated for a while. After reviewing the state of the art for React and Vue
-      counterparts, some major changes are going to be introduced to align this project with
-      <ngstr-link url="https://stripe.com/docs/js"> Stripe Elements </ngstr-link>.
+      Ngx Stripe brings a range of components that correspond to Stripe Elements, making it easier to incorporate
+      various payment options and inputs. Here are some of the key components:
     </p>
-    <ol role="list">
+    <ul>
       <li>
-        ngx-stripe will no longer maintain its own interfaces. Instead, &#64;stripe/stripe-js has been added as peer
-        dependency. This will make the library easier to maintain and avoid mistakes.
+        <strong>Payment Element (ngx-stripe-card)</strong>: A versatile component that combines various payment methods
+        into a single, streamlined element, simplifying the checkout process.
       </li>
       <li>
-        <ngstr-link url="https://stripe.com/docs/js">Stripe Service</ngstr-link>
-        has been updated with all the missing APIs from StripeJS.
+        <strong>Card Element (ngx-stripe-card)</strong>: Integrate the card element for seamless credit/debit card
+        information input.
+      </li>
+      <li><strong>IBAN Element (ngx-stripe-iban)</strong>: Easily accept bank transfers within the European Union.</li>
+      <li>
+        <strong>IdealBank Element (ngx-stripe-ideal-bank)</strong>: Implement support for iDEAL payments, a popular
+        payment method in the Netherlands.
       </li>
       <li>
-        All the missing
-        <ngstr-link url="https://stripe.com/docs/stripe-js/react#element-components">Element Components</ngstr-link>
-        like IBAN, Ideal, FPX, ... have been added.
-      </li>
-      <li>Request Payment Button now has full support.</li>
-      <li>
-        Added
-        <ngstr-link url="https://stripe.com/docs/js/element/the_element_container">Container Style</ngstr-link>
-        functionality support.
+        <strong>FpxBank Element (ngx-stripe-fpx-bank)</strong>: Add support for FPX, a widely used online banking method
+        in Malaysia.
       </li>
       <li>
-        A
-        <ngstr-link url="https://github.com/richnologies/ngx-stripe/blob/main/MIGRATION.md">Migration</ngstr-link>
-        guide has been added with details of what have changed.
+        <strong>Payment Request Button (ngx-stripe-payment-request-button)</strong>: Incorporate Apple Pay, Google Pay,
+        and other browser-saved payment methods for quick checkout.
       </li>
-      <li>
-        The new version of library is compatible from Angular 6+ major versions. Check the
-        <ngstr-highlight>Installation</ngstr-highlight> section see how to install an older version.
-      </li>
-      <li>All documentation has been moved to this new site.</li>
-    </ol>
-    <p>
-      Finally, in order to ease the transition, we are naming the old version of the library
-      <ngstr-highlight>legacy</ngstr-highlight> and we have created some npm tags to make it easy to install older
-      versions. Check <ngstr-highlight>Installation</ngstr-highlight> to say a complete list of available versions.
-    </p>
+    </ul>
   </ng-container>
 </ngstr-section>
