@@ -1,4 +1,4 @@
-An Angular 6+ wrapper for StripeJS elements
+Collect Payments with Stripe: The Angular Way
 
 <a href="https://stripe.com/partners/ngx-stripe" target="_blank"><img src="./docs/logos/stripe_partner_badge_verified_blurple.png" alt="drawing" width="98"/>
 [![version](https://img.shields.io/npm/v/ngx-stripe.svg)](https://www.npmjs.com/package/ngx-stripe)
@@ -8,32 +8,19 @@ An Angular 6+ wrapper for StripeJS elements
   <img width="160" valign="bottom" src="./docs/logos/ngx-stripe-logo.png">
 </h1>
 
-Ngx Stripe is a thin wrapper around [`Stripe Elements`](https://stripe.com/docs/stripe-js). It allows adding Elements to any Angular app.
-The [`StripeJS Reference`](https://stripe.com/docs/js) covers complete Elements customization details.
-You can use Elements with any Stripe product to collect online payments. To find the right integration path for your business, explore [`Stripe Docs`](https://stripe.com/docs/stripe-js).
+Ngx Stripe is a comprehensive library designed for seamless integration of [`Stripe Elements`](https://stripe.com/docs/stripe-js) and payment processing capabilities into Angular applications. Leveraging the powerful features of [`StripeJS`](https://stripe.com/docs/js), Ngx Stripe simplifies building robust, secure, and scalable payment solutions.
 
-- Learn how to use `ngx-stripe` on the **new** [docs site](https://ngx-stripe.dev/docs) 🤓
+Use Elements with any Stripe product to collect online payments. For the right integration path for your business, explore the [`Stripe Docs`](https://stripe.com/docs/stripe-js).
 
-## Notice
-
-After reviewing the state of the art for React and Vue counterparts, some major changes are going to be introduced to align this project with [`Stripe Elements`](https://stripe.com/docs/stripe-js).
-
-1. `ngx-stripe` will no longer maintain its own interfaces. Instead, `@stripe/stripe-js` has been added as peer dependency. This will make the library easier to maintain and avoid mistakes.
-2. [`Stripe Service`](https://stripe.com/docs/js) has been updated with all the missing APIs from StripeJS
-3. All the missing [`Element Components`](https://stripe.com/docs/stripe-js/react#element-components) like IBAN, Ideal, FPX, ... have been added
-4. `Request Payment Button` now has full support
-5. Added [`Container Style`](https://stripe.com/docs/js/element/the_element_container) functionality support
-6. A [`Migration`](https://github.com/richnologies/ngx-stripe/blob/main/MIGRATION.md) guide has been added with details of what have changed
-7. The new version of library is compatible from Angular 6+ major versions. Check the `Installation` section to see how to install an older version.
-8. All documentation has been moved to a new [docs site](https://ngx-stripe.dev/docs)
-
-In order to ease the transition, we are naming the old version of the library `legacy` and we have created some `npm tags` to make it easy to install older versions.
+Learn how to use `ngx-stripe` on the **new** [docs site](https://ngx-stripe.dev/docs) 🤓
 
 ## Features
 
-- Lazy script loading
-- Element Components
-- Stripe Observable wrapper
+- **Angular Components for Stripe Elements**: Ngx Stripe provides a set of Angular components, each corresponding to a specific Stripe Web Element. These components are designed to simplify the integration of Stripe's UI elements, ensuring a smooth and consistent user experience.
+- **Seamless Integration with StripeJS**: Aligning closely with StripeJS, Ngx Stripe ensures that you have access to the latest features and updates from Stripe, directly within your Angular application.
+- **Lazy Loading of StripeJS**: Enhance your application's performance by lazy loading the StripeJS JavaScript. This feature ensures that the StripeJS library is loaded only when needed, optimizing loading times and improving the overall user experience.
+- **Customizable and Flexible**: Customize the look and feel of your payment forms to match your application's design. Ngx Stripe components are highly flexible, allowing for extensive customization and styling.
+- **Strongly Typed for Angular Development**: Benefit from TypeScript in your payment integration. Ngx Stripe is strongly typed, making 
 
 ## Installation
 
@@ -45,55 +32,57 @@ To install the last active version:
 $ npm install ngx-stripe @stripe/stripe-js
 ```
 
-To install an specific version for an older Angular major, use the lts npm tags or check the table below to pick the right version, for example, for v8:
+To install a specific version for an older Angular major, use the LTS npm tags or check the table below to pick the right version. For example, for v8:
 
 ```bash
-$ npm install ngx-stripe@v8-lts @stripe/stripe-js
-```
-
-**Legacy Versions**
-
-To install some of the older versions of the library use the legacy npm tags or check the table below to pick the right version, for example, for v7:
-
-```bash
-$ npm install ngx-stripe@v7-legacy
+$ npm install ngx-stripe@v14-lts @stripe/stripe-js
 ```
 
 Choose the version corresponding to your Angular version:
 
-| Angular | ngx-stripe (legacy) | ngx-stripe        |
-| ------- | ------------------- | ----------------- |
-| 17      | **Not Available**   | 17.x+             |
-| 16      | **Not Available**   | 16.x+             |
-| 15      | **Not Available**   | 15.x+             |
-| 14      | **Not Available**   | 14.x+             |
-| 13      | **Not Available**   | 13.x+             |
-| 12      | **Not Available**   | 12.x+             |
-| 11      | **Not Available**   | 11.x+             |
-| 10      | **Not Available**   | 10.x+             |
-| 9       | v9-legacy / 9.0.x+  | v9-lts / 9.1.x+   |
-| 8       | v8-legacy / 7.4.4+  | v8-lts / 8.1.x+   |
-| 7       | v7-legacy / 7.x+    | v7-lts / 7.5.x+   |
-| 6       | v6-legacy / 0.6.x   | v6-lts / 6.1.x+   |
-| 5       | 0.5.x or less       | **Not Available** |
-| 4       | 0.4.x or less       | **Not Available** |
+| Angular | ngx-stripe        |
+| ------- | ----------------- |
+| 17      | 17.x+             |
+| 16      | 16.x+             |
+| 15      | 15.x+             |
+| 14      | 14.x+             |
+| 13      | 13.x+             |
+| 12      | 12.x+             |
+| 11      | 11.x+             |
+| 10      | 10.x+             |
+| 9       | v9-lts / 9.4.0    |
+| 8       | v8-lts / 8.2.0    |
 
 ---
 
 ## Using the library
 
-Most of the documentation has been moved to a new [docs site](https://ngx-stripe.dev/docs). Only a very basic example has been left here:
+Most of the documentation has been moved to the new [docs site](https://ngx-stripe.dev/docs). Only a very basic example is left here:
 
-Import the `NgxStripeModule` into your application
+We start by adding the providers to our app:
 
-The module takes the same parameters as the global Stripe object. The `APIKey` and the optional options to use Stripe connect
+```ts
+import { provideNgxStripe } from 'ngx-stripe';
 
-- apiKey: string
-- options?: {
-  stripeAccount?: string;
-  }
+bootstrapApplication(AppComponent, {
+  providers: [
+    // ... rest of your providers
+    provideNgxStripe()
+  ]
+});
+```
+
+Or if you're still using modules:
+
+Import the `NgxStripeModule` into your application:
 
 ```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+
+// Import the library
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -106,96 +95,155 @@ import { NgxStripeModule } from 'ngx-stripe';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
-    NgxStripeModule.forRoot('***your-stripe-publishable-key***'),
-    LibraryModule
+    // ... rest of your imports
+    NgxStripeModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+
 ```
 
-## Card Element Component
+## Payment Element Component
 
 Once the module has been imported, you can collect credit card details using the ngx-stripe-card component.
 
-Then you can use the Stripe Service, which is basically an Obseravble wrapper around the stripejs object, to use that information. In this example we use it to create a token, but it can be use to confirm a Payment Intent, Setup Intent, etc...
+Then you can use the Stripe Service, which is basically an Observable wrapper around the stripejs object, to use that information. In this example, we use it to create a token, but it can be used to confirm a Payment Intent, Setup Intent, etc...
 
 Please check the [docs site](https://ngx-stripe.dev/docs) to see a complete set of Stripe Element Components available and the full API of the Stripe Service.
 
-// stripe.html
-
 ```xml
-<form novalidate (ngSubmit)="createToken()" [formGroup]="stripeTest">
-  <input type="text" formControlName="name" placeholder="Jane Doe">
-  <ngx-stripe-card
-    [options]="cardOptions"
-    [elementsOptions]="elementsOptions"
-  ></ngx-stripe-card>
-  <button type="submit">
-    CREATE TOKEN
-  </button>
-</form>
+<div [formGroup]="paymentElementForm">
+  <mat-form-field appearance="fill">
+    <input matInput placeholder="name" formControlName="name" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <input matInput placeholder="Email" type="email" formControlName="email" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <input matInput placeholder="Address" formControlName="address" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <input matInput placeholder="ZIP Code" formControlName="zipcode" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <input matInput placeholder="city" formControlName="city" />
+  </mat-form-field>
+  @if (elementsOptions.clientSecret) {
+    <ngx-stripe-elements
+      [stripe]="stripe"
+      [elementsOptions]="elementsOptions"
+    >
+      <ngx-stripe-payment [options]="paymentElementOptions" />
+    </ngx-stripe-elements>
+  }
+  <button (click)="pay()">PAY</button>
+</div>
 ```
 
 ```typescript
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, inject, signal, ViewChild } from '@angular/core';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { StripeService, StripeCardComponent } from 'ngx-stripe';
+import { MatInputModule } from '@angular/material/input';
+
 import {
-  StripeCardElementOptions,
-  StripeElementsOptions
+  injectStripe,
+  StripePaymentElementComponent
+} from 'ngx-stripe';
+import {
+  StripeElementsOptions, 
+  StripePaymentElementOptions
 } from '@stripe/stripe-js';
 
 @Component({
-  selector: 'ngstr-create-token',
-  templateUrl: 'stripe.html'
+  selector: 'ngstr-checkout-form',
+  templateUrl: './payment-element.component.html',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatInputModule,
+    StripePaymentElementComponent
+  ]
 })
-export class StripeCreateTokenComponent implements OnInit {
-  @ViewChild(StripeCardComponent) card: StripeCardComponent;
+export class CheckoutFormComponent {
+  @ViewChild(StripePaymentElementComponent)
+  paymentElement!: StripePaymentElementComponent;
 
-  cardOptions: StripeCardElementOptions = {
-    style: {
-      base: {
-        iconColor: '#666EE8',
-        color: '#31325F',
-        fontWeight: '300',
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSize: '18px',
-        '::placeholder': {
-          color: '#CFD7E0'
-        }
-      }
+  private readonly fb = inject(UntypedFormBuilder);
+
+  paymentElementForm = this.fb.group({
+    name: ['John Doe', [Validators.required]],
+    email: ['support@ngx-stripe.dev', [Validators.required]],
+    address: [''],
+    zipcode: [''],
+    city: [''],
+    amount: [2500, [Validators.required, Validators.pattern(/\d+/)]]
+  });
+
+  elementsOptions: StripeElementsOptions = {
+    locale: 'en',
+    client: '{{YOUR_CLIENT_SECRET}}'
+    appearance: {
+      theme: 'flat'
     }
   };
 
-  elementsOptions: StripeElementsOptions = {
-    locale: 'es'
+  paymentElementOptions: StripePaymentElementOptions = {
+    layout: {
+      type: 'tabs',
+      defaultCollapsed: false,
+      radios: false,
+      spacedAccordionItems: false
+    }
   };
 
-  stripeTest: FormGroup;
+  // Replace with your own public key
+  stripe = injectStripe({{YOUR_PUBLIC_KEY}});
+  paying = signal(false);
 
-  constructor(private fb: FormBuilder, private stripeService: StripeService) {}
+  pay() {
+    if (this.paying() || this.paymentElementForm.invalid) return;
+    this.paying.set(true);
 
-  ngOnInit(): void {
-    this.stripeTest = this.fb.group({
-      name: ['', [Validators.required]]
-    });
-  }
+    const {
+      name,
+      email,
+      address,
+      zipcode,
+      city
+    } = this.checkoutForm.getRawValue();
 
-  createToken(): void {
-    const name = this.stripeTest.get('name').value;
-    this.stripeService
-      .createToken(this.card.element, { name })
-      .subscribe((result) => {
-        if (result.token) {
-          // Use the token
-          console.log(result.token.id);
-        } else if (result.error) {
-          // Error creating the token
-          console.log(result.error.message);
+    this.stripe
+      .confirmPayment({
+        elements: this.paymentElement.elements,
+        confirmParams: {
+          payment_method_data: {
+            billing_details: {
+              name: name as string,
+              email: email as string,
+              address: {
+                line1: address as string,
+                postal_code: zipcode as string,
+                city: city as string
+              }
+            }
+          }
+        },
+        redirect: 'if_required'
+      })
+      .subscribe(result => {
+        this.paying.set(false);
+        if (result.error) {
+          // Show error to your customer (e.g., insufficient funds)
+          alert({ success: false, error: result.error.message });
+        } else {
+          // The payment has been processed!
+          if (result.paymentIntent.status === 'succeeded') {
+            // Show a success message to your customer
+            alert({ success: true });
+          }
         }
       });
   }
@@ -206,7 +254,7 @@ export class StripeCreateTokenComponent implements OnInit {
 
 `ngx-stripe` is an MIT-licensed open source project. You can now become a sponsor with [GitHub Sponsors](https://github.com/sponsors/richnologies).
 
-We've been bringing `ngx-stripe` to the world for over 4 years and are excited to be able to start dedicating some real resources to the project.
+We've been bringing `ngx-stripe` to the world for over 6 years and are excited to be able to start dedicating some real resources to the project.
 
 Your sponsorship helps us keep a team of maintainers actively working to improve `ngx-stripe` and ensure it stays up-to-date with the latest Stripe changes. If you're using `ngx-stripe` in a commercial capacity and have the ability to start a sponsorship, we'd greatly appreciate the contribution.
 

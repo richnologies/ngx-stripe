@@ -1,5 +1,11 @@
 # Changelog
 
+## 17.0.1 - 2023-11-18
+
+- Multiple updates to the docs site
+- Update the README file
+- to boldly go with your payments where no one has gone before
+
 ## 17.0.0 - 2023-11-08
 
 - Add support for Angular v17
