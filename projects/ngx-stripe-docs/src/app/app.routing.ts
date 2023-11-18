@@ -37,19 +37,34 @@ export const ROUTES: Routes = [
         data: { title: 'Payment Element' }
       },
       {
-        path: 'express-checkout',
+        path: 'express-checkout-element',
         loadComponent: () => import('./docs/express-checkout/express-checkout.component'),
-        data: { title: 'Express Checkout' }
+        data: { title: 'Express Checkout Element' }
+      },
+      {
+        path: 'link-authentication-element',
+        loadComponent: () => import('./docs/link-authentication/link-authentication.component'),
+        data: { title: 'Link Authentication Element' }
+      },
+      {
+        path: 'address-element',
+        loadComponent: () => import('./docs/address/address.component'),
+        data: { title: 'Address Element' }
+      },
+      {
+        path: 'issuing-elements',
+        loadComponent: () => import('./docs/issuing/issuing.component'),
+        data: { title: 'Issuing Elements' }
+      },
+      {
+        path: 'card-elements',
+        loadComponent: () => import('./docs/card-elements/card-elements.component'),
+        data: { title: 'Card Elements' }
       },
       {
         path: 'checkout',
         loadComponent: () => import('./docs/checkout/checkout.component'),
         data: { title: 'Checkout' }
-      },
-      {
-        path: 'element-components',
-        loadComponent: () => import('./docs/element-components/element-components.component'),
-        data: { title: 'Elements' }
       },
       {
         path: 'identity',

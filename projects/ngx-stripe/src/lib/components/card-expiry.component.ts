@@ -26,6 +26,8 @@ import {
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
 
 import { StripeCardGroupDirective } from '../directives/card-group.directive';
+import { StripeElementsDirective } from '../directives/elements.directive';
+
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
@@ -58,11 +60,12 @@ export class StripeCardExpiryComponent implements OnInit, OnChanges, OnDestroy {
   @Output() escape = new EventEmitter<void>();
 
   elements: StripeElements;
-  cardGroupSubscription: Subscription;
+  elementsSubscription: Subscription;
 
   constructor(
     public stripeElementsService: StripeElementsService,
-    @Optional() public cardGroup: StripeCardGroupDirective
+    @Optional() public cardGroup: StripeCardGroupDirective,
+    @Optional() private elementsProvider: StripeElementsDirective
   ) {}
 
   async ngOnChanges(changes: SimpleChanges) {
@@ -73,12 +76,17 @@ export class StripeCardExpiryComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     if (this.cardGroup) {
-      this.cardGroupSubscription = this.cardGroup.elements.subscribe((elements: StripeElements) => {
+      this.elementsSubscription = this.cardGroup.elements.subscribe((elements: StripeElements) => {
+        this.elements = elements;
+        this.setupElement('elements');
+      });
+    } else if (this.elementsProvider) {
+      this.elementsSubscription = this.elementsProvider.elements.subscribe((elements) => {
         this.elements = elements;
         this.setupElement('elements');
       });
     } else {
-      throw new Error('StripeCardExpiryComponent must have StripeCardGroupDirective parent');
+      throw new Error('StripeCardExpiryComponent must have StripeCardGroupDirective or StripeElementsDirective parent');
     }
   }
 
@@ -86,8 +94,8 @@ export class StripeCardExpiryComponent implements OnInit, OnChanges, OnDestroy {
     if (this.element) {
       this.element.destroy();
     }
-    if (this.cardGroupSubscription) {
-      this.cardGroupSubscription.unsubscribe();
+    if (this.elementsSubscription) {
+      this.elementsSubscription.unsubscribe();
     }
   }
 

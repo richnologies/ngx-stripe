@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -21,12 +21,14 @@ import { NgStrSubheaderComponent } from '../subheader/subheader.component';
 
 import { NgStrSectionAsideDirective } from './section-aside.directive';
 import { NgStrSectionMainDirective } from './section-main.directive';
+import { NgStrContainerComponent } from '../container/container.component';
 
 @Component({
   selector: 'ngstr-section',
   templateUrl: './section.component.html',
   standalone: true,
   imports: [
+    CommonModule,
     NgStrCopyLinkComponent,
     NgStrContentsComponent,
     NgStrSectionNavigatorComponent,
@@ -41,6 +43,7 @@ export class NgStrSectionComponent implements AfterViewInit, OnDestroy {
 
   private readonly document = inject(DOCUMENT);
   private readonly router = inject(Router);
+  private readonly container = inject(NgStrContainerComponent, { optional: true });
 
   @Input() aside = true;
 
@@ -51,6 +54,10 @@ export class NgStrSectionComponent implements AfterViewInit, OnDestroy {
 
   private get window() {
     return this.document ? this.document.defaultView || (this.document as any).parentWindow : null;
+  }
+
+  get hasContainer() {
+    return Boolean(this.container);
   }
 
   ngAfterViewInit() {

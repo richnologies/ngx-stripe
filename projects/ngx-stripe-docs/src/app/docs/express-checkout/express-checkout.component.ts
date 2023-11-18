@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTabsModule } from '@angular/material/tabs';
+
 import {
+  NgStrBadgeComponent,
   NgStrCodeComponent,
   NgStrCodeGroupComponent,
+  NgStrContainerComponent,
   NgStrDocsHeaderComponent,
   NgStrHighlightComponent,
   NgStrLinkComponent,
@@ -16,8 +21,12 @@ import {
   templateUrl: './express-checkout.component.html',
   standalone: true,
   imports: [
+    MatDividerModule,
+    MatTabsModule,
+    NgStrBadgeComponent,
     NgStrCodeComponent,
     NgStrCodeGroupComponent,
+    NgStrContainerComponent,
     NgStrDocsHeaderComponent,
     NgStrHighlightComponent,
     NgStrLinkComponent,

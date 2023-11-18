@@ -1,0 +1,255 @@
+<ngstr-container size="md">
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="Overview">
+      <ngstr-section>
+        <ng-container ngStrSectionMain>
+          <ngstr-header title="Address Element" />
+          <p class="pt-4">
+            The
+            <ngstr-link url="https://stripe.com/docs/elements/address-element">
+              Address Element
+            </ngstr-link>
+            is an embeddable component for collecting local and international billing and shipping addresses.
+          </p>
+          <p>
+            To gain a deeper understanding of the Address Element, consult the Stripe
+            <ngstr-link url="https://stripe.com/docs/js/element/address_element">documentation</ngstr-link>.
+          </p>
+          <p>
+            The Address Element can autocomplete addresses for 25 countries. If your customer selects a
+            supported country for their address, then they see the autocomplete options. You can check
+            the list of supported countries <ngstr-link url="https://stripe.com/docs/elements/address-element?platform=web#autocomplete">here</ngstr-link>.
+          </p>
+          <p>
+            If you use the Address Element and the Payment Element together, Stripe enables autocomplete with no configuration required.
+          </p>
+      
+          <ngstr-subheader subheader="Creating an Address Element" link="creating-address-element" />
+          <p>
+            When you create an Address Element, specify whether to use it in shipping or billing mode.
+          </p>
+          <p>In shipping mode, the element does two things:</p>
+          <ul>
+            <li>Collect a shipping address.</li>
+            <li>Offer the customer the option to use it as a billing address too.</li>
+          </ul>
+          <p>In billing mode, the element only collects a billing address.</p>
+          <div class="mb-8"></div>
+          <ngstr-code-group>
+            <ngstr-code name="create.component.html" [code]="createAddressHTML" />
+            <ngstr-code name="create.component.ts" [code]="createAddressTS" />
+          </ngstr-code-group>
+      
+          <ngstr-subheader subheader="Get Address Value" link="get-address-value" />
+          <p>
+            The <ngstr-highlight>getValue()</ngstr-highlight> validates and retrieves form
+            values from an Address Element. If there are any input validation errors,
+            the errors will display by their respective fields.
+          </p>
+          <ngstr-code-group>
+            <ngstr-code name="get-address.component.ts" [code]="getAddressTS" />
+            <ngstr-code name="get-address.component.html" [code]="createAddressHTML" />
+          </ngstr-code-group>
+
+          <ngstr-subheader subheader="Autofill with Link" link="autofill-link" />
+          <p>
+            <ngstr-link url="https://stripe.com/docs/payments/link">Link, Stripe's one-click checkout tool</ngstr-link>, saves and autofills payment and shipping information.
+            When a returning Link customer authenticates, Stripe autofills their shipping information in the Address element.
+          </p>
+          <ngstr-code-group>
+            <ngstr-code name="address-link.component.html" [code]="addressWithLinkHTML" />
+            <ngstr-code name="address-link.component.ts" [code]="addressWithLinkTS" />
+          </ngstr-code-group>
+        </ng-container>
+      </ngstr-section>
+    </mat-tab>
+    <mat-tab label="API">
+      <h2 class="pt-4">API Reference for Address Component</h2>
+      <ngstr-highlight>import &lbrace; StripeAddressComponent &rbrace; from 'ngx-stripe'</ngstr-highlight>
+
+      <h3 class="pt-4">Components</h3>
+      <mat-divider></mat-divider>
+      <p class="pt-4">StripeAddressComponent</p>
+      <strong>Selector:</strong>
+      <ngstr-highlight>ngx-stripe-address</ngstr-highlight>
+
+      <h4 class="pt-4">
+        <strong>Properties</strong>
+      </h4>
+      <table class="w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              containerClass: string
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              A CSS class to add to the container element.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              options: StripeAddressElementOptions
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              An object containing the configuration options for the Address Element.
+              See the
+              <ngstr-link url="https://stripe.com/docs/js/elements_object/create_address_element">
+                Stripe documentation
+              </ngstr-link>
+              for further details.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              elementsOptions: StripeElementsOptions
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              An object containing the configuration options for the Stripe Elements instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              stripe: StripeServiceInterface
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              The StripeServiceInterface instance to use when creating the Stripe Elements instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              load: EventEmitter&lt;<br/>
+              StripeAddressElement<br/>
+              &gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="blue">CUSTOM: NGX-STRIPE ONLY</ngstr-badge>
+              It is triggered when the Angular Component is ready to be used.
+              It emits the Stripe Address Web Element instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              blur: EventEmitter&lt;void&gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              Triggered when the Element loses focus.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              change: EventEmitter&lt;<br/>
+              StripeAddressElementChangeEvent<br/>
+              &gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              The change event is triggered when the Element's value changes.
+              The event payload always contains certain keys, in addition to some Element-specific keys.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              focus: EventEmitter&lt;void&gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              Triggered when the Element gains focus.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              ready: EventEmitter&lt;void&gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              Triggered when the Element is fully rendered and can accept element.focus calls.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              escape: EventEmitter&lt;void&gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              Triggered when the escape key is pressed within an Element.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              loaderror: EventEmitter&lt;void&gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              Triggered when the Element fails to load.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              loaderstart: EventEmitter&lt;void&gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              Triggered when the loader UI is mounted to the DOM and ready to be displayed.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              element: StripeAddressElement
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              The Stripe Address Element
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 class="pt-4">
+        <strong>Methods</strong>
+      </h4>
+
+      <table class="w-full divide-y divide-gray-200">
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr class="bg-gray-50">
+            <td class="px-6 py-4 text-sm font-medium text-gray-900">
+              update(options: StripeAddressElementOptions): StripeAddressElement
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-500">
+              Updates the options the Address Element was initialized with.
+              Updates are merged into the existing configuration.
+            </td>
+          </tr>
+          <tr class="bg-gray-50">
+            <td class="px-6 py-4 text-sm font-medium text-gray-900">
+              getValue(): Promise&lt;Pick&lt;StripeAddressElementChangeEvent, 'complete' | 'isNewAddress' | 'value'&gt;&gt;
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-500">
+              Validates and retrieves form values from an Address Element. If there are any input validation errors, the errors will display by their respective fields.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-tab>
+  </mat-tab-group>
+</ngstr-container>

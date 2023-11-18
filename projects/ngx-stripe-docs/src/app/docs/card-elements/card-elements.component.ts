@@ -2,6 +2,9 @@ import { Component, ViewChild, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTabsModule } from '@angular/material/tabs';
+
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 import {
   StripeCardComponent,
@@ -9,42 +12,52 @@ import {
   StripeCardExpiryComponent,
   StripeCardGroupDirective,
   StripeCardNumberComponent,
+  StripeElementsDirective,
   injectStripe
 } from 'ngx-stripe';
 
 import { NgStrPlutoService } from '../../core';
 
 import {
+  NgStrBadgeComponent,
   NgStrCodeComponent,
   NgStrCodeGroupComponent,
+  NgStrContainerComponent,
   NgStrDocsHeaderComponent,
   NgStrHighlightComponent,
+  NgStrLinkComponent,
   NgStrSectionAsideDirective,
   NgStrSectionComponent,
   NgStrSubheaderComponent
 } from '../../docs-elements';
 
 @Component({
-  selector: 'ngstr-element-components',
-  templateUrl: './element-components.component.html',
+  selector: 'ngstr-card-elements',
+  templateUrl: './card-elements.component.html',
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    MatDividerModule,
+    MatTabsModule,
+    StripeElementsDirective,
     StripeCardGroupDirective,
     StripeCardCvcComponent,
     StripeCardExpiryComponent,
     StripeCardNumberComponent,
     StripeCardComponent,
+    NgStrBadgeComponent,
     NgStrCodeComponent,
     NgStrCodeGroupComponent,
+    NgStrContainerComponent,
     NgStrDocsHeaderComponent,
     NgStrHighlightComponent,
+    NgStrLinkComponent,
     NgStrSectionComponent,
     NgStrSectionAsideDirective,
     NgStrSubheaderComponent
   ]
 })
-export default class NgStrElementComponentsComponent {
+export default class NgStrCardElementsComponent {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
   private readonly fb = inject(UntypedFormBuilder);
@@ -136,22 +149,56 @@ export default class NgStrElementComponentsComponent {
     }
   }
 
-  createTokenTS = `
-    import { Component, OnInit, ViewChild } from '@angular/core';
-    import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+  oneElementTS = `
+    import { Component, inject, ViewChild } from '@angular/core';
+    import { UntypedFormBuilder, Validators } from '@angular/forms';
 
-    import { StripeService, StripeCardComponent } from 'ngx-stripe';
+    import { MatInputModule } from '@angular/material/input';
+
     import {
-      StripeCardElementOptions,
-      StripeElementsOptions
+      injectStripe,
+      StripeElementsDirective
+      StripeCardComponent
+    } from 'ngx-stripe';
+    import {
+      StripeElementsOptions,
+      StripeCardElementOptions
     } from '@stripe/stripe-js';
 
     @Component({
-      selector: 'app-create-token',
-      templateUrl: './create-token.component.html',
+      selector: 'ngstre-one-element-card',
+      template: \`
+        <h2>Card Example</h2>
+        <div [formGroup]="checkoutForm">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input matInput placeholder="name" formControlName="name" />
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input matInput placeholder="Email" type="email" formControlName="email" />
+          </mat-form-field>
+          <ngx-stripe-elements
+            [stripe]="stripe"
+            [elementsOptions]="elementsOptions"
+          >
+            <ngx-stripe-card [options]="cardOptions" />
+          </ngx-stripe-elements>
+        </div>
+        <button type="submit" (click)="createToken()">
+          CREATE TOKEN
+        </button>
+      \`,
+      standalone: true,
+      imports: [
+        ReactiveFormsModule,
+        MatInputModule,
+        StripeElementsDirective,
+        StripeCardComponent
+      ]
     })
-    export class CreateTokenComponent implements OnInit {
-      @ViewChild(StripeCardComponent) card: StripeCardComponent;
+    export class CreateTokenComponent {
+      @ViewChild(StripeCardComponent) cardElement!: StripeCardComponent;
+
+      private readonly fb = inject(UntypedFormBuilder);
 
       cardOptions: StripeCardElementOptions = {
         style: {
@@ -172,19 +219,17 @@ export default class NgStrElementComponentsComponent {
         locale: 'en'
       };
 
-      stripeTest: FormGroup;
+      checkoutForm = this.fb.group({
+        name: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]]
+      });
 
-      constructor(private fb: FormBuilder, private stripeService: StripeService) {}
+      // Replace with your own public key
+      stripe = injectStripe(this.yourOwnAPI.StripePublicKey);
 
-      ngOnInit(): void {
-        this.stripeTest = this.fb.group({
-          name: ['', [Validators.required]]
-        });
-      }
-
-      createToken(): void {
+      createToken() {
         const name = this.stripeTest.get('name').value;
-        this.stripeService
+        this.stripe
           .createToken(this.card.element, { name })
           .subscribe((result) => {
             if (result.token) {
@@ -197,16 +242,6 @@ export default class NgStrElementComponentsComponent {
           });
       }
     }
-  `;
-  createTokenHTML = `
-    <h2>Create Token Example</h2>
-    <ngx-stripe-card
-      [options]="cardOptions"
-      [elementsOptions]="elementsOptions"
-    ></ngx-stripe-card>
-    <button type="submit" (click)="createToken()">
-      CREATE TOKEN
-    </button>
   `;
   cardGroupDirectiveTS = `
     import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core';

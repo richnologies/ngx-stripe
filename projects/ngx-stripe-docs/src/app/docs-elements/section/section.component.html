@@ -1,10 +1,10 @@
 <div
   #sectionContainer
   class="flex-1 justify-center relative z-0 flex overflow-y-auto"
-  style="height: calc(100vh - 4rem)"
+  [ngStyle]="{ height: hasContainer ? 'calc(100vh - 8rem)' : 'calc(100vh - 4rem)' }"
 >
   <main class="flex-1 m-auto py-4 max-w-screen-md h-full w-11/12 my-0 mx-4 lg:mx-0 max-w-2xl">
-    <div class="my-6 prose prose-indigo text-gray-500 mx-auto">
+    <div class="mb-6 prose prose-indigo text-gray-500 mx-auto">
       <ng-content select="[ngStrSectionMain]"></ng-content>
       <div class="!mt-8"></div>
       <ngstr-section-navigator />

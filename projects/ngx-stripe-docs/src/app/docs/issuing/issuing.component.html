@@ -1,0 +1,468 @@
+<ngstr-container size="md">
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="Overview">
+      <ngstr-section>
+        <ng-container ngStrSectionMain>
+          <ngstr-header title="Issuing Elements" />
+          <p class="pt-4">
+            <ngstr-link url="https://stripe.com/docs/issuing/elements">
+              Issuing Elements
+            </ngstr-link>
+            allows you to display the sensitive data of your Issuing cards in a PCI-compliant manner.
+          </p>
+      
+          <ngstr-subheader subheader="One Card Example" link="one-card-example" />
+          <div class="mb-8"></div>
+          <ngstr-code-group>
+            <ngstr-code name="one-card.component.html" [code]="oneCardHTML" />
+            <ngstr-code name="one-card.component.ts" [code]="oneCardTS" />
+          </ngstr-code-group>
+        </ng-container>
+      </ngstr-section>
+    </mat-tab>
+    <mat-tab label="API">
+      <h2 class="pt-4">API Reference for Issuing Components</h2>
+      <ngstr-highlight>
+        import &lbrace;<br />
+        &nbsp;&nbsp;StripeIssuingCardNumberDisplayComponent,<br />
+        &nbsp;&nbsp;StripeIssuingCardExpiryDisplayComponent,<br />
+        &nbsp;&nbsp;StripeIssuingCardCvcDisplayComponent,<br />
+        &nbsp;&nbsp;StripeIssuingCardPinDisplayComponent<br />
+        &rbrace; from 'ngx-stripe'
+      </ngstr-highlight>
+
+      <h3 class="pt-4">Components</h3>
+      <mat-divider></mat-divider>
+      <p class="pt-4">StripeIssuingCardNumberDisplayComponent</p>
+      <strong>Selector:</strong>
+      <ngstr-highlight>ngx-stripe-issuing-card-number-display</ngstr-highlight>
+
+      <h4 class="pt-4">
+        <strong>Properties</strong>
+      </h4>
+      <table class="w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              containerClass: string
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              A CSS class to add to the container element.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              options: StripeIssuingCardNumberDisplayElementOptions
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              An object containing the configuration options for the Stripe Issuing Card Number Element.
+              See the
+              <ngstr-link url="https://stripe.com/docs/js/issuing_elements/create?type=issuingCardNumberDisplay">
+                Stripe documentation
+              </ngstr-link>
+              for further details.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              elementsOptions: StripeElementsOptions
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              An object containing the configuration options for the Stripe Elements instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              stripe: StripeServiceInterface
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              The StripeServiceInterface instance to use when creating the Stripe Elements instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              load: EventEmitter&lt;<br/>
+              StripeIssuingCardNumberDisplayElement<br/>
+              &gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="blue">CUSTOM: NGX-STRIPE ONLY</ngstr-badge>
+              It is triggered when the Angular Component is ready to be used.
+              It emits the Stripe Issuing Card Number Web Element instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              element: StripeIssuingCardNumberDisplayElement
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="blue">CUSTOM: NGX-STRIPE ONLY</ngstr-badge>
+              The Stripe Element
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 class="pt-4">
+        <strong>Methods</strong>
+      </h4>
+
+      <table class="w-full divide-y mb-6 divide-gray-200">
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr class="bg-gray-50">
+            <td class="px-6 py-4 text-sm font-medium text-gray-900">
+              update(options: StripeIssuingCardNumberDisplayElementOptions)
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-500">
+              Updates the options the Element was initialized with.
+              Updates are merged into the existing configuration.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <mat-divider></mat-divider>
+      <p class="pt-6">StripeIssuingCardExpiryDisplayComponent</p>
+      <strong>Selector:</strong>
+      <ngstr-highlight>ngx-stripe-issuing-card-expiry-display</ngstr-highlight>
+
+      <h4 class="pt-4">
+        <strong>Properties</strong>
+      </h4>
+      <table class="w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              containerClass: string
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              A CSS class to add to the container element.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              options: StripeIssuingCardExpiryDisplayElementOptions
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              An object containing the configuration options for the Stripe Issuing Card Expiry Element.
+              See the
+              <ngstr-link url="https://stripe.com/docs/js/issuing_elements/create?type=issuingCardExpiryDisplay">
+                Stripe documentation
+              </ngstr-link>
+              for further details.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              elementsOptions: StripeElementsOptions
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              An object containing the configuration options for the Stripe Elements instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              stripe: StripeServiceInterface
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              The StripeServiceInterface instance to use when creating the Stripe Elements instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              load: EventEmitter&lt;<br/>
+              StripeIssuingCardExpiryDisplayElement<br/>
+              &gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="blue">CUSTOM: NGX-STRIPE ONLY</ngstr-badge>
+              It is triggered when the Angular Component is ready to be used.
+              It emits the Stripe Stripe Issuing Card Expiry Web Element instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              element: StripeIssuingCardExpiryDisplayElement
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="blue">CUSTOM: NGX-STRIPE ONLY</ngstr-badge>
+              The Stripe Element
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 class="pt-4">
+        <strong>Methods</strong>
+      </h4>
+
+      <table class="w-full divide-y mb-6 divide-gray-200">
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr class="bg-gray-50">
+            <td class="px-6 py-4 text-sm font-medium text-gray-900">
+              update(options: StripeIssuingCardExpiryDisplayElementOptions)
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-500">
+              Updates the options the Element was initialized with.
+              Updates are merged into the existing configuration.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <mat-divider></mat-divider>
+      <p class="pt-6">StripeIssuingCardCvcDisplayComponent</p>
+      <strong>Selector:</strong>
+      <ngstr-highlight>ngx-stripe-issuing-card-cvc-display</ngstr-highlight>
+
+      <h4 class="pt-4">
+        <strong>Properties</strong>
+      </h4>
+      <table class="w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              containerClass: string
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              A CSS class to add to the container element.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              options: StripeIssuingCardCvcDisplayElementOptions
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              An object containing the configuration options for the Stripe Issuing Card CVC Element.
+              See the
+              <ngstr-link url="https://stripe.com/docs/js/issuing_elements/create?type=issuingCardCvcDisplay">
+                Stripe documentation
+              </ngstr-link>
+              for further details.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              elementsOptions: StripeElementsOptions
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              An object containing the configuration options for the Stripe Elements instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              stripe: StripeServiceInterface
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              The StripeServiceInterface instance to use when creating the Stripe Elements instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              load: EventEmitter&lt;<br/>
+              StripeIssuingCardCvcDisplayElement<br/>
+              &gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="blue">CUSTOM: NGX-STRIPE ONLY</ngstr-badge>
+              It is triggered when the Angular Component is ready to be used.
+              It emits the Stripe Stripe Issuing Card CVC Web Element instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              element: StripeIssuingCardCvcDisplayElement
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="blue">CUSTOM: NGX-STRIPE ONLY</ngstr-badge>
+              The Stripe Element
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 class="pt-4">
+        <strong>Methods</strong>
+      </h4>
+
+      <table class="w-full divide-y mb-6 divide-gray-200">
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr class="bg-gray-50">
+            <td class="px-6 py-4 text-sm font-medium text-gray-900">
+              update(options: StripeIssuingCardCvcDisplayElementOptions)
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-500">
+              Updates the options the Element was initialized with.
+              Updates are merged into the existing configuration.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <mat-divider></mat-divider>
+      <p class="pt-6">StripeIssuingCardPinDisplayComponent</p>
+      <strong>Selector:</strong>
+      <ngstr-highlight>ngx-stripe-issuing-card-pin-display</ngstr-highlight>
+
+      <h4 class="pt-4">
+        <strong>Properties</strong>
+      </h4>
+      <table class="w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              containerClass: string
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              A CSS class to add to the container element.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              options: StripeIssuingCardPinDisplayElementOptions
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              An object containing the configuration options for the Stripe Issuing Card Pin Display Element.
+              See the
+              <ngstr-link url="https://stripe.com/docs/js/issuing_elements/create?type=issuingCardExpiryDisplay">
+                Stripe documentation
+              </ngstr-link>
+              for further details.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              elementsOptions: StripeElementsOptions
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              An object containing the configuration options for the Stripe Elements instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              stripe: StripeServiceInterface
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              The StripeServiceInterface instance to use when creating the Stripe Elements instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              load: EventEmitter&lt;<br/>
+              StripeIssuingCardPinDisplayElement<br/>
+              &gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="blue">CUSTOM: NGX-STRIPE ONLY</ngstr-badge>
+              It is triggered when the Angular Component is ready to be used.
+              It emits the Stripe Stripe Issuing Card Pin Display Web Element instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              element: StripeIssuingCardPinDisplayElement
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="blue">CUSTOM: NGX-STRIPE ONLY</ngstr-badge>
+              The Stripe Element
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 class="pt-4">
+        <strong>Methods</strong>
+      </h4>
+
+      <table class="w-full divide-y mb-6 divide-gray-200">
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr class="bg-gray-50">
+            <td class="px-6 py-4 text-sm font-medium text-gray-900">
+              update(options: StripeIssuingCardPinDisplayElementOptions)
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-500">
+              Updates the options the Element was initialized with.
+              Updates are merged into the existing configuration.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-tab>
+  </mat-tab-group>
+</ngstr-container>

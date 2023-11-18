@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
+
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { StripePaymentElementComponent, injectStripe } from 'ngx-stripe';
 import { StripeElementsOptions, StripePaymentElementOptions } from '@stripe/stripe-js';
@@ -8,8 +10,10 @@ import { StripeElementsOptions, StripePaymentElementOptions } from '@stripe/stri
 import { NgStrPlutoService } from '../../core';
 
 import {
+  NgStrBadgeComponent,
   NgStrCodeComponent,
   NgStrCodeGroupComponent,
+  NgStrContainerComponent,
   NgStrDocsHeaderComponent,
   NgStrFlipContainerComponent,
   NgStrHighlightComponent,
@@ -25,9 +29,13 @@ import {
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    MatDividerModule,
+    MatTabsModule,
     StripePaymentElementComponent,
+    NgStrBadgeComponent,
     NgStrCodeComponent,
     NgStrCodeGroupComponent,
+    NgStrContainerComponent,
     NgStrDocsHeaderComponent,
     NgStrFlipContainerComponent,
     NgStrHighlightComponent,
@@ -140,6 +148,8 @@ export default class NgStrPaymentElementComponent implements OnInit {
   paymentElementTS = `
     import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
     import { UntypedFormBuilder, Validators } from '@angular/forms';
+
+    import { MatInputModule } from '@angular/material/input';
 
     import {
       injectStripe,
@@ -286,6 +296,8 @@ export default class NgStrPaymentElementComponent implements OnInit {
     import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
     import { UntypedFormBuilder, Validators } from '@angular/forms';
 
+    import { MatInputModule } from '@angular/material/input';
+
     import { injectStripe, StripePaymentElementComponent } from 'ngx-stripe';
     import {
       StripeElementsOptions, 
@@ -425,6 +437,8 @@ export default class NgStrPaymentElementComponent implements OnInit {
     import { Component, inject, ViewChild } from '@angular/core';
     import { UntypedFormBuilder, Validators } from '@angular/forms';
 
+    import { MatInputModule } from '@angular/material/input';
+
     import {
       injectStripe,
       StripeElementsDirective,
@@ -500,6 +514,8 @@ export default class NgStrPaymentElementComponent implements OnInit {
   paymentElementCollapseTS = `
     import { Component, inject, ViewChild } from '@angular/core';
     import { UntypedFormBuilder, Validators } from '@angular/forms';
+
+    import { MatInputModule } from '@angular/material/input';
 
     import {
       injectStripe,

@@ -1,5 +1,7 @@
+export * from './badge/badge.component';
 export * from './code/code.component';
 export * from './code-group/code-group.component';
+export * from './container/container.component';
 export * from './contents/contents.component';
 export * from './copy-link/copy-link.component';
 export * from './docs-shell/docs-shell.component';

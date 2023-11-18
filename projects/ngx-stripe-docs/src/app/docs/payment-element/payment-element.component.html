@@ -1,194 +1,414 @@
-<ngstr-section>
-  <ng-container ngStrSectionMain>
-    <ngstr-header title="Payment Element" />
-    <p>
-      The <ngstr-link url="https://stripe.com/docs/payments/payment-element">Payment Element</ngstr-link>
-      is a versatile, embeddable component designed for securely collecting payment details. 
-      It supports numerous payment methods through a single, streamlined integration. 
-      The Payment Element simplifies the construction of both an <strong>embedded</strong> and
-      <strong>customized</strong> payments experience, suitable for a variety of payment types.
-    </p>
-    <p>
-      For detailed information about the Payment Element and its usage, refer to the official Stripe
-      <ngstr-link url="https://stripe.com/docs/js/element/payment_element">documentation</ngstr-link>.
-    </p>
-    <p>
-      This guide focuses on utilizing the Payment Element within an Angular framework using ngx-stripe.
-      Similar to other Stripe Elements, <ngstr-highlight>ngx-stripe</ngstr-highlight> offers a comparable API.
-      Below is an example demonstrating how to collect card payments using the
-      <ngstr-highlight>Payment Element</ngstr-highlight>.
-    </p>
-    <ngstr-subheader subheader="Using Stripe Elements Directive" link="stripe-elements-directive" />
-    <p>
-      To integrate the Payment Element with ngx-stripe, it is recommended to wrap the Payment Element
-      component using the Stripe Elements Directive. For a detailed guide on the Stripe Elements Directive,
-      visit the <ngstr-link url="/docs/elements">Stripe Elements</ngstr-link> section.
-    </p>
-    <ngstr-code-group>
-      <ngstr-code name="element.component.html" [code]="paymentElementHTML" />
-      <ngstr-code name="element.component.ts" [code]="paymentElementTS" />
-    </ngstr-code-group>
-    <ngstr-subheader subheader="Implicit Elements Option" link="implicit-elements-option" />
-    <p>
-      Alternatively, the Payment Element can be used through implicit elements, where you directly
-      pass the Stripe instance and element options, and they are internally created. Note, this approach
-      is deprecated and preserved mainly for backward compatibility.
-    </p>
-    <ngstr-code-group>
-      <ngstr-code name="element.component.html" [code]="paymentElementImplicitHTML" />
-      <ngstr-code name="element.component.ts" [code]="paymentElementImplicitTS" />
-    </ngstr-code-group>
-    <ngstr-subheader subheader="Fetch Updates and Update" link="fetch-updates" />
-    <p>
-      To synchronize the Payment Element with the latest data from the associated PaymentIntent or SetupIntent,
-      utilize the <ngstr-highlight>fetchUpdates</ngstr-highlight> method. This can be executed through
-      either the Payment Element component or the Elements Directive.
-    </p>
-    <p>
-      Additionally, you can imperatively update the Payment Element by invoking the
-      <ngstr-highlight>update</ngstr-highlight> method.
-    </p>
-    <ngstr-code-group>
-      <ngstr-code name="element.component.ts" [code]="paymentElementFetchTS" />
-      <ngstr-code name="element.component.html" [code]="paymentElementHTML" />
-    </ngstr-code-group>
-    <ngstr-subheader subheader="Collapse Method" link="collapse-method" />
-    <p>
-      The <ngstr-highlight>collapse</ngstr-highlight> method is exclusively available
-      for the Payment Element component. It allows you to conceal parts of the element from view.
-    </p>
-    <ngstr-code-group>
-      <ngstr-code name="element.component.ts" [code]="paymentElementCollapseTS" />
-      <ngstr-code name="element.component.html" [code]="paymentElementHTML" />
-    </ngstr-code-group>
-  </ng-container>
-  <div class="sm:mx-auto sm:w-full sm:max-w-md" ngStrSectionAside [formGroup]="paymentElementForm">
-    <ngstr-flip-container [showBack]="completed">
-      <ng-container class="ngstr-flip-front">
-        <div class="py-4 px-4 shadow sm:rounded-lg sm:px-10 bg-slate-100">
-          <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Payment Element</h2>
-          <div class="my-1">
-            <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
-            <div class="mt-1">
-              <input
-                id="name"
-                type="text"
-                formControlName="name"
-                required
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-          </div>
-          <div class="my-1">
-            <label for="name" class="block text-sm font-medium text-gray-700"> Email </label>
-            <div class="mt-1">
-              <input
-                id="name"
-                type="email"
-                formControlName="email"
-                required
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-          </div>
-          <div class="my-1">
-            <label for="name" class="block text-sm font-medium text-gray-700"> Address </label>
-            <div class="mt-1">
-              <input
-                id="name"
-                type="text"
-                formControlName="address"
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-          </div>
-          <div class="my-1">
-            <label for="name" class="block text-sm font-medium text-gray-700"> ZIP Code </label>
-            <div class="mt-1">
-              <input
-                id="name"
-                type="text"
-                formControlName="zipcode"
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-          </div>
-          <div class="my-1">
-            <label for="name" class="block text-sm font-medium text-gray-700"> City </label>
-            <div class="mt-1">
-              <input
-                id="name"
-                type="text"
-                formControlName="city"
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-          </div>
-          @if (elementsOptions?.clientSecret; as clientSecret) {
-            <ngx-stripe-payment
-              [stripe]="stripe"
-              [clientSecret]="clientSecret"
-              [options]="paymentElementOptions"
-              [elementsOptions]="elementsOptions"
-            ></ngx-stripe-payment>
-          }
-          <button
-            type="button"
-            (click)="pay()"
-            [disabled]="paying"
-            class="w-full block text-center mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            @if (paying) {
-              <span class="w-full block text-center">PROCESSING...</span>
-            } @else {
-              <span class="w-full block text-center">TRY IT</span>
-            }
-          </button>
-        </div>
-        <a
-          class="block w-full pt-2 cursor-pointer text-center text-indigo-700 hover:text-indigo-900"
-          href="https://stackblitz.com/edit/ngx-stripe-live"
-          target="_blank"
-        >
-          Open Live Demo
-        </a>
-      </ng-container>
-      <div class="ngstr-flip-back h-96 py-4 px-4 shadow sm:rounded-lg sm:px-6 text-green-700 bg-green-100">
-        <div class="relative top-8 text-center">
-          <button
-            type="button"
-            (click)="clearPaymentElementForm()"
-            class="absolute -top-9 right-0 ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green"
-          >
-            <span class="sr-only">Close sidebar</span>
-            <svg
-              class="h-6 w-6 text-green-700"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          <span class="material-icons text-6xl block mb-6">check_circle</span>
-          <h3 class="font-bold">Payment Processed correctly</h3>
-          <hr />
-          <p class="!mt-2">
-            At this point the payment has been processed and you can redirect your user to the next step
+<ngstr-container size="md">
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="Overview">
+      <ngstr-section>
+        <ng-container ngStrSectionMain>
+          <ngstr-header title="Payment Element" />
+          <p>
+            The <ngstr-link url="https://stripe.com/docs/payments/payment-element">Payment Element</ngstr-link>
+            is a versatile, embeddable component designed for securely collecting payment details. 
+            It supports numerous payment methods through a single, streamlined integration. 
+            The Payment Element simplifies the construction of both an <strong>embedded</strong> and
+            <strong>customized</strong> payments experience, suitable for a variety of payment types.
           </p>
-          <p>Open the live demo to try it yourself</p>
-          <a href="https://stackblitz.com/edit/ngx-stripe-live" target="_blank">
-            <button
-              type="button"
-              class="mt-4 inline-flex items-center px-3 py-2 border border-green-700 text-sm leading-4 font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-            >
-              Open Live Demo
-            </button>
-          </a>
+          <p>
+            For detailed information about the Payment Element and its usage, refer to the official Stripe
+            <ngstr-link url="https://stripe.com/docs/js/element/payment_element">documentation</ngstr-link>.
+          </p>
+          <p>
+            This guide focuses on utilizing the Payment Element within an Angular framework using ngx-stripe.
+            Similar to other Stripe Elements, <ngstr-highlight>ngx-stripe</ngstr-highlight> offers a comparable API.
+            Below is an example demonstrating how to collect card payments using the
+            <ngstr-highlight>Payment Element</ngstr-highlight>.
+          </p>
+          <ngstr-subheader subheader="Using Stripe Elements Directive" link="stripe-elements-directive" />
+          <p>
+            To integrate the Payment Element with ngx-stripe, it is recommended to wrap the Payment Element
+            component using the Stripe Elements Directive. For a detailed guide on the Stripe Elements Directive,
+            visit the <ngstr-link url="/docs/elements">Stripe Elements</ngstr-link> section.
+          </p>
+          <ngstr-code-group>
+            <ngstr-code name="element.component.html" [code]="paymentElementHTML" />
+            <ngstr-code name="element.component.ts" [code]="paymentElementTS" />
+          </ngstr-code-group>
+          <ngstr-subheader subheader="Implicit Elements Option" link="implicit-elements-option" />
+          <p>
+            Alternatively, the Payment Element can be used through implicit elements, where you directly
+            pass the Stripe instance and element options, and they are internally created. Note, this approach
+            is deprecated and preserved mainly for backward compatibility.
+          </p>
+          <ngstr-code-group>
+            <ngstr-code name="element.component.html" [code]="paymentElementImplicitHTML" />
+            <ngstr-code name="element.component.ts" [code]="paymentElementImplicitTS" />
+          </ngstr-code-group>
+          <ngstr-subheader subheader="Fetch Updates and Update" link="fetch-updates" />
+          <p>
+            To synchronize the Payment Element with the latest data from the associated PaymentIntent or SetupIntent,
+            utilize the <ngstr-highlight>fetchUpdates</ngstr-highlight> method. This can be executed through
+            either the Payment Element component or the Elements Directive.
+          </p>
+          <p>
+            Additionally, you can imperatively update the Payment Element by invoking the
+            <ngstr-highlight>update</ngstr-highlight> method.
+          </p>
+          <ngstr-code-group>
+            <ngstr-code name="element.component.ts" [code]="paymentElementFetchTS" />
+            <ngstr-code name="element.component.html" [code]="paymentElementHTML" />
+          </ngstr-code-group>
+          <ngstr-subheader subheader="Collapse Method" link="collapse-method" />
+          <p>
+            The <ngstr-highlight>collapse</ngstr-highlight> method is exclusively available
+            for the Payment Element component. It allows you to conceal parts of the element from view.
+          </p>
+          <ngstr-code-group>
+            <ngstr-code name="element.component.ts" [code]="paymentElementCollapseTS" />
+            <ngstr-code name="element.component.html" [code]="paymentElementHTML" />
+          </ngstr-code-group>
+        </ng-container>
+        <div class="sm:mx-auto sm:w-full sm:max-w-md" ngStrSectionAside [formGroup]="paymentElementForm">
+          <ngstr-flip-container [showBack]="completed">
+            <ng-container class="ngstr-flip-front">
+              <div class="py-4 px-4 shadow sm:rounded-lg sm:px-10 bg-slate-100">
+                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Payment Element</h2>
+                <div class="my-1">
+                  <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
+                  <div class="mt-1">
+                    <input
+                      id="name"
+                      type="text"
+                      formControlName="name"
+                      required
+                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
+                  </div>
+                </div>
+                <div class="my-1">
+                  <label for="name" class="block text-sm font-medium text-gray-700"> Email </label>
+                  <div class="mt-1">
+                    <input
+                      id="name"
+                      type="email"
+                      formControlName="email"
+                      required
+                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
+                  </div>
+                </div>
+                <div class="my-1">
+                  <label for="name" class="block text-sm font-medium text-gray-700"> Address </label>
+                  <div class="mt-1">
+                    <input
+                      id="name"
+                      type="text"
+                      formControlName="address"
+                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
+                  </div>
+                </div>
+                <div class="my-1">
+                  <label for="name" class="block text-sm font-medium text-gray-700"> ZIP Code </label>
+                  <div class="mt-1">
+                    <input
+                      id="name"
+                      type="text"
+                      formControlName="zipcode"
+                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
+                  </div>
+                </div>
+                <div class="my-1">
+                  <label for="name" class="block text-sm font-medium text-gray-700"> City </label>
+                  <div class="mt-1">
+                    <input
+                      id="name"
+                      type="text"
+                      formControlName="city"
+                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
+                  </div>
+                </div>
+                @if (elementsOptions?.clientSecret; as clientSecret) {
+                  <ngx-stripe-payment
+                    [stripe]="stripe"
+                    [clientSecret]="clientSecret"
+                    [options]="paymentElementOptions"
+                    [elementsOptions]="elementsOptions"
+                  ></ngx-stripe-payment>
+                }
+                <button
+                  type="button"
+                  (click)="pay()"
+                  [disabled]="paying"
+                  class="w-full block text-center mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  @if (paying) {
+                    <span class="w-full block text-center">PROCESSING...</span>
+                  } @else {
+                    <span class="w-full block text-center">TRY IT</span>
+                  }
+                </button>
+              </div>
+              <a
+                class="block w-full pt-2 cursor-pointer text-center text-indigo-700 hover:text-indigo-900"
+                href="https://stackblitz.com/edit/ngx-stripe-live"
+                target="_blank"
+              >
+                Open Live Demo
+              </a>
+            </ng-container>
+            <div class="ngstr-flip-back h-96 py-4 px-4 shadow sm:rounded-lg sm:px-6 text-green-700 bg-green-100">
+              <div class="relative top-8 text-center">
+                <button
+                  type="button"
+                  (click)="clearPaymentElementForm()"
+                  class="absolute -top-9 right-0 ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green"
+                >
+                  <span class="sr-only">Close sidebar</span>
+                  <svg
+                    class="h-6 w-6 text-green-700"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                <span class="material-icons text-6xl block mb-6">check_circle</span>
+                <h3 class="font-bold">Payment Processed correctly</h3>
+                <hr />
+                <p class="!mt-2">
+                  At this point the payment has been processed and you can redirect your user to the next step
+                </p>
+                <p>Open the live demo to try it yourself</p>
+                <a href="https://stackblitz.com/edit/ngx-stripe-live" target="_blank">
+                  <button
+                    type="button"
+                    class="mt-4 inline-flex items-center px-3 py-2 border border-green-700 text-sm leading-4 font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  >
+                    Open Live Demo
+                  </button>
+                </a>
+              </div>
+            </div>
+          </ngstr-flip-container>
         </div>
-      </div>
-    </ngstr-flip-container>
-  </div>
-</ngstr-section>
+      </ngstr-section>
+    </mat-tab>
+    <mat-tab label="API">
+      <h2 class="pt-4">API Reference for Payment Element Component</h2>
+      <ngstr-highlight>import &lbrace; StripePaymentElementComponent &rbrace; from 'ngx-stripe'</ngstr-highlight>
+
+      <h3 class="pt-4">Components</h3>
+      <mat-divider></mat-divider>
+      <p class="pt-4">StripePaymentElementComponent</p>
+      <strong>Selector:</strong>
+      <ngstr-highlight>ngx-stripe-payment</ngstr-highlight>
+
+      <h4 class="pt-4">
+        <strong>Properties</strong>
+      </h4>
+      <table class="w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              containerClass: string
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              A CSS class to add to the container element.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              options: StripePaymentElementOptions
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              An object containing the configuration options for the Payment Element.
+              See the
+              <ngstr-link url="https://stripe.com/docs/js/element/payment_element">
+                Stripe documentation
+              </ngstr-link>
+              for further details.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              elementsOptions: StripeElementsOptions
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              An object containing the configuration options for the Stripe Elements instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              stripe: StripeServiceInterface
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              The StripeServiceInterface instance to use when creating the Stripe Elements instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              appearance: Appearance
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              The appearance of the element. Passing it in the elements options is the preferred way.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              clientSecret: string
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="red">
+                DEPRECATED: USE <ngstr-link url="/docs/elements" color="red">ELEMENTS</ngstr-link> INSTEAD
+              </ngstr-badge><br />
+              The client secret of the intent. Passing it in the elements options is the preferred way.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              load: EventEmitter&lt;<br/>
+              StripePaymentElement<br/>
+              &gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              <ngstr-badge color="blue">CUSTOM: NGX-STRIPE ONLY</ngstr-badge>
+              It is triggered when the Angular Component is ready to be used.
+              It emits the StripePaymentElement Web Element instance.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              blur: EventEmitter&lt;void&gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              Triggered when the Element loses focus.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              change: EventEmitter&lt;<br/>
+              StripePaymentElementChangeEvent<br/>
+              &gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              The change event is triggered when the Element's value changes.
+              The event payload always contains certain keys, in addition to some Element-specific keys.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              focus: EventEmitter&lt;void&gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              Triggered when the Element gains focus.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              ready: EventEmitter&lt;void&gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              Triggered when the Element is fully rendered and can accept element.focus calls.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              escape: EventEmitter&lt;void&gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              Triggered when the escape key is pressed within an Element.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              loaderror: EventEmitter&lt;void&gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              Triggered when the Element fails to load.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              element: StripePaymentElement
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              The Payment Element instance
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 class="pt-4">
+        <strong>Methods</strong>
+      </h4>
+
+      <table class="w-full divide-y divide-gray-200">
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr class="bg-gray-50">
+            <td class="px-6 py-4 text-sm font-medium text-gray-900">
+              fetchUpdates()
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-500">
+              This method fetches updates from the associated PaymentIntent or SetupIntent
+              on an existing instance of Elements, and reflects these updates in the Payment Element.
+            </td>
+          </tr>
+          <tr class="bg-gray-50">
+            <td class="px-6 py-4 text-sm font-medium text-gray-900">
+              update(options: StripePaymentElementOptions): StripePaymentElement
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-500">
+              Updates the options the Payment Element was initialized with. Updates are merged
+              into the existing configuration.
+            </td>
+          </tr>
+          <tr class="bg-gray-50">
+            <td class="px-6 py-4 text-sm font-medium text-gray-900">
+              collapse(): StripePaymentElement
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-500">
+              This method collapses the Payment Element into a row of payment method tabs.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-tab>
+  </mat-tab-group>
+</ngstr-container>
