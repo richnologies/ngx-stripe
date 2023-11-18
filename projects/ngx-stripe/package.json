@@ -5,6 +5,7 @@
     "type": "git",
     "url": "https://github.com/richnologies/ngx-stripe"
   },
+  "homepage": "https://ngx-stripe.dev",
   "keywords": [
     "angular",
     "stripe",
