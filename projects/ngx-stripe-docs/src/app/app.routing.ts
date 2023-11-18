@@ -62,6 +62,11 @@ export const ROUTES: Routes = [
         data: { title: 'Card Elements' }
       },
       {
+        path: 'payment-request-button',
+        loadComponent: () => import('./docs/payment-request-button/payment-request-button.component'),
+        data: { title: 'Payment Request Button' }
+      },
+      {
         path: 'checkout',
         loadComponent: () => import('./docs/checkout/checkout.component'),
         data: { title: 'Checkout' }
@@ -72,11 +77,6 @@ export const ROUTES: Routes = [
         data: { title: 'Identity' }
       },
       {
-        path: 'payment-request-button',
-        loadComponent: () => import('./docs/payment-request-button/payment-request-button.component'),
-        data: { title: 'Payment Request Button' }
-      },
-      {
         path: 'service',
         loadComponent: () => import('./docs/service/service.component'),
         data: { title: 'Stripe Service' }
@@ -85,11 +85,6 @@ export const ROUTES: Routes = [
         path: 'styling',
         loadComponent: () => import('./docs/styling/styling.component'),
         data: { title: 'Styling' }
-      },
-      {
-        path: 'service-factory',
-        loadComponent: () => import('./docs/service-factory/service-factory.component'),
-        data: { title: 'Stripe Factory' }
       },
       {
         path: 'reference-instance',

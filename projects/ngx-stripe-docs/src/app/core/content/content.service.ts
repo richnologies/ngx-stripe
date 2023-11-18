@@ -67,6 +67,12 @@ export class NgStrContentService {
     {
       group: 'Core Concepts',
       type: 'page',
+      name: 'Payment Request Button',
+      path: 'payment-request-button'
+    },
+    {
+      group: 'Core Concepts',
+      type: 'page',
       name: 'Checkout',
       path: 'checkout'
     },
@@ -76,22 +82,11 @@ export class NgStrContentService {
       name: 'Identity',
       path: 'identity'
     },
+    { group: 'Advance', type: 'group', name: 'Advance' },
+    { group: 'Advance', type: 'page', name: 'Service', path: 'service' },
+    { group: 'Advance', type: 'page', name: 'Styling', path: 'styling' },
     {
-      group: 'Core Concepts',
-      type: 'page',
-      name: 'Payment Request Button',
-      path: 'payment-request-button'
-    },
-    { group: 'Core Concepts', type: 'page', name: 'Service', path: 'service' },
-    { group: 'Core Concepts', type: 'page', name: 'Styling', path: 'styling' },
-    {
-      group: 'Core Concepts',
-      type: 'page',
-      name: 'Service Factory',
-      path: 'service-factory'
-    },
-    {
-      group: 'Core Concepts',
+      group: 'Advance',
       type: 'page',
       name: 'Reference & Instance',
       path: 'reference-instance'
