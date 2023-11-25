@@ -184,7 +184,7 @@ export class CheckoutFormComponent {
 
   elementsOptions: StripeElementsOptions = {
     locale: 'en',
-    client: '{{YOUR_CLIENT_SECRET}}'
+    clientSecret: '{{YOUR_CLIENT_SECRET}}'
     appearance: {
       theme: 'flat'
     }
