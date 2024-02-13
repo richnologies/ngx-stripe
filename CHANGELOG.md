@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.1.0 - 2024-02-13
+
+- Add support for StripeJS v3
+
 ## 17.0.1 - 2023-11-18
 
 - Multiple updates to the docs site
