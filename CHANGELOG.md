@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.1.1 - 2024-02-18
+
+- Fix NPM dependencies
+
 ## 17.1.0 - 2024-02-13
 
 - Add support for StripeJS v3
