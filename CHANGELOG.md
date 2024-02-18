@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.8.1 - 2024-02-13
+
+- Add support for StripeJS v3
+
 ## 15.7.2 - 2023-06-02
 
 - [#231](https://github.com/richnologies/ngx-stripe/issues/231) Fix an error with `Payment Request Button Element`
