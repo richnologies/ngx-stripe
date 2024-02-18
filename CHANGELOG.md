@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.6.0 - 2024-02-18
+
+- Add support for StripeJS v3
+
 ## 14.4.2 - 2023-03-14
 
 - Removing use of Observable `lastValueFrom` to bring back support for RxJS@6
