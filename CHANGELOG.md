@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.2.0 - 2024-04-10
+
+- Remove Card Element Types
+
 ## 17.1.1 - 2024-02-18
 
 - Fix NPM dependencies

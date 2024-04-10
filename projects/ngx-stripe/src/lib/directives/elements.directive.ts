@@ -10,7 +10,6 @@ import {
   StripeCardElement,
   StripeCardExpiryElement,
   StripeCardNumberElement,
-  StripeCartElement,
   StripeElements,
   StripeElementsOptions,
   StripeElementsUpdateOptions,
@@ -114,7 +113,6 @@ export class StripeElementsDirective implements OnInit, OnChanges {
   getElement(elementType: 'cardNumber'): StripeCardNumberElement | null;
   getElement(elementType: 'cardExpiry'): StripeCardExpiryElement | null;
   getElement(elementType: 'cardCvc'): StripeCardCvcElement | null;
-  getElement(elementType: 'cart'): StripeCartElement | null;
   getElement(elementType: 'fpxBank'): StripeFpxBankElement | null;
   getElement(elementType: 'epsBank'): StripeEpsBankElement | null;
   getElement(elementType: 'p24Bank'): StripeP24BankElement | null;
@@ -147,8 +145,6 @@ export class StripeElementsDirective implements OnInit, OnChanges {
         return this._elements.getElement('cardExpiry');
       case 'cardCvc':
         return this._elements.getElement('cardCvc');
-      case 'cart':
-        return this._elements.getElement('cart');
       case 'fpxBank':
         return this._elements.getElement('fpxBank');
       case 'epsBank':
