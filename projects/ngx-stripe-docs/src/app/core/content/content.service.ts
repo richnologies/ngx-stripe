@@ -79,6 +79,12 @@ export class NgStrContentService {
     {
       group: 'Core Concepts',
       type: 'page',
+      name: 'Checkout Embedded',
+      path: 'checkout-embedded'
+    },
+    {
+      group: 'Core Concepts',
+      type: 'page',
       name: 'Identity',
       path: 'identity'
     },
