@@ -72,6 +72,11 @@ export const ROUTES: Routes = [
         data: { title: 'Checkout' }
       },
       {
+        path: 'checkout-embedded',
+        loadComponent: () => import('./docs/checkout-embedded/checkout-embedded.component'),
+        data: { title: 'Checkout Embedded' }
+      },
+      {
         path: 'identity',
         loadComponent: () => import('./docs/identity/identity.component'),
         data: { title: 'Identity' }
