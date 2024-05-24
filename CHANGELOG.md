@@ -1,5 +1,9 @@
 # Changelog
 
+## 18.0.0 - 2024-05-24
+
+- Add support for Angular v18
+
 ## 17.2.0 - 2024-04-10
 
 - Remove Card Element Types
