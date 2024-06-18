@@ -1,5 +1,12 @@
 # Changelog
 
+## 18.1.0 - 2024-06-18
+
+- Add support for StripeJS v4
+- Add support for MobilePay
+- Add support for ConfirmationTokens
+- Update ConfirmSetup params type
+
 ## 18.0.0 - 2024-05-24
 
 - Add support for Angular v18

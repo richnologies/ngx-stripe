@@ -14,9 +14,9 @@ Use Elements with any Stripe product to collect online payments. For the right i
 
 Learn how to use `ngx-stripe` on the **new** [docs site](https://ngx-stripe.dev/docs) 🤓
 
-## Notice (Feb 13th 2024)
+## Notice (Jun 18th 2024)
 
-We would like to inform you that we have updated the library to support Stripe V3 from version 17.1.0 onwards. This is a major version upgrade, but it's not a significant change and should not cause any issues. 
+We would like to inform you that we have updated the library to support Stripe V4 from version 18.1.0 onwards. This is a major version upgrade, but it's not a significant change and should not cause any issues. 
 
 We are keeping the library versioning in line with Angular majors, which upgrade more often than Stripe, and as a result, we are deviating from the semver standard. We believe this approach will provide a better experience in the long run.
 

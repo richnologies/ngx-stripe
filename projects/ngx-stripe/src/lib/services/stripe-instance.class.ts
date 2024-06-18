@@ -120,7 +120,12 @@ import {
   StripeCustomCheckoutOptions,
   StripeCustomCheckout,
   StripeEmbeddedCheckoutOptions,
-  StripeEmbeddedCheckout
+  StripeEmbeddedCheckout,
+  ConfirmMobilepayPaymentData,
+  ConfirmMobilepayPaymentOptions,
+  CreateConfirmationToken,
+  ConfirmationTokenResult,
+  ConfirmSetupData
 } from '@stripe/stripe-js';
 
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
@@ -391,6 +396,17 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  confirmMobilepayPayment(
+    clientSecret: string,
+    data?: ConfirmMobilepayPaymentData,
+    options?: ConfirmMobilepayPaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.confirmMobilepayPayment(clientSecret, data, options))),
+      first()
+    );
+  }
+
   confirmOxxoPayment(
     clientSecret: string,
     data?: ConfirmOxxoPaymentData,
@@ -530,6 +546,13 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  createConfirmationToken(options: CreateConfirmationToken): Observable<ConfirmationTokenResult> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.createConfirmationToken(options))),
+      first()
+    );
+  }
+
   retrievePaymentIntent(clientSecret: string): Observable<PaymentIntentResult> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.retrievePaymentIntent(clientSecret))),
@@ -539,24 +562,24 @@ export class StripeInstance implements StripeServiceInterface {
 
   confirmSetup(options: {
     elements: StripeElements;
-    confirmParams?: Partial<ConfirmPaymentData>;
+    confirmParams?: Partial<ConfirmSetupData>;
     redirect: 'if_required';
   }): Observable<SetupIntentResult>;
   confirmSetup(options: {
     elements?: StripeElements;
     clientSecret: string;
-    confirmParams?: Partial<ConfirmPaymentData>;
+    confirmParams?: Partial<ConfirmSetupData>;
     redirect: 'if_required';
   }): Observable<SetupIntentResult>;
   confirmSetup(options: {
     elements: StripeElements;
-    confirmParams: ConfirmPaymentData;
+    confirmParams: ConfirmSetupData;
     redirect?: 'always';
   }): Observable<never | { error: StripeError }>;
   confirmSetup(options: {
     elements?: StripeElements;
     clientSecret: string;
-    confirmParams: ConfirmPaymentData;
+    confirmParams: ConfirmSetupData;
     redirect?: 'always';
   }): Observable<never | { error: StripeError }>;
   confirmSetup(options) {
