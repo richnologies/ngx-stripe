@@ -11,7 +11,6 @@ import {
   NgStrDocsHeaderComponent,
   NgStrHighlightComponent,
   NgStrLinkComponent,
-  NgStrPanelComponent,
   NgStrSectionComponent,
   NgStrSubheaderComponent
 } from '../../docs-elements';
@@ -30,7 +29,6 @@ import {
     NgStrDocsHeaderComponent,
     NgStrHighlightComponent,
     NgStrLinkComponent,
-    NgStrPanelComponent,
     NgStrSectionComponent,
     NgStrSubheaderComponent
   ]
@@ -60,7 +58,7 @@ export default class NgStrAddressComponent {
   createAddressTS = `
     import { Component, inject, OnInit, ViewChild } from '@angular/core';
     import { UntypedFormBuilder, Validators } from '@angular/forms';
-    
+
     import { MatInputModule } from '@angular/material/input';
 
     import {
@@ -69,7 +67,7 @@ export default class NgStrAddressComponent {
       StripeAddressComponent
     } from 'ngx-stripe';
     import {
-      StripeElementsOptions, 
+      StripeElementsOptions,
       StripeAddressElementOptions
     } from '@stripe/stripe-js';
 
@@ -145,7 +143,7 @@ export default class NgStrAddressComponent {
       StripeAddressComponent
     } from 'ngx-stripe';
     import {
-      StripeElementsOptions, 
+      StripeElementsOptions,
       StripeAddressElementOptions
     } from '@stripe/stripe-js';
 

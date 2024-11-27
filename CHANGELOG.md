@@ -1,5 +1,10 @@
 # Changelog
 
+## 19.0.0 - 2024-11-27
+
+- Add support for Angular v19
+- Add support for StripeJS v5
+
 ## 18.1.0 - 2024-06-18
 
 - Add support for StripeJS v4

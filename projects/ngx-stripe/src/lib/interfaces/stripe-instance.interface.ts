@@ -115,8 +115,8 @@ import {
   ConfirmCashappSetupData,
   ConfirmCashappSetupOptions,
   StripeElementsOptionsClientSecret,
-  StripeCustomCheckoutOptions,
-  StripeCustomCheckout,
+  StripeCheckoutOptions,
+  StripeCheckout,
   StripeEmbeddedCheckoutOptions,
   StripeEmbeddedCheckout,
   StripeElementsOptionsMode,
@@ -391,7 +391,7 @@ export interface StripeServiceInterface {
   ): Observable<FinancialConnectionsSessionResult>;
   collectBankAccountToken(options: CollectBankAccountTokenOptions): Observable<CollectBankAccountTokenResult>;
   createEphemeralKeyNonce(options: EphemeralKeyNonceOptions): Observable<EphemeralKeyNonceResult>;
-  initCustomCheckout(options: StripeCustomCheckoutOptions): Observable<StripeCustomCheckout>;
+  initCheckout(options: StripeCheckoutOptions): Observable<StripeCheckout>;
   initEmbeddedCheckout(options: StripeEmbeddedCheckoutOptions): Observable<StripeEmbeddedCheckout>;
   /**
    * @deprecated

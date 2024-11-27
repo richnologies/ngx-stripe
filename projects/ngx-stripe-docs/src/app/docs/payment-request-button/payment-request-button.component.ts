@@ -13,7 +13,6 @@ import {
   NgStrDocsHeaderComponent,
   NgStrLinkComponent,
   NgStrPanelComponent,
-  NgStrSectionAsideDirective,
   NgStrSectionComponent,
   NgStrSubheaderComponent
 } from '../../docs-elements';
@@ -30,7 +29,6 @@ import {
     NgStrLinkComponent,
     NgStrPanelComponent,
     NgStrSectionComponent,
-    NgStrSectionAsideDirective,
     NgStrSubheaderComponent
   ]
 })

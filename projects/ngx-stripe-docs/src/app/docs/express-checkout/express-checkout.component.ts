@@ -6,7 +6,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {
   NgStrBadgeComponent,
   NgStrCodeComponent,
-  NgStrCodeGroupComponent,
   NgStrContainerComponent,
   NgStrDocsHeaderComponent,
   NgStrHighlightComponent,
@@ -25,7 +24,6 @@ import {
     MatTabsModule,
     NgStrBadgeComponent,
     NgStrCodeComponent,
-    NgStrCodeGroupComponent,
     NgStrContainerComponent,
     NgStrDocsHeaderComponent,
     NgStrHighlightComponent,

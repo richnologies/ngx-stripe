@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import {
   NgStrDocsHeaderComponent,
-  NgStrHighlightComponent,
   NgStrLinkComponent,
   NgStrSectionComponent,
   NgStrSubheaderComponent
@@ -14,7 +13,6 @@ import {
   standalone: true,
   imports: [
     NgStrDocsHeaderComponent,
-    NgStrHighlightComponent,
     NgStrLinkComponent,
     NgStrSectionComponent,
     NgStrSubheaderComponent

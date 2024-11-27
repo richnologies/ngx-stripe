@@ -19,8 +19,6 @@ import { NgStrContentsComponent } from '../contents/contents.component';
 import { NgStrSectionNavigatorComponent } from '../section-navigator/section-navigator.component';
 import { NgStrSubheaderComponent } from '../subheader/subheader.component';
 
-import { NgStrSectionAsideDirective } from './section-aside.directive';
-import { NgStrSectionMainDirective } from './section-main.directive';
 import { NgStrContainerComponent } from '../container/container.component';
 
 @Component({
@@ -31,10 +29,7 @@ import { NgStrContainerComponent } from '../container/container.component';
     CommonModule,
     NgStrCopyLinkComponent,
     NgStrContentsComponent,
-    NgStrSectionNavigatorComponent,
-    NgStrSubheaderComponent,
-    NgStrSectionAsideDirective,
-    NgStrSectionMainDirective
+    NgStrSectionNavigatorComponent
   ]
 })
 export class NgStrSectionComponent implements AfterViewInit, OnDestroy {

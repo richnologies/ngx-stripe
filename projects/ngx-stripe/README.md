@@ -50,6 +50,7 @@ Choose the version corresponding to your Angular version:
 
 | Angular | ngx-stripe        |
 | ------- | ----------------- |
+| 19      | 19.x+             |
 | 18      | 18.x+             |
 | 17      | 17.x+             |
 | 16      | 16.x+             |

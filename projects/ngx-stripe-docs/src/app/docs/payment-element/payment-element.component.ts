@@ -18,7 +18,6 @@ import {
   NgStrFlipContainerComponent,
   NgStrHighlightComponent,
   NgStrLinkComponent,
-  NgStrSectionAsideDirective,
   NgStrSectionComponent,
   NgStrSubheaderComponent
 } from '../../docs-elements';
@@ -41,7 +40,6 @@ import {
     NgStrHighlightComponent,
     NgStrLinkComponent,
     NgStrSectionComponent,
-    NgStrSectionAsideDirective,
     NgStrSubheaderComponent
   ]
 })
@@ -157,7 +155,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
       StripePaymentElementComponent
     } from 'ngx-stripe';
     import {
-      StripeElementsOptions, 
+      StripeElementsOptions,
       StripePaymentElementOptions
     } from '@stripe/stripe-js';
 
@@ -300,7 +298,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
 
     import { injectStripe, StripePaymentElementComponent } from 'ngx-stripe';
     import {
-      StripeElementsOptions, 
+      StripeElementsOptions,
       StripePaymentElementOptions
     } from '@stripe/stripe-js';
 
@@ -445,7 +443,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
       StripePaymentElementComponent
     } from 'ngx-stripe';
     import {
-      StripeElementsOptions, 
+      StripeElementsOptions,
       StripePaymentElementOptions
     } from '@stripe/stripe-js';
 
@@ -523,7 +521,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
       StripePaymentElementComponent
     } from 'ngx-stripe';
     import {
-      StripeElementsOptions, 
+      StripeElementsOptions,
       StripePaymentElementOptions
     } from '@stripe/stripe-js';
 

@@ -117,8 +117,8 @@ import {
   CreatePaymentMethodFromElement,
   ConfirmCashappSetupData,
   ConfirmCashappSetupOptions,
-  StripeCustomCheckoutOptions,
-  StripeCustomCheckout,
+  StripeCheckoutOptions,
+  StripeCheckout,
   StripeEmbeddedCheckoutOptions,
   StripeEmbeddedCheckout,
   ConfirmMobilepayPaymentData,
@@ -820,9 +820,9 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
-  initCustomCheckout(options: StripeCustomCheckoutOptions): Observable<StripeCustomCheckout> {
+  initCheckout(options: StripeCheckoutOptions): Observable<StripeCheckout> {
     return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.initCustomCheckout(options))),
+      switchMap((stripe) => from(stripe.initCheckout(options))),
       first()
     );
   }

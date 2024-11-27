@@ -10,7 +10,6 @@ import {
   StripeCardComponent,
   StripeCardCvcComponent,
   StripeCardExpiryComponent,
-  StripeCardGroupDirective,
   StripeCardNumberComponent,
   StripeElementsDirective,
   injectStripe
@@ -26,7 +25,6 @@ import {
   NgStrDocsHeaderComponent,
   NgStrHighlightComponent,
   NgStrLinkComponent,
-  NgStrSectionAsideDirective,
   NgStrSectionComponent,
   NgStrSubheaderComponent
 } from '../../docs-elements';
@@ -40,7 +38,6 @@ import {
     MatDividerModule,
     MatTabsModule,
     StripeElementsDirective,
-    StripeCardGroupDirective,
     StripeCardCvcComponent,
     StripeCardExpiryComponent,
     StripeCardNumberComponent,
@@ -53,7 +50,6 @@ import {
     NgStrHighlightComponent,
     NgStrLinkComponent,
     NgStrSectionComponent,
-    NgStrSectionAsideDirective,
     NgStrSubheaderComponent
   ]
 })

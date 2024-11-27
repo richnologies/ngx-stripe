@@ -14,13 +14,17 @@ Use Elements with any Stripe product to collect online payments. For the right i
 
 Learn how to use `ngx-stripe` on the **new** [docs site](https://ngx-stripe.dev/docs) 🤓
 
-## Notice (Jun 18th 2024)
+## Notice (November 27, 2024)
 
-We would like to inform you that we have updated the library to support Stripe V4 from version 18.1.0 onwards. This is a major version upgrade, but it's not a significant change and should not cause any issues. 
+We are pleased to announce that as of version `19.0.0`, this library now supports Stripe V5. This release introduces a **major version upgrade**, with one notable breaking change:
 
-We are keeping the library versioning in line with Angular majors, which upgrade more often than Stripe, and as a result, we are deviating from the semver standard. We believe this approach will provide a better experience in the long run.
+- `StripeCustomCheckout` has been renamed to `StripeCheckout`.  
+- `StripeCustomCheckoutOptions` has been renamed to `StripeCheckoutOptions`.  
+- The method `initCustomCheckout` is now `initCheckout`.
 
-We would like to apologize for any inconvenience this may cause you.
+To maintain alignment with Angular's major versioning, which evolves more frequently than Stripe, we have opted to deviate from the traditional semantic versioning (semver) standard. We believe this approach will deliver a smoother experience over time.
+
+We apologize for any inconvenience this change may cause and appreciate your understanding.
 
 ## Features
 
@@ -50,6 +54,8 @@ Choose the version corresponding to your Angular version:
 
 | Angular | ngx-stripe        |
 | ------- | ----------------- |
+| 19      | 19.x+             |
+| 18      | 18.x+             |
 | 17      | 17.x+             |
 | 16      | 16.x+             |
 | 15      | 15.x+             |

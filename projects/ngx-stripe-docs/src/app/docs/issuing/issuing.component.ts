@@ -11,7 +11,6 @@ import {
   NgStrDocsHeaderComponent,
   NgStrHighlightComponent,
   NgStrLinkComponent,
-  NgStrPanelComponent,
   NgStrSectionComponent,
   NgStrSubheaderComponent
 } from '../../docs-elements';
@@ -30,7 +29,6 @@ import {
     NgStrDocsHeaderComponent,
     NgStrHighlightComponent,
     NgStrLinkComponent,
-    NgStrPanelComponent,
     NgStrSectionComponent,
     NgStrSubheaderComponent
   ]
@@ -61,7 +59,7 @@ export default class NgStrIssuingElementsComponent {
       StripeIssuingCardPinDisplayComponent
     } from 'ngx-stripe';
     import {
-      StripeElementsOptions, 
+      StripeElementsOptions,
       StripeIssuingCardNumberDisplayElement,
       StripeIssuingCardNumberDisplayElementOptions
     } from '@stripe/stripe-js';
