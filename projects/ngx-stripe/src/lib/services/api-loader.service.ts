@@ -1,4 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID, NgZone } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -20,7 +20,12 @@ export class LazyStripeAPILoader {
     loading: false
   });
 
-  constructor(@Inject(PLATFORM_ID) public platformId: any, public window: WindowRef, public document: DocumentRef) {}
+  constructor(
+    @Inject(PLATFORM_ID) public platformId: any,
+    public window: WindowRef, 
+    public document: DocumentRef,
+    private zone: NgZone
+  ) {}
 
   public asStream(): Observable<LazyStripeAPILoaderStatus> {
     this.load();
@@ -35,42 +40,41 @@ export class LazyStripeAPILoader {
     if (isPlatformServer(this.platformId)) {
       return;
     }
-    const status: LazyStripeAPILoaderStatus = this.status.getValue();
-    if (this.window.getNativeWindow().hasOwnProperty('Stripe')) {
-      this.status.next({
-        error: false,
-        loaded: true,
-        loading: false
-      });
-    } else if (!status.loaded && !status.loading) {
-      this.status.next({
-        ...status,
-        loading: true
-      });
 
-      const script = this.document.getNativeDocument().createElement('script');
-      script.type = 'text/javascript';
-      script.async = true;
-      script.defer = true;
-      script.src = 'https://js.stripe.com/v3/';
+    const win = this.window.getNativeWindow() as any;
+    const { loaded, loading, error } = this.status.getValue();
 
-      script.onload = () => {
-        this.status.next({
-          error: false,
-          loaded: true,
-          loading: false
-        });
-      };
-
-      script.onerror = () => {
-        this.status.next({
-          error: true,
-          loaded: false,
-          loading: false
-        });
-      };
-
-      this.document.getNativeDocument().body.appendChild(script);
+    if (win.hasOwnProperty('Stripe')) {
+      this.status.next({ loaded: true, loading: false, error: false });
+      return;
     }
+    
+    if (!loaded && !loading) {
+      this.status.next({ loaded: false, loading: true, error });
+
+      this.zone.runOutsideAngular(() => this.injectScript());
+    }
+  }
+
+  private injectScript() {
+    const script = this.document.getNativeDocument().createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.defer = true;
+    script.src = 'https://js.stripe.com/v3/';
+
+    script.onload = () => {
+      this.zone.run(() => {
+        this.status.next({ loaded: true, loading: false, error: false });
+      });
+    };
+
+    script.onerror = () => {
+      this.zone.run(() => {
+        this.status.next({ loaded: false, loading: false, error: true });
+      });
+    };
+
+    this.document.getNativeDocument().body.appendChild(script);
   }
 }
