@@ -1,5 +1,9 @@
 # Changelog
 
+## 20.6.0 - 2025-05-28
+
+- Add support for StripeJS V6 - acacia
+
 ## 20.5.0 - 2025-05-28
 
 - Add support for Angular v20

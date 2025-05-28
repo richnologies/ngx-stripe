@@ -1,6 +1,6 @@
 {
   "name": "ngx-stripe",
-  "version": "20.5.0",
+  "version": "20.6.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/richnologies/ngx-stripe"
@@ -15,6 +15,6 @@
   "peerDependencies": {
     "@angular/common": ">=20.0.0 <21.0.0",
     "@angular/core": ">=20.0.0 <21.0.0",
-    "@stripe/stripe-js": ">=5.0.0 <6.0.0"
+    "@stripe/stripe-js": ">=6.0.0 <7.0.0"
   }
 }
