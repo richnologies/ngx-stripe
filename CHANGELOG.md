@@ -1,5 +1,9 @@
 # Changelog
 
+## 20.7.0 - 2025-05-28
+
+- Add support for StripeJS V6 - basil
+
 ## 20.6.1 - 2025-05-28
 
 - Fix importing StripeJS
