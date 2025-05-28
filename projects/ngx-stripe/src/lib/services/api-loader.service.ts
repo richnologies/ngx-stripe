@@ -61,7 +61,7 @@ export class LazyStripeAPILoader {
     script.type = 'text/javascript';
     script.async = true;
     script.defer = true;
-    script.src = 'https://js.stripe.com/v3/';
+    script.src = 'https://js.stripe.com/acacia/stripe.js';
 
     script.onload = () => {
       this.zone.run(() => {
