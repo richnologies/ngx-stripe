@@ -14,13 +14,15 @@ Use Elements with any Stripe product to collect online payments. For the right i
 
 Learn how to use `ngx-stripe` on the **new** [docs site](https://ngx-stripe.dev/docs) 🤓
 
-## Notice (Jun 18th 2024)
+## Notice (May 28th, 2025)
 
-We would like to inform you that we have updated the library to support Stripe V4 from version 18.1.0 onwards. This is a major version upgrade, but it's not a significant change and should not cause any issues. 
+#### Stripe.js Versioning is here!
 
-We are keeping the library versioning in line with Angular majors, which upgrade more often than Stripe, and as a result, we are deviating from the semver standard. We believe this approach will provide a better experience in the long run.
+Stripe.js uses an evergreen model, which means it receives updates continuously over time. Stripe.js v3, the scripts backing js.stripe.com/v3, was the most recent version of Stripe.js for many years. We release new major versions such as Acacia and Basil on a biannual basis. These versions allow us to introduce major features and breaking changes on a predictable schedule, so you can plan your upgrades.
 
-We would like to apologize for any inconvenience this may cause you.
+-	Evergreen updates (non-breaking): optimizations, bug fixes, accessibility improvements, and new parameters—automatically applied to all loaded versions.
+-	Breaking changes: shipped twice a year via named versions; opt in by including the version in your script tag or by upgrading your @stripe/stripe-js package.
+-	Learn more: see the Stripe.js [versioning and support policy](https://docs.stripe.com/sdks/stripejs-versioning)
 
 ## Features
 
@@ -46,22 +48,27 @@ To install a specific version for an older Angular major, use the LTS npm tags o
 $ npm install ngx-stripe@v14-lts @stripe/stripe-js
 ```
 
-Choose the version corresponding to your Angular version:
+Choose the version corresponding to your Angular and StripeJS version:
 
-| Angular | ngx-stripe        |
-| ------- | ----------------- |
-| 19      | 19.x+             |
-| 18      | 18.x+             |
-| 17      | 17.x+             |
-| 16      | 16.x+             |
-| 15      | 15.x+             |
-| 14      | 14.x+             |
-| 13      | 13.x+             |
-| 12      | 12.x+             |
-| 11      | 11.x+             |
-| 10      | 10.x+             |
-| 9       | v9-lts / 9.4.0    |
-| 8       | v8-lts / 8.2.0    |
+| Angular | StripeJS   | ngx-stripe        |
+| ------- | ---------- | ----------------- |
+| 20      | v7 basil   | 20.7.x+           |
+| 20      | v6 acacia  | 20.6.x+           |
+| 20      | v5         | 20.5.x+           |
+| 19      | v7 basil   | 19.7.x+           |
+| 19      | v6 acacia  | 19.6.x+           |
+| 19      | v5         | 19.5.x+           |
+| 18      |            | 18.x+             |
+| 17      |            | 17.x+             |
+| 16      |            | 16.x+             |
+| 15      |            | 15.x+             |
+| 14      |            | 14.x+             |
+| 13      |            | 13.x+             |
+| 12      |            | 12.x+             |
+| 11      |            | 11.x+             |
+| 10      |            | 10.x+             |
+| 9       |            | v9-lts / 9.4.0    |
+| 8       |            | v8-lts / 8.2.0    |
 
 ---
 
@@ -194,7 +201,7 @@ export class CheckoutFormComponent {
 
   elementsOptions: StripeElementsOptions = {
     locale: 'en',
-    client: '{{YOUR_CLIENT_SECRET}}'
+    clientSecret: '{{YOUR_CLIENT_SECRET}}'
     appearance: {
       theme: 'flat'
     }

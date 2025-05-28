@@ -14,17 +14,15 @@ Use Elements with any Stripe product to collect online payments. For the right i
 
 Learn how to use `ngx-stripe` on the **new** [docs site](https://ngx-stripe.dev/docs) 🤓
 
-## Notice (November 27, 2024)
+## Notice (May 28th, 2025)
 
-We are pleased to announce that as of version `19.0.0`, this library now supports Stripe V5. This release introduces a **major version upgrade**, with one notable breaking change:
+#### Stripe.js Versioning is here!
 
-- `StripeCustomCheckout` has been renamed to `StripeCheckout`.  
-- `StripeCustomCheckoutOptions` has been renamed to `StripeCheckoutOptions`.  
-- The method `initCustomCheckout` is now `initCheckout`.
+Stripe.js uses an evergreen model, which means it receives updates continuously over time. Stripe.js v3, the scripts backing js.stripe.com/v3, was the most recent version of Stripe.js for many years. We release new major versions such as Acacia and Basil on a biannual basis. These versions allow us to introduce major features and breaking changes on a predictable schedule, so you can plan your upgrades.
 
-To maintain alignment with Angular's major versioning, which evolves more frequently than Stripe, we have opted to deviate from the traditional semantic versioning (semver) standard. We believe this approach will deliver a smoother experience over time.
-
-We apologize for any inconvenience this change may cause and appreciate your understanding.
+-	Evergreen updates (non-breaking): optimizations, bug fixes, accessibility improvements, and new parameters—automatically applied to all loaded versions.
+-	Breaking changes: shipped twice a year via named versions; opt in by including the version in your script tag or by upgrading your @stripe/stripe-js package.
+-	Learn more: see the Stripe.js [versioning and support policy](https://docs.stripe.com/sdks/stripejs-versioning)
 
 ## Features
 
@@ -50,22 +48,27 @@ To install a specific version for an older Angular major, use the LTS npm tags o
 $ npm install ngx-stripe@v14-lts @stripe/stripe-js
 ```
 
-Choose the version corresponding to your Angular version:
+Choose the version corresponding to your Angular and StripeJS version:
 
-| Angular | ngx-stripe        |
-| ------- | ----------------- |
-| 19      | 19.x+             |
-| 18      | 18.x+             |
-| 17      | 17.x+             |
-| 16      | 16.x+             |
-| 15      | 15.x+             |
-| 14      | 14.x+             |
-| 13      | 13.x+             |
-| 12      | 12.x+             |
-| 11      | 11.x+             |
-| 10      | 10.x+             |
-| 9       | v9-lts / 9.4.0    |
-| 8       | v8-lts / 8.2.0    |
+| Angular | StripeJS   | ngx-stripe        |
+| ------- | ---------- | ----------------- |
+| 20      | v7 basil   | 20.7.x+           |
+| 20      | v6 acacia  | 20.6.x+           |
+| 20      | v5         | 20.5.x+           |
+| 19      | v7 basil   | 19.7.x+           |
+| 19      | v6 acacia  | 19.6.x+           |
+| 19      | v5         | 19.5.x+           |
+| 18      |            | 18.x+             |
+| 17      |            | 17.x+             |
+| 16      |            | 16.x+             |
+| 15      |            | 15.x+             |
+| 14      |            | 14.x+             |
+| 13      |            | 13.x+             |
+| 12      |            | 12.x+             |
+| 11      |            | 11.x+             |
+| 10      |            | 10.x+             |
+| 9       |            | v9-lts / 9.4.0    |
+| 8       |            | v8-lts / 8.2.0    |
 
 ---
 
