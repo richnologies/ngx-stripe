@@ -1,5 +1,9 @@
 # Changelog
 
+## 19.7.0 - 2025-05-28
+
+- Add support for StripeJS V7 - basil
+
 ## 19.6.0 - 2025-05-28
 
 - Add support for StripeJS V6 - acacia
