@@ -1,5 +1,11 @@
 # Changelog
 
+## 19.5.0 - 2025-05-28
+
+- [#231](https://github.com/richnologies/ngx-stripe/issues/231) Fix an error with `Hydration warnings with SSR`
+- Add support for MultibancoPayment
+- Add support for TwintPayment
+
 ## 19.0.0 - 2024-11-27
 
 - Add support for Angular v19

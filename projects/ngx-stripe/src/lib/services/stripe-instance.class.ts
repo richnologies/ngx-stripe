@@ -125,7 +125,11 @@ import {
   ConfirmMobilepayPaymentOptions,
   CreateConfirmationToken,
   ConfirmationTokenResult,
-  ConfirmSetupData
+  ConfirmSetupData,
+  ConfirmMultibancoPaymentOptions,
+  ConfirmMultibancoPaymentData,
+  ConfirmTwintPaymentOptions,
+  ConfirmTwintPaymentData
 } from '@stripe/stripe-js';
 
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
@@ -407,6 +411,17 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  confirmMultibancoPayment(
+    clientSecret: string,
+    data?: ConfirmMultibancoPaymentData,
+    options?: ConfirmMultibancoPaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.confirmMultibancoPayment(clientSecret, data, options))),
+      first()
+    );
+  }
+
   confirmOxxoPayment(
     clientSecret: string,
     data?: ConfirmOxxoPaymentData,
@@ -483,6 +498,17 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<PaymentIntentResult> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.confirmSofortPayment(clientSecret, data, options))),
+      first()
+    );
+  }
+
+  confirmTwintPayment(
+    clientSecret: string,
+    data?: ConfirmTwintPaymentData,
+    options?: ConfirmTwintPaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.confirmTwintPayment(clientSecret, data, options))),
       first()
     );
   }

@@ -125,7 +125,11 @@ import {
   ConfirmMobilepayPaymentOptions,
   CreateConfirmationToken,
   ConfirmationTokenResult,
-  ConfirmSetupData
+  ConfirmSetupData,
+  ConfirmMultibancoPaymentOptions,
+  ConfirmTwintPaymentData,
+  ConfirmMultibancoPaymentData,
+  ConfirmTwintPaymentOptions
 } from '@stripe/stripe-js';
 
 import { STRIPE_PUBLISHABLE_KEY, STRIPE_OPTIONS, NGX_STRIPE_VERSION } from '../interfaces/ngx-stripe.interface';
@@ -352,6 +356,14 @@ export class StripeService implements StripeServiceInterface {
     return this.stripe.confirmMobilepayPayment(clientSecret, data, options);
   }
 
+  confirmMultibancoPayment(
+    clientSecret: string,
+    data?: ConfirmMultibancoPaymentData,
+    options?: ConfirmMultibancoPaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.confirmMultibancoPayment(clientSecret, data, options);
+  }
+
   confirmOxxoPayment(
     clientSecret: string,
     data?: ConfirmOxxoPaymentData,
@@ -406,6 +418,14 @@ export class StripeService implements StripeServiceInterface {
     options?: ConfirmSofortPaymentOptions
   ): Observable<PaymentIntentResult> {
     return this.stripe.confirmSofortPayment(clientSecret, data, options);
+  }
+
+  confirmTwintPayment(
+    clientSecret: string,
+    data?: ConfirmTwintPaymentData,
+    options?: ConfirmTwintPaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.confirmTwintPayment(clientSecret, data, options);
   }
 
   confirmWechatPayPayment(
