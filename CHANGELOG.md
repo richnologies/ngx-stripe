@@ -1,5 +1,9 @@
 # Changelog
 
+## 19.6.0 - 2025-05-28
+
+- Add support for StripeJS V6 - acacia
+
 ## 19.5.0 - 2025-05-28
 
 - [#231](https://github.com/richnologies/ngx-stripe/issues/231) Fix an error with `Hydration warnings with SSR`
