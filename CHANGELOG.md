@@ -1,5 +1,9 @@
 # Changelog
 
+## 20.5.0 - 2025-05-28
+
+- Add support for Angular v20
+
 ## 19.7.0 - 2025-05-28
 
 - Add support for StripeJS V7 - basil

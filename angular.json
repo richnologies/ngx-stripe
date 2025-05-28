@@ -10,14 +10,14 @@
       "prefix": "ngx",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "projects/ngx-stripe/tsconfig.lib.json",
             "project": "projects/ngx-stripe/ng-package.json"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "projects/ngx-stripe/src/test.ts",
             "tsConfig": "projects/ngx-stripe/tsconfig.spec.json",
@@ -25,7 +25,7 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular/build:tslint",
           "options": {
             "tsConfig": [
               "projects/ngx-stripe/tsconfig.lib.json",
@@ -46,12 +46,12 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser-esbuild",
+          "builder": "@angular/build:application",
           "options": {
             "outputPath": "dist/ngx-stripe-docs",
             "index": "projects/ngx-stripe-docs/src/index.html",
-            "main": "projects/ngx-stripe-docs/src/main.ts",
-            "polyfills": "projects/ngx-stripe-docs/src/polyfills.ts",
+            "browser": "projects/ngx-stripe-docs/src/main.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/ngx-stripe-docs/tsconfig.app.json",
             "assets": [
               "projects/ngx-stripe-docs/src/assets",
@@ -79,8 +79,6 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -92,7 +90,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "options": {
             "buildTarget": "ngx-stripe-docs:build"
           },
@@ -103,16 +101,16 @@
           }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@angular/build:extract-i18n",
           "options": {
             "buildTarget": "ngx-stripe-docs:build"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "projects/ngx-stripe-docs/src/test.ts",
-            "polyfills": "projects/ngx-stripe-docs/src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/ngx-stripe-docs/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-stripe-docs/karma.conf.js",
             "styles": [
@@ -127,7 +125,7 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular/build:tslint",
           "options": {
             "tsConfig": [
               "projects/ngx-stripe-docs/tsconfig.app.json",
@@ -139,7 +137,7 @@
           }
         },
         "server": {
-          "builder": "@angular-devkit/build-angular:server",
+          "builder": "@angular/build:server",
           "options": {
             "outputPath": "dist/ngx-stripe-docs/server",
             "main": "projects/ngx-stripe-docs/server.ts",
@@ -167,5 +165,31 @@
   },
   "cli": {
     "analytics": "ab84504c-eb9a-4b17-b204-6ee954517770"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
+    }
   }
 }
