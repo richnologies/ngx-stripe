@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   OnChanges,
@@ -34,7 +34,7 @@ import { StripeElementsService } from '../services/stripe-elements.service';
   selector: 'ngx-stripe-payment',
   standalone: true,
   template: `<div class="field" #stripeElementRef></div>`,
-  imports: [CommonModule]
+  imports: []
 })
 export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;

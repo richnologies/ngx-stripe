@@ -1,5 +1,9 @@
 # Changelog
 
+## 21.8.0 - 2025-11-23
+
+- Add support for Angular v21
+
 ## 20.8.0 - 2025-11-23
 
 - Add support for StripeJS V8 - clover
