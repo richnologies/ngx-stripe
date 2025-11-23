@@ -1,8 +1,18 @@
 # Changelog
 
+## 20.8.0 - 2025-11-23
+
+- Add support for StripeJS V8 - clover
+- Remove Affirm Message Component
+- Remove Afterpay Clearpay Message Component
+- Remove EPS Bank Component
+- Remove FPX Bank Component
+- Remove Ideal Bank Component
+- Remove P24 Bank Component
+
 ## 20.7.0 - 2025-05-28
 
-- Add support for StripeJS V6 - basil
+- Add support for StripeJS V7 - basil
 
 ## 20.6.1 - 2025-05-28
 

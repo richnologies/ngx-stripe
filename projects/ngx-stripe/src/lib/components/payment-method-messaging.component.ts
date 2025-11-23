@@ -50,7 +50,7 @@ export class StripePaymentMethodMessagingComponent implements OnInit, OnChanges,
 
   @Input() containerClass: string;
   @Input() options: StripePaymentMethodMessagingElementOptions;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripePaymentMethodMessagingElement>();

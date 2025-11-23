@@ -30,7 +30,6 @@ import {
   PaymentIntent,
   PaymentRequest,
   PaymentRequestOptions,
-  RedirectToCheckoutOptions,
   RetrieveSourceParam,
   SetupIntent,
   Stripe,
@@ -128,7 +127,9 @@ import {
   ConfirmMultibancoPaymentOptions,
   ConfirmMultibancoPaymentData,
   ConfirmTwintPaymentOptions,
-  ConfirmTwintPaymentData
+  ConfirmTwintPaymentData,
+  ConfirmBilliePaymentData,
+  ConfirmBilliePaymentOptions
 } from '@stripe/stripe-js';
 
 export interface StripeServiceInterface {
@@ -136,7 +137,6 @@ export interface StripeServiceInterface {
   elements(options?: StripeElementsOptionsClientSecret): Observable<StripeElements>;
   elements(options?: StripeElementsOptionsMode): Observable<StripeElements>;
   elements(options?: StripeElementsOptions): Observable<StripeElements>;
-  redirectToCheckout(options?: RedirectToCheckoutOptions): Observable<never | { error: StripeError }>;
   confirmPayment(options: {
     elements: StripeElements;
     confirmParams?: Partial<ConfirmPaymentData>;
@@ -181,6 +181,11 @@ export interface StripeServiceInterface {
     clientSecret: string,
     data?: ConfirmBancontactPaymentData,
     options?: ConfirmBancontactPaymentOptions
+  ): Observable<PaymentIntentResult>;
+  confirmBilliePayment(
+    clientSecret: string,
+    data?: ConfirmBilliePaymentData,
+    options?: ConfirmBilliePaymentOptions
   ): Observable<PaymentIntentResult>;
   confirmBlikPayment(
     clientSecret: string,

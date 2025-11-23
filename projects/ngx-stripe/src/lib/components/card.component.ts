@@ -53,7 +53,7 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() containerClass: string;
   @Input() options: Partial<StripeCardElementOptions>;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeCardElement>();

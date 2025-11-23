@@ -51,7 +51,7 @@ export class StripeIssuingCardCvcDisplayComponent implements OnInit, OnChanges, 
 
   @Input() containerClass: string;
   @Input() options: StripeIssuingCardCvcDisplayElementOptions;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeIssuingCardCvcDisplayElement>();

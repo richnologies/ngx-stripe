@@ -27,7 +27,7 @@ type NgxStripeCardGroupElements = StripeCardNumberElement | StripeCardExpiryElem
   standalone: true
 })
 export class StripeCardGroupDirective implements OnInit, OnChanges {
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() elements = new EventEmitter<StripeElements>();

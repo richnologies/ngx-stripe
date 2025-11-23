@@ -51,7 +51,7 @@ export class StripeIbanComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() containerClass: string;
   @Input() options: Partial<StripeIbanElementOptions>;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeIbanElement>();

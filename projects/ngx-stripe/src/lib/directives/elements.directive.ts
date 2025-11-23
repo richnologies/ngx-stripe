@@ -3,8 +3,6 @@ import { from } from 'rxjs';
 
 import {
   StripeAddressElement,
-  StripeAffirmMessageElement,
-  StripeAfterpayClearpayMessageElement,
   StripeAuBankAccountElement,
   StripeCardCvcElement,
   StripeCardElement,
@@ -13,13 +11,9 @@ import {
   StripeElements,
   StripeElementsOptions,
   StripeElementsUpdateOptions,
-  StripeEpsBankElement,
   StripeExpressCheckoutElement,
-  StripeFpxBankElement,
   StripeIbanElement,
-  StripeIdealBankElement,
   StripeLinkAuthenticationElement,
-  StripeP24BankElement,
   StripePaymentElement,
   StripePaymentMethodMessagingElement,
   StripePaymentRequestButtonElement,
@@ -35,7 +29,7 @@ import { StripeElementsService } from '../services/stripe-elements.service';
   standalone: true
 })
 export class StripeElementsDirective implements OnInit, OnChanges {
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() elements = new EventEmitter<StripeElements>();
@@ -106,18 +100,12 @@ export class StripeElementsDirective implements OnInit, OnChanges {
 
   getElement(elementType: 'address'): StripeAddressElement | null;
   getElement(elementType: 'paymentMethodMessaging'): StripePaymentMethodMessagingElement | null;
-  getElement(elementType: 'affirmMessage'): StripeAffirmMessageElement | null;
-  getElement(elementType: 'afterpayClearpayMessage'): StripeAfterpayClearpayMessageElement | null;
   getElement(elementType: 'auBankAccount'): StripeAuBankAccountElement | null;
   getElement(elementType: 'card'): StripeCardElement | null;
   getElement(elementType: 'cardNumber'): StripeCardNumberElement | null;
   getElement(elementType: 'cardExpiry'): StripeCardExpiryElement | null;
   getElement(elementType: 'cardCvc'): StripeCardCvcElement | null;
-  getElement(elementType: 'fpxBank'): StripeFpxBankElement | null;
-  getElement(elementType: 'epsBank'): StripeEpsBankElement | null;
-  getElement(elementType: 'p24Bank'): StripeP24BankElement | null;
   getElement(elementType: 'iban'): StripeIbanElement | null;
-  getElement(elementType: 'idealBank'): StripeIdealBankElement | null;
   getElement(elementType: 'linkAuthentication'): StripeLinkAuthenticationElement | null;
   getElement(elementType: 'expressCheckout'): StripeExpressCheckoutElement | null;
   getElement(elementType: 'payment'): StripePaymentElement | null;
@@ -131,10 +119,6 @@ export class StripeElementsDirective implements OnInit, OnChanges {
         return this._elements.getElement('address');
       case 'paymentMethodMessaging':
         return this._elements.getElement('paymentMethodMessaging');
-      case 'affirmMessage':
-        return this._elements.getElement('affirmMessage');
-      case 'afterpayClearpayMessage':
-        return this._elements.getElement('afterpayClearpayMessage');
       case 'auBankAccount':
         return this._elements.getElement('auBankAccount');
       case 'card':
@@ -145,16 +129,8 @@ export class StripeElementsDirective implements OnInit, OnChanges {
         return this._elements.getElement('cardExpiry');
       case 'cardCvc':
         return this._elements.getElement('cardCvc');
-      case 'fpxBank':
-        return this._elements.getElement('fpxBank');
-      case 'epsBank':
-        return this._elements.getElement('epsBank');
-      case 'p24Bank':
-        return this._elements.getElement('p24Bank');
       case 'iban':
         return this._elements.getElement('iban');
-      case 'idealBank':
-        return this._elements.getElement('idealBank');
       case 'linkAuthentication':
         return this._elements.getElement('linkAuthentication');
       case 'expressCheckout':

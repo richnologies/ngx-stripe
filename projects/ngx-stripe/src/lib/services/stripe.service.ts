@@ -51,7 +51,6 @@ import {
   CreateTokenBankAccountData,
   PaymentRequest,
   PaymentRequestOptions,
-  RedirectToCheckoutOptions,
   RetrieveSourceParam,
   Stripe,
   StripeCardElement,
@@ -129,7 +128,9 @@ import {
   ConfirmMultibancoPaymentOptions,
   ConfirmTwintPaymentData,
   ConfirmMultibancoPaymentData,
-  ConfirmTwintPaymentOptions
+  ConfirmTwintPaymentOptions,
+  ConfirmBilliePaymentOptions,
+  ConfirmBilliePaymentData
 } from '@stripe/stripe-js';
 
 import { STRIPE_PUBLISHABLE_KEY, STRIPE_OPTIONS, NGX_STRIPE_VERSION } from '../interfaces/ngx-stripe.interface';
@@ -182,10 +183,6 @@ export class StripeService implements StripeServiceInterface {
   elements(options?: StripeElementsOptions): Observable<StripeElements>;
   elements(options?): Observable<StripeElements> {
     return this.stripe.elements(options);
-  }
-
-  redirectToCheckout(options: RedirectToCheckoutOptions): Observable<never | { error: StripeError }> {
-    return this.stripe.redirectToCheckout(options);
   }
 
   confirmPayment(options: {
@@ -250,6 +247,14 @@ export class StripeService implements StripeServiceInterface {
     options?: ConfirmBancontactPaymentOptions
   ): Observable<PaymentIntentResult> {
     return this.stripe.confirmBancontactPayment(clientSecret, data, options);
+  }
+
+  confirmBilliePayment(
+    clientSecret: string,
+    data?: ConfirmBilliePaymentData,
+    options?: ConfirmBilliePaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.confirmBilliePayment(clientSecret, data, options);
   }
 
   confirmBlikPayment(

@@ -51,7 +51,7 @@ export class StripeAddressComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() containerClass: string;
   @Input() options: StripeAddressElementOptions;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeAddressElement>();

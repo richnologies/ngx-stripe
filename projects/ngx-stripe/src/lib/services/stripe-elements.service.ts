@@ -9,15 +9,9 @@ import {
   StripeCardNumberElementOptions,
   StripeCardExpiryElementOptions,
   StripeElements,
-  StripeFpxBankElementOptions,
   StripeIbanElementOptions,
-  StripeIdealBankElementOptions,
   StripePaymentRequestButtonElementOptions,
   StripePaymentElementOptions,
-  StripeAffirmMessageElementOptions,
-  StripeAfterpayClearpayMessageElementOptions,
-  StripeEpsBankElementOptions,
-  StripeP24BankElementOptions,
   StripeAddressElementOptions,
   StripeLinkAuthenticationElementOptions,
   StripeIssuingCardNumberDisplayElementOptions,
@@ -40,7 +34,7 @@ export class StripeElementsService {
   elements(stripe, options?: StripeElementsOptionsClientSecret): Observable<StripeElements>;
   elements(stripe, options?: StripeElementsOptionsMode): Observable<StripeElements>;
   elements(stripe, options?: StripeElementsOptions): Observable<StripeElements>;
-  elements(stripe, options = {}): Observable<StripeElements> {
+  elements(stripe, options): Observable<StripeElements> {
     if (stripe) {
       if (Object.keys(options).length > 0) {
         return stripe.elements(options);
@@ -61,17 +55,8 @@ export class StripeElementsService {
   mergeOptions(options: StripeCardElementOptions, containerClass: string): StripeCardElementOptions;
   mergeOptions(options: StripeCardNumberElementOptions, containerClass: string): StripeCardNumberElementOptions;
   mergeOptions(options: StripeCardExpiryElementOptions, containerClass: string): StripeCardExpiryElementOptions;
-  mergeOptions(options: StripeFpxBankElementOptions, containerClass: string): StripeFpxBankElementOptions;
   mergeOptions(options: StripeIbanElementOptions, containerClass: string): StripeIbanElementOptions;
-  mergeOptions(options: StripeIdealBankElementOptions, containerClass: string): StripeIdealBankElementOptions;
   mergeOptions(options: StripeAuBankAccountElementOptions, containerClass: string): StripeAuBankAccountElementOptions;
-  mergeOptions(options: StripeAffirmMessageElementOptions, containerClass: string): StripeAffirmMessageElementOptions;
-  mergeOptions(
-    options: StripeAfterpayClearpayMessageElementOptions,
-    containerClass: string
-  ): StripeAfterpayClearpayMessageElementOptions;
-  mergeOptions(options: StripeEpsBankElementOptions, containerClass: string): StripeEpsBankElementOptions;
-  mergeOptions(options: StripeP24BankElementOptions, containerClass: string): StripeP24BankElementOptions;
   mergeOptions(options: StripeAddressElementOptions, containerClass: string): StripeAddressElementOptions;
   mergeOptions(
     options: StripeLinkAuthenticationElementOptions,

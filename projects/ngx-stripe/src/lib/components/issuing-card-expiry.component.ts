@@ -51,7 +51,7 @@ export class StripeIssuingCardExpiryDisplayComponent implements OnInit, OnChange
 
   @Input() containerClass: string;
   @Input() options: StripeIssuingCardExpiryDisplayElementOptions;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeIssuingCardExpiryDisplayElement>();

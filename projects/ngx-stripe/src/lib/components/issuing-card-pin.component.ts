@@ -51,7 +51,7 @@ export class StripeIssuingCardPinDisplayComponent implements OnInit, OnChanges, 
 
   @Input() containerClass: string;
   @Input() options: StripeIssuingCardPinDisplayElementOptions;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeIssuingCardPinDisplayElement>();
