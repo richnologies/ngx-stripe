@@ -1,14 +1,12 @@
 import { provideHttpClient } from '@angular/common/http';
-import { enableProdMode, importProvidersFrom } from '@angular/core';
+import { enableProdMode, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 
 import { HighlightModule, HighlightOptions, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { provideNgxStripe } from 'ngx-stripe';
-import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app/app.component';
 import { ROUTES } from './app/app.routing';
@@ -24,7 +22,7 @@ if (environment.production) {
 function bootstrap() {
   bootstrapApplication(AppComponent, {
     providers: [
-      provideAnimationsAsync(),
+      provideZoneChangeDetection(),
       provideNgxStripe(),
       provideHttpClient(),
       provideRouter(
@@ -33,14 +31,7 @@ function bootstrap() {
       ),
       importProvidersFrom(
         ReactiveFormsModule,
-        HighlightModule,
-        ToastrModule.forRoot({
-          positionClass: 'toast-bottom-right',
-          iconClasses: {
-            info: 'toast-ngx-stripe'
-          },
-          preventDuplicates: false
-        })
+        HighlightModule
       ),
       {
         provide: ENV,

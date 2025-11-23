@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { switchMap } from 'rxjs';
 
@@ -42,13 +42,12 @@ import { NgStrPlutoService } from '../core';
   `,
   standalone: true,
   imports: [
-    CommonModule,
     StripeElementsDirective,
     StripeIssuingCardCvcDisplayComponent,
     StripeIssuingCardExpiryDisplayComponent,
     StripeIssuingCardNumberDisplayComponent,
     StripeIssuingCardPinDisplayComponent
-  ]
+]
 })
 export default class IssuingElementsExampleComponent implements OnInit {
   @ViewChild('card') card: StripeIssuingCardNumberDisplayElement;
