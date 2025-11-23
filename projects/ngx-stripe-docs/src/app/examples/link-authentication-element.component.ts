@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
@@ -44,13 +44,12 @@ import { NgStrPlutoService } from '../core';
   `,
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     StripeElementsDirective,
     StripeLinkAuthenticationComponent,
     StripeAddressComponent,
     StripePaymentElementComponent
-  ]
+]
 })
 export default class LinkAuthenticationElementExampleComponent implements OnInit {
   @ViewChild(StripeAddressComponent) addressElement: StripeAddressComponent;
