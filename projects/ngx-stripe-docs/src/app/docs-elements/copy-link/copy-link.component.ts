@@ -1,8 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, inject } from '@angular/core';
 
-import { ToastrService } from 'ngx-toastr';
-
 import { NgStrClipboardService } from '../../core';
 
 @Component({
@@ -21,12 +19,10 @@ import { NgStrClipboardService } from '../../core';
 export class NgStrCopyLinkComponent {
   private readonly document = inject(DOCUMENT);
   private readonly clipboard = inject(NgStrClipboardService);
-  private readonly toastr = inject(ToastrService);
 
   copyLink() {
     try {
       this.clipboard.copy(this.document.defaultView.location.href);
-      this.toastr.info('Paste it wherever you like', 'Page URL copied to the clipboard');
     } catch (err) {
       console.error(err);
     }
