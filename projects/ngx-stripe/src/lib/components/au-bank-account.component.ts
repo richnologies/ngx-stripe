@@ -51,7 +51,7 @@ export class StripeAuBankAccountComponent implements OnInit, OnChanges, OnDestro
 
   @Input() containerClass: string;
   @Input() options: Partial<StripeAuBankAccountElementOptions>;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeAuBankAccountElement>();

@@ -51,7 +51,7 @@ export class StripeIssuingCardNumberDisplayComponent implements OnInit, OnChange
 
   @Input() containerClass: string;
   @Input() options: StripeIssuingCardNumberDisplayElementOptions;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeIssuingCardNumberDisplayElement>();

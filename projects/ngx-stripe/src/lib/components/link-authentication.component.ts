@@ -51,7 +51,7 @@ export class StripeLinkAuthenticationComponent implements OnInit, OnChanges, OnD
 
   @Input() containerClass: string;
   @Input() options: StripeLinkAuthenticationElementOptions;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeLinkAuthenticationElement>();

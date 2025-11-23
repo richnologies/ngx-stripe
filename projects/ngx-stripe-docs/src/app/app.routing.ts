@@ -117,16 +117,6 @@ export const ROUTES: Routes = [
         data: { title: 'Address Element Example' }
       },
       {
-        path: 'examples/affirm-message',
-        loadComponent: () => import('./examples/affirm-message-element.component'),
-        data: { title: 'Affirm Message Example' }
-      },
-      {
-        path: 'examples/afterpay-clearpay-message',
-        loadComponent: () => import('./examples/afterpay-clearpay-message-element.component'),
-        data: { title: 'Clearpay Afterpay Message Example' }
-      },
-      {
         path: 'examples/card-events',
         loadComponent: () => import('./examples/card-events.component'),
         data: { title: 'Card Events Example' }
@@ -142,19 +132,9 @@ export const ROUTES: Routes = [
         data: { title: 'Card Example - Payment Intent' }
       },
       {
-        path: 'examples/eps-bank-element',
-        loadComponent: () => import('./examples/eps-bank-element.component'),
-        data: { title: 'EPS Bank Example' }
-      },
-      {
         path: 'examples/express-checkout-element',
         loadComponent: () => import('./examples/express-checkout-element.component'),
         data: { title: 'Express Checkout Example' }
-      },
-      {
-        path: 'examples/fpx-element',
-        loadComponent: () => import('./examples/fpx-element.component'),
-        data: { title: 'FPX Example' }
       },
       {
         path: 'examples/iban-element',
@@ -170,11 +150,6 @@ export const ROUTES: Routes = [
         path: 'examples/link-authentication-element',
         loadComponent: () => import('./examples/link-authentication-element.component'),
         data: { title: 'Link Authentication Example' }
-      },
-      {
-        path: 'examples/p24-bank-element',
-        loadComponent: () => import('./examples/p24-bank-element.component'),
-        data: { title: 'P24 Bank Example' }
       },
       {
         path: 'examples/payment-element-inject',

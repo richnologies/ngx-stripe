@@ -50,7 +50,6 @@ import {
   CreateTokenBankAccountData,
   PaymentRequest,
   PaymentRequestOptions,
-  RedirectToCheckoutOptions,
   RetrieveSourceParam,
   Stripe,
   StripeCardElement,
@@ -129,7 +128,9 @@ import {
   ConfirmMultibancoPaymentOptions,
   ConfirmMultibancoPaymentData,
   ConfirmTwintPaymentOptions,
-  ConfirmTwintPaymentData
+  ConfirmTwintPaymentData,
+  ConfirmBilliePaymentOptions,
+  ConfirmBilliePaymentData
 } from '@stripe/stripe-js';
 
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
@@ -175,13 +176,6 @@ export class StripeInstance implements StripeServiceInterface {
   elements(options?): Observable<StripeElements> {
     return this.stripe.pipe(
       map((stripe: Stripe) => stripe.elements(options)),
-      first()
-    );
-  }
-
-  redirectToCheckout(options: RedirectToCheckoutOptions): Observable<never | { error: StripeError }> {
-    return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.redirectToCheckout(options))),
       first()
     );
   }
@@ -264,6 +258,17 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<PaymentIntentResult> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.confirmBancontactPayment(clientSecret, data, options))),
+      first()
+    );
+  }
+
+  confirmBilliePayment(
+    clientSecret: string,
+    data?: ConfirmBilliePaymentData,
+    options?: ConfirmBilliePaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.confirmBilliePayment(clientSecret, data, options))),
       first()
     );
   }
@@ -848,7 +853,7 @@ export class StripeInstance implements StripeServiceInterface {
 
   initCheckout(options: StripeCheckoutOptions): Observable<StripeCheckout> {
     return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.initCheckout(options))),
+      map((stripe) => stripe.initCheckout(options)),
       first()
     );
   }

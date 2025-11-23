@@ -51,7 +51,7 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
   @Input() containerClass: string;
   @Input() paymentOptions: PaymentRequestOptions;
   @Input() options: StripePaymentRequestButtonElementOptions;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<{

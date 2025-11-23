@@ -62,7 +62,7 @@ export class StripeExpressCheckoutComponent implements OnInit, OnChanges, OnDest
 
   @Input() containerClass: string;
   @Input() options: StripeExpressCheckoutElementOptions;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
+  @Input() elementsOptions: StripeElementsOptions;
   @Input() stripe: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeExpressCheckoutElement>();
