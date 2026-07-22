@@ -1,7 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
@@ -20,9 +19,7 @@
     "noImplicitAny": false,
     "strictPropertyInitialization": false,
     "paths": {
-      "ngx-stripe": [
-        "projects/ngx-stripe/src/public_api"
-      ]
+      "ngx-stripe": ["./projects/ngx-stripe/src/public_api"]
     },
     "useDefineForClassFields": false
   },
