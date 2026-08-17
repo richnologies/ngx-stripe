@@ -14,7 +14,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "build:lib": "ng-packagr -p projects/ngx-stripe/ng-package.json",
+    "build:lib": "ng-packagr -p projects/ngx-stripe/ng-package.json -c projects/ngx-stripe/tsconfig.lib.json",
     "copy:docs": "copyfiles docs/**/*.png dist/ngx-stripe",
     "build:app": "ng build ngx-stripe-docs --configuration production",
     "pack:lib": "cd dist/ngx-stripe && npm pack",
