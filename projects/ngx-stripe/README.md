@@ -52,6 +52,7 @@ Choose the version corresponding to your Angular and StripeJS version:
 
 | Angular | StripeJS   | ngx-stripe        |
 | ------- | ---------- | ----------------- |
+| 22      | v8 clover  | 22.8.x+           |
 | 21      | v8 clover  | 21.8.x+           |
 | 21      | v7 basil   | 21.7.x+           |
 | 21      | v6 acacia  | 21.6.x+           |
