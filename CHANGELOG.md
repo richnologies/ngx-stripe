@@ -1,5 +1,14 @@
 # Changelog
 
+## 17.9.0 - 2026-09-08
+
+- Backport StripeJS V9 (dahlia) to Angular 17
+- Add `confirmAmazonPaySetup`, `registerAppInfo`, `initCheckoutElementsSdk`, `initCheckoutFormSdk`, `createEmbeddedCheckoutPage`
+- Add Elements: Contact Details, Tax Id, Currency Selector, Terms, Issuing Card Copy Button
+- Replace `initCheckout` with `initCheckoutElementsSdk` and `initEmbeddedCheckout` with `createEmbeddedCheckoutPage`
+- Remove Sources API wrappers (`createSource`, `retrieveSource`) — removed from Stripe.js v9
+- Extend `handleNextAction` to support `hashedValue`
+
 ## 19.9.0 - 2026-09-08
 
 - Add support for StripeJS V9 - dahlia
