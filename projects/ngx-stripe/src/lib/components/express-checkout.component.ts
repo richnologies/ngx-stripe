@@ -60,10 +60,10 @@ export class StripeExpressCheckoutComponent implements OnInit, OnChanges, OnDest
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeExpressCheckoutElement;
 
-  @Input() containerClass: string;
-  @Input() options: StripeExpressCheckoutElementOptions;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeServiceInterface;
+  @Input() containerClass!: string;
+  @Input() options!: StripeExpressCheckoutElementOptions;
+  @Input() elementsOptions!: Partial<StripeElementsOptions>;
+  @Input() stripe!: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeExpressCheckoutElement>();
 
@@ -78,9 +78,9 @@ export class StripeExpressCheckoutComponent implements OnInit, OnChanges, OnDest
   @Output() shippingaddresschange = new EventEmitter<StripeExpressCheckoutElementShippingAddressChangeEvent>();
   @Output() shippingratechange = new EventEmitter<StripeExpressCheckoutElementShippingRateChangeEvent>();
 
-  elements: StripeElements;
+  elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
-  private elementsSubscription: Subscription;
+  private elementsSubscription!: Subscription;
 
   constructor(
     public stripeElementsService: StripeElementsService,
@@ -92,7 +92,7 @@ export class StripeExpressCheckoutComponent implements OnInit, OnChanges, OnDest
     let updateElements = false;
 
     if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {
-      this.elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise())!;
       updateElements = true;
     }
 
@@ -118,7 +118,7 @@ export class StripeExpressCheckoutComponent implements OnInit, OnChanges, OnDest
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe).toPromise())!;
       this.createElement(options);
 
       this.state = 'ready';

@@ -412,8 +412,8 @@ export interface StripeServiceInterface {
    */
   handleCardPayment(
     clientSecret: string,
-    element?,
-    data?
+    element?: any,
+    data?: any
   ): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
@@ -423,8 +423,8 @@ export interface StripeServiceInterface {
    */
   confirmPaymentIntent(
     clientSecret: string,
-    element?,
-    data?
+    element?: any,
+    data?: any
   ): Observable<{
     paymentIntent?: PaymentIntent;
     error?: StripeError;
@@ -434,8 +434,8 @@ export interface StripeServiceInterface {
    */
   handleCardSetup(
     clientSecret: string,
-    element?,
-    data?
+    element?: any,
+    data?: any
   ): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;
@@ -445,8 +445,8 @@ export interface StripeServiceInterface {
    */
   confirmSetupIntent(
     clientSecret: string,
-    element?,
-    data?
+    element?: any,
+    data?: any
   ): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;
@@ -456,8 +456,8 @@ export interface StripeServiceInterface {
    */
   handleFpxPayment(
     clientSecret: string,
-    element?,
-    data?
+    element?: any,
+    data?: any
   ): Observable<{
     setupIntent?: SetupIntent;
     error?: StripeError;

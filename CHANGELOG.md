@@ -1,5 +1,10 @@
 # Changelog
 
+## 22.6.0 - 2026-09-08
+
+- Add support for Angular v22 (StripeJS V6 - acacia)
+
+
 ## 20.6.1 - 2025-05-28
 
 - Fix importing StripeJS

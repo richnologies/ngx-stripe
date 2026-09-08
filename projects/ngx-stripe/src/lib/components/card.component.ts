@@ -51,10 +51,10 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeCardElement;
 
-  @Input() containerClass: string;
-  @Input() options: Partial<StripeCardElementOptions>;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeServiceInterface;
+  @Input() containerClass!: string;
+  @Input() options!: Partial<StripeCardElementOptions>;
+  @Input() elementsOptions!: Partial<StripeElementsOptions>;
+  @Input() stripe!: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeCardElement>();
 
@@ -64,9 +64,9 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
   @Output() ready = new EventEmitter<void>();
   @Output() escape = new EventEmitter<void>();
 
-  elements: StripeElements;
+  elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
-  private elementsSubscription: Subscription;
+  private elementsSubscription!: Subscription;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -79,7 +79,7 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
     let updateElements = false;
 
     if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {
-      this.elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise())!;
       updateElements = true;
     }
 
@@ -104,7 +104,7 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe).toPromise())!;
       this.createElement(options);
     }
   }
