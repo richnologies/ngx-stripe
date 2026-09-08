@@ -172,7 +172,7 @@ export class StripeInstance implements StripeServiceInterface {
   elements(options?: StripeElementsOptionsClientSecret): Observable<StripeElements>;
   elements(options?: StripeElementsOptionsMode): Observable<StripeElements>;
   elements(options?: StripeElementsOptions): Observable<StripeElements>;
-  elements(options?): Observable<StripeElements> {
+  elements(options?: any): Observable<StripeElements> {
     return this.stripe.pipe(
       map((stripe: Stripe) => stripe.elements(options)),
       first()
@@ -201,7 +201,7 @@ export class StripeInstance implements StripeServiceInterface {
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
   }): Observable<never | { error: StripeError }>;
-  confirmPayment(options) {
+  confirmPayment(options: any) {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.confirmPayment(options))),
       first()
@@ -278,7 +278,7 @@ export class StripeInstance implements StripeServiceInterface {
     options?: ConfirmBlikPaymentOptions
   ): Observable<PaymentIntentResult> {
     return this.stripe.pipe(
-      switchMap((stripe) => from(stripe.confirmBlikPayment(clientSecret, data, options))),
+      switchMap((stripe) => from(stripe.confirmBlikPayment(clientSecret, data as any, options))),
       first()
     );
   }
@@ -537,7 +537,7 @@ export class StripeInstance implements StripeServiceInterface {
 
   handleNextAction(options: { clientSecret: string }): Observable<PaymentIntentOrSetupIntentResult>;
   handleNextAction(options: { hashedValue: string }): Observable<PaymentIntentOrSetupIntentResult>;
-  handleNextAction(options) {
+  handleNextAction(options: any) {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.handleNextAction(options))),
       first()
@@ -571,7 +571,7 @@ export class StripeInstance implements StripeServiceInterface {
   createPaymentMethod(paymentMethodData: CreatePaymentMethodData): Observable<PaymentMethodResult>;
   createPaymentMethod(options: CreatePaymentMethodFromElements): Observable<PaymentMethodResult>;
   createPaymentMethod(options: CreatePaymentMethodFromElement): Observable<PaymentMethodResult>;
-  createPaymentMethod(options) {
+  createPaymentMethod(options: any) {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.createPaymentMethod(options))),
       first()
@@ -614,7 +614,7 @@ export class StripeInstance implements StripeServiceInterface {
     confirmParams: ConfirmSetupData;
     redirect?: 'always';
   }): Observable<never | { error: StripeError }>;
-  confirmSetup(options) {
+  confirmSetup(options: any) {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.confirmSetup(options))),
       first()
@@ -777,7 +777,7 @@ export class StripeInstance implements StripeServiceInterface {
     confirmParams: ProcessOrderParams;
     redirect?: 'always';
   }): Observable<never | { error: StripeError }>;
-  processOrder(options) {
+  processOrder(options: any) {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.processOrder(options))),
       first()
@@ -806,7 +806,7 @@ export class StripeInstance implements StripeServiceInterface {
   createToken(tokenType: 'cvc_update', element?: StripeCardCvcElement): Observable<TokenResult>;
   createToken(tokenType: 'account', data: TokenCreateParams.Account): Observable<TokenResult>;
   createToken(tokenType: 'person', data: TokenCreateParams.Person): Observable<TokenResult>;
-  createToken(tokenType, data) {
+  createToken(tokenType: any, data: any) {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.createToken(tokenType, data))),
       first()
@@ -876,7 +876,7 @@ export class StripeInstance implements StripeServiceInterface {
   /**
    * @deprecated
    */
-  handleCardPayment(clientSecret: string, element?, data?) {
+  handleCardPayment(clientSecret: string, element?: any, data?: any) {
     return this.stripe.pipe(
       switchMap((stripe) => from((stripe as any).handleCardPayment(clientSecret, element, data))),
       first()
@@ -886,7 +886,7 @@ export class StripeInstance implements StripeServiceInterface {
   /**
    * @deprecated
    */
-  confirmPaymentIntent(clientSecret: string, element?, data?) {
+  confirmPaymentIntent(clientSecret: string, element?: any, data?: any) {
     return this.stripe.pipe(
       switchMap((stripe) => from((stripe as any).confirmPaymentIntent(clientSecret, element, data))),
       first()
@@ -896,7 +896,7 @@ export class StripeInstance implements StripeServiceInterface {
   /**
    * @deprecated
    */
-  handleCardSetup(clientSecret: string, element?, data?) {
+  handleCardSetup(clientSecret: string, element?: any, data?: any) {
     return this.stripe.pipe(
       switchMap((stripe) => from((stripe as any).handleCardSetup(clientSecret, element, data))),
       first()
@@ -906,7 +906,7 @@ export class StripeInstance implements StripeServiceInterface {
   /**
    * @deprecated
    */
-  confirmSetupIntent(clientSecret: string, element?, data?) {
+  confirmSetupIntent(clientSecret: string, element?: any, data?: any) {
     return this.stripe.pipe(
       switchMap((stripe) => from((stripe as any).confirmSetupIntent(clientSecret, element, data))),
       first()
@@ -916,7 +916,7 @@ export class StripeInstance implements StripeServiceInterface {
   /**
    * @deprecated
    */
-  handleFpxPayment(clientSecret: string, element?, data?) {
+  handleFpxPayment(clientSecret: string, element?: any, data?: any) {
     return this.stripe.pipe(
       switchMap((stripe) => from((stripe as any).handleFpxPayment(clientSecret, element, data))),
       first()

@@ -49,10 +49,10 @@ export class StripeTaxIdComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeTaxIdElement;
 
-  @Input() containerClass: string;
-  @Input() options: StripeTaxIdElementOptions;
-  @Input() elementsOptions: StripeElementsOptions;
-  @Input() stripe: StripeServiceInterface;
+  @Input() containerClass!: string;
+  @Input() options!: StripeTaxIdElementOptions;
+  @Input() elementsOptions!: StripeElementsOptions;
+  @Input() stripe!: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeTaxIdElement>();
 
@@ -64,9 +64,9 @@ export class StripeTaxIdComponent implements OnInit, OnChanges, OnDestroy {
   @Output() loaderror = new EventEmitter<void>();
   @Output() loaderstart = new EventEmitter<void>();
 
-  elements: StripeElements;
+  elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
-  private elementsSubscription: Subscription;
+  private elementsSubscription!: Subscription;
 
   constructor(
     public stripeElementsService: StripeElementsService,
@@ -78,7 +78,7 @@ export class StripeTaxIdComponent implements OnInit, OnChanges, OnDestroy {
     let updateElements = false;
 
     if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {
-      this.elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise())!;
       updateElements = true;
     }
 
@@ -106,7 +106,7 @@ export class StripeTaxIdComponent implements OnInit, OnChanges, OnDestroy {
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe).toPromise())!;
       this.createElement(options);
 
       this.state = 'ready';
@@ -128,7 +128,7 @@ export class StripeTaxIdComponent implements OnInit, OnChanges, OnDestroy {
 
   getValue(): Promise<StripeTaxIdElementChangeEvent> {
     const taxId = this.elements.getElement('taxId');
-    return taxId.getValue();
+    return taxId!.getValue();
   }
 
   private createElement(options: StripeTaxIdElementOptions) {

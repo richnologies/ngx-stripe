@@ -1,5 +1,9 @@
 # Changelog
 
+## 22.9.0 - 2026-09-08
+
+- Add support for Angular v22
+
 ## 21.9.0 - 2026-09-08
 
 - Add support for StripeJS V9 - dahlia

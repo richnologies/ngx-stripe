@@ -49,10 +49,10 @@ export class StripeContactDetailsComponent implements OnInit, OnChanges, OnDestr
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeContactDetailsElement;
 
-  @Input() containerClass: string;
-  @Input() options: StripeContactDetailsElementOptions;
-  @Input() elementsOptions: StripeElementsOptions;
-  @Input() stripe: StripeServiceInterface;
+  @Input() containerClass!: string;
+  @Input() options!: StripeContactDetailsElementOptions;
+  @Input() elementsOptions!: StripeElementsOptions;
+  @Input() stripe!: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeContactDetailsElement>();
 
@@ -64,9 +64,9 @@ export class StripeContactDetailsComponent implements OnInit, OnChanges, OnDestr
   @Output() loaderror = new EventEmitter<void>();
   @Output() loaderstart = new EventEmitter<void>();
 
-  elements: StripeElements;
+  elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
-  private elementsSubscription: Subscription;
+  private elementsSubscription!: Subscription;
 
   constructor(
     public stripeElementsService: StripeElementsService,
@@ -78,7 +78,7 @@ export class StripeContactDetailsComponent implements OnInit, OnChanges, OnDestr
     let updateElements = false;
 
     if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {
-      this.elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise())!;
       updateElements = true;
     }
 
@@ -104,7 +104,7 @@ export class StripeContactDetailsComponent implements OnInit, OnChanges, OnDestr
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe).toPromise())!;
       this.createElement(options);
 
       this.state = 'ready';

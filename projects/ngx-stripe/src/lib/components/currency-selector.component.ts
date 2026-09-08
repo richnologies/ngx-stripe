@@ -48,10 +48,10 @@ export class StripeCurrencySelectorComponent implements OnInit, OnChanges, OnDes
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeCurrencySelectorElement;
 
-  @Input() containerClass: string;
-  @Input() options: StripeCurrencySelectorElementOptions;
-  @Input() elementsOptions: StripeElementsOptions;
-  @Input() stripe: StripeServiceInterface;
+  @Input() containerClass!: string;
+  @Input() options!: StripeCurrencySelectorElementOptions;
+  @Input() elementsOptions!: StripeElementsOptions;
+  @Input() stripe!: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeCurrencySelectorElement>();
 
@@ -61,9 +61,9 @@ export class StripeCurrencySelectorComponent implements OnInit, OnChanges, OnDes
   @Output() escape = new EventEmitter<void>();
   @Output() loaderror = new EventEmitter<void>();
 
-  elements: StripeElements;
+  elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
-  private elementsSubscription: Subscription;
+  private elementsSubscription!: Subscription;
 
   constructor(
     public stripeElementsService: StripeElementsService,
@@ -75,7 +75,7 @@ export class StripeCurrencySelectorComponent implements OnInit, OnChanges, OnDes
     let updateElements = false;
 
     if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {
-      this.elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise())!;
       updateElements = true;
     }
 
@@ -101,7 +101,7 @@ export class StripeCurrencySelectorComponent implements OnInit, OnChanges, OnDes
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe).toPromise())!;
       this.createElement(options);
 
       this.state = 'ready';

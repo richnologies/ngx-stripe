@@ -48,10 +48,10 @@ export class StripeTermsComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeTermsElement;
 
-  @Input() containerClass: string;
-  @Input() options: StripeTermsElementOptions;
-  @Input() elementsOptions: StripeElementsOptions;
-  @Input() stripe: StripeServiceInterface;
+  @Input() containerClass!: string;
+  @Input() options!: StripeTermsElementOptions;
+  @Input() elementsOptions!: StripeElementsOptions;
+  @Input() stripe!: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeTermsElement>();
 
@@ -62,9 +62,9 @@ export class StripeTermsComponent implements OnInit, OnChanges, OnDestroy {
   @Output() loaderror = new EventEmitter<void>();
   @Output() loaderstart = new EventEmitter<void>();
 
-  elements: StripeElements;
+  elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
-  private elementsSubscription: Subscription;
+  private elementsSubscription!: Subscription;
 
   constructor(
     public stripeElementsService: StripeElementsService,
@@ -76,7 +76,7 @@ export class StripeTermsComponent implements OnInit, OnChanges, OnDestroy {
     let updateElements = false;
 
     if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {
-      this.elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise())!;
       updateElements = true;
     }
 
@@ -102,7 +102,7 @@ export class StripeTermsComponent implements OnInit, OnChanges, OnDestroy {
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe).toPromise())!;
       this.createElement(options);
 
       this.state = 'ready';

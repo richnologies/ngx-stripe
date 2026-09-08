@@ -49,17 +49,17 @@ export class StripeIssuingCardCopyButtonComponent implements OnInit, OnChanges, 
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeIssuingCardCopyButtonElement;
 
-  @Input() containerClass: string;
-  @Input() options: StripeIssuingCardCopyButtonElementOptions;
-  @Input() elementsOptions: StripeElementsOptions;
-  @Input() stripe: StripeServiceInterface;
+  @Input() containerClass!: string;
+  @Input() options!: StripeIssuingCardCopyButtonElementOptions;
+  @Input() elementsOptions!: StripeElementsOptions;
+  @Input() stripe!: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeIssuingCardCopyButtonElement>();
   @Output() click = new EventEmitter<{ elementType: 'issuingCardCopyButton' }>();
 
-  elements: StripeElements;
+  elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
-  private elementsSubscription: Subscription;
+  private elementsSubscription!: Subscription;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -72,7 +72,7 @@ export class StripeIssuingCardCopyButtonComponent implements OnInit, OnChanges, 
     let updateElements = false;
 
     if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {
-      this.elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise())!;
       updateElements = true;
     }
 
@@ -97,7 +97,7 @@ export class StripeIssuingCardCopyButtonComponent implements OnInit, OnChanges, 
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe).toPromise())!;
       this.createElement(options);
     }
   }
