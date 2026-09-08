@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 export type NgStrLayoutSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
@@ -11,8 +11,7 @@ export type NgStrLayoutSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
     </div>
   `,
   standalone: true,
-  imports: [CommonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [CommonModule]
 })
 export class NgStrContainerComponent {
   @Input() size: NgStrLayoutSize = 'lg';

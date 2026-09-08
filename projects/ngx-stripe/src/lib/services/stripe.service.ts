@@ -181,7 +181,7 @@ export class StripeService implements StripeServiceInterface {
   elements(options?: StripeElementsOptionsClientSecret): Observable<StripeElements>;
   elements(options?: StripeElementsOptionsMode): Observable<StripeElements>;
   elements(options?: StripeElementsOptions): Observable<StripeElements>;
-  elements(options?): Observable<StripeElements> {
+  elements(options?: any): Observable<StripeElements> {
     return this.stripe.elements(options);
   }
 
@@ -207,7 +207,7 @@ export class StripeService implements StripeServiceInterface {
     confirmParams: ConfirmPaymentData;
     redirect?: 'always';
   }): Observable<never | { error: StripeError }>;
-  confirmPayment(options) {
+  confirmPayment(options: any) {
     return this.stripe.confirmPayment(options);
   }
 
@@ -262,7 +262,7 @@ export class StripeService implements StripeServiceInterface {
     data?: ConfirmBlikPaymentData,
     options?: ConfirmBlikPaymentOptions
   ): Observable<PaymentIntentResult> {
-    return this.stripe.confirmBlikPayment(clientSecret, data, options);
+    return this.stripe.confirmBlikPayment(clientSecret, data as any, options);
   }
 
   confirmBoletoPayment(
@@ -445,7 +445,7 @@ export class StripeService implements StripeServiceInterface {
     return this.stripe.handleCardAction(clientSecret);
   }
 
-  handleNextAction(options: { clientSecret: string }): Observable<PaymentIntentOrSetupIntentResult> {
+  handleNextAction(options: any): Observable<PaymentIntentOrSetupIntentResult> {
     return this.stripe.handleNextAction(options);
   }
 
@@ -467,7 +467,7 @@ export class StripeService implements StripeServiceInterface {
   createPaymentMethod(paymentMethodData: CreatePaymentMethodData): Observable<PaymentMethodResult>;
   createPaymentMethod(options: CreatePaymentMethodFromElements): Observable<PaymentMethodResult>;
   createPaymentMethod(options: CreatePaymentMethodFromElement): Observable<PaymentMethodResult>;
-  createPaymentMethod(options) {
+  createPaymentMethod(options: any) {
     return this.stripe.createPaymentMethod(options);
   }
 
@@ -501,7 +501,7 @@ export class StripeService implements StripeServiceInterface {
     confirmParams: ConfirmSetupData;
     redirect?: 'always';
   }): Observable<never | { error: StripeError }>;
-  confirmSetup(options) {
+  confirmSetup(options: any) {
     return this.stripe.confirmSetup(options);
   }
 
@@ -606,7 +606,7 @@ export class StripeService implements StripeServiceInterface {
     confirmParams: ProcessOrderParams;
     redirect?: 'always';
   }): Observable<never | { error: StripeError }>;
-  processOrder(options) {
+  processOrder(options: any) {
     return this.stripe.processOrder(options);
   }
 
@@ -628,13 +628,13 @@ export class StripeService implements StripeServiceInterface {
   createToken(tokenType: 'cvc_update', element?: StripeCardCvcElement): Observable<TokenResult>;
   createToken(tokenType: 'account', data: TokenCreateParams.Account): Observable<TokenResult>;
   createToken(tokenType: 'person', data: TokenCreateParams.Person): Observable<TokenResult>;
-  createToken(tokenType, data) {
+  createToken(tokenType: any, data: any) {
     return this.stripe.createToken(tokenType, data);
   }
 
   createSource(element: StripeElement, sourceData: CreateSourceData): Observable<SourceResult>;
   createSource(sourceData: CreateSourceData): Observable<SourceResult>;
-  createSource(a, b?): Observable<SourceResult> {
+  createSource(a: any, b?: any): Observable<SourceResult> {
     return this.stripe.createSource(a, b);
   }
 
@@ -671,35 +671,35 @@ export class StripeService implements StripeServiceInterface {
   /**
    * @deprecated
    */
-  handleCardPayment(clientSecret: string, element?, data?): Observable<PaymentIntentResult> {
+  handleCardPayment(clientSecret: string, element?: any, data?: any): Observable<PaymentIntentResult> {
     return this.stripe.handleCardPayment(clientSecret, element, data);
   }
 
   /**
    * @deprecated
    */
-  confirmPaymentIntent(clientSecret: string, element?, data?): Observable<PaymentIntentResult> {
+  confirmPaymentIntent(clientSecret: string, element?: any, data?: any): Observable<PaymentIntentResult> {
     return this.stripe.confirmPaymentIntent(clientSecret, element, data);
   }
 
   /**
    * @deprecated
    */
-  handleCardSetup(clientSecret: string, element?, data?): Observable<SetupIntentResult> {
+  handleCardSetup(clientSecret: string, element?: any, data?: any): Observable<SetupIntentResult> {
     return this.stripe.handleCardSetup(clientSecret, element, data);
   }
 
   /**
    * @deprecated
    */
-  confirmSetupIntent(clientSecret: string, element?, data?): Observable<SetupIntentResult> {
+  confirmSetupIntent(clientSecret: string, element?: any, data?: any): Observable<SetupIntentResult> {
     return this.stripe.confirmSetupIntent(clientSecret, element, data);
   }
 
   /**
    * @deprecated
    */
-  handleFpxPayment(clientSecret: string, element?, data?): Observable<SetupIntentResult> {
+  handleFpxPayment(clientSecret: string, element?: any, data?: any): Observable<SetupIntentResult> {
     return this.stripe.handleFpxPayment(clientSecret, element, data);
   }
 }

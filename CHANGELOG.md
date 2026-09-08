@@ -1,5 +1,10 @@
 # Changelog
 
+## 22.8.0 - 2026-09-08
+
+- Add support for Angular v22 (StripeJS V8 - clover)
+
+
 ## 21.8.0 - 2025-11-23
 
 - Add support for Angular v21

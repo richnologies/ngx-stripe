@@ -31,24 +31,24 @@ import { StripeService } from './stripe.service';
 export class StripeElementsService {
   constructor(private stripeService: StripeService) {}
 
-  elements(stripe, options?: StripeElementsOptionsClientSecret): Observable<StripeElements>;
-  elements(stripe, options?: StripeElementsOptionsMode): Observable<StripeElements>;
-  elements(stripe, options?: StripeElementsOptions): Observable<StripeElements>;
-  elements(stripe, options): Observable<StripeElements> {
+  elements(stripe: any, options?: StripeElementsOptionsClientSecret): Observable<StripeElements>;
+  elements(stripe: any, options?: StripeElementsOptionsMode): Observable<StripeElements>;
+  elements(stripe: any, options?: StripeElementsOptions): Observable<StripeElements>;
+  elements(stripe: any, options?: any): Observable<StripeElements> {
     if (stripe) {
-      if (Object.keys(options).length > 0) {
+      if (options && Object.keys(options).length > 0) {
         return stripe.elements(options);
       }
       return stripe.elements();
     } else {
-      if (Object.keys(options).length > 0) {
+      if (options && Object.keys(options).length > 0) {
         return this.stripeService.elements(options);
       }
       return this.stripeService.elements();
     }
   }
 
-  paymentRequest(stripe, options: PaymentRequestOptions): PaymentRequest {
+  paymentRequest(stripe: any, options: PaymentRequestOptions): PaymentRequest {
     return stripe ? stripe.paymentRequest(options) : this.stripeService.paymentRequest(options);
   }
 
@@ -91,7 +91,7 @@ export class StripeElementsService {
     options: StripeExpressCheckoutElementOptions,
     containerClass: string
   ): StripeExpressCheckoutElementOptions;
-  mergeOptions(options, containerClass: string) {
+  mergeOptions(options: any, containerClass: string): any {
     if (!containerClass || (options && options.classes)) {
       return options || {};
     }
