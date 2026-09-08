@@ -1,5 +1,10 @@
 # Changelog
 
+## 22.7.0 - 2026-09-08
+
+- Add support for Angular v22 (StripeJS V7 - basil)
+
+
 ## 21.7.0 - 2025-11-23
 
 - Add support for Angular 21
