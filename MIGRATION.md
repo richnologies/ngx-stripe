@@ -1,5 +1,19 @@
 # Migration Guides | Ngx Stripe
 
+## Stripe.js v9 (dahlia) — ngx-stripe 21.9+ / 22.9+ / 20.9+ / 19.9+
+
+| Before (clover / v8) | After (dahlia / v9) |
+| -------------------- | ------------------- |
+| `initCheckout` | `initCheckoutElementsSdk` |
+| `initEmbeddedCheckout` | `createEmbeddedCheckoutPage` |
+| `createSource` / `retrieveSource` | Removed — Sources API is gone from Stripe.js v9 |
+| Peer `@stripe/stripe-js` `>=8 <9` | `>=9 <10` |
+| CDN `js.stripe.com/clover/stripe.js` | `js.stripe.com/dahlia/stripe.js` |
+
+Also added: `confirmAmazonPaySetup`, `registerAppInfo`, `initCheckoutFormSdk`, `handleNextAction({ hashedValue })`, and Elements for contact details, tax id, currency selector, terms, and issuing card copy button.
+
+---
+
 Below are the major changes for update from legacy to active `ngx-stripe`
 
 ## Interfaces

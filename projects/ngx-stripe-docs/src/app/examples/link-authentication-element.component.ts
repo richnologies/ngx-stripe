@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
 import {
@@ -59,6 +59,7 @@ export default class LinkAuthenticationElementExampleComponent implements OnInit
 
   private readonly fb = inject(UntypedFormBuilder);
   private readonly plutoService = inject(NgStrPlutoService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   stripeTest = this.fb.group({
     name: ['Angular v12', [Validators.required]],
@@ -88,6 +89,7 @@ export default class LinkAuthenticationElementExampleComponent implements OnInit
       })
       .subscribe((pi) => {
         this.elementsOptions.clientSecret = pi.client_secret;
+        this.cdr.detectChanges();
       });
   }
 

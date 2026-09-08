@@ -4,6 +4,8 @@ import { EnvironmentProviders, makeEnvironmentProviders, ModuleWithProviders, Ng
 import { StripeConstructorOptions } from '@stripe/stripe-js';
 
 import { StripeAddressComponent } from './components/address.component';
+import { StripeContactDetailsComponent } from './components/contact-details.component';
+import { StripeCurrencySelectorComponent } from './components/currency-selector.component';
 import { StripeCardComponent } from './components/card.component';
 import { StripeCardNumberComponent } from './components/card-number.component';
 import { StripeCardExpiryComponent } from './components/card-expiry.component';
@@ -14,11 +16,14 @@ import { StripeIssuingCardCvcDisplayComponent } from './components/issuing-card-
 import { StripeIssuingCardExpiryDisplayComponent } from './components/issuing-card-expiry.component';
 import { StripeIssuingCardNumberDisplayComponent } from './components/issuing-card-number.component';
 import { StripeIssuingCardPinDisplayComponent } from './components/issuing-card-pin.component';
+import { StripeIssuingCardCopyButtonComponent } from './components/issuing-card-copy-button.component';
 import { StripeLinkAuthenticationComponent } from './components/link-authentication.component';
 import { StripeAuBankAccountComponent } from './components/au-bank-account.component';
 import { StripePaymentElementComponent } from './components/payment-element.component';
 import { StripePaymentMethodMessagingComponent } from './components/payment-method-messaging.component';
 import { StripePaymentRequestButtonComponent } from './components/payment-request-button.component';
+import { StripeTaxIdComponent } from './components/tax-id.component';
+import { StripeTermsComponent } from './components/terms.component';
 
 import { StripeCardGroupDirective } from './directives/card-group.directive';
 import { StripeElementsDirective } from './directives/elements.directive';
@@ -39,22 +44,27 @@ const components = [
   StripeCardNumberComponent,
   StripeCardExpiryComponent,
   StripeCardCvcComponent,
+  StripeContactDetailsComponent,
+  StripeCurrencySelectorComponent,
   StripeExpressCheckoutComponent,
   StripeIbanComponent,
   StripeIssuingCardCvcDisplayComponent,
   StripeIssuingCardExpiryDisplayComponent,
   StripeIssuingCardNumberDisplayComponent,
   StripeIssuingCardPinDisplayComponent,
+  StripeIssuingCardCopyButtonComponent,
   StripeLinkAuthenticationComponent,
   StripeAuBankAccountComponent,
   StripePaymentElementComponent,
   StripePaymentMethodMessagingComponent,
-  StripePaymentRequestButtonComponent
+  StripePaymentRequestButtonComponent,
+  StripeTaxIdComponent,
+  StripeTermsComponent
 ];
 
 const directives = [StripeCardGroupDirective, StripeElementsDirective, NgxStripeElementLoadingTemplateDirective];
 
-const currentVersion = '19.8.0';
+const currentVersion = '19.9.0';
 
 function _provideNgxStripe(publishableKey?: string, options?: StripeConstructorOptions) {
   return [

@@ -22,7 +22,6 @@ import {
   ConfirmSepaDebitPaymentData,
   ConfirmSepaDebitSetupData,
   CreatePaymentMethodData,
-  CreateSourceData,
   CreateTokenIbanData,
   CreateTokenCardData,
   CreateTokenPiiData,
@@ -30,7 +29,6 @@ import {
   PaymentIntent,
   PaymentRequest,
   PaymentRequestOptions,
-  RetrieveSourceParam,
   SetupIntent,
   Stripe,
   StripeCardElement,
@@ -38,7 +36,6 @@ import {
   StripeCardCvcElement,
   StripeElements,
   StripeElementsOptions,
-  StripeElement,
   StripeError,
   StripeIbanElement,
   TokenCreateParams,
@@ -96,7 +93,6 @@ import {
   ConfirmBoletoPaymentOptions,
   PaymentMethodResult,
   SetupIntentResult,
-  SourceResult,
   FinancialConnectionsSessionResult,
   CollectBankAccountTokenResult,
   EphemeralKeyNonceResult,
@@ -114,11 +110,14 @@ import {
   ConfirmCashappSetupData,
   ConfirmCashappSetupOptions,
   StripeElementsOptionsClientSecret,
-  StripeCheckoutOptions,
-  StripeCheckout,
   StripeEmbeddedCheckoutOptions,
   StripeEmbeddedCheckout,
+  StripeCheckoutElementsSdkOptions,
+  StripeCheckoutElementsSdk,
+  StripeCheckoutFormSdkOptions,
+  StripeCheckoutFormSdk,
   StripeElementsOptionsMode,
+  WrapperLibrary,
   ConfirmMobilepayPaymentData,
   ConfirmMobilepayPaymentOptions,
   CreateConfirmationToken,
@@ -128,8 +127,9 @@ import {
   ConfirmMultibancoPaymentData,
   ConfirmTwintPaymentOptions,
   ConfirmTwintPaymentData,
+  ConfirmBilliePaymentData,
   ConfirmBilliePaymentOptions,
-  ConfirmBilliePaymentData
+  ConfirmAmazonPaySetupData
 } from '@stripe/stripe-js';
 
 export interface StripeServiceInterface {
@@ -301,6 +301,7 @@ export interface StripeServiceInterface {
   ): Observable<PaymentIntentResult>;
   handleCardAction(clientSecret: string): Observable<PaymentIntentResult>;
   handleNextAction(options: { clientSecret: string }): Observable<PaymentIntentOrSetupIntentResult>;
+  handleNextAction(options: { hashedValue: string }): Observable<PaymentIntentOrSetupIntentResult>;
   verifyMicrodepositsForPayment(
     clientSecret: string,
     data?: VerifyMicrodepositsForPaymentData
@@ -356,6 +357,7 @@ export interface StripeServiceInterface {
     options?: ConfirmCashappSetupOptions
   ): Observable<SetupIntentResult>;
   confirmIdealSetup(clientSecret: string, data?: ConfirmIdealSetupData): Observable<SetupIntentResult>;
+  confirmAmazonPaySetup(clientSecret: string, data?: ConfirmAmazonPaySetupData): Observable<SetupIntentResult>;
   confirmPayPalSetup(clientSecret: string, data?: ConfirmPayPalSetupData): Observable<SetupIntentResult>;
   confirmSepaDebitSetup(clientSecret: string, data?: ConfirmSepaDebitSetupData): Observable<SetupIntentResult>;
   confirmSofortSetup(
@@ -401,17 +403,16 @@ export interface StripeServiceInterface {
   createToken(tokenType: 'cvc_update', element?: StripeCardCvcElement): Observable<TokenResult>;
   createToken(tokenType: 'account', data: TokenCreateParams.Account): Observable<TokenResult>;
   createToken(tokenType: 'person', data: TokenCreateParams.Person): Observable<TokenResult>;
-  createSource(element: StripeElement, sourceData: CreateSourceData): Observable<SourceResult>;
-  createSource(sourceData: CreateSourceData): Observable<SourceResult>;
-  retrieveSource(source: RetrieveSourceParam): Observable<SourceResult>;
   verifyIdentity(clientSecret: string): Observable<VerificationSessionResult>;
   collectFinancialConnectionsAccounts(
     options: CollectFinancialConnectionsAccountsOptions
   ): Observable<FinancialConnectionsSessionResult>;
   collectBankAccountToken(options: CollectBankAccountTokenOptions): Observable<CollectBankAccountTokenResult>;
   createEphemeralKeyNonce(options: EphemeralKeyNonceOptions): Observable<EphemeralKeyNonceResult>;
-  initCheckout(options: StripeCheckoutOptions): Observable<StripeCheckout>;
-  initEmbeddedCheckout(options: StripeEmbeddedCheckoutOptions): Observable<StripeEmbeddedCheckout>;
+  registerAppInfo(wrapperLibrary: WrapperLibrary): Observable<void>;
+  initCheckoutElementsSdk(options: StripeCheckoutElementsSdkOptions): Observable<StripeCheckoutElementsSdk>;
+  initCheckoutFormSdk(options: StripeCheckoutFormSdkOptions): Observable<StripeCheckoutFormSdk>;
+  createEmbeddedCheckoutPage(options: StripeEmbeddedCheckoutOptions): Observable<StripeEmbeddedCheckout>;
   /**
    * @deprecated
    */

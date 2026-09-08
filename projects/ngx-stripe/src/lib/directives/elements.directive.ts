@@ -5,6 +5,8 @@ import {
   StripeAddressElement,
   StripeAuBankAccountElement,
   StripeCardCvcElement,
+  StripeContactDetailsElement,
+  StripeCurrencySelectorElement,
   StripeCardElement,
   StripeCardExpiryElement,
   StripeCardNumberElement,
@@ -13,11 +15,14 @@ import {
   StripeElementsUpdateOptions,
   StripeExpressCheckoutElement,
   StripeIbanElement,
+  StripeIssuingCardCopyButtonElement,
   StripeLinkAuthenticationElement,
   StripePaymentElement,
   StripePaymentMethodMessagingElement,
   StripePaymentRequestButtonElement,
-  StripeShippingAddressElement
+  StripeShippingAddressElement,
+  StripeTaxIdElement,
+  StripeTermsElement
 } from '@stripe/stripe-js';
 
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
@@ -99,6 +104,8 @@ export class StripeElementsDirective implements OnInit, OnChanges {
   }
 
   getElement(elementType: 'address'): StripeAddressElement | null;
+  getElement(elementType: 'contactDetails'): StripeContactDetailsElement | null;
+  getElement(elementType: 'currencySelector'): StripeCurrencySelectorElement | null;
   getElement(elementType: 'paymentMethodMessaging'): StripePaymentMethodMessagingElement | null;
   getElement(elementType: 'auBankAccount'): StripeAuBankAccountElement | null;
   getElement(elementType: 'card'): StripeCardElement | null;
@@ -106,17 +113,24 @@ export class StripeElementsDirective implements OnInit, OnChanges {
   getElement(elementType: 'cardExpiry'): StripeCardExpiryElement | null;
   getElement(elementType: 'cardCvc'): StripeCardCvcElement | null;
   getElement(elementType: 'iban'): StripeIbanElement | null;
+  getElement(elementType: 'issuingCardCopyButton'): StripeIssuingCardCopyButtonElement | null;
   getElement(elementType: 'linkAuthentication'): StripeLinkAuthenticationElement | null;
   getElement(elementType: 'expressCheckout'): StripeExpressCheckoutElement | null;
   getElement(elementType: 'payment'): StripePaymentElement | null;
   getElement(elementType: 'paymentRequestButton'): StripePaymentRequestButtonElement | null;
   getElement(elementType: 'shippingAddress'): StripeShippingAddressElement | null;
+  getElement(elementType: 'taxId'): StripeTaxIdElement | null;
+  getElement(elementType: 'terms'): StripeTermsElement | null;
   getElement(elementType) {
     if (!this._elements) return null;
 
     switch (elementType) {
       case 'address':
         return this._elements.getElement('address');
+      case 'contactDetails':
+        return this._elements.getElement('contactDetails');
+      case 'currencySelector':
+        return this._elements.getElement('currencySelector');
       case 'paymentMethodMessaging':
         return this._elements.getElement('paymentMethodMessaging');
       case 'auBankAccount':
@@ -131,6 +145,8 @@ export class StripeElementsDirective implements OnInit, OnChanges {
         return this._elements.getElement('cardCvc');
       case 'iban':
         return this._elements.getElement('iban');
+      case 'issuingCardCopyButton':
+        return (this._elements as any).getElement('issuingCardCopyButton') as StripeIssuingCardCopyButtonElement | null;
       case 'linkAuthentication':
         return this._elements.getElement('linkAuthentication');
       case 'expressCheckout':
@@ -141,6 +157,10 @@ export class StripeElementsDirective implements OnInit, OnChanges {
         return this._elements.getElement('paymentRequestButton');
       case 'shippingAddress':
         return this._elements.getElement('shippingAddress');
+      case 'taxId':
+        return this._elements.getElement('taxId');
+      case 'terms':
+        return this._elements.getElement('terms');
       default:
         return this._elements.getElement(elementType);
     }

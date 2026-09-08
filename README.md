@@ -50,22 +50,37 @@ To install a specific version for an older Angular major, use the LTS npm tags o
 $ npm install ngx-stripe@v14-lts @stripe/stripe-js
 ```
 
-Choose the version corresponding to your Angular version:
+Choose the version corresponding to your Angular and StripeJS version:
 
-| Angular | ngx-stripe        |
-| ------- | ----------------- |
-| 19      | 19.x+             |
-| 18      | 18.x+             |
-| 17      | 17.x+             |
-| 16      | 16.x+             |
-| 15      | 15.x+             |
-| 14      | 14.x+             |
-| 13      | 13.x+             |
-| 12      | 12.x+             |
-| 11      | 11.x+             |
-| 10      | 10.x+             |
-| 9       | v9-lts / 9.4.0    |
-| 8       | v8-lts / 8.2.0    |
+| Angular | StripeJS   | ngx-stripe        |
+| ------- | ---------- | ----------------- |
+| 22      | v9 dahlia  | 22.9.x+           |
+| 21      | v9 dahlia  | 21.9.x+           |
+| 21      | v8 clover  | 21.8.x+           |
+| 21      | v7 basil   | 21.7.x+           |
+| 21      | v6 acacia  | 21.6.x+           |
+| 21      | v5         | 21.5.x+           |
+| 20      | v9 dahlia  | 20.9.x+           |
+| 20      | v8 clover  | 20.8.x+           |
+| 20      | v7 basil   | 20.7.x+           |
+| 20      | v6 acacia  | 20.6.x+           |
+| 20      | v5         | 20.5.x+           |
+| 19      | v9 dahlia  | 19.9.x+           |
+| 19      | v8 clover  | 19.8.x+           |
+| 19      | v7 basil   | 19.7.x+           |
+| 19      | v6 acacia  | 19.6.x+           |
+| 19      | v5         | 19.5.x+           |
+| 18      |            | 18.x+             |
+| 17      |            | 17.x+             |
+| 16      |            | 16.x+             |
+| 15      |            | 15.x+             |
+| 14      |            | 14.x+             |
+| 13      |            | 13.x+             |
+| 12      |            | 12.x+             |
+| 11      |            | 11.x+             |
+| 10      |            | 10.x+             |
+| 9       |            | v9-lts / 9.4.0    |
+| 8       |            | v8-lts / 8.2.0    |
 
 ---
 
