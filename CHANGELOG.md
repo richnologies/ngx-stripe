@@ -1,5 +1,10 @@
 # Changelog
 
+## 22.5.0 - 2026-09-08
+
+- Add support for Angular v22 (StripeJS V5)
+
+
 ## 20.5.0 - 2025-05-28
 
 - Add support for Angular v20

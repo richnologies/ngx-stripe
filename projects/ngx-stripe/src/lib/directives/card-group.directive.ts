@@ -27,8 +27,8 @@ type NgxStripeCardGroupElements = StripeCardNumberElement | StripeCardExpiryElem
   standalone: true
 })
 export class StripeCardGroupDirective implements OnInit, OnChanges {
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeServiceInterface;
+  @Input() elementsOptions!: Partial<StripeElementsOptions>;
+  @Input() stripe!: StripeServiceInterface;
 
   @Output() elements = new EventEmitter<StripeElements>();
 
@@ -40,7 +40,7 @@ export class StripeCardGroupDirective implements OnInit, OnChanges {
   @Output() ready = new EventEmitter<void>();
   @Output() escape = new EventEmitter<void>();
 
-  _elements: StripeElements;
+  _elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
 
   constructor(public stripeElementsService: StripeElementsService) {}
@@ -52,7 +52,7 @@ export class StripeCardGroupDirective implements OnInit, OnChanges {
     const stripe = this.stripe;
 
     if (changes.elementsOptions || changes.stripe || !this._elements) {
-      this._elements = await this.stripeElementsService.elements(stripe, elementsOptions).toPromise();
+      this._elements = (await this.stripeElementsService.elements(stripe, elementsOptions).toPromise())!;
       this.elements.emit(this._elements);
     }
 
@@ -63,7 +63,7 @@ export class StripeCardGroupDirective implements OnInit, OnChanges {
     if (this.state === 'notready') {
       this.state = 'starting';
 
-      this._elements = await this.stripeElementsService.elements(this.stripe).toPromise();
+      this._elements = (await this.stripeElementsService.elements(this.stripe).toPromise())!;
       this.elements.emit(this._elements);
 
       this.state = 'ready';

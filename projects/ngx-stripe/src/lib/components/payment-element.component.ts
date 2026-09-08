@@ -39,15 +39,15 @@ import { StripeElementsService } from '../services/stripe-elements.service';
 export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripePaymentElement;
-  elements: StripeElements;
+  elements!: StripeElements;
 
-  @Input() containerClass: string;
-  @Input() options: Partial<StripePaymentElementOptions>;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeServiceInterface;
+  @Input() containerClass!: string;
+  @Input() options!: Partial<StripePaymentElementOptions>;
+  @Input() elementsOptions!: Partial<StripeElementsOptions>;
+  @Input() stripe!: StripeServiceInterface;
 
-  @Input() appearance: Appearance;
-  @Input() clientSecret: string;
+  @Input() appearance!: Appearance;
+  @Input() clientSecret!: string;
   @Input() doNotCreateUntilClientSecretIsSet = false;
 
   @Output() load = new EventEmitter<StripePaymentElement>();
@@ -63,7 +63,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
   }>();
 
   state: 'notready' | 'starting' | 'ready' = 'notready';
-  private elementsSubscription: Subscription;
+  private elementsSubscription!: Subscription;
 
   constructor(
     public stripeElementsService: StripeElementsService,
@@ -78,13 +78,13 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
       !this.elementsProvider &&
       (changes.elementsOptions || changes.stripe || changes.clientSecret || changes.appearance || !this.elements)
     ) {
-      this.elements = await this.stripeElementsService
+      this.elements = (await this.stripeElementsService
         .elements(this.stripe, {
           ...(this.elementsOptions || {}),
           ...(this.appearance ? { appearance: this.appearance } : {}),
           ...(this.clientSecret ? { clientSecret: this.clientSecret } : {})
         } as StripeElementsOptions)
-        .toPromise();
+        .toPromise())!;
       updateElements = true;
     }
 
@@ -105,20 +105,20 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
 
     if (this.elementsProvider) {
       this.elementsSubscription = this.elementsProvider.elements.subscribe((elements) => {
-        this.elements = elements;
+        this.elements = elements!;
         this.createElement(options);
         this.state = 'ready';
       });
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await this.stripeElementsService
+      this.elements = (await this.stripeElementsService
         .elements(this.stripe, {
           ...(this.elementsOptions || {}),
           ...(this.appearance ? { appearance: this.appearance } : {}),
           ...(this.clientSecret ? { clientSecret: this.clientSecret } : {})
         } as StripeElementsOptions)
-        .toPromise();
+        .toPromise())!;
       this.createElement(options);
 
       this.state = 'ready';
@@ -154,7 +154,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
     try {
       this.element = this.elements.create('payment', options);
     } catch (err) {
-      this.elements = null;
+      this.elements = undefined as any;
       throw err;
     }
 

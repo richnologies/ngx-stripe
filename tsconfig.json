@@ -24,7 +24,8 @@
         "projects/ngx-stripe/src/public_api"
       ]
     },
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "ignoreDeprecations": "6.0"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

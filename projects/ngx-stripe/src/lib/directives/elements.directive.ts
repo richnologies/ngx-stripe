@@ -35,12 +35,12 @@ import { StripeElementsService } from '../services/stripe-elements.service';
   standalone: true
 })
 export class StripeElementsDirective implements OnInit, OnChanges {
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeServiceInterface;
+  @Input() elementsOptions!: Partial<StripeElementsOptions>;
+  @Input() stripe!: StripeServiceInterface;
 
   @Output() elements = new EventEmitter<StripeElements>();
 
-  _elements: StripeElements;
+  _elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
 
   constructor(public stripeElementsService: StripeElementsService) {}
@@ -58,19 +58,19 @@ export class StripeElementsDirective implements OnInit, OnChanges {
 
     if (changes.elementsOptions) {
       if (this._elements) {
-        const payload = Object.keys(elementsOptions).reduce((acc, key) => {
+        const payload = Object.keys(elementsOptions as object).reduce((acc: any, key) => {
           if (
-            elementsOptions[key] !== changes.elementsOptions.previousValue[key] &&
+            (elementsOptions as any)[key] !== changes.elementsOptions.previousValue[key] &&
             !['fonts', 'loader', 'clientSecret'].includes(key)
           ) {
-            acc[key] = elementsOptions[key];
+            acc[key] = (elementsOptions as any)[key];
           }
           return acc;
         }, {});
 
         this._elements.update(payload);
       } else {
-        this._elements = await this.stripeElementsService.elements(stripe, elementsOptions).toPromise();
+        this._elements = (await this.stripeElementsService.elements(stripe, elementsOptions).toPromise())!;
         this.elements.emit(this._elements);
 
         this.state = 'ready';
@@ -82,7 +82,7 @@ export class StripeElementsDirective implements OnInit, OnChanges {
     if (this.state === 'notready') {
       this.state = 'starting';
 
-      this._elements = await this.stripeElementsService.elements(this.stripe).toPromise();
+      this._elements = (await this.stripeElementsService.elements(this.stripe).toPromise())!;
       this.elements.emit(this._elements);
 
       this.state = 'ready';
@@ -123,7 +123,7 @@ export class StripeElementsDirective implements OnInit, OnChanges {
   getElement(elementType: 'payment'): StripePaymentElement | null;
   getElement(elementType: 'paymentRequestButton'): StripePaymentRequestButtonElement | null;
   getElement(elementType: 'shippingAddress'): StripeShippingAddressElement | null;
-  getElement(elementType) {
+  getElement(elementType: any) {
     if (!this._elements) return null;
 
     switch (elementType) {

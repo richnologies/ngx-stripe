@@ -49,16 +49,16 @@ export class StripeIssuingCardPinDisplayComponent implements OnInit, OnChanges, 
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeIssuingCardPinDisplayElement;
 
-  @Input() containerClass: string;
-  @Input() options: StripeIssuingCardPinDisplayElementOptions;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeServiceInterface;
+  @Input() containerClass!: string;
+  @Input() options!: StripeIssuingCardPinDisplayElementOptions;
+  @Input() elementsOptions!: Partial<StripeElementsOptions>;
+  @Input() stripe!: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeIssuingCardPinDisplayElement>();
 
-  elements: StripeElements;
+  elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
-  private elementsSubscription: Subscription;
+  private elementsSubscription!: Subscription;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -71,7 +71,7 @@ export class StripeIssuingCardPinDisplayComponent implements OnInit, OnChanges, 
     let updateElements = false;
 
     if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {
-      this.elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise())!;
       updateElements = true;
     }
 
@@ -90,13 +90,13 @@ export class StripeIssuingCardPinDisplayComponent implements OnInit, OnChanges, 
 
     if (this.elementsProvider) {
       this.elementsSubscription = this.elementsProvider.elements.subscribe((elements) => {
-        this.elements = elements;
+        this.elements = elements!;
         this.createElement(options);
       });
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe).toPromise())!;
       this.createElement(options);
     }
   }

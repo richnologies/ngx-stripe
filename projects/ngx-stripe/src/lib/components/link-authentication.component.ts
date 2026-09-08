@@ -49,10 +49,10 @@ export class StripeLinkAuthenticationComponent implements OnInit, OnChanges, OnD
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeLinkAuthenticationElement;
 
-  @Input() containerClass: string;
-  @Input() options: StripeLinkAuthenticationElementOptions;
-  @Input() elementsOptions: Partial<StripeElementsOptions>;
-  @Input() stripe: StripeServiceInterface;
+  @Input() containerClass!: string;
+  @Input() options!: StripeLinkAuthenticationElementOptions;
+  @Input() elementsOptions!: Partial<StripeElementsOptions>;
+  @Input() stripe!: StripeServiceInterface;
 
   @Output() load = new EventEmitter<StripeLinkAuthenticationElement>();
 
@@ -64,9 +64,9 @@ export class StripeLinkAuthenticationComponent implements OnInit, OnChanges, OnD
   @Output() loaderror = new EventEmitter<void>();
   @Output() loaderstart = new EventEmitter<void>();
 
-  elements: StripeElements;
+  elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
-  private elementsSubscription: Subscription;
+  private elementsSubscription!: Subscription;
 
   constructor(
     public stripeElementsService: StripeElementsService,
@@ -78,7 +78,7 @@ export class StripeLinkAuthenticationComponent implements OnInit, OnChanges, OnD
     let updateElements = false;
 
     if (!this.elementsProvider && (changes.elementsOptions || changes.stripe || !this.elements)) {
-      this.elements = await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe, this.elementsOptions).toPromise())!;
       updateElements = true;
     }
 
@@ -97,14 +97,14 @@ export class StripeLinkAuthenticationComponent implements OnInit, OnChanges, OnD
 
     if (this.elementsProvider) {
       this.elementsSubscription = this.elementsProvider.elements.subscribe((elements) => {
-        this.elements = elements;
+        this.elements = elements!;
         this.createElement(options);
         this.state = 'ready';
       });
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
-      this.elements = await this.stripeElementsService.elements(this.stripe).toPromise();
+      this.elements = (await this.stripeElementsService.elements(this.stripe).toPromise())!;
       this.createElement(options);
 
       this.state = 'ready';
