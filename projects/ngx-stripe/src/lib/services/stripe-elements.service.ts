@@ -18,11 +18,16 @@ import {
   StripeIssuingCardCvcDisplayElementOptions,
   StripeIssuingCardExpiryDisplayElementOptions,
   StripeIssuingCardPinDisplayElementOptions,
+  StripeIssuingCardCopyButtonElementOptions,
   StripeElementsOptionsClientSecret,
   StripeElementsOptionsMode,
   StripeElementsOptions,
   StripePaymentMethodMessagingElementOptions,
-  StripeExpressCheckoutElementOptions
+  StripeExpressCheckoutElementOptions,
+  StripeTaxIdElementOptions,
+  StripeCurrencySelectorElementOptions,
+  StripeContactDetailsElementOptions,
+  StripeTermsElementOptions
 } from '@stripe/stripe-js';
 
 import { StripeService } from './stripe.service';
@@ -79,6 +84,10 @@ export class StripeElementsService {
     containerClass: string
   ): StripeIssuingCardPinDisplayElementOptions;
   mergeOptions(
+    options: StripeIssuingCardCopyButtonElementOptions,
+    containerClass: string
+  ): StripeIssuingCardCopyButtonElementOptions;
+  mergeOptions(
     options: StripePaymentMethodMessagingElementOptions,
     containerClass: string
   ): StripePaymentMethodMessagingElementOptions;
@@ -91,6 +100,16 @@ export class StripeElementsService {
     options: StripeExpressCheckoutElementOptions,
     containerClass: string
   ): StripeExpressCheckoutElementOptions;
+  mergeOptions(options: StripeTaxIdElementOptions, containerClass: string): StripeTaxIdElementOptions;
+  mergeOptions(
+    options: StripeCurrencySelectorElementOptions,
+    containerClass: string
+  ): StripeCurrencySelectorElementOptions;
+  mergeOptions(
+    options: StripeContactDetailsElementOptions,
+    containerClass: string
+  ): StripeContactDetailsElementOptions;
+  mergeOptions(options: StripeTermsElementOptions, containerClass: string): StripeTermsElementOptions;
   mergeOptions(options, containerClass: string) {
     if (!containerClass || (options && options.classes)) {
       return options || {};

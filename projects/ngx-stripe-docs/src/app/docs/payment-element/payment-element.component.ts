@@ -70,7 +70,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
     layout: {
       type: 'tabs',
       defaultCollapsed: false,
-      radios: false,
+      radios: 'never',
       spacedAccordionItems: false
     }
   };
@@ -199,7 +199,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
         layout: {
           type: 'tabs',
           defaultCollapsed: false,
-          radios: false,
+          radios: 'never',
           spacedAccordionItems: false
         }
       };
@@ -341,7 +341,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
         layout: {
           type: 'tabs',
           defaultCollapsed: false,
-          radios: false,
+          radios: 'never',
           spacedAccordionItems: false
         }
       };
@@ -487,7 +487,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
         layout: {
           type: 'tabs',
           defaultCollapsed: false,
-          radios: false,
+          radios: 'never',
           spacedAccordionItems: false
         }
       };
@@ -563,7 +563,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
         layout: {
           type: 'tabs',
           defaultCollapsed: false,
-          radios: false,
+          radios: 'never',
           spacedAccordionItems: false
         }
       };
