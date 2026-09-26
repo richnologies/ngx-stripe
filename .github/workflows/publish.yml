@@ -107,12 +107,8 @@ jobs:
         with:
           node-version: ${{ inputs.node_version }}
           registry-url: 'https://registry.npmjs.org'
-          package-manager-cache: false
 
-      - name: Ensure npm supports staged / trusted publishing
-        run: npm install -g 'npm@>=11.15.0'
-
-      - name: Show toolchain
+      - name: Show toolchain (install)
         run: |
           node -v
           npm -v
@@ -131,6 +127,7 @@ jobs:
             exit 1
           fi
 
+      # Use the Node-bundled npm for install so older lockfiles are not rejected by npm 12+.
       - name: Install dependencies
         run: npm ci
 
@@ -151,14 +148,29 @@ jobs:
           echo "path=${TGZ}" >> "$GITHUB_OUTPUT"
           ls -lh "${TGZ}"
 
+      - name: Ensure npm supports staged / trusted publishing
+        if: ${{ inputs.dry_run != true && inputs.dry_run != 'true' }}
+        run: |
+          npm install -g 'npm@>=11.15.0'
+          npm -v
+
       - name: Stage on npm
+        id: stage
         if: ${{ inputs.dry_run != true && inputs.dry_run != 'true' && inputs.mode == 'stage' }}
         run: |
           set -euo pipefail
-          npm stage publish "${{ steps.tarball.outputs.path }}" --access public --tag "${{ inputs.dist_tag }}"
-          echo "Staged ngx-stripe@${{ steps.pkg.outputs.version }} with tag ${{ inputs.dist_tag }}"
-          echo "Approve with 2FA: npm stage list ngx-stripe && npm stage approve <stage-id>"
-          echo "Or: npmjs.com → package → Staged Packages"
+          # Capture stage id from npm output (OIDC cannot run npm stage list).
+          OUT=$(npm stage publish "${{ steps.tarball.outputs.path }}" --access public --tag "${{ inputs.dist_tag }}" 2>&1 | tee /tmp/npm-stage.out)
+          echo "$OUT"
+          STAGE_ID=$(printf '%s\n' "$OUT" | sed -nE 's/.*staged with id ([0-9a-f-]+).*/\1/p' | tail -1)
+          if [[ -z "${STAGE_ID}" ]]; then
+            echo "::error::Could not parse stage id from npm stage publish output"
+            exit 1
+          fi
+          echo "stage_id=${STAGE_ID}" >> "$GITHUB_OUTPUT"
+          echo "::notice::Staged ngx-stripe@${{ steps.pkg.outputs.version }} tag=${{ inputs.dist_tag }} stage_id=${STAGE_ID}"
+          echo "Approve with 2FA: npm stage approve ${STAGE_ID}"
+          echo "Or: https://www.npmjs.com/package/ngx-stripe → Staged Packages"
 
       - name: Publish to npm (direct)
         if: ${{ inputs.dry_run != true && inputs.dry_run != 'true' && inputs.mode == 'direct' }}
@@ -171,17 +183,6 @@ jobs:
         if: ${{ inputs.dry_run == true || inputs.dry_run == 'true' }}
         run: |
           echo "Dry run only. Would ${{ inputs.mode }} ${{ steps.tarball.outputs.path }} with --tag ${{ inputs.dist_tag }}"
-
-      - name: Verify staged queue
-        if: ${{ inputs.dry_run != true && inputs.dry_run != 'true' && inputs.mode == 'stage' }}
-        run: |
-          set -euo pipefail
-          VERSION="${{ steps.pkg.outputs.version }}"
-          echo "Staged packages for ngx-stripe (version should appear below):"
-          npm stage list ngx-stripe || npm stage list
-          echo ""
-          echo "Not live yet. After you approve, install with: npm install ngx-stripe@${VERSION}"
-          echo "latest today should still be whatever it was before approval of a non-latest tag."
 
       - name: Verify registry (direct mode)
         if: ${{ inputs.dry_run != true && inputs.dry_run != 'true' && inputs.mode == 'direct' }}
