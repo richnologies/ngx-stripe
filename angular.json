@@ -92,7 +92,8 @@
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {
-            "buildTarget": "ngx-stripe-docs:build"
+            "buildTarget": "ngx-stripe-docs:build",
+            "port": 4242
           },
           "configurations": {
             "production": {
