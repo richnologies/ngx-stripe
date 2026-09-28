@@ -1,34 +1,23 @@
-import { SecurityContext } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { resolveStripeScriptSrc, STRIPE_JS_SCRIPT_URL } from './trusted-script-url.util';
+import {
+  NGX_STRIPE_TRUSTED_TYPES_POLICY,
+  resetNgxStripeTrustedTypesPolicyForTests,
+  resolveStripeScriptSrc,
+  STRIPE_JS_SCRIPT_URL
+} from './trusted-script-url.util';
 
 describe('resolveStripeScriptSrc', () => {
   const originalTrustedTypes = (globalThis as { trustedTypes?: unknown }).trustedTypes;
 
   afterEach(() => {
     (globalThis as { trustedTypes?: unknown }).trustedTypes = originalTrustedTypes;
-  });
-
-  it('uses DomSanitizer when invoked as Trusted Types fallback', () => {
-    const sanitizer = {
-      bypassSecurityTrustResourceUrl: vi.fn((url: string) => ({ bypass: url })),
-      sanitize: vi.fn((_ctx: SecurityContext, value: unknown) => {
-        expect(_ctx).toBe(SecurityContext.RESOURCE_URL);
-        return `sanitized:${(value as { bypass: string }).bypass}`;
-      })
-    } as unknown as DomSanitizer;
-
-    expect(resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL, sanitizer)).toBe(
-      `sanitized:${STRIPE_JS_SCRIPT_URL}`
-    );
-    expect(sanitizer.bypassSecurityTrustResourceUrl).toHaveBeenCalledWith(STRIPE_JS_SCRIPT_URL);
+    resetNgxStripeTrustedTypesPolicyForTests();
   });
 
   it('returns the plain URL when Trusted Types helpers are unavailable', () => {
     (globalThis as { trustedTypes?: unknown }).trustedTypes = undefined;
-    expect(resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL, null)).toBe(STRIPE_JS_SCRIPT_URL);
+    expect(resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL)).toBe(STRIPE_JS_SCRIPT_URL);
   });
 
   it('reuses an existing Angular policy via getPolicy without createPolicy', () => {
@@ -40,7 +29,7 @@ describe('resolveStripeScriptSrc', () => {
         name === 'angular#unsafe-bypass' ? { createScriptURL } : null
     };
 
-    expect(resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL, null)).toBe(`trusted:${STRIPE_JS_SCRIPT_URL}`);
+    expect(resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL)).toBe(`trusted:${STRIPE_JS_SCRIPT_URL}`);
     expect(createPolicy).not.toHaveBeenCalled();
     expect(createScriptURL).toHaveBeenCalledWith(STRIPE_JS_SCRIPT_URL);
   });
@@ -52,6 +41,27 @@ describe('resolveStripeScriptSrc', () => {
       defaultPolicy: { createScriptURL }
     };
 
-    expect(resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL, null)).toBe(`default:${STRIPE_JS_SCRIPT_URL}`);
+    expect(resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL)).toBe(`default:${STRIPE_JS_SCRIPT_URL}`);
+  });
+
+  it('creates an ngx-stripe policy that accepts Stripe CDN URLs', () => {
+    const createScriptURL = vi.fn((url: string) => `ngx:${url}`);
+    const createPolicy = vi.fn((_name: string, rules: { createScriptURL: (u: string) => string }) => {
+      expect(_name).toBe(NGX_STRIPE_TRUSTED_TYPES_POLICY);
+      // Exercise the allowlist inside the policy rules
+      expect(rules.createScriptURL(STRIPE_JS_SCRIPT_URL)).toBe(STRIPE_JS_SCRIPT_URL);
+      expect(() => rules.createScriptURL('https://evil.example/x.js')).toThrow();
+      return { createScriptURL };
+    });
+    (globalThis as { trustedTypes?: unknown }).trustedTypes = {
+      createPolicy,
+      getPolicy: () => null
+    };
+
+    expect(resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL)).toBe(`ngx:${STRIPE_JS_SCRIPT_URL}`);
+    expect(createPolicy).toHaveBeenCalledTimes(1);
+    // Second call reuses the cached policy
+    expect(resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL)).toBe(`ngx:${STRIPE_JS_SCRIPT_URL}`);
+    expect(createPolicy).toHaveBeenCalledTimes(1);
   });
 });

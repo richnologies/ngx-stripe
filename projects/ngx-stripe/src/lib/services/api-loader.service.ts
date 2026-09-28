@@ -1,6 +1,5 @@
-import { Inject, Injectable, Optional, PLATFORM_ID, NgZone } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID, NgZone } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
-import { DomSanitizer } from '@angular/platform-browser';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 
@@ -26,8 +25,7 @@ export class LazyStripeAPILoader {
     @Inject(PLATFORM_ID) public platformId: any,
     public window: WindowRef,
     public document: DocumentRef,
-    private zone: NgZone,
-    @Optional() private domSanitizer: DomSanitizer | null
+    private zone: NgZone
   ) {}
 
   public asStream(): Observable<LazyStripeAPILoaderStatus> {
@@ -51,7 +49,7 @@ export class LazyStripeAPILoader {
       this.status.next({ loaded: true, loading: false, error: false });
       return;
     }
-    
+
     if (!loaded && !loading) {
       this.status.next({ loaded: false, loading: true, error });
 
@@ -68,7 +66,14 @@ export class LazyStripeAPILoader {
     try {
       script.src = STRIPE_JS_SCRIPT_URL;
     } catch {
-      script.src = resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL, this.domSanitizer);
+      try {
+        script.src = resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL);
+      } catch {
+        this.zone.run(() => {
+          this.status.next({ loaded: false, loading: false, error: true });
+        });
+        return;
+      }
     }
 
     script.onload = () => {
