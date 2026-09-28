@@ -3,10 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 export const STRIPE_JS_SCRIPT_URL = 'https://js.stripe.com/dahlia/stripe.js';
 
-/**
- * Value for HTMLScriptElement.src. Browsers may accept TrustedScriptURL objects;
- * Angular's DOM typings expect string, so callers cast at the assignment site.
- */
+/** Value for HTMLScriptElement.src (TrustedScriptURL may be cast to string for DOM typings). */
 export type ScriptSrc = string;
 
 type TrustedTypePolicy = {
@@ -22,11 +19,14 @@ type TrustedTypesFactory = {
 const EXISTING_POLICY_NAMES = ['angular#unsafe-bypass', 'angular'] as const;
 
 /**
- * Resolves a Stripe.js CDN URL for assignment to HTMLScriptElement.src when
- * Trusted Types (require-trusted-types-for 'script') is enforced.
+ * Fallback resolver when a plain string assignment to script.src is rejected
+ * (Trusted Types / require-trusted-types-for 'script').
  *
- * Prefers Angular DomSanitizer (uses Angular's own Trusted Types policies).
- * Never creates policies named `angular` / `angular#unsafe-bypass` — those belong to Angular.
+ * Prefer DomSanitizer so Angular's own policies are used. Never createPolicy for
+ * `angular` / `angular#unsafe-bypass` — those belong to Angular.
+ *
+ * Callers should assign the plain CDN URL first and only call this on failure so
+ * the common (non–Trusted Types) path stays unchanged.
  */
 export function resolveStripeScriptSrc(url: string, sanitizer?: DomSanitizer | null): ScriptSrc {
   if (sanitizer) {

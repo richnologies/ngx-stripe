@@ -11,7 +11,7 @@ describe('resolveStripeScriptSrc', () => {
     (globalThis as { trustedTypes?: unknown }).trustedTypes = originalTrustedTypes;
   });
 
-  it('returns the sanitize result when DomSanitizer is provided', () => {
+  it('uses DomSanitizer when invoked as Trusted Types fallback', () => {
     const sanitizer = {
       bypassSecurityTrustResourceUrl: vi.fn((url: string) => ({ bypass: url })),
       sanitize: vi.fn((_ctx: SecurityContext, value: unknown) => {
@@ -26,7 +26,7 @@ describe('resolveStripeScriptSrc', () => {
     expect(sanitizer.bypassSecurityTrustResourceUrl).toHaveBeenCalledWith(STRIPE_JS_SCRIPT_URL);
   });
 
-  it('falls back to plain URL when Trusted Types is unavailable', () => {
+  it('returns the plain URL when Trusted Types helpers are unavailable', () => {
     (globalThis as { trustedTypes?: unknown }).trustedTypes = undefined;
     expect(resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL, null)).toBe(STRIPE_JS_SCRIPT_URL);
   });

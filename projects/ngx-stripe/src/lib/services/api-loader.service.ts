@@ -64,7 +64,12 @@ export class LazyStripeAPILoader {
     script.type = 'text/javascript';
     script.async = true;
     script.defer = true;
-    script.src = resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL, this.domSanitizer);
+    // Plain CDN string for the common path. Only escalate when Trusted Types rejects it.
+    try {
+      script.src = STRIPE_JS_SCRIPT_URL;
+    } catch {
+      script.src = resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL, this.domSanitizer);
+    }
 
     script.onload = () => {
       this.zone.run(() => {

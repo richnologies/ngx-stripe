@@ -40,8 +40,57 @@ describe('LazyStripeAPILoader', () => {
     expect(appendChild).toHaveBeenCalledWith(script);
   });
 
-  it('assigns script.src via DomSanitizer when provided', () => {
+  it('keeps the plain CDN URL when DomSanitizer is present (common path)', () => {
     const script = { type: '', async: false, defer: false, src: '', onload: null, onerror: null };
+    const createElement = vi.fn().mockReturnValue(script);
+    const sanitizer = {
+      bypassSecurityTrustResourceUrl: vi.fn(),
+      sanitize: vi.fn()
+    };
+
+    TestBed.configureTestingModule({
+      providers: [
+        LazyStripeAPILoader,
+        { provide: PLATFORM_ID, useValue: 'browser' },
+        { provide: WindowRef, useValue: { getNativeWindow: () => ({}) } },
+        {
+          provide: DocumentRef,
+          useValue: {
+            getNativeDocument: () => ({
+              createElement,
+              body: { appendChild: vi.fn() }
+            })
+          }
+        },
+        { provide: DomSanitizer, useValue: sanitizer }
+      ]
+    });
+
+    TestBed.inject(LazyStripeAPILoader).load();
+
+    expect(script.src).toBe('https://js.stripe.com/dahlia/stripe.js');
+    expect(sanitizer.bypassSecurityTrustResourceUrl).not.toHaveBeenCalled();
+  });
+
+  it('falls back to DomSanitizer when plain script.src assignment is rejected', () => {
+    let assignCount = 0;
+    const script = {
+      type: '',
+      async: false,
+      defer: false,
+      onload: null as (() => void) | null,
+      onerror: null as (() => void) | null,
+      get src() {
+        return (this as { _src?: string })._src ?? '';
+      },
+      set src(value: string) {
+        assignCount += 1;
+        if (assignCount === 1) {
+          throw new TypeError('This document requires \'TrustedScriptURL\' assignment');
+        }
+        (this as { _src?: string })._src = value;
+      }
+    };
     const createElement = vi.fn().mockReturnValue(script);
     const sanitizer = {
       bypassSecurityTrustResourceUrl: vi.fn((url: string) => ({ bypass: url })),
