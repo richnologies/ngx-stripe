@@ -10,7 +10,8 @@ import {
   SimpleChanges,
   Optional,
   OnInit,
-  OnDestroy
+  OnDestroy,
+  AfterViewInit
 } from '@angular/core';
 import { Observable, from, Subscription } from 'rxjs';
 
@@ -43,7 +44,7 @@ import { StripeElementsService } from '../services/stripe-elements.service';
   template: `<div class="field" #stripeElementRef></div>`,
   imports: []
 })
-export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, OnDestroy {
+export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripePaymentRequestButtonElement;
   paymentRequest!: PaymentRequest;
@@ -75,6 +76,8 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
   elements!: StripeElements;
   private state: 'notready' | 'starting' | 'ready' = 'notready';
   private elementsSubscription!: Subscription;
+  private viewInitialized = false;
+  private paymentRequestHandler: 'token' | 'paymentmethod' | 'source' | null = null;
 
   constructor(
     public stripeElementsService: StripeElementsService,
@@ -124,6 +127,11 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
     }
   }
 
+  ngAfterViewInit() {
+    this.viewInitialized = true;
+    this.syncPaymentRequestHandlers();
+  }
+
   ngOnDestroy() {
     if (this.element) {
       this.element.destroy();
@@ -171,12 +179,53 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
     return this.element;
   }
 
+  private desiredPaymentRequestHandler(): 'token' | 'paymentmethod' | 'source' | null {
+    if (this.paymentMethod.observed) {
+      return 'paymentmethod';
+    }
+    if (this.source.observed) {
+      return 'source';
+    }
+    if (this.token.observed) {
+      return 'token';
+    }
+    return null;
+  }
+
+  private registerPaymentRequestHandlers(): void {
+    const handler = this.desiredPaymentRequestHandler();
+    this.paymentRequestHandler = handler;
+
+    if (handler === 'paymentmethod') {
+      this.paymentRequest.on('paymentmethod', (ev) => this.paymentMethod.emit(ev));
+    } else if (handler === 'source') {
+      this.paymentRequest.on('source', (ev) => this.source.emit(ev));
+    } else if (handler === 'token') {
+      this.paymentRequest.on('token', (ev) => this.token.emit(ev));
+    }
+  }
+
+  /**
+   * Output bindings are attached after ngOnInit; re-create the PaymentRequest when the
+   * subscribed handler changes (see #169, #183, #254).
+   */
+  private syncPaymentRequestHandlers(): void {
+    if (!this.viewInitialized || !this.paymentRequest || !this.elements) {
+      return;
+    }
+
+    const desired = this.desiredPaymentRequestHandler();
+    if (desired === this.paymentRequestHandler) {
+      return;
+    }
+
+    const options = this.stripeElementsService.mergeOptions(this.options, this.containerClass);
+    void this.createElement(options);
+  }
+
   private async createElement(options: Partial<StripePaymentRequestButtonElementOptions> = {}) {
     this.paymentRequest = this.stripeElementsService.paymentRequest(this.stripe, this.paymentOptions);
-    this.paymentRequest.on('token', (ev) => this.token.emit(ev));
-    if (this.paymentMethod.observed) this.paymentRequest.on('paymentmethod', (ev) => this.paymentMethod.emit(ev));
-    if (this.source.observed && !this.paymentMethod.observed)
-      this.paymentRequest.on('source', (ev) => this.source.emit(ev));
+    this.registerPaymentRequestHandlers();
     this.paymentRequest.on('cancel', () => this.cancel.emit());
     this.paymentRequest.on('shippingaddresschange', (ev) => this.shippingaddresschange.emit(ev));
     this.paymentRequest.on('shippingoptionchange', (ev) => this.shippingoptionchange.emit(ev));
