@@ -23,7 +23,8 @@
     "start": "ng serve ngx-stripe-docs",
     "generate:lanes": "node scripts/generate-lanes.mjs",
     "generate:lanes:check": "node scripts/generate-lanes.mjs --check",
-    "test": "ng test ngx-stripe",
+    "test": "ng test ngx-stripe --watch=false --browsers=ChromeHeadless",
+    "test:ci": "ng test ngx-stripe --watch=false --browsers=ChromeHeadless --no-progress",
     "lint": "ng lint",
     "format": "prettier --config ./.prettierrc --list-different --write \"projects/**/src/**/*{.ts,.html,.css,.scss}\"",
     "e2e": "ng e2e"
