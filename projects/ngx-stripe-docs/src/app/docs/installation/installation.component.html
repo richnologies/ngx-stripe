@@ -9,42 +9,55 @@
     <p>Before proceeding with the installation, make sure to note the following prerequisites:</p>
     <ul role="list">
       <li>
-        <strong>Angular Version Compatibility</strong>: Ngx Stripe major versions are aligned with Angular versions. For
-        Angular version 19, use Ngx Stripe version 19
+        <strong>Versioning</strong>: ngx-stripe versions are
+        <ngstr-highlight>&#123;angularMajor&#125;.&#123;stripeJsMajor&#125;.&#123;patch&#125;</ngstr-highlight>
+        (for example, <ngstr-highlight>22.9.x</ngstr-highlight> is Angular 22 + Stripe.js dahlia /
+        <ngstr-highlight>&#64;stripe/stripe-js</ngstr-highlight> v9). Pick the row in the table that matches both your
+        Angular major and the Stripe.js train you want.
       </li>
       <li>
         <strong>StripeJS Peer Dependency</strong>: ngx-stripe requires
         <ngstr-highlight>&#64;stripe/stripe-js</ngstr-highlight>
-        as a peer dependency for types:
+        as a peer dependency for types. Keep its major aligned with the middle digit of ngx-stripe.
       </li>
     </ul>
     <ngstr-code code="$ npm install ngx-stripe @stripe/stripe-js"></ngstr-code>
     <p>
-      To install an specific version for an older Angular major, use the lts npm tags or check the table below to pick
-      the right version, for example, for v16:
+      To install a specific Angular / Stripe.js lane, use an npm dist-tag or pin a version from the table. For example,
+      Angular 21 + dahlia:
     </p>
-    <ngstr-code code="$ npm install ngx-stripe@v16-lts @stripe/stripe-js"></ngstr-code>
+    <ngstr-code code="$ npm install ngx-stripe@v21-dahlia @stripe/stripe-js@^9"></ngstr-code>
     <ngstr-subheader subheader="Important Notes" link="important-notes">Important Notes</ngstr-subheader>
     <ul role="list">
       <li>
-        <strong>Major Update in &#64;stripe/stripe-js v2</strong>: Be aware that &#64;stripe/stripe-js has undergone
-        significant changes from v1 to v2. While these changes are major, the breaking changes are minimal. ngx-stripe
-        will maintain its release cycle independent of these changes. Review the &#64;stripe/stripe-js v2 documentation
-        to ensure full compatibility with your project.
+        <strong>Stripe.js named versions</strong>: Stripe.js ships named trains (acacia, basil, clover, dahlia, …) on a
+        predictable schedule. ngx-stripe hardcodes the matching CDN script per line. See the
+        <a href="https://docs.stripe.com/sdks/stripejs-versioning" target="_blank" rel="noopener noreferrer"
+          >Stripe.js versioning policy</a
+        >. Do not pass a legacy <ngstr-highlight>apiVersion</ngstr-highlight> into
+        <ngstr-highlight>Stripe()</ngstr-highlight> on basil and newer — that option is unsupported on those trains.
       </li>
       <li>
-        <strong>Lazy Loading of StripeJS</strong>: ngx-stripe efficiently handles the lazy loading of StripeJS, meaning
-        you don't need to add it manually to your project. If StripeJS is detected in your environment, ngx-stripe will
-        not load it again, preventing duplicate instances.
+        <strong>Lazy Loading of StripeJS</strong>: ngx-stripe loads Stripe.js from the Stripe CDN when needed. If StripeJS
+        is already present in the page, ngx-stripe will not inject it again.
       </li>
       <li>
-        <strong>Direct Loading of StripeJS</strong>: Should you opt to load StripeJS directly, always use the Stripe
-        CDN. Do not store a local copy of StripeJS, as it's important to use the most secure and up-to-date version for
-        payment processing security and compliance.
+        <strong>Direct Loading of StripeJS</strong>: If you load StripeJS yourself, always use the Stripe CDN for the
+        named version that matches your ngx-stripe line. Do not vendor a local copy of Stripe.js.
+      </li>
+      <li>
+        <strong>What ngx-stripe owns</strong>: Angular DI, Observables, and Element host components. Appearance, payment
+        method options, and Element behavior come from Stripe.js — see Stripe’s docs when styling or configuring
+        Elements.
       </li>
     </ul>
     <ngstr-subheader subheader="Table Versions" link="table-versions">Table Versions</ngstr-subheader>
+    <p class="text-sm text-slate-500 mb-4">
+      Generated from <ngstr-highlight>lanes.json</ngstr-highlight>. Do not edit this table by hand — run
+      <ngstr-highlight>npm run generate:lanes</ngstr-highlight>.
+    </p>
     <table class="mb-8">
+<!-- lanes:table:start -->
       <thead>
         <tr>
           <th>Angular</th>
@@ -209,6 +222,7 @@
           <td>v8-lts / 8.2.0</td>
         </tr>
       </tbody>
+<!-- lanes:table:end -->
     </table>
   </ng-container>
 </ngstr-section>

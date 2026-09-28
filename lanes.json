@@ -1,0 +1,50 @@
+{
+  "latest": "22.9",
+  "generatedNote": "Do not hand-edit README or docs install tables. Run: npm run generate:lanes",
+  "stripeTrains": {
+    "9": { "cdn": "dahlia", "label": "v9 dahlia", "packageMajor": 9 },
+    "8": { "cdn": "clover", "label": "v8 clover", "packageMajor": 8 },
+    "7": { "cdn": "basil", "label": "v7 basil", "packageMajor": 7 },
+    "6": { "cdn": "acacia", "label": "v6 acacia", "packageMajor": 6 },
+    "5": { "cdn": "v3", "label": "v5", "packageMajor": 5 }
+  },
+  "lanes": [
+    { "angular": 22, "stripeJs": 9, "range": "22.9.x+", "branch": "main", "support": "active", "npmTag": "latest" },
+    { "angular": 22, "stripeJs": 8, "range": "22.8.x+", "branch": "v22-clover", "support": "active", "npmTag": "v22-clover" },
+    { "angular": 22, "stripeJs": 7, "range": "22.7.x+", "branch": "v22-basil", "support": "active", "npmTag": "v22-basil" },
+    { "angular": 22, "stripeJs": 6, "range": "22.6.x+", "branch": "v22-acacia", "support": "active", "npmTag": "v22-acacia" },
+    { "angular": 22, "stripeJs": 5, "range": "22.5.x+", "branch": "v22-stripe-v5", "support": "active", "npmTag": "v22-stripe-v5" },
+    { "angular": 21, "stripeJs": 9, "range": "21.9.x+", "branch": "v21", "support": "active", "npmTag": "v21-dahlia" },
+    { "angular": 21, "stripeJs": 8, "range": "21.8.x+", "branch": "vbasil", "support": "active", "npmTag": "v21-clover" },
+    { "angular": 21, "stripeJs": 7, "range": "21.7.x+", "branch": "vbasil", "support": "active", "npmTag": "v21-basil" },
+    { "angular": 21, "stripeJs": 6, "range": "21.6.x+", "branch": "vacacia", "support": "active", "npmTag": "v21-acacia" },
+    { "angular": 21, "stripeJs": 5, "range": "21.5.x+", "branch": "vstripe-v5", "support": "active", "npmTag": "vstripe-v5" },
+    { "angular": 20, "stripeJs": 9, "range": "20.9.x+", "branch": "v20", "support": "maintenance", "npmTag": null },
+    { "angular": 20, "stripeJs": 8, "range": "20.8.x+", "branch": "v20", "support": "maintenance", "npmTag": null },
+    { "angular": 20, "stripeJs": 7, "range": "20.7.x+", "branch": "v20", "support": "maintenance", "npmTag": null },
+    { "angular": 20, "stripeJs": 6, "range": "20.6.x+", "branch": "v20", "support": "maintenance", "npmTag": null },
+    { "angular": 20, "stripeJs": 5, "range": "20.5.x+", "branch": "v20", "support": "maintenance", "npmTag": null },
+    { "angular": 19, "stripeJs": 9, "range": "19.9.x+", "branch": "v19", "support": "maintenance", "npmTag": null },
+    { "angular": 19, "stripeJs": 8, "range": "19.8.x+", "branch": "v19", "support": "maintenance", "npmTag": null },
+    { "angular": 19, "stripeJs": 7, "range": "19.7.x+", "branch": "v19", "support": "maintenance", "npmTag": null },
+    { "angular": 19, "stripeJs": 6, "range": "19.6.x+", "branch": "v19", "support": "maintenance", "npmTag": null },
+    { "angular": 19, "stripeJs": 5, "range": "19.5.x+", "branch": "v19", "support": "maintenance", "npmTag": null }
+  ],
+  "legacy": [
+    { "angular": 18, "range": "18.x+", "support": "best-effort", "npmTag": null },
+    { "angular": 17, "range": "17.x+", "support": "best-effort", "npmTag": null },
+    { "angular": 16, "range": "16.x+", "support": "lts", "npmTag": "v16-lts" },
+    { "angular": 15, "range": "15.x+", "support": "lts", "npmTag": "v15-lts" },
+    { "angular": 14, "range": "14.x+", "support": "lts", "npmTag": "v14-lts" },
+    { "angular": 13, "range": "13.x+", "support": "best-effort", "npmTag": null },
+    { "angular": 12, "range": "12.x+", "support": "best-effort", "npmTag": null },
+    { "angular": 11, "range": "11.x+", "support": "best-effort", "npmTag": null },
+    { "angular": 10, "range": "10.x+", "support": "best-effort", "npmTag": null },
+    { "angular": 9, "range": "v9-lts / 9.4.0", "support": "legacy", "npmTag": "v9-lts" },
+    { "angular": 8, "range": "v8-lts / 8.2.0", "support": "legacy", "npmTag": "v8-lts" }
+  ],
+  "ci": {
+    "pr": ["22.9"],
+    "nightly": ["22.9", "22.8", "22.7", "22.6", "22.5", "21.9"]
+  }
+}

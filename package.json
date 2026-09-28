@@ -21,6 +21,8 @@
     "package": "npm run build:lib && npm run copy:docs && npm run pack:lib",
     "publish": "npm publish dist/ngx-stripe/ngx-stripe-X.X.X.tgz",
     "start": "ng serve ngx-stripe-docs",
+    "generate:lanes": "node scripts/generate-lanes.mjs",
+    "generate:lanes:check": "node scripts/generate-lanes.mjs --check",
     "test": "ng test ngx-stripe",
     "lint": "ng lint",
     "format": "prettier --config ./.prettierrc --list-different --write \"projects/**/src/**/*{.ts,.html,.css,.scss}\"",
