@@ -32,6 +32,11 @@ export const ROUTES: Routes = [
         data: { title: 'Installation' }
       },
       {
+        path: 'first-payment',
+        loadComponent: () => import('./docs/first-payment/first-payment.component'),
+        data: { title: 'Collect your first payment' }
+      },
+      {
         path: 'elements',
         loadComponent: () => import('./docs/elements/elements.component'),
         data: { title: 'Elements' }

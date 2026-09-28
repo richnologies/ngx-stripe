@@ -97,6 +97,120 @@
       </div>
     </section>
 
+    <!-- Collect your first payment -->
+    <section class="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8" aria-labelledby="first-payment-heading">
+      <div class="grid items-stretch gap-6 lg:grid-cols-2 lg:gap-8">
+        <div class="flex flex-col justify-start">
+          <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ngst-accent-dark">Guided path</p>
+          <h2 id="first-payment-heading" class="!mt-2 !mb-0 text-2xl font-extrabold tracking-tight text-ngst-ink sm:text-3xl">
+            Collect your first payment in minutes
+          </h2>
+
+          <div class="mt-5 flex flex-wrap items-center gap-2" role="tablist" aria-label="Tour steps">
+            @for (s of slides; track s.id; let i = $index) {
+            <button
+              type="button"
+              role="tab"
+              [attr.aria-selected]="i === activeStep()"
+              class="relative inline-flex h-8 min-w-8 items-center justify-center rounded-full px-2.5 text-xs font-bold transition"
+              [class.bg-ngst-accent]="i === activeStep()"
+              [class.text-white]="i === activeStep()"
+              [class.bg-white/50]="i !== activeStep()"
+              [class.text-ngst-muted]="i !== activeStep()"
+              [class.hover:bg-white/80]="i !== activeStep()"
+              (click)="goTo(i)"
+            >
+              {{ i + 1 }}
+              @if (autoplay() && i === activeStep()) {
+              <span
+                class="ngst-tour-play-ring pointer-events-none absolute inset-0 rounded-full"
+                aria-hidden="true"
+              ></span>
+              }
+            </button>
+            }
+            @if (autoplay()) {
+            <span
+              class="ml-1 inline-flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-wide text-ngst-accent-dark"
+              aria-live="polite"
+            >
+              <span class="ngst-tour-play-dot h-1.5 w-1.5 rounded-full bg-ngst-accent" aria-hidden="true"></span>
+              Playing
+            </span>
+            }
+          </div>
+          <p class="!mt-5 mb-0 text-sm font-extrabold text-ngst-ink">{{ slide.title }}</p>
+          <p class="!mt-1 mb-0 text-sm leading-relaxed text-ngst-muted">{{ slide.blurb }}</p>
+        </div>
+
+        <div class="flex min-h-[22rem] flex-col">
+          <div class="ngst-panel-deep flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl shadow-lift">
+            <div class="flex items-center gap-2 border-b border-white/10 px-4 py-2.5">
+              <span class="h-2.5 w-2.5 rounded-full bg-white/20"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-white/20"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-white/20"></span>
+              <span class="ml-2 truncate font-mono text-[0.7rem] text-white/40">
+                @if (slide.fork) {
+                choose-element
+                } @else {
+                {{ slide.fileName }}
+                }
+              </span>
+            </div>
+
+            @if (slide.fork) {
+            <div class="flex flex-1 flex-col justify-center gap-3 p-4 sm:p-5">
+              <button
+                type="button"
+                class="ngst-tour-fork rounded-xl px-4 py-3.5 text-left transition"
+                [class.ngst-tour-fork-active]="selectedPath === 'payment'"
+                (click)="selectPath('payment')"
+              >
+                <div class="text-sm font-extrabold text-white">Payment Element</div>
+                <p class="mt-1 text-xs leading-relaxed text-white/55">
+                  Cards, wallets, and local methods — one embeddable UI.
+                </p>
+              </button>
+              <button
+                type="button"
+                class="ngst-tour-fork rounded-xl px-4 py-3.5 text-left transition"
+                [class.ngst-tour-fork-active]="selectedPath === 'card'"
+                (click)="selectPath('card')"
+              >
+                <div class="text-sm font-extrabold text-white">Card Element</div>
+                <p class="mt-1 text-xs leading-relaxed text-white/55">
+                  Classic single card field — still fully supported.
+                </p>
+              </button>
+            </div>
+            } @else if (snippet) {
+            <ngstr-code [name]="slide.fileName" [code]="snippet"></ngstr-code>
+            }
+
+            <div class="flex items-center justify-between gap-3 border-t border-white/10 px-4 py-3">
+              <button
+                type="button"
+                class="rounded-lg px-3 py-1.5 text-xs font-semibold text-white/70 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
+                [disabled]="isFirst"
+                (click)="prev()"
+              >
+                ← Prev
+              </button>
+              <span class="font-mono text-[0.65rem] text-white/35">{{ activeStep() + 1 }} / {{ slides.length }}</span>
+              <button
+                type="button"
+                class="rounded-lg px-3 py-1.5 text-xs font-semibold text-white/70 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
+                [disabled]="isLast"
+                (click)="next()"
+              >
+                Next →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Elements surface -->
     <section class="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
       <div class="max-w-2xl">
@@ -185,40 +299,6 @@
               Secure card number, CVC, PIN, and copy-button displays for Issuing.
             </p>
           </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Quick start code -->
-    <section class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-      <div class="grid items-stretch gap-6 lg:grid-cols-2">
-        <div class="flex flex-col justify-center">
-          <h2 class="text-2xl font-extrabold tracking-tight text-ngst-ink sm:text-3xl">Setup in minutes</h2>
-          <p class="mt-3 text-sm text-ngst-muted sm:text-base">
-            Use <span class="font-mono text-[0.8rem] text-ngst-ink">provideNgxStripe()</span> in your app config, then
-            drop Elements into standalone components. Prefer the module path? <span class="font-mono text-[0.8rem] text-ngst-ink">NgxStripeModule.forRoot()</span> still works.
-          </p>
-          <a
-            routerLink="/docs/setup-application"
-            class="mt-5 inline-flex w-fit items-center text-sm font-semibold text-ngst-accent-dark transition hover:text-ngst-accent"
-          >
-            Setup guide →
-          </a>
-        </div>
-        <div class="ngst-panel-deep overflow-hidden rounded-2xl shadow-lift">
-          <div class="flex items-center gap-2 border-b border-white/10 px-4 py-2.5">
-            <span class="h-2.5 w-2.5 rounded-full bg-white/20"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-white/20"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-white/20"></span>
-            <span class="ml-2 font-mono text-[0.7rem] text-white/40">app.config.ts</span>
-          </div>
-          <pre class="overflow-x-auto p-5 font-mono text-[0.78rem] leading-relaxed text-[#c8cfe0] sm:text-[0.82rem]"><code><span class="text-[#a5a0ff]">import</span> &#123; provideNgxStripe &#125; <span class="text-[#a5a0ff]">from</span> <span class="text-[#86d99a]">'ngx-stripe'</span>;
-
-<span class="text-[#a5a0ff]">export const</span> appConfig = &#123;
-  providers: [
-    provideNgxStripe(<span class="text-[#86d99a]">'pk_test_…'</span>),
-  ]
-&#125;;</code></pre>
         </div>
       </div>
     </section>

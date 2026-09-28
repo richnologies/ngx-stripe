@@ -27,6 +27,12 @@ export class NgStrContentService {
       name: 'Setup Application',
       path: 'setup-application'
     },
+    {
+      group: 'Getting Started',
+      type: 'page',
+      name: 'First payment',
+      path: 'first-payment'
+    },
     { group: 'Core Concepts', type: 'group', name: 'Core Concepts' },
     {
       group: 'Core Concepts',

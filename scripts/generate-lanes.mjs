@@ -28,46 +28,99 @@ const END = '<!-- lanes:table:end -->';
 const check = process.argv.includes('--check');
 const data = JSON.parse(fs.readFileSync(lanesPath, 'utf8'));
 
-function stripeLabel(stripeJs) {
-  const train = data.stripeTrains[String(stripeJs)];
-  return train ? train.label : String(stripeJs);
+/** Stripe.js majors high → low for matrix columns */
+function stripeColumns() {
+  return Object.keys(data.stripeTrains)
+    .map(Number)
+    .sort((a, b) => b - a)
+    .map((major) => ({
+      major,
+      label: data.stripeTrains[String(major)].label
+    }));
 }
 
-function markdownTable() {
-  const rows = [
-    '| Angular | StripeJS | ngx-stripe |',
-    '| ------- | -------- | ---------- |',
-  ];
+function angularRows() {
+  const byAngular = new Map();
   for (const lane of data.lanes) {
-    rows.push(`| ${lane.angular} | ${stripeLabel(lane.stripeJs)} | ${lane.range} |`);
+    if (!byAngular.has(lane.angular)) byAngular.set(lane.angular, new Map());
+    byAngular.get(lane.angular).set(lane.stripeJs, lane.range);
   }
-  for (const lane of data.legacy) {
-    rows.push(`| ${lane.angular} | | ${lane.range} |`);
-  }
-  return rows.join('\n');
-}
-
-function htmlTableBody() {
-  const rows = [];
-  for (const lane of data.lanes) {
-    rows.push(`        <tr>
-          <td>${lane.angular}</td>
-          <td>${escapeHtml(stripeLabel(lane.stripeJs))}</td>
-          <td>${escapeHtml(lane.range)}</td>
-        </tr>`);
-  }
-  for (const lane of data.legacy) {
-    rows.push(`        <tr>
-          <td>${lane.angular}</td>
-          <td></td>
-          <td>${escapeHtml(lane.range)}</td>
-        </tr>`);
-  }
-  return rows.join('\n');
+  const majors = [...byAngular.keys()].sort((a, b) => b - a);
+  return {
+    majors: majors.map((angular) => ({
+      angular,
+      cells: byAngular.get(angular)
+    })),
+    legacy: data.legacy
+  };
 }
 
 function escapeHtml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function markdownMatrix() {
+  const cols = stripeColumns();
+  const { majors, legacy } = angularRows();
+  const header = ['Angular', ...cols.map((c) => c.label)];
+  const sep = header.map(() => '---');
+  const rows = [
+    `| ${header.join(' | ')} |`,
+    `| ${sep.join(' | ')} |`
+  ];
+  for (const row of majors) {
+    const cells = cols.map((c) => row.cells.get(c.major) ?? '—');
+    rows.push(`| ${row.angular} | ${cells.join(' | ')} |`);
+  }
+  for (const lane of legacy) {
+    const pad = cols.map(() => '—');
+    pad[0] = lane.range;
+    rows.push(`| ${lane.angular} | ${pad.join(' | ')} |`);
+  }
+  return rows.join('\n');
+}
+
+function htmlMatrix() {
+  const cols = stripeColumns();
+  const { majors, legacy } = angularRows();
+  const head = cols
+    .map((c) => `          <th>${escapeHtml(c.label)}</th>`)
+    .join('\n');
+  const bodyRows = [];
+  for (const row of majors) {
+    const cells = cols
+      .map((c) => {
+        const range = row.cells.get(c.major);
+        return `          <td>${range ? escapeHtml(range) : '—'}</td>`;
+      })
+      .join('\n');
+    bodyRows.push(`        <tr>
+          <th scope="row">${row.angular}</th>
+${cells}
+        </tr>`);
+  }
+  for (const lane of legacy) {
+    const cells = cols
+      .map((c, i) => {
+        // Legacy lines are not train-split; show the package range once under the newest train column.
+        if (i === 0) return `          <td>${escapeHtml(lane.range)}</td>`;
+        return `          <td>—</td>`;
+      })
+      .join('\n');
+    bodyRows.push(`        <tr>
+          <th scope="row">${lane.angular}</th>
+${cells}
+        </tr>`);
+  }
+  return `      <thead>
+        <tr>
+          <th scope="col">Angular \\ Stripe.js</th>
+${head}
+        </tr>
+      </thead>
+      <tbody>
+${bodyRows.join('\n')}
+      </tbody>`;
 }
 
 function replaceMarked(content, replacement, fileLabel) {
@@ -98,21 +151,11 @@ function writeOrCheck(filePath, next) {
 let dirty = false;
 
 const readme = fs.readFileSync(readmePath, 'utf8');
-dirty = writeOrCheck(readmePath, replaceMarked(readme, markdownTable(), 'README.md')) || dirty;
+dirty = writeOrCheck(readmePath, replaceMarked(readme, markdownMatrix(), 'README.md')) || dirty;
 
 const install = fs.readFileSync(installPath, 'utf8');
-const htmlInner = `      <thead>
-        <tr>
-          <th>Angular</th>
-          <th>StripeJS</th>
-          <th>ngx-stripe</th>
-        </tr>
-      </thead>
-      <tbody>
-${htmlTableBody()}
-      </tbody>`;
 dirty =
-  writeOrCheck(installPath, replaceMarked(install, htmlInner, 'installation.component.html')) ||
+  writeOrCheck(installPath, replaceMarked(install, htmlMatrix(), 'installation.component.html')) ||
   dirty;
 
 function lanesDataTs() {

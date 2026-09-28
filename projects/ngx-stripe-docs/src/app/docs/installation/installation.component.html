@@ -14,8 +14,9 @@
         <strong>Versioning</strong>: ngx-stripe versions are
         <ngstr-highlight>&#123;angularMajor&#125;.&#123;stripeJsMajor&#125;.&#123;patch&#125;</ngstr-highlight>
         (for example, <ngstr-highlight>22.9.x</ngstr-highlight> is Angular 22 + Stripe.js dahlia /
-        <ngstr-highlight>&#64;stripe/stripe-js</ngstr-highlight> v9). Pick the row in the table that matches both your
-        Angular major and the Stripe.js train you want. Details:
+        <ngstr-highlight>&#64;stripe/stripe-js</ngstr-highlight> v9). Pick the cell in the
+        <a routerLink="/docs/installation" fragment="release-matrix" class="underline">release matrix</a>
+        that matches both your Angular major and the Stripe.js train you want. Details:
         <a routerLink="/docs/versioning" class="underline">Pick your lane</a>.
       </li>
       <li>
@@ -32,7 +33,7 @@
     </p>
     <ngstr-code code="$ npm install ngx-stripe @stripe/stripe-js"></ngstr-code>
     <p>
-      To install a specific Angular / Stripe.js lane, use an npm dist-tag or pin a version from the table. For example,
+      To install a specific Angular / Stripe.js lane, use an npm dist-tag or pin a version from the matrix. For example,
       Angular 21 + dahlia:
     </p>
     <ngstr-code code="$ npm install ngx-stripe@v21-dahlia @stripe/stripe-js@^9"></ngstr-code>
@@ -60,175 +61,144 @@
         Elements.
       </li>
     </ul>
-    <ngstr-subheader subheader="Table Versions" link="table-versions">Table Versions</ngstr-subheader>
-    <p class="text-sm text-slate-500 mb-4">
-      Generated from <ngstr-highlight>lanes.json</ngstr-highlight>. Do not edit this table by hand — run
-      <ngstr-highlight>npm run generate:lanes</ngstr-highlight>.
+    <ngstr-subheader subheader="Release matrix" link="release-matrix">Release matrix</ngstr-subheader>
+    <p>
+      ngx-stripe version =
+      <ngstr-highlight>&#123;angularMajor&#125;.&#123;stripeJsMajor&#125;.&#123;patch&#125;</ngstr-highlight>.
+      Pick the cell that matches your Angular major and Stripe.js train.
     </p>
     <table class="mb-8">
 <!-- lanes:table:start -->
       <thead>
         <tr>
-          <th>Angular</th>
-          <th>StripeJS</th>
-          <th>ngx-stripe</th>
+          <th scope="col">Angular \ Stripe.js</th>
+          <th>v9 dahlia</th>
+          <th>v8 clover</th>
+          <th>v7 basil</th>
+          <th>v6 acacia</th>
+          <th>v5</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>22</td>
-          <td>v9 dahlia</td>
+          <th scope="row">22</th>
           <td>22.9.x+</td>
-        </tr>
-        <tr>
-          <td>22</td>
-          <td>v8 clover</td>
           <td>22.8.x+</td>
-        </tr>
-        <tr>
-          <td>22</td>
-          <td>v7 basil</td>
           <td>22.7.x+</td>
-        </tr>
-        <tr>
-          <td>22</td>
-          <td>v6 acacia</td>
           <td>22.6.x+</td>
-        </tr>
-        <tr>
-          <td>22</td>
-          <td>v5</td>
           <td>22.5.x+</td>
         </tr>
         <tr>
-          <td>21</td>
-          <td>v9 dahlia</td>
+          <th scope="row">21</th>
           <td>21.9.x+</td>
-        </tr>
-        <tr>
-          <td>21</td>
-          <td>v8 clover</td>
           <td>21.8.x+</td>
-        </tr>
-        <tr>
-          <td>21</td>
-          <td>v7 basil</td>
           <td>21.7.x+</td>
-        </tr>
-        <tr>
-          <td>21</td>
-          <td>v6 acacia</td>
           <td>21.6.x+</td>
-        </tr>
-        <tr>
-          <td>21</td>
-          <td>v5</td>
           <td>21.5.x+</td>
         </tr>
         <tr>
-          <td>20</td>
-          <td>v9 dahlia</td>
+          <th scope="row">20</th>
           <td>20.9.x+</td>
-        </tr>
-        <tr>
-          <td>20</td>
-          <td>v8 clover</td>
           <td>20.8.x+</td>
-        </tr>
-        <tr>
-          <td>20</td>
-          <td>v7 basil</td>
           <td>20.7.x+</td>
-        </tr>
-        <tr>
-          <td>20</td>
-          <td>v6 acacia</td>
           <td>20.6.x+</td>
-        </tr>
-        <tr>
-          <td>20</td>
-          <td>v5</td>
           <td>20.5.x+</td>
         </tr>
         <tr>
-          <td>19</td>
-          <td>v9 dahlia</td>
+          <th scope="row">19</th>
           <td>19.9.x+</td>
-        </tr>
-        <tr>
-          <td>19</td>
-          <td>v8 clover</td>
           <td>19.8.x+</td>
-        </tr>
-        <tr>
-          <td>19</td>
-          <td>v7 basil</td>
           <td>19.7.x+</td>
-        </tr>
-        <tr>
-          <td>19</td>
-          <td>v6 acacia</td>
           <td>19.6.x+</td>
-        </tr>
-        <tr>
-          <td>19</td>
-          <td>v5</td>
           <td>19.5.x+</td>
         </tr>
         <tr>
-          <td>18</td>
-          <td></td>
+          <th scope="row">18</th>
           <td>18.x+</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
-          <td>17</td>
-          <td></td>
+          <th scope="row">17</th>
           <td>17.x+</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
-          <td>16</td>
-          <td></td>
+          <th scope="row">16</th>
           <td>16.x+</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
-          <td>15</td>
-          <td></td>
+          <th scope="row">15</th>
           <td>15.x+</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
-          <td>14</td>
-          <td></td>
+          <th scope="row">14</th>
           <td>14.x+</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
-          <td>13</td>
-          <td></td>
+          <th scope="row">13</th>
           <td>13.x+</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
-          <td>12</td>
-          <td></td>
+          <th scope="row">12</th>
           <td>12.x+</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
-          <td>11</td>
-          <td></td>
+          <th scope="row">11</th>
           <td>11.x+</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
-          <td>10</td>
-          <td></td>
+          <th scope="row">10</th>
           <td>10.x+</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
-          <td>9</td>
-          <td></td>
+          <th scope="row">9</th>
           <td>v9-lts / 9.4.0</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
-          <td>8</td>
-          <td></td>
+          <th scope="row">8</th>
           <td>v8-lts / 8.2.0</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
         </tr>
       </tbody>
 <!-- lanes:table:end -->

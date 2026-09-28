@@ -1,11 +1,26 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnDestroy,
+  afterNextRender,
+  signal
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
+
+import { NgStrCodeComponent } from '../docs-elements';
+
+import {
+  FIRST_PAYMENT_WELCOME_SLIDES,
+  FirstPaymentPath,
+  FirstPaymentWelcomeSlide,
+  welcomeSnippetFor
+} from '../docs/first-payment/first-payment.content';
 
 @Component({
   selector: 'ngstr-welcome',
   templateUrl: './welcome.component.html',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, NgStrCodeComponent],
   styles: [
     `
       :host {
@@ -35,6 +50,36 @@ import { RouterModule } from '@angular/router';
         border: 1px solid rgba(255, 255, 255, 0.08);
       }
 
+      .ngst-panel-deep ngstr-code {
+        display: block;
+        flex: 1;
+        min-height: 0;
+        margin: 0;
+        overflow: auto;
+      }
+
+      .ngst-panel-deep ngstr-code pre.ngstr-code {
+        height: 100%;
+      }
+
+      .ngst-panel-deep ngstr-code pre code.hljs {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        min-height: 100%;
+        font-size: 0.72rem !important;
+        line-height: 1.6;
+        padding: 1rem !important;
+      }
+
+      @media (min-width: 640px) {
+        .ngst-panel-deep ngstr-code pre code.hljs {
+          font-size: 0.78rem !important;
+          padding: 1.25rem !important;
+        }
+      }
+
       .ngst-sponsors {
         background: linear-gradient(
           135deg,
@@ -50,11 +95,7 @@ import { RouterModule } from '@angular/router';
       }
 
       .ngst-support-channel {
-        background: linear-gradient(
-          160deg,
-          rgba(255, 255, 255, 0.42) 0%,
-          rgba(232, 237, 247, 0.55) 100%
-        );
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.42) 0%, rgba(232, 237, 247, 0.55) 100%);
         border: 1px solid rgba(15, 23, 42, 0.08);
         backdrop-filter: blur(10px);
         box-shadow:
@@ -63,11 +104,7 @@ import { RouterModule } from '@angular/router';
       }
 
       .ngst-support-channel:hover {
-        background: linear-gradient(
-          160deg,
-          rgba(255, 255, 255, 0.62) 0%,
-          rgba(236, 240, 249, 0.78) 100%
-        );
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.62) 0%, rgba(236, 240, 249, 0.78) 100%);
         border-color: rgba(99, 91, 255, 0.2);
         box-shadow:
           0 1px 2px rgba(15, 23, 42, 0.04),
@@ -81,6 +118,54 @@ import { RouterModule } from '@angular/router';
 
       .ngst-feature:hover {
         background: rgba(255, 255, 255, 0.72);
+      }
+
+      .ngst-tour-fork {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .ngst-tour-fork-active {
+        background: rgba(99, 91, 255, 0.16);
+        border-color: rgba(165, 160, 255, 0.45);
+      }
+
+      .ngst-tour-play-ring {
+        box-shadow: 0 0 0 0 rgba(99, 91, 255, 0.45);
+        animation: ngst-tour-pulse 1.6s ease-out infinite;
+      }
+
+      .ngst-tour-play-dot {
+        animation: ngst-tour-blink 1.2s ease-in-out infinite;
+      }
+
+      @keyframes ngst-tour-pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(99, 91, 255, 0.45);
+        }
+        70% {
+          box-shadow: 0 0 0 8px rgba(99, 91, 255, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(99, 91, 255, 0);
+        }
+      }
+
+      @keyframes ngst-tour-blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.35;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .ngst-tour-play-ring,
+        .ngst-tour-play-dot {
+          animation: none;
+        }
       }
 
       @keyframes ngst-hero-in {
@@ -132,4 +217,99 @@ import { RouterModule } from '@angular/router';
     `
   ]
 })
-export default class NgStrWelcomeComponent {}
+export default class NgStrWelcomeComponent implements OnDestroy {
+  readonly slides = FIRST_PAYMENT_WELCOME_SLIDES;
+  readonly activeStep = signal(0);
+  selectedPath: FirstPaymentPath = 'payment';
+  /** Autoplay runs until the user clicks a step tab */
+  readonly autoplay = signal(true);
+
+  private autoplayTimer: ReturnType<typeof setInterval> | null = null;
+  private readonly autoplayMs = 4000;
+
+  constructor() {
+    afterNextRender(() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) {
+        this.autoplay.set(false);
+        return;
+      }
+      this.startAutoplay();
+    });
+  }
+
+  get slide(): FirstPaymentWelcomeSlide {
+    return this.slides[this.activeStep()];
+  }
+
+  get snippet(): string | null {
+    return welcomeSnippetFor(this.slide, this.selectedPath);
+  }
+
+  get isFirst(): boolean {
+    return this.activeStep() === 0;
+  }
+
+  get isLast(): boolean {
+    return this.activeStep() === this.slides.length - 1;
+  }
+
+  ngOnDestroy() {
+    this.stopAutoplay();
+  }
+
+  prev() {
+    if (!this.isFirst) this.activeStep.update((i) => i - 1);
+  }
+
+  next() {
+    if (!this.isLast) this.activeStep.update((i) => i + 1);
+  }
+
+  /** Step tabs: jump + stop autoplay */
+  goTo(index: number) {
+    if (index < 0 || index >= this.slides.length) return;
+    this.activeStep.set(index);
+    this.pauseAutoplay();
+  }
+
+  selectPath(path: FirstPaymentPath) {
+    this.selectedPath = path;
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  onKeydown(event: KeyboardEvent) {
+    const target = event.target as HTMLElement | null;
+    if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
+      return;
+    }
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      this.prev();
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      this.next();
+    }
+  }
+
+  private startAutoplay() {
+    this.stopAutoplay();
+    this.autoplay.set(true);
+    this.autoplayTimer = setInterval(() => {
+      if (!this.autoplay()) return;
+      this.activeStep.update((i) => (i + 1) % this.slides.length);
+    }, this.autoplayMs);
+  }
+
+  private pauseAutoplay() {
+    this.autoplay.set(false);
+    this.stopAutoplay();
+  }
+
+  private stopAutoplay() {
+    if (this.autoplayTimer != null) {
+      clearInterval(this.autoplayTimer);
+      this.autoplayTimer = null;
+    }
+  }
+}
