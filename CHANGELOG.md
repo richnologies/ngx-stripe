@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- [#254](https://github.com/richnologies/ngx-stripe/issues/254) Fix Payment Request Button emitting `token` instead of `paymentMethod` when only `(paymentMethod)` is bound (registers exactly one of `paymentmethod` / `source` / `token`)
+
 ## 22.9.0 - 2026-09-08
 
 - Add support for Angular v22
