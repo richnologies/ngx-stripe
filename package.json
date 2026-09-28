@@ -23,6 +23,7 @@
     "start": "ng serve ngx-stripe-docs",
     "generate:lanes": "node scripts/generate-lanes.mjs",
     "generate:lanes:check": "node scripts/generate-lanes.mjs --check",
+    "pack:smoke": "node scripts/pack-smoke.mjs",
     "test": "ng test ngx-stripe --watch=false --browsers=ChromeHeadless",
     "test:ci": "ng test ngx-stripe --watch=false --browsers=ChromeHeadless --no-progress",
     "lint": "ng lint",

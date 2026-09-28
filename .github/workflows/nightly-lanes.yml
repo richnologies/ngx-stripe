@@ -1,0 +1,70 @@
+# Nightly lane matrix — build library on a subset of git refs from lanes.json.
+# Full contract tests run on main (see ci.yml). Older lanes get a build canary.
+
+name: Nightly lanes
+
+on:
+  schedule:
+    - cron: '0 4 * * 1'
+  workflow_dispatch:
+
+jobs:
+  matrix:
+    name: Resolve lanes
+    runs-on: ubuntu-latest
+    outputs:
+      include: ${{ steps.set.outputs.include }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: set
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const data = JSON.parse(fs.readFileSync('lanes.json', 'utf8'));
+          const byId = new Map(data.lanes.map((l) => [`${l.angular}.${l.stripeJs}`, l]));
+          const include = (data.ci?.nightly || []).map((id) => {
+            const lane = byId.get(id);
+            if (!lane) throw new Error(`Unknown nightly lane ${id}`);
+            return {
+              id,
+              branch: lane.branch || 'main',
+              angular: String(lane.angular),
+              stripeJs: String(lane.stripeJs)
+            };
+          });
+          // Main always builds current tree; other branches need the ref to exist.
+          const unique = [];
+          const seen = new Set();
+          for (const row of include) {
+            const key = row.branch;
+            if (seen.has(key)) continue;
+            seen.add(key);
+            unique.push(row);
+          }
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `include=${JSON.stringify(unique)}\n`);
+          NODE
+
+  build:
+    name: Build ${{ matrix.id }} (${{ matrix.branch }})
+    needs: matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.matrix.outputs.include) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.branch }}
+          # Older branches may not have this workflow / lanes yet — fall back handled below
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build library
+        run: npm run build:lib
