@@ -20,7 +20,7 @@ npm install ngx-stripe @stripe/stripe-js
 
 `ngx-stripe` version = `{angularMajor}.{stripeJsMajor}.{patch}` (e.g. `22.9.x` = Angular 22 + Stripe.js dahlia / `@stripe/stripe-js` v9).
 
-Older Angular majors / Stripe trains: use an npm dist-tag or pin a version from the table below. Full setup and Elements guides live on the [docs site](https://ngx-stripe.dev/docs/installation).
+Older Angular majors / Stripe trains: use an npm dist-tag or pin a version from the table below. Full setup, **pick your lane**, CSP, and Elements guides: [ngx-stripe.dev/docs](https://ngx-stripe.dev/docs). Minimal Payment Element playground (StackBlitz via GitHub): [`playground/lanes`](./playground/lanes).
 
 ```bash
 npm install ngx-stripe@v21-dahlia @stripe/stripe-js@^9

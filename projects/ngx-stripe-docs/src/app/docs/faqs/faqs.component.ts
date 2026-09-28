@@ -1,12 +1,26 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
-import { NgStrDocsHeaderComponent, NgStrSectionComponent, NgStrSubheaderComponent } from '../../docs-elements';
+import {
+  NgStrDocsHeaderComponent,
+  NgStrHighlightComponent,
+  NgStrSectionComponent,
+  NgStrSubheaderComponent
+} from '../../docs-elements';
+import { NgStrOwnershipCalloutComponent } from '../../docs-elements/ownership-callout/ownership-callout.component';
 
 @Component({
   selector: 'ngstr-faqs',
   templateUrl: './faqs.component.html',
   standalone: true,
-  imports: [NgStrDocsHeaderComponent, NgStrSectionComponent, NgStrSubheaderComponent]
+  imports: [
+    RouterLink,
+    NgStrDocsHeaderComponent,
+    NgStrHighlightComponent,
+    NgStrOwnershipCalloutComponent,
+    NgStrSectionComponent,
+    NgStrSubheaderComponent
+  ]
 })
 export default class NgStrFAQSComponent {
   appModule = `

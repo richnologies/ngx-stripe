@@ -48,3 +48,8 @@ Thumbs.db
 # Angular
 .angular
 .nx
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

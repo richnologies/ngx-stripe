@@ -8,11 +8,14 @@ export * from './docs-shell/docs-shell.component';
 export * from './flip-container/flip-container.component';
 export * from './header/header.component';
 export * from './highlight/highlight.component';
+export * from './lane-banner/lane-banner.component';
 export * from './link/link.component';
+export * from './ownership-callout/ownership-callout.component';
 export * from './panel/panel.component';
 export * from './section/section.component';
 export * from './section-navigator/section-navigator.component';
 export * from './subheader/subheader.component';
+export * from './version-picker/version-picker.component';
 
 export * from './section/section-aside.directive';
 export * from './section/section-main.directive';

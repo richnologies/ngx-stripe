@@ -18,6 +18,12 @@ export class NgStrContentService {
     {
       group: 'Getting Started',
       type: 'page',
+      name: 'Pick your lane',
+      path: 'versioning'
+    },
+    {
+      group: 'Getting Started',
+      type: 'page',
       name: 'Setup Application',
       path: 'setup-application'
     },
@@ -99,6 +105,7 @@ export class NgStrContentService {
     },
     { group: 'Support', type: 'group', name: 'Support' },
     { group: 'Support', type: 'page', name: 'FAQS', path: 'faqs' },
+    { group: 'Support', type: 'page', name: 'CSP', path: 'csp' },
     { group: 'Support', type: 'page', name: 'Examples', path: 'examples' },
     { group: 'Support', type: 'page', name: 'Migration', path: 'migration' }
   ];

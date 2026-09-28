@@ -1,0 +1,14 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 2rem;
+  max-width: 480px;
+}
+button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+}
+.meta {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}

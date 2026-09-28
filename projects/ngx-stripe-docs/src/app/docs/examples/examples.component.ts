@@ -4,6 +4,8 @@ import {
   NgStrCodeComponent,
   NgStrCodeGroupComponent,
   NgStrDocsHeaderComponent,
+  NgStrHighlightComponent,
+  NgStrLaneBannerComponent,
   NgStrSectionComponent,
   NgStrSubheaderComponent
 } from '../../docs-elements';
@@ -16,6 +18,8 @@ import {
     NgStrCodeComponent,
     NgStrCodeGroupComponent,
     NgStrDocsHeaderComponent,
+    NgStrHighlightComponent,
+    NgStrLaneBannerComponent,
     NgStrSectionComponent,
     NgStrSubheaderComponent
   ]

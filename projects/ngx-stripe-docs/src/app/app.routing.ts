@@ -22,6 +22,11 @@ export const ROUTES: Routes = [
         data: { title: 'Installation' }
       },
       {
+        path: 'versioning',
+        loadComponent: () => import('./docs/versioning/versioning.component'),
+        data: { title: 'Pick your lane' }
+      },
+      {
         path: 'setup-application',
         loadComponent: () => import('./docs/setup-application/setup-application.component'),
         data: { title: 'Installation' }
@@ -100,6 +105,11 @@ export const ROUTES: Routes = [
         path: 'faqs',
         loadComponent: () => import('./docs/faqs/faqs.component'),
         data: { title: 'FAQS' }
+      },
+      {
+        path: 'csp',
+        loadComponent: () => import('./docs/csp/csp.component'),
+        data: { title: 'Content Security Policy' }
       },
       {
         path: 'examples',

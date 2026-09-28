@@ -1,0 +1,62 @@
+<ngstr-section>
+  <ng-container ngStrSectionMain>
+    <ngstr-header title="Pick your lane"></ngstr-header>
+    <ngstr-lane-banner></ngstr-lane-banner>
+    <p>
+      ngx-stripe version =
+      <ngstr-highlight>&#123;angularMajor&#125;.&#123;stripeJsMajor&#125;.&#123;patch&#125;</ngstr-highlight>. The
+      middle digit is the <strong>@stripe/stripe-js</strong> major / named Stripe.js train (dahlia, clover, basil,
+      acacia, …), not a minor feature bump.
+    </p>
+    <ngstr-panel type="info" class="block mb-6">
+      <p class="text-sm">
+        Use the <strong>Docs lane</strong> picker in the header to preview install commands and CDN notes for another
+        Angular × Stripe combination. The live demos on this site always run on the latest line; older lanes open an
+        in-repo StackBlitz playground.
+      </p>
+    </ngstr-panel>
+    <ngstr-subheader subheader="Install for the selected lane" link="install-selected"></ngstr-subheader>
+    <ngstr-code [code]="lanes.installCommand()" data-testid="lane-install-command"></ngstr-code>
+    <p class="text-sm text-slate-500">
+      CDN script for this lane:
+      <ngstr-highlight>https://js.stripe.com/{{ lanes.train().cdn }}/stripe.js</ngstr-highlight>
+      (loaded automatically by ngx-stripe).
+    </p>
+    <ngstr-subheader subheader="Named trains and apiVersion" link="named-trains"></ngstr-subheader>
+    <p>
+      Stripe.js ships named versions on a schedule. ngx-stripe hardcodes the matching CDN URL per package line. On
+      <strong>basil and newer</strong>, do <strong>not</strong> pass a legacy
+      <ngstr-highlight>apiVersion</ngstr-highlight> into <ngstr-highlight>Stripe()</ngstr-highlight> /
+      <ngstr-highlight>provideNgxStripe</ngstr-highlight> options — that constructor option is unsupported on those
+      trains and will throw. Align <ngstr-highlight>@stripe/stripe-js</ngstr-highlight> major with the middle digit of
+      ngx-stripe instead.
+    </p>
+    <p>
+      Policy:
+      <a href="https://docs.stripe.com/sdks/stripejs-versioning" target="_blank" rel="noopener noreferrer"
+        >Stripe.js versioning</a
+      >.
+    </p>
+    <ngstr-subheader subheader="Support levels" link="support-levels"></ngstr-subheader>
+    <ul role="list">
+      <li><strong>active</strong> — current Angular majors with published Stripe trains (see installation table).</li>
+      <li><strong>maintenance</strong> — previous Angular majors; fixes and Stripe-train sync as practical.</li>
+      <li><strong>lts / best-effort / legacy</strong> — older lines; install from the matching dist-tag when published.</li>
+    </ul>
+    <ngstr-subheader subheader="Older-lane playground" link="playground"></ngstr-subheader>
+    <p>
+      Templates live in <ngstr-highlight>playground/lanes/&#123;angular&#125;.&#123;stripeJs&#125;/</ngstr-highlight>
+      in the GitHub repo and open via StackBlitz GitHub import (not one-off cloud project IDs).
+    </p>
+    <p>
+      <a
+        class="underline font-medium"
+        [href]="lanes.stackblitzUrl()"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-testid="versioning-stackblitz"
+        >Open playground for {{ lanes.selectedLabel() }}</a
+      >
+    </p>
+  </ng-container>
+</ngstr-section>

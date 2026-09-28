@@ -1,6 +1,8 @@
 <ngstr-section>
   <ng-container ngStrSectionMain>
     <ngstr-header title="Installation"></ngstr-header>
+    <ngstr-lane-banner></ngstr-lane-banner>
+    <ngstr-ownership-callout></ngstr-ownership-callout>
     <p>
       Welcome to the Ngx Stripe installation guide. This guide provides detailed instructions for integrating Ngx Stripe
       into your Angular project, ensuring you're set up for a smooth implementation.
@@ -13,7 +15,8 @@
         <ngstr-highlight>&#123;angularMajor&#125;.&#123;stripeJsMajor&#125;.&#123;patch&#125;</ngstr-highlight>
         (for example, <ngstr-highlight>22.9.x</ngstr-highlight> is Angular 22 + Stripe.js dahlia /
         <ngstr-highlight>&#64;stripe/stripe-js</ngstr-highlight> v9). Pick the row in the table that matches both your
-        Angular major and the Stripe.js train you want.
+        Angular major and the Stripe.js train you want. Details:
+        <a routerLink="/docs/versioning" class="underline">Pick your lane</a>.
       </li>
       <li>
         <strong>StripeJS Peer Dependency</strong>: ngx-stripe requires
@@ -21,6 +24,12 @@
         as a peer dependency for types. Keep its major aligned with the middle digit of ngx-stripe.
       </li>
     </ul>
+    <ngstr-subheader subheader="Install (selected lane)" link="install-selected"></ngstr-subheader>
+    <ngstr-code [code]="lanes.installCommand()" data-testid="install-lane-command"></ngstr-code>
+    <p class="text-sm text-slate-500 mb-4">
+      Change the header <strong>Docs lane</strong> picker to update this command. Latest lane defaults to
+      <ngstr-highlight>npm install ngx-stripe @stripe/stripe-js</ngstr-highlight>.
+    </p>
     <ngstr-code code="$ npm install ngx-stripe @stripe/stripe-js"></ngstr-code>
     <p>
       To install a specific Angular / Stripe.js lane, use an npm dist-tag or pin a version from the table. For example,

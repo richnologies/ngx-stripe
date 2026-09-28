@@ -6,12 +6,19 @@ import {
   NgStrSectionComponent,
   NgStrSubheaderComponent
 } from '../../docs-elements';
+import { NgStrOwnershipCalloutComponent } from '../../docs-elements/ownership-callout/ownership-callout.component';
 
 @Component({
   selector: 'ngstr-styling',
   templateUrl: './styling.component.html',
   standalone: true,
-  imports: [NgStrCodeComponent, NgStrDocsHeaderComponent, NgStrSectionComponent, NgStrSubheaderComponent]
+  imports: [
+    NgStrCodeComponent,
+    NgStrDocsHeaderComponent,
+    NgStrOwnershipCalloutComponent,
+    NgStrSectionComponent,
+    NgStrSubheaderComponent
+  ]
 })
 export default class NgStrStylingComponent {
   stylingOne = `

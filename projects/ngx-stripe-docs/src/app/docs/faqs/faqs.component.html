@@ -1,10 +1,18 @@
 <ngstr-section>
   <ng-container ngStrSectionMain>
     <ngstr-header title="FAQS"></ngstr-header>
+    <ngstr-ownership-callout></ngstr-ownership-callout>
     <p>
       The aim of this section is to provide some answers to usual questions. Based on issues, problems or suggestions,
       extra questions will be added. Please, feel free to contact me directly if you have any extra questions. We will
       try to help you and if we think it could help more people, we will add it here.
+    </p>
+    <ngstr-subheader subheader="Which ngx-stripe version should I install?" link="which-version"></ngstr-subheader>
+    <p>
+      Match Angular major and Stripe.js train:
+      <ngstr-highlight>&#123;angular&#125;.&#123;stripeJs&#125;.x</ngstr-highlight>. See
+      <a routerLink="/docs/versioning" class="underline">Pick your lane</a> and the installation table. Do not pass
+      legacy <ngstr-highlight>apiVersion</ngstr-highlight> on basil+ named trains.
     </p>
     <ngstr-subheader
       subheader="Do I need to connect to a back-end server such as AWS lambda for the component to work or does the component work directly with Stripe?"

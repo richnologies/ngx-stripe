@@ -41,3 +41,9 @@ jobs:
 
       - name: Pack smoke (public API in tarball)
         run: npm run pack:smoke
+
+      - name: Build docs
+        run: npm run build:app
+
+      - name: Docs smoke (Playwright)
+        run: npx playwright install chromium --with-deps && npm run smoke:docs

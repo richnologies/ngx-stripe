@@ -1,0 +1,46 @@
+<ngstr-section>
+  <ng-container ngStrSectionMain>
+    <ngstr-header title="Content Security Policy"></ngstr-header>
+    <ngstr-lane-banner></ngstr-lane-banner>
+    <ngstr-ownership-callout></ngstr-ownership-callout>
+    <p>
+      Enterprise apps often fail Stripe Elements because the CSP blocks the Stripe.js CDN or Element iframes. ngx-stripe
+      injects <ngstr-highlight>https://js.stripe.com/&#123;named-version&#125;/stripe.js</ngstr-highlight> (for example
+      <ngstr-highlight>dahlia</ngstr-highlight> on the latest line). Allow those hosts explicitly.
+    </p>
+    <ngstr-subheader subheader="Minimal allowlist" link="allowlist"></ngstr-subheader>
+    <ngstr-panel type="warning" class="block mb-4">
+      <p class="text-sm">
+        Prefer Stripe’s official CSP guidance and adjust to your policy engine. The snippet below is a starting point,
+        not a complete production policy.
+      </p>
+    </ngstr-panel>
+    <ngstr-code [code]="cspExample"></ngstr-code>
+    <ul role="list">
+      <li>
+        <strong>script-src</strong> — Stripe.js from <ngstr-highlight>https://js.stripe.com</ngstr-highlight>
+      </li>
+      <li>
+        <strong>frame-src</strong> — Element iframes and 3DS / bank redirects (
+        <ngstr-highlight>js.stripe.com</ngstr-highlight>, <ngstr-highlight>hooks.stripe.com</ngstr-highlight>)
+      </li>
+      <li>
+        <strong>connect-src</strong> — API calls to <ngstr-highlight>https://api.stripe.com</ngstr-highlight>
+      </li>
+    </ul>
+    <p>
+      Full reference:
+      <a href="https://docs.stripe.com/security/guide#content-security-policy" target="_blank" rel="noopener noreferrer"
+        >Stripe CSP guide</a
+      >.
+    </p>
+    <ngstr-subheader subheader="Trusted Types" link="trusted-types"></ngstr-subheader>
+    <p>
+      Some enterprises enforce Trusted Types on script URLs. ngx-stripe sets
+      <ngstr-highlight>script.src</ngstr-highlight> on the loader tag. Hardening for
+      <ngstr-highlight>TrustedScriptURL</ngstr-highlight> is tracked for demand-driven work; until then, allow the Stripe
+      CDN host in your Trusted Types policy or load Stripe.js yourself from the matching named CDN before bootstrapping
+      ngx-stripe.
+    </p>
+  </ng-container>
+</ngstr-section>
