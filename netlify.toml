@@ -1,0 +1,8 @@
+# Production (main) still deploys ngx-stripe.dev from Netlify site settings.
+# Do not run Deploy Preview / branch builds — those only add failing GitHub checks.
+
+[context.deploy-preview]
+  ignore = "exit 0"
+
+[context.branch-deploy]
+  ignore = "exit 0"

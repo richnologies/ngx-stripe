@@ -19,7 +19,7 @@ test.describe('docs smoke (latest lane)', () => {
   test('installation shows lane install command and table', async ({ page }) => {
     await page.goto('/docs/installation');
     await expect(page.getByTestId('install-lane-command')).toBeVisible();
-    await expect(page.getByText('Generated from')).toBeVisible();
+    await expect(page.getByRole('heading', { name: /release matrix/i })).toBeVisible();
     await expect(page.getByRole('table')).toContainText('22');
     await expect(page.getByTestId('ownership-callout')).toBeVisible();
   });
