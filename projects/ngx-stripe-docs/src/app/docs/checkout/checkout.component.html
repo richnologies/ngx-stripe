@@ -23,6 +23,39 @@
       <ngstr-code name="checkout.component.html" [code]="checkoutHTML"></ngstr-code>
       <ngstr-code name="server.js" [code]="serverJS"></ngstr-code>
     </ngstr-code-group>
+    <ngstr-subheader
+      subheader="Checkout Sessions with Elements"
+      link="checkout-sessions-elements"
+    ></ngstr-subheader>
+    <p>
+      Stripe recommends
+      <ngstr-link url="https://docs.stripe.com/payments/quickstart-checkout-sessions">Checkout Sessions</ngstr-link>
+      with <ngstr-highlight>ui_mode: "elements"</ngstr-highlight> for many custom checkout pages. That flow uses a
+      Checkout Session client secret (<ngstr-highlight>cs_…_secret_…</ngstr-highlight>), not a PaymentIntent secret
+      (<ngstr-highlight>pi_…_secret_…</ngstr-highlight>).
+    </p>
+    <p>
+      Pass the session secret to
+      <ngstr-highlight>stripe.initCheckoutElementsSdk</ngstr-highlight> (exposed as
+      <ngstr-highlight>StripeService.initCheckoutElementsSdk</ngstr-highlight> or
+      <ngstr-highlight>injectStripe().initCheckoutElementsSdk</ngstr-highlight>), then create and mount elements with
+      <ngstr-highlight>createExpressCheckoutElement</ngstr-highlight>,
+      <ngstr-highlight>createPaymentElement</ngstr-highlight>, and related methods. Do not pass a Checkout Session
+      secret to <ngstr-highlight>ngx-stripe-elements</ngstr-highlight> /
+      <ngstr-highlight>stripe.elements({ clientSecret })</ngstr-highlight> — Stripe.js will reject it.
+    </p>
+    <p>
+      See Stripe’s
+      <ngstr-link url="https://docs.stripe.com/payments/accept-a-payment?api-integration=checkout&payment-ui=elements">
+        Accept a payment (Checkout Sessions + Elements)
+      </ngstr-link>
+      guide for the full flow.
+    </p>
+    <ngstr-code-group>
+      <ngstr-code name="checkout-elements.component.ts" [code]="checkoutElementsTS"></ngstr-code>
+      <ngstr-code name="checkout-elements.component.html" [code]="checkoutElementsHTML"></ngstr-code>
+      <ngstr-code name="server.js" [code]="serverCheckoutElementsJS"></ngstr-code>
+    </ngstr-code-group>
     <ngstr-subheader subheader="Create a Subscription" link="create-subscription"></ngstr-subheader>
     <p>
       In a very similar way as the previous example, you can use Checkout to create a subscription with different

@@ -5,6 +5,17 @@
         <ng-container ngStrSectionMain>
           <ngstr-header title="Express Checkout Element" />
           <p>
+            <strong>PaymentIntent vs Checkout Session:</strong>
+            <ngstr-highlight>ngx-stripe-express-checkout</ngstr-highlight> works with
+            <ngstr-highlight>stripe.elements()</ngstr-highlight> (PaymentIntent / SetupIntent client secrets, or
+            deferred <ngstr-highlight>mode</ngstr-highlight> + amount). For
+            <ngstr-link url="https://docs.stripe.com/payments/quickstart-checkout-sessions">Checkout Sessions</ngstr-link>
+            (<ngstr-highlight>ui_mode: "elements"</ngstr-highlight>), use
+            <ngstr-highlight>initCheckoutElementsSdk</ngstr-highlight> and
+            <ngstr-highlight>createExpressCheckoutElement()</ngstr-highlight> instead — see the
+            <ngstr-link url="https://ngx-stripe.dev/docs/checkout#checkout-sessions-elements">Checkout docs</ngstr-link>.
+          </p>
+          <p>
             The <ngstr-link url="https://stripe.com/docs/elements/express-checkout-element">Express Checkout Element</ngstr-link>
             gives you a single integration for accepting payments through one-click payment buttons.
             Supported payment methods include 
