@@ -1,0 +1,205 @@
+# Publish ngx-stripe via npm trusted publishing (OIDC).
+# One workflow on main can pack any release-line ref and stage/publish with an explicit dist-tag
+# so `latest` is never moved by accident.
+#
+# Phase 1 (now): trusted publisher allows npm stage publish only.
+#   CI stages → you approve with 2FA (CLI or npmjs.com Staged Packages).
+# Phase 2 (later): recreate trusted publisher with npm publish allowed, use mode=direct.
+#
+# npmjs.com trusted publisher (one-time, package settings → /package/ngx-stripe/access):
+#   Provider: GitHub Actions
+#   Organization or user: richnologies
+#   Repository: ngx-stripe
+#   Workflow filename: publish.yml
+#   Allowed actions: npm stage publish only (for now)
+#
+# Example (backport — does NOT move latest):
+#   gh workflow run publish.yml -f ref=v20 -f dist_tag=backport
+#
+# Example (A22 clover train):
+#   gh workflow run publish.yml -f ref=v22-clover -f dist_tag=v22-clover
+#
+# After staging, approve locally (2FA):
+#   npm stage list ngx-stripe
+#   npm stage approve <stage-id>
+
+name: Publish Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git ref to build (branch, tag, or SHA), e.g. v20, v22-clover, main'
+        required: true
+        type: string
+      dist_tag:
+        description: 'npm dist-tag for this publish (never omit; use latest only when intentional)'
+        required: true
+        type: string
+      allow_latest:
+        description: 'Must be true when dist_tag is latest (guards accidental latest moves)'
+        required: false
+        type: boolean
+        default: false
+      expected_version:
+        description: 'Optional: fail if projects/ngx-stripe package.json version differs'
+        required: false
+        type: string
+        default: ''
+      node_version:
+        description: 'Node.js major/minor for the build (trusted publishing needs >= 22.14)'
+        required: false
+        type: string
+        default: '22'
+      mode:
+        description: 'stage = npm stage publish (default); direct = npm publish (needs trusted publisher allow)'
+        required: false
+        type: choice
+        options:
+          - stage
+          - direct
+        default: stage
+      dry_run:
+        description: 'Build and pack only; skip npm stage/publish'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-publish-${{ github.event.inputs.ref }}-${{ github.event.inputs.dist_tag }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Pack and stage/publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Guard dist-tag / latest
+        env:
+          DIST_TAG: ${{ inputs.dist_tag }}
+          ALLOW_LATEST: ${{ inputs.allow_latest }}
+        run: |
+          set -euo pipefail
+          if [[ -z "${DIST_TAG}" ]]; then
+            echo "::error::dist_tag is required"
+            exit 1
+          fi
+          if [[ "${DIST_TAG}" == "latest" && "${ALLOW_LATEST}" != "true" ]]; then
+            echo "::error::Refusing to publish with dist_tag=latest unless allow_latest=true (keeps latest on the intentional newest line)."
+            exit 1
+          fi
+          if [[ "${DIST_TAG}" != "latest" && "${ALLOW_LATEST}" == "true" ]]; then
+            echo "::warning::allow_latest=true is ignored when dist_tag is not latest"
+          fi
+
+      - name: Checkout release ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node_version }}
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Show toolchain (install)
+        run: |
+          node -v
+          npm -v
+          git rev-parse --short HEAD
+          git log -1 --oneline
+
+      - name: Read package version
+        id: pkg
+        run: |
+          set -euo pipefail
+          VERSION=$(node -p "require('./projects/ngx-stripe/package.json').version")
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "Package version: ${VERSION}"
+          if [[ -n "${{ inputs.expected_version }}" && "${VERSION}" != "${{ inputs.expected_version }}" ]]; then
+            echo "::error::expected_version=${{ inputs.expected_version }} but package.json has ${VERSION}"
+            exit 1
+          fi
+
+      # Use the Node-bundled npm for install so older lockfiles are not rejected by npm 12+.
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and pack
+        run: npm run package
+
+      - name: Locate tarball
+        id: tarball
+        run: |
+          set -euo pipefail
+          VERSION="${{ steps.pkg.outputs.version }}"
+          TGZ="dist/ngx-stripe/ngx-stripe-${VERSION}.tgz"
+          if [[ ! -f "${TGZ}" ]]; then
+            echo "::error::Missing tarball ${TGZ}"
+            ls -la dist/ngx-stripe || true
+            exit 1
+          fi
+          echo "path=${TGZ}" >> "$GITHUB_OUTPUT"
+          ls -lh "${TGZ}"
+
+      - name: Ensure npm supports staged / trusted publishing
+        if: ${{ inputs.dry_run != true && inputs.dry_run != 'true' }}
+        run: |
+          npm install -g 'npm@>=11.15.0'
+          npm -v
+
+      - name: Stage on npm
+        id: stage
+        if: ${{ inputs.dry_run != true && inputs.dry_run != 'true' && inputs.mode == 'stage' }}
+        run: |
+          set -euo pipefail
+          # Capture stage id from npm output (OIDC cannot run npm stage list).
+          OUT=$(npm stage publish "${{ steps.tarball.outputs.path }}" --access public --tag "${{ inputs.dist_tag }}" 2>&1 | tee /tmp/npm-stage.out)
+          echo "$OUT"
+          STAGE_ID=$(printf '%s\n' "$OUT" | sed -nE 's/.*staged with id ([0-9a-f-]+).*/\1/p' | tail -1)
+          if [[ -z "${STAGE_ID}" ]]; then
+            echo "::error::Could not parse stage id from npm stage publish output"
+            exit 1
+          fi
+          echo "stage_id=${STAGE_ID}" >> "$GITHUB_OUTPUT"
+          echo "::notice::Staged ngx-stripe@${{ steps.pkg.outputs.version }} tag=${{ inputs.dist_tag }} stage_id=${STAGE_ID}"
+          echo "Approve with 2FA: npm stage approve ${STAGE_ID}"
+          echo "Or: https://www.npmjs.com/package/ngx-stripe → Staged Packages"
+
+      - name: Publish to npm (direct)
+        if: ${{ inputs.dry_run != true && inputs.dry_run != 'true' && inputs.mode == 'direct' }}
+        run: |
+          set -euo pipefail
+          npm publish "${{ steps.tarball.outputs.path }}" --access public --tag "${{ inputs.dist_tag }}"
+          echo "Published ngx-stripe@${{ steps.pkg.outputs.version }} with tag ${{ inputs.dist_tag }}"
+
+      - name: Dry run summary
+        if: ${{ inputs.dry_run == true || inputs.dry_run == 'true' }}
+        run: |
+          echo "Dry run only. Would ${{ inputs.mode }} ${{ steps.tarball.outputs.path }} with --tag ${{ inputs.dist_tag }}"
+
+      - name: Verify registry (direct mode)
+        if: ${{ inputs.dry_run != true && inputs.dry_run != 'true' && inputs.mode == 'direct' }}
+        run: |
+          set -euo pipefail
+          VERSION="${{ steps.pkg.outputs.version }}"
+          DIST_TAG="${{ inputs.dist_tag }}"
+          npm view "ngx-stripe@${VERSION}" version
+          npm dist-tag ls ngx-stripe | tee /tmp/ngx-stripe-dist-tags.txt
+          LATEST=$(npm dist-tag ls ngx-stripe | awk -F': ' '/^latest:/{print $2}')
+          echo "latest currently points at: ${LATEST}"
+          if [[ "${DIST_TAG}" != "latest" && "${LATEST}" == "${VERSION}" ]]; then
+            echo "::error::latest unexpectedly points at ${VERSION} after a non-latest publish"
+            exit 1
+          fi
+          TAGGED=$(npm dist-tag ls ngx-stripe | awk -F': ' -v t="${DIST_TAG}" '$1==t{print $2}')
+          if [[ "${TAGGED}" != "${VERSION}" ]]; then
+            echo "::error::dist-tag ${DIST_TAG} expected ${VERSION}, got '${TAGGED}'"
+            exit 1
+          fi

@@ -48,8 +48,8 @@ export class StripeCardExpiryComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeCardExpiryElement;
 
-  @Input() containerClass: string;
-  @Input() options: Partial<StripeCardExpiryElementOptions>;
+  @Input() containerClass!: string;
+  @Input() options!: Partial<StripeCardExpiryElementOptions>;
 
   @Output() load = new EventEmitter<StripeCardExpiryElement>();
 
@@ -59,8 +59,8 @@ export class StripeCardExpiryComponent implements OnInit, OnChanges, OnDestroy {
   @Output() ready = new EventEmitter<void>();
   @Output() escape = new EventEmitter<void>();
 
-  elements: StripeElements;
-  elementsSubscription: Subscription;
+  elements!: StripeElements;
+  elementsSubscription!: Subscription;
 
   constructor(
     public stripeElementsService: StripeElementsService,

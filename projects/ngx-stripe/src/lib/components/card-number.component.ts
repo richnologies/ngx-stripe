@@ -48,8 +48,8 @@ export class StripeCardNumberComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeCardNumberElement;
 
-  @Input() containerClass: string;
-  @Input() options: Partial<StripeCardNumberElementOptions>;
+  @Input() containerClass!: string;
+  @Input() options!: Partial<StripeCardNumberElementOptions>;
 
   @Output() load = new EventEmitter<StripeCardNumberElement>();
 
@@ -59,8 +59,8 @@ export class StripeCardNumberComponent implements OnInit, OnChanges, OnDestroy {
   @Output() ready = new EventEmitter<void>();
   @Output() escape = new EventEmitter<void>();
 
-  elements: StripeElements;
-  elementsSubscription: Subscription;
+  elements!: StripeElements;
+  elementsSubscription!: Subscription;
 
   constructor(
     public stripeElementsService: StripeElementsService,

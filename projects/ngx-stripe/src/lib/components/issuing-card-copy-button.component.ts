@@ -20,8 +20,8 @@ import { Subscription } from 'rxjs';
 import {
   StripeElementsOptions,
   StripeElements,
-  StripeIssuingCardPinDisplayElement,
-  StripeIssuingCardPinDisplayElementOptions
+  StripeIssuingCardCopyButtonElement,
+  StripeIssuingCardCopyButtonElementOptions
 } from '@stripe/stripe-js';
 
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
@@ -32,7 +32,7 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
-  selector: 'ngx-stripe-issuing-card-pin-display',
+  selector: 'ngx-stripe-issuing-card-copy-button',
   standalone: true,
   template: `
     <div class="field" #stripeElementRef>
@@ -43,18 +43,19 @@ import { StripeElementsService } from '../services/stripe-elements.service';
   `,
   imports: [CommonModule]
 })
-export class StripeIssuingCardPinDisplayComponent implements OnInit, OnChanges, OnDestroy {
+export class StripeIssuingCardCopyButtonComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })
   loadingTemplate?: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
-  element!: StripeIssuingCardPinDisplayElement;
+  element!: StripeIssuingCardCopyButtonElement;
 
   @Input() containerClass!: string;
-  @Input() options!: StripeIssuingCardPinDisplayElementOptions;
+  @Input() options!: StripeIssuingCardCopyButtonElementOptions;
   @Input() elementsOptions!: StripeElementsOptions;
   @Input() stripe!: StripeServiceInterface;
 
-  @Output() load = new EventEmitter<StripeIssuingCardPinDisplayElement>();
+  @Output() load = new EventEmitter<StripeIssuingCardCopyButtonElement>();
+  @Output() click = new EventEmitter<{ elementType: 'issuingCardCopyButton' }>();
 
   elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
@@ -110,11 +111,11 @@ export class StripeIssuingCardPinDisplayComponent implements OnInit, OnChanges, 
     }
   }
 
-  update(options: Partial<StripeIssuingCardPinDisplayElementOptions>) {
+  update(options: Partial<StripeIssuingCardCopyButtonElementOptions>) {
     this.element.update(options);
   }
 
-  private createElement(options: StripeIssuingCardPinDisplayElementOptions) {
+  private createElement(options: StripeIssuingCardCopyButtonElementOptions) {
     this.state = 'ready';
     this.cdr.detectChanges();
 
@@ -122,7 +123,8 @@ export class StripeIssuingCardPinDisplayComponent implements OnInit, OnChanges, 
       this.element.unmount();
     }
 
-    this.element = this.elements.create('issuingCardPinDisplay', options);
+    this.element = this.elements.create('issuingCardCopyButton', options);
+    this.element.on('click', (ev: { elementType: 'issuingCardCopyButton' }) => this.click.emit(ev));
     this.element.mount(this.stripeElementRef.nativeElement);
 
     this.load.emit(this.element);

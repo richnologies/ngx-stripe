@@ -304,7 +304,7 @@ export default class NgStrAddressComponent {
         layout: {
           type: 'tabs',
           defaultCollapsed: false,
-          radios: false,
+          radios: 'never',
           spacedAccordionItems: false
         }
       };

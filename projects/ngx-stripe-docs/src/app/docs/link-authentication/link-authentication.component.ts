@@ -96,7 +96,7 @@ export default class NgStrLinkAuthenticationComponent {
         layout: {
           type: 'tabs',
           defaultCollapsed: false,
-          radios: false,
+          radios: 'never',
           spacedAccordionItems: false
         }
       };
@@ -253,7 +253,7 @@ export default class NgStrLinkAuthenticationComponent {
         layout: {
           type: 'tabs',
           defaultCollapsed: false,
-          radios: false,
+          radios: 'never',
           spacedAccordionItems: false
         }
       };

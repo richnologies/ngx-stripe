@@ -4,6 +4,8 @@
 export { NgxStripeModule, provideNgxStripe } from './lib/ngx-stripe.module';
 
 export { StripeAddressComponent } from './lib/components/address.component';
+export { StripeContactDetailsComponent } from './lib/components/contact-details.component';
+export { StripeCurrencySelectorComponent } from './lib/components/currency-selector.component';
 export { StripeCardComponent } from './lib/components/card.component';
 export { StripeCardNumberComponent } from './lib/components/card-number.component';
 export { StripeCardExpiryComponent } from './lib/components/card-expiry.component';
@@ -14,11 +16,14 @@ export { StripeIssuingCardCvcDisplayComponent } from './lib/components/issuing-c
 export { StripeIssuingCardExpiryDisplayComponent } from './lib/components/issuing-card-expiry.component';
 export { StripeIssuingCardNumberDisplayComponent } from './lib/components/issuing-card-number.component';
 export { StripeIssuingCardPinDisplayComponent } from './lib/components/issuing-card-pin.component';
+export { StripeIssuingCardCopyButtonComponent } from './lib/components/issuing-card-copy-button.component';
 export { StripeLinkAuthenticationComponent } from './lib/components/link-authentication.component';
 export { StripeAuBankAccountComponent } from './lib/components/au-bank-account.component';
 export { StripePaymentElementComponent } from './lib/components/payment-element.component';
 export { StripePaymentMethodMessagingComponent } from './lib/components/payment-method-messaging.component';
 export { StripePaymentRequestButtonComponent } from './lib/components/payment-request-button.component';
+export { StripeTaxIdComponent } from './lib/components/tax-id.component';
+export { StripeTermsComponent } from './lib/components/terms.component';
 
 export { StripeCardGroupDirective } from './lib/directives/card-group.directive';
 export { StripeElementsDirective } from './lib/directives/elements.directive';

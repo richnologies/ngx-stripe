@@ -12,16 +12,15 @@ import {
   OnDestroy,
   ContentChild,
   TemplateRef,
-  Optional,
-  ChangeDetectorRef
+  Optional
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import {
   StripeElementsOptions,
   StripeElements,
-  StripeIssuingCardPinDisplayElement,
-  StripeIssuingCardPinDisplayElementOptions
+  StripeCurrencySelectorElement,
+  StripeCurrencySelectorElementOptions
 } from '@stripe/stripe-js';
 
 import { NgxStripeElementLoadingTemplateDirective } from '../directives/stripe-element-loading-template.directive';
@@ -32,7 +31,7 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 @Component({
-  selector: 'ngx-stripe-issuing-card-pin-display',
+  selector: 'ngx-stripe-currency-selector',
   standalone: true,
   template: `
     <div class="field" #stripeElementRef>
@@ -43,25 +42,30 @@ import { StripeElementsService } from '../services/stripe-elements.service';
   `,
   imports: [CommonModule]
 })
-export class StripeIssuingCardPinDisplayComponent implements OnInit, OnChanges, OnDestroy {
+export class StripeCurrencySelectorComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChild(NgxStripeElementLoadingTemplateDirective, { read: TemplateRef })
   loadingTemplate?: TemplateRef<NgxStripeElementLoadingTemplateDirective>;
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
-  element!: StripeIssuingCardPinDisplayElement;
+  element!: StripeCurrencySelectorElement;
 
   @Input() containerClass!: string;
-  @Input() options!: StripeIssuingCardPinDisplayElementOptions;
+  @Input() options!: StripeCurrencySelectorElementOptions;
   @Input() elementsOptions!: StripeElementsOptions;
   @Input() stripe!: StripeServiceInterface;
 
-  @Output() load = new EventEmitter<StripeIssuingCardPinDisplayElement>();
+  @Output() load = new EventEmitter<StripeCurrencySelectorElement>();
+
+  @Output() blur = new EventEmitter<void>();
+  @Output() focus = new EventEmitter<void>();
+  @Output() ready = new EventEmitter<void>();
+  @Output() escape = new EventEmitter<void>();
+  @Output() loaderror = new EventEmitter<void>();
 
   elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
   private elementsSubscription!: Subscription;
 
   constructor(
-    private cdr: ChangeDetectorRef,
     public stripeElementsService: StripeElementsService,
     @Optional() private elementsProvider: StripeElementsDirective
   ) {}
@@ -77,12 +81,12 @@ export class StripeIssuingCardPinDisplayComponent implements OnInit, OnChanges, 
 
     const options = this.stripeElementsService.mergeOptions(this.options, this.containerClass);
     if (changes.options || changes.containerClass || !this.element || updateElements) {
-      if (this.element && !updateElements) {
-        this.update(options);
-      } else if (this.elements && updateElements) {
+      if (this.elements && updateElements) {
         this.createElement(options);
       }
     }
+
+    this.state = 'ready';
   }
 
   async ngOnInit() {
@@ -92,12 +96,15 @@ export class StripeIssuingCardPinDisplayComponent implements OnInit, OnChanges, 
       this.elementsSubscription = this.elementsProvider.elements.subscribe((elements) => {
         this.elements = elements;
         this.createElement(options);
+        this.state = 'ready';
       });
     } else if (this.state === 'notready') {
       this.state = 'starting';
 
       this.elements = (await this.stripeElementsService.elements(this.stripe).toPromise())!;
       this.createElement(options);
+
+      this.state = 'ready';
     }
   }
 
@@ -110,19 +117,18 @@ export class StripeIssuingCardPinDisplayComponent implements OnInit, OnChanges, 
     }
   }
 
-  update(options: Partial<StripeIssuingCardPinDisplayElementOptions>) {
-    this.element.update(options);
-  }
-
-  private createElement(options: StripeIssuingCardPinDisplayElementOptions) {
-    this.state = 'ready';
-    this.cdr.detectChanges();
-
+  private createElement(options: StripeCurrencySelectorElementOptions) {
     if (this.element) {
       this.element.unmount();
     }
 
-    this.element = this.elements.create('issuingCardPinDisplay', options);
+    this.element = this.elements.create('currencySelector', options);
+    this.element.on('blur', () => this.blur.emit());
+    this.element.on('focus', () => this.focus.emit());
+    this.element.on('ready', () => this.ready.emit());
+    this.element.on('escape', () => this.escape.emit());
+    this.element.on('loaderror', () => this.loaderror.emit());
+
     this.element.mount(this.stripeElementRef.nativeElement);
 
     this.load.emit(this.element);

@@ -48,8 +48,8 @@ export class StripeCardCvcComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stripeElementRef') public stripeElementRef!: ElementRef;
   element!: StripeCardCvcElement;
 
-  @Input() containerClass: string;
-  @Input() options: Partial<StripeCardCvcElementOptions>;
+  @Input() containerClass!: string;
+  @Input() options!: Partial<StripeCardCvcElementOptions>;
 
   @Output() load = new EventEmitter<StripeCardCvcElement>();
 
@@ -59,8 +59,8 @@ export class StripeCardCvcComponent implements OnInit, OnChanges, OnDestroy {
   @Output() ready = new EventEmitter<void>();
   @Output() escape = new EventEmitter<void>();
 
-  elements: StripeElements;
-  elementsSubscription: Subscription;
+  elements!: StripeElements;
+  elementsSubscription!: Subscription;
 
   constructor(
     public stripeElementsService: StripeElementsService,

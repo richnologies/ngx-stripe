@@ -10,7 +10,12 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "types": []
+    "types": [],
+    "strict": false,
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,
