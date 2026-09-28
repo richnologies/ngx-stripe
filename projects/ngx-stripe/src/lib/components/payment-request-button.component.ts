@@ -78,6 +78,8 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
   private elementsSubscription!: Subscription;
   private viewInitialized = false;
   private paymentRequestHandler: 'token' | 'paymentmethod' | 'source' | null = null;
+  /** Bumps on each createElement so a superseded async mount does not finish. */
+  private createGeneration = 0;
 
   constructor(
     public stripeElementsService: StripeElementsService,
@@ -224,6 +226,8 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
   }
 
   private async createElement(options: Partial<StripePaymentRequestButtonElementOptions> = {}) {
+    const generation = ++this.createGeneration;
+
     this.paymentRequest = this.stripeElementsService.paymentRequest(this.stripe, this.paymentOptions);
     this.registerPaymentRequestHandlers();
     this.paymentRequest.on('cancel', () => this.cancel.emit());
@@ -239,6 +243,10 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
     });
 
     const result = await this.paymentRequest.canMakePayment();
+    if (generation !== this.createGeneration) {
+      return;
+    }
+
     if (result) {
       this.element.on('click', (ev) => this.change.emit(ev));
       this.element.on('blur', () => this.blur.emit());
