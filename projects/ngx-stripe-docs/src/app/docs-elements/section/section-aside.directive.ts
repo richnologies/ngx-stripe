@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: 'ngStrSectionAside',
+  selector: '[ngStrSectionAside]',
   standalone: true
 })
 export class NgStrSectionAsideDirective {}

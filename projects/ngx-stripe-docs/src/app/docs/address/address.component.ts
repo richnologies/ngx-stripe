@@ -1,7 +1,13 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
+import { JsonPipe } from '@angular/common';
 
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
+
+import { StripeAddressComponent, StripeElementsDirective, injectStripe } from 'ngx-stripe';
+import { StripeAddressElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
+
+import { NgStrPlutoService } from '../../core';
 
 import {
   NgStrBadgeComponent,
@@ -20,8 +26,11 @@ import {
   templateUrl: './address.component.html',
   standalone: true,
   imports: [
+    JsonPipe,
     MatDividerModule,
     MatTabsModule,
+    StripeAddressComponent,
+    StripeElementsDirective,
     NgStrBadgeComponent,
     NgStrCodeComponent,
     NgStrCodeGroupComponent,
@@ -33,7 +42,46 @@ import {
     NgStrSubheaderComponent
   ]
 })
-export default class NgStrAddressComponent {
+export default class NgStrAddressComponent implements OnInit {
+  @ViewChild('demoAddress') demoAddress: StripeAddressComponent;
+
+  private readonly plutoService = inject(NgStrPlutoService);
+  private readonly cdr = inject(ChangeDetectorRef);
+
+  stripe = injectStripe(this.plutoService.KEYS.main);
+  elementsOptions: StripeElementsOptions = {
+    locale: 'en',
+    appearance: { theme: 'flat' }
+  };
+  shippingAddressOptions: StripeAddressElementOptions = {
+    mode: 'shipping'
+  };
+  addressPreview: unknown = null;
+  readingAddress = false;
+
+  ngOnInit() {
+    this.plutoService
+      .createPaymentIntent({
+        amount: 1099,
+        currency: 'usd'
+      })
+      .subscribe((pi) => {
+        this.elementsOptions.clientSecret = pi.client_secret;
+        this.cdr.detectChanges();
+      });
+  }
+
+  async readAddress() {
+    if (!this.demoAddress) return;
+    this.readingAddress = true;
+    try {
+      this.addressPreview = await this.demoAddress.getValue();
+    } finally {
+      this.readingAddress = false;
+      this.cdr.detectChanges();
+    }
+  }
+
   createAddressHTML = `
     <div [formGroup]="addressElementForm">
       <mat-form-field class="example-full-width" appearance="fill">

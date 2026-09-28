@@ -1,166 +1,172 @@
-<div>
+<div class="min-h-screen bg-ngst-soft">
   @if (showMenu === true) {
-  <div class="fixed inset-0 flex z-40 md:hidden" role="dialog" aria-modal="true">
-    <div class="fixed inset-0 bg-gray-600 bg-opacity-75" aria-hidden="true"></div>
-    <div class="relative flex-1 flex flex-col max-w-xs w-full bg-slate-100 shadow">
-      <div class="absolute top-0 right-0 -mr-12 pt-2">
+  <div class="fixed inset-0 z-40 flex md:hidden" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-ngst-ink/50 backdrop-blur-sm" aria-hidden="true" (click)="showMenu = false"></div>
+    <div class="relative flex h-full w-full max-w-xs flex-col bg-white shadow-soft">
+      <div class="absolute right-0 top-0 -mr-12 pt-3">
         <button
           type="button"
           (click)="showMenu = false"
-          class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+          class="ml-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white"
         >
           <span class="sr-only">Close sidebar</span>
-          <svg
-            class="h-6 w-6 text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
-      <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-        <div class="flex-shrink-0 flex items-center px-4">
-          <a routerLink="/">
-            <img class="inline-block h-8 w-auto mr-3 rounded shadow-md" [src]="content.logo" [alt]="content.title" />
-            {{ content.title }}
-          </a>
+      <div class="flex h-0 flex-1 flex-col overflow-y-auto pb-4 pt-5">
+        <a routerLink="/" class="flex items-center gap-3 px-5" (click)="showMenu = false">
+          <img class="h-9 w-auto" [src]="content.logo" [alt]="content.title" />
+          <span class="text-lg font-bold tracking-tight text-ngst-ink">{{ content.title }}</span>
+        </a>
+        <div class="mt-5 space-y-1 border-b border-ngst-line px-3 pb-4 xl:hidden">
+          <a
+            routerLink="checkout"
+            (click)="showMenu = false"
+            class="flex items-center rounded-xl px-3 py-2 text-sm font-medium text-ngst-muted hover:bg-ngst-soft hover:text-ngst-ink"
+            >Checkout</a
+          >
+          <a
+            routerLink="payment-element"
+            (click)="showMenu = false"
+            class="flex items-center rounded-xl px-3 py-2 text-sm font-medium text-ngst-muted hover:bg-ngst-soft hover:text-ngst-ink"
+            >Payment Element</a
+          >
+          <a
+            routerLink="identity"
+            (click)="showMenu = false"
+            class="flex items-center rounded-xl px-3 py-2 text-sm font-medium text-ngst-muted hover:bg-ngst-soft hover:text-ngst-ink"
+            >Identity</a
+          >
+          <a
+            routerLink="elements"
+            (click)="showMenu = false"
+            class="flex items-center rounded-xl px-3 py-2 text-sm font-medium text-ngst-muted hover:bg-ngst-soft hover:text-ngst-ink"
+            >Elements</a
+          >
         </div>
-        <nav class="mt-5 px-2 space-y-1">
-          @for (item of content.menu; track item) { @if (item.type === 'group') {
-          <h3 class="block px-4 mt-6 mb-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-            <span class="text-xs">{{ item.name }}</span>
+        <nav class="mt-4 space-y-0.5 px-3">
+          @for (item of content.menu; track item) {
+          @if (item.type === 'group') {
+          <h3 class="mb-1.5 mt-5 px-3 text-[11px] !font-extrabold uppercase tracking-[0.14em] !text-[#5b6577]">
+            {{ item.name }}
           </h3>
-          } @if (item.type === 'page') {
+          }
+          @if (item.type === 'page') {
           <a
             (click)="showMenu = false"
             [routerLink]="item.path"
             routerLinkActive
             #rla="routerLinkActive"
-            class="group flex items-center px-3 py-2 text-sm font-medium border-l-4"
+            class="flex items-center rounded-xl px-3 py-2 text-sm font-medium transition-colors"
             [ngClass]="{
-              'bg-indigo-100': rla.isActive,
-              'border-indigo-600': rla.isActive,
-              'text-indigo-600': rla.isActive,
-              'border-transparent': !rla.isActive,
-              'text-gray-600': !rla.isActive,
-              'hover:bg-slate-100': !rla.isActive,
-              'hover:text-gray-900': !rla.isActive
+              'bg-ngst-accent-soft text-ngst-accent-dark': rla.isActive,
+              'text-ngst-muted hover:bg-ngst-soft hover:text-ngst-ink': !rla.isActive
             }"
           >
             {{ item.name }}
           </a>
-          } }
+          }
+          }
         </nav>
       </div>
     </div>
-    <div class="flex-shrink-0 w-14"></div>
+    <div class="w-14 flex-shrink-0"></div>
   </div>
   }
-  <div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
-    <div class="flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-slate-100 shadow">
-      <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-        <div class="flex items-center flex-shrink-0 px-4">
-          <a routerLink="/">
-            <img
-              class="inline-block h-14 w-auto mr-3 p-1 rounded-2xl shadow-md"
-              [src]="content.logo"
-              [alt]="content.title"
-            />
-            <span class="text-xl tracking-tight font-extrabold text-gray-900">{{ content.title }}</span>
-          </a>
-        </div>
-        <nav class="mt-5 flex-1 space-y-1 bg-slate-100">
-          @for (item of content.menu; track item) { @if (item.type === 'group') {
-          <h3 class="block px-4 mt-6 mb-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-            <span class="text-xs">{{ item.name }}</span>
+
+  <div class="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
+    <div class="flex min-h-0 flex-1 flex-col border-r border-ngst-line bg-white">
+      <div class="flex flex-1 flex-col overflow-y-auto pb-10 pt-6">
+        <a routerLink="/" class="group flex items-center gap-3 px-5">
+          <img
+            class="h-11 w-auto transition group-hover:opacity-90"
+            [src]="content.logo"
+            [alt]="content.title"
+          />
+          <span class="text-lg font-extrabold tracking-tight text-ngst-ink">{{ content.title }}</span>
+        </a>
+        <nav class="mt-7 flex-1 space-y-0.5 px-3">
+          @for (item of content.menu; track item) {
+          @if (item.type === 'group') {
+          <h3 class="mb-1.5 mt-6 px-3 text-[11px] !font-extrabold uppercase tracking-[0.14em] !text-[#5b6577]">
+            {{ item.name }}
           </h3>
-          } @if (item.type === 'page') {
+          }
+          @if (item.type === 'page') {
           <a
             [routerLink]="item.path"
             routerLinkActive
             #rla="routerLinkActive"
-            class="group flex items-center px-3 py-2 text-sm font-medium border-l-4"
+            class="flex items-center rounded-xl px-3 py-2 text-sm font-medium transition-colors"
             [ngClass]="{
-              'bg-indigo-100': rla.isActive,
-              'border-indigo-600': rla.isActive,
-              'text-indigo-600': rla.isActive,
-              'border-transparent': !rla.isActive,
-              'text-gray-600': !rla.isActive,
-              'hover:bg-slate-200': !rla.isActive,
-              'hover:text-gray-900': !rla.isActive
+              'bg-ngst-accent-soft text-ngst-accent-dark shadow-sm': rla.isActive,
+              'text-ngst-muted hover:bg-ngst-soft hover:text-ngst-ink': !rla.isActive
             }"
           >
             {{ item.name }}
           </a>
-          } }
+          }
+          }
         </nav>
-        <div class="text-center text-xs absolute w-full bottom-0 text-gray-400">v{{ version }}</div>
+        <div class="px-5 pt-4 text-xs text-ngst-muted">v{{ version }}</div>
       </div>
     </div>
   </div>
-  <div class="md:pl-64 flex flex-col flex-1">
-    <div class="bg-white shadow z-10">
-      <div class="max-w-5xl mx-auto">
-        <div class="relative flex justify-between h-16">
-          <div class="flex-1 flex items-center justify-between md:items-stretch md:justify-start">
-            <button
-              type="button"
-              (click)="showMenu = true"
-              class="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex md:hidden items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+
+  <div class="flex flex-1 flex-col md:pl-64 min-w-0">
+    <header class="sticky top-0 z-20 border-b border-ngst-line/80 bg-white/80 backdrop-blur-md">
+      <div class="px-3 sm:px-4 lg:px-6">
+        <div class="flex h-14 min-w-0 items-center gap-2">
+          <button
+            type="button"
+            (click)="showMenu = true"
+            class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-ngst-muted hover:bg-ngst-soft hover:text-ngst-ink focus:outline-none focus:ring-2 focus:ring-ngst-accent md:hidden"
+          >
+            <span class="sr-only">Open sidebar</span>
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+
+          <nav class="hidden min-w-0 items-center gap-0.5 xl:flex">
+            <a
+              [routerLink]="'checkout'"
+              class="whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm font-medium text-ngst-muted transition hover:bg-ngst-soft hover:text-ngst-ink"
             >
-              <span class="sr-only">Open sidebar</span>
-              <svg
-                class="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-            <div class="hidden md:ml-6 md:flex md:space-x-4 lg:space-x-8">
-              <a
-                [routerLink]="'checkout'"
-                class="border-transparent text-gray-500 hover:text-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Checkout
-              </a>
-              <a
-                [routerLink]="'payment-element'"
-                class="border-transparent text-gray-500 hover:text-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Payment Element
-              </a>
-              <a
-                [routerLink]="'identity'"
-                class="border-transparent text-gray-500 hover:text-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Identity
-              </a>
-              <a
-                [routerLink]="'element-components'"
-                class="border-transparent text-gray-500 hover:text-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Elements
-              </a>
-            </div>
-          </div>
-          <div class="absolute inset-y-0 right-0 flex items-center mr-4 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <ngstr-version-picker class="mr-2 hidden sm:block"></ngstr-version-picker>
+              Checkout
+            </a>
+            <a
+              [routerLink]="'payment-element'"
+              class="whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm font-medium text-ngst-muted transition hover:bg-ngst-soft hover:text-ngst-ink"
+            >
+              Payment Element
+            </a>
+            <a
+              [routerLink]="'identity'"
+              class="whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm font-medium text-ngst-muted transition hover:bg-ngst-soft hover:text-ngst-ink"
+            >
+              Identity
+            </a>
+            <a
+              [routerLink]="'elements'"
+              class="whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm font-medium text-ngst-muted transition hover:bg-ngst-soft hover:text-ngst-ink"
+            >
+              Elements
+            </a>
+          </nav>
+
+          <div class="ml-auto flex min-w-0 shrink items-center gap-1 sm:gap-1.5">
+            <ngstr-version-picker class="min-w-0 shrink"></ngstr-version-picker>
             <a
               href="https://stripe.com/docs/js"
               rel="noopener noreferrer"
               target="_blank"
-              class="text-gray-500 hover:text-indigo-500 ml-4"
+              class="hidden rounded-lg p-2 text-ngst-muted transition hover:bg-ngst-soft hover:text-ngst-accent md:inline-flex"
             >
               <span class="sr-only">StripeJS</span>
-              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   style="transform: scale(0.65)"
                   d="M111.328 15.602c0-4.97-2.415-8.9-7.013-8.9s-7.423 3.924-7.423 8.863c0 5.85 3.32 8.8 8.036 8.8 2.318 0 4.06-.528 5.377-1.26V19.22a10.246 10.246 0 0 1-4.764 1.075c-1.9 0-3.556-.67-3.774-2.943h9.497a39.64 39.64 0 0 0 .063-1.748zm-9.606-1.835c0-2.186 1.35-3.1 2.56-3.1s2.454.906 2.454 3.1zM89.4 6.712a5.434 5.434 0 0 0-3.801 1.509l-.254-1.208h-4.27v22.64l4.85-1.032v-5.488a5.434 5.434 0 0 0 3.444 1.265c3.472 0 6.64-2.792 6.64-8.957.003-5.66-3.206-8.73-6.614-8.73zM88.23 20.1a2.898 2.898 0 0 1-2.288-.906l-.03-7.2a2.928 2.928 0 0 1 2.315-.96c1.775 0 2.998 2 2.998 4.528.003 2.593-1.198 4.546-2.995 4.546zM79.25.57l-4.87 1.035v3.95l4.87-1.032z"
@@ -174,26 +180,26 @@
               </svg>
             </a>
             <a
-              href="https://twitter.com/richnologies"
-              class="text-gray-500 hover:text-indigo-500 ml-4"
+              href="https://x.com/richnologies"
+              class="hidden rounded-lg p-2 text-ngst-muted transition hover:bg-ngst-soft hover:text-ngst-ink md:inline-flex"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span class="sr-only">Twitter</span>
-              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <span class="sr-only">X</span>
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path
-                  d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
                 />
               </svg>
             </a>
             <a
               href="https://github.com/richnologies/ngx-stripe"
-              class="text-gray-500 hover:text-indigo-500 ml-4"
+              class="rounded-lg p-2 text-ngst-muted transition hover:bg-ngst-soft hover:text-ngst-ink"
               target="_blank"
               rel="noopener noreferrer"
             >
               <span class="sr-only">GitHub</span>
-              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   fill-rule="evenodd"
                   d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
@@ -204,7 +210,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </header>
     <router-outlet></router-outlet>
   </div>
 </div>

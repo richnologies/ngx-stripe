@@ -1,7 +1,7 @@
-<ngstr-container size="md">
+<ngstr-container size="lg">
   <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
     <mat-tab label="Overview">
-      <ngstr-section>
+      <ngstr-section [demo]="true">
         <ng-container ngStrSectionMain>
           <ngstr-header title="Card Elements"></ngstr-header>
           <p>
@@ -42,9 +42,9 @@
             <ngstr-code name="card-number.component.html" [code]="cardGroupComponentHTML"></ngstr-code>
           </ngstr-code-group>
         </ng-container>
-        <div class="sm:mx-auto sm:w-full sm:max-w-md" ngStrSectionAside>
-          <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 bg-indigo-50" [formGroup]="createTokenForm">
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        <div class="w-full" ngStrSectionAside>
+          <div class="rounded-2xl border border-ngst-line bg-white px-6 py-7 shadow-soft sm:px-8" [formGroup]="createTokenForm">
+            <h2 class="mb-5 text-center text-2xl font-extrabold tracking-tight text-ngst-ink">
               One Element Example
             </h2>
             <div class="my-1">
@@ -82,7 +82,7 @@
             <button
               type="button"
               [disabled]="creatingToken"
-              class="mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              class="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-ngst-accent px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition hover:bg-ngst-accent-dark focus:outline-none focus:ring-2 focus:ring-ngst-accent/40 disabled:opacity-60"
               (click)="createToken()"
             >
               @if (creatingToken) {
@@ -94,10 +94,10 @@
           </div>
       
           <div
-            class="mt-12 mb-12 bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 bg-indigo-50"
+            class="mt-10 rounded-2xl border border-ngst-line bg-white px-6 py-7 shadow-soft sm:px-8"
             [formGroup]="createTokenForm"
           >
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            <h2 class="mb-5 text-center text-2xl font-extrabold tracking-tight text-ngst-ink">
               Card Group Example
             </h2>
             <ngx-stripe-elements [formGroup]="cardGroupForm" [stripe]="stripe" [elementsOptions]="elementsOptions">

@@ -5,20 +5,12 @@ import { Component, Input } from '@angular/core';
   selector: 'ngstr-panel',
   template: `
     <div
-      class="py-6 px-8 rounded-md border-l-8"
+      class="rounded-2xl border px-5 py-4 sm:px-6 sm:py-5"
       [ngClass]="{
-        'bg-green-100': type === 'success',
-        'text-green-700': type === 'success',
-        'border-green-400': type === 'success',
-        'bg-blue-100': type === 'info',
-        'text-blue-700': type === 'info',
-        'border-blue-400': type === 'info',
-        'bg-yellow-100': type === 'warning',
-        'text-yellow-700': type === 'warning',
-        'border-yellow-400': type === 'warning',
-        'bg-red-100': type === 'danger',
-        'text-red-700': type === 'danger',
-        'border-red-400': type === 'danger'
+        'border-emerald-200/80 bg-emerald-50 text-emerald-900': type === 'success',
+        'border-ngst-accent/20 bg-ngst-accent-soft text-ngst-ink': type === 'info',
+        'border-amber-200/80 bg-amber-50 text-amber-950': type === 'warning',
+        'border-rose-200/80 bg-rose-50 text-rose-950': type === 'danger'
       }"
     >
       <ng-content></ng-content>

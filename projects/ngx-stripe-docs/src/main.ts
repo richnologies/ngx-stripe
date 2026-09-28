@@ -48,10 +48,10 @@ function bootstrap() {
           lineNumbersLoader: () => import('ngx-highlightjs/line-numbers'), // Optional, only if you want the line numbers
           languages: {
             typescript: () => import('highlight.js/lib/languages/typescript'),
+            javascript: () => import('highlight.js/lib/languages/javascript'),
             css: () => import('highlight.js/lib/languages/css'),
             xml: () => import('highlight.js/lib/languages/xml')
-          },
-          themePath: 'assets/highlightjs/xcode.css'
+          }
         }
       }
     ]

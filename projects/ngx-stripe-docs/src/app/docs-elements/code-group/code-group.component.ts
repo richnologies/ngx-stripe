@@ -1,51 +1,74 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ContentChildren, QueryList } from '@angular/core';
-
-import { HighlightModule } from 'ngx-highlightjs';
+import {
+  AfterContentInit,
+  Component,
+  ContentChildren,
+  QueryList,
+  inject,
+  ChangeDetectorRef
+} from '@angular/core';
 
 import { NgStrCodeComponent } from '../code/code.component';
 
 @Component({
   selector: 'ngstr-code-group',
   template: `
-    @if (buttons && buttons.length > 0) {
-    <span class="relative z-0 inline-flex shadow-sm rounded-md max-w-full overflow-x-auto">
+    @if (buttons.length > 0) {
+    <div
+      class="flex max-w-full gap-1 overflow-x-auto rounded-t-2xl border border-b-0 border-[#2c3344] bg-[#252b3a] px-2 pt-1.5"
+      role="tablist"
+    >
       @for (button of buttons; track button; let i = $index) {
       <button
         type="button"
-        class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
+        role="tab"
+        [attr.aria-selected]="i === selected"
+        class="relative whitespace-nowrap rounded-t-lg px-3.5 py-2 text-xs font-semibold transition"
         [ngClass]="{
-          'rounded-l-md': i === 0,
-          'rounded-r-md': i === buttons.length - 1,
-          'border-indigo-500': i === selected,
-          'ring-1': i === selected
+          'bg-[#1e2330] text-white': i === selected,
+          'text-[#8b95a8] hover:bg-[#2a3142] hover:text-[#d5dae3]': i !== selected
         }"
         (click)="onBlockSelected(i)"
       >
         {{ button }}
+        @if (i === selected) {
+        <span
+          class="absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-ngst-accent"
+          aria-hidden="true"
+        ></span>
+        }
       </button>
       }
-    </span>
+    </div>
     }
     <ng-content></ng-content>
   `,
   standalone: true,
   imports: [CommonModule]
 })
-export class NgStrCodeGroupComponent implements AfterViewInit {
-  @ContentChildren(NgStrCodeComponent) blocks = new QueryList<NgStrCodeComponent>();
-  buttons = [];
+export class NgStrCodeGroupComponent implements AfterContentInit {
+  @ContentChildren(NgStrCodeComponent) blocks!: QueryList<NgStrCodeComponent>;
+
+  buttons: string[] = [];
   selected = 0;
 
-  ngAfterViewInit() {
-    this.buttons = this.blocks.map((block) => block.name);
-    this.onBlockSelected(0);
+  private readonly cdr = inject(ChangeDetectorRef);
+
+  ngAfterContentInit() {
+    this.syncButtons();
+    this.blocks.changes.subscribe(() => this.syncButtons());
   }
 
-  onBlockSelected(i) {
+  onBlockSelected(i: number) {
     this.selected = i;
     this.blocks.forEach((block, index) => {
       block.hidden = index !== i;
     });
+  }
+
+  private syncButtons() {
+    this.buttons = this.blocks.map((block, i) => block.name || `Snippet ${i + 1}`);
+    this.onBlockSelected(Math.min(this.selected, Math.max(this.buttons.length - 1, 0)));
+    this.cdr.detectChanges();
   }
 }

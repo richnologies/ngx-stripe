@@ -1,7 +1,7 @@
-<ngstr-container size="md">
+<ngstr-container size="lg">
   <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
     <mat-tab label="Overview">
-      <ngstr-section>
+      <ngstr-section [demo]="true">
         <ng-container ngStrSectionMain>
           <ngstr-header title="Address Element" />
           <p class="pt-4">
@@ -61,6 +61,36 @@
             <ngstr-code name="address-link.component.ts" [code]="addressWithLinkTS" />
           </ngstr-code-group>
         </ng-container>
+        <div class="w-full" ngStrSectionAside>
+          <div class="rounded-2xl border border-ngst-line bg-white px-6 py-7 shadow-soft sm:px-8">
+            <h2 class="mb-5 text-center text-2xl font-extrabold tracking-tight text-ngst-ink">Address Element</h2>
+            @if (elementsOptions.clientSecret) {
+              <ngx-stripe-elements [stripe]="stripe" [elementsOptions]="elementsOptions">
+                <ngx-stripe-address #demoAddress [options]="shippingAddressOptions" />
+              </ngx-stripe-elements>
+            } @else {
+              <p class="text-center text-sm text-ngst-muted">Loading Stripe Elements…</p>
+            }
+            <button
+              type="button"
+              class="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-ngst-accent px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition hover:bg-ngst-accent-dark focus:outline-none focus:ring-2 focus:ring-ngst-accent/40 disabled:opacity-60"
+              [disabled]="readingAddress || !elementsOptions.clientSecret"
+              (click)="readAddress()"
+            >
+              @if (readingAddress) {
+                <span>READING…</span>
+              } @else {
+                <span>GET VALUE</span>
+              }
+            </button>
+            @if (addressPreview) {
+              <pre
+                class="mt-4 max-h-48 overflow-auto rounded-xl bg-slate-900 p-3 text-xs text-slate-100"
+                >{{ addressPreview | json }}</pre
+              >
+            }
+          </div>
+        </div>
       </ngstr-section>
     </mat-tab>
     <mat-tab label="API">

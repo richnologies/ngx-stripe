@@ -1,13 +1,12 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
+  booleanAttribute,
   Component,
   ContentChildren,
-  ElementRef,
   Input,
   OnDestroy,
   QueryList,
-  ViewChild,
   inject
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -25,22 +24,18 @@ import { NgStrContainerComponent } from '../container/container.component';
   selector: 'ngstr-section',
   templateUrl: './section.component.html',
   standalone: true,
-  imports: [
-    CommonModule,
-    NgStrCopyLinkComponent,
-    NgStrContentsComponent,
-    NgStrSectionNavigatorComponent
-  ]
+  imports: [CommonModule, NgStrCopyLinkComponent, NgStrContentsComponent, NgStrSectionNavigatorComponent]
 })
 export class NgStrSectionComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('sectionContainer') section: ElementRef;
   @ContentChildren(NgStrSubheaderComponent) subheaders = new QueryList<NgStrSubheaderComponent>();
 
   private readonly document = inject(DOCUMENT);
   private readonly router = inject(Router);
   private readonly container = inject(NgStrContainerComponent, { optional: true });
 
-  @Input() aside = true;
+  /** Show the right-rail demo column (wide layout). */
+  @Input({ transform: booleanAttribute }) demo = false;
+  @Input({ transform: booleanAttribute }) aside = true;
 
   contents: Array<{ name: string; href: string; id: string }> = [];
   activeSection: { name: string; href: string; id: string };
@@ -55,18 +50,20 @@ export class NgStrSectionComponent implements AfterViewInit, OnDestroy {
     return Boolean(this.container);
   }
 
+  get hasDemo() {
+    return this.demo && this.aside;
+  }
+
   ngAfterViewInit() {
     if (this.window) {
-      merge(fromEvent(this.section.nativeElement, 'scroll').pipe(throttleTime(250)), fromEvent(this.window, 'resize'))
+      merge(fromEvent(this.window, 'scroll').pipe(throttleTime(250)), fromEvent(this.window, 'resize'))
         .pipe(takeUntil(this.onDestroy))
         .subscribe(() => {
-          const sectionClientReact = this.section.nativeElement.getBoundingClientRect();
-          const trigger =
-            sectionClientReact && sectionClientReact.height ? Math.floor(sectionClientReact.height / 6) : 150;
+          const trigger = Math.max(140, Math.floor(this.window.innerHeight / 6));
 
           this.activeSection = this.contents
             .filter((content) => {
-              const el = document.getElementById(content.id);
+              const el = this.document.getElementById(content.id);
               if (!el) return false;
 
               const { y } = el.getBoundingClientRect();
@@ -96,5 +93,6 @@ export class NgStrSectionComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.onDestroy.next();
+    this.onDestroy.complete();
   }
 }

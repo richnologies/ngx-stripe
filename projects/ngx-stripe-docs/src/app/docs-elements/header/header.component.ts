@@ -3,22 +3,24 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'ngstr-header',
   template: `
-    <div class="text-lg max-w-prose mx-auto">
+    <div class="mb-2">
       <h1>
         @if (supertitle) {
-        <span class="block text-base text-indigo-600 font-semibold tracking-wide uppercase">
+        <span class="mb-2 block text-sm font-semibold tracking-wide text-ngst-accent">
           {{ supertitle }}
         </span>
-        } @if (title) {
-        <span class="mt-2 block text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+        }
+        @if (title) {
+        <span class="block text-2xl font-extrabold tracking-tight text-ngst-ink sm:text-3xl lg:text-4xl">
           {{ title }}
         </span>
         }
       </h1>
       @if (subtitle && subtitle.length > 0) {
-      <p class="text-gray-400">{{ subtitle }}</p>
-      } @if (showDivider) {
-      <hr class="my-4" />
+      <p class="mt-2 text-base text-ngst-muted">{{ subtitle }}</p>
+      }
+      @if (showDivider) {
+      <div class="my-6 h-px w-full bg-gradient-to-r from-ngst-line via-ngst-accent/30 to-transparent"></div>
       }
     </div>
   `,

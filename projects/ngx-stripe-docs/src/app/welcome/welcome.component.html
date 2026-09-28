@@ -1,383 +1,403 @@
-<div class="relative bg-gray-50 overflow-hidden">
-  <div class="hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full" aria-hidden="true">
-    <div class="relative h-full max-w-7xl mx-auto">
-      <svg
-        class="absolute right-full transform translate-y-1/4 translate-x-1/4 lg:translate-x-1/2"
-        width="404"
-        height="784"
-        fill="none"
-        viewBox="0 0 404 784"
-      >
-        <defs>
-          <pattern
-            id="f210dbf6-a58d-4871-961e-36d5016a0f49"
-            x="0"
-            y="0"
-            width="20"
-            height="20"
-            patternUnits="userSpaceOnUse"
-          >
-            <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
-          </pattern>
-        </defs>
-        <rect width="404" height="784" fill="url(#f210dbf6-a58d-4871-961e-36d5016a0f49)" />
-      </svg>
-      <svg
-        class="absolute left-full transform -translate-y-3/4 -translate-x-1/4 md:-translate-y-1/2 lg:-translate-x-1/2"
-        width="404"
-        height="784"
-        fill="none"
-        viewBox="0 0 404 784"
-      >
-        <defs>
-          <pattern
-            id="5d0dd344-b041-4d26-bec4-8d33ea57ec9b"
-            x="0"
-            y="0"
-            width="20"
-            height="20"
-            patternUnits="userSpaceOnUse"
-          >
-            <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
-          </pattern>
-        </defs>
-        <rect width="404" height="784" fill="url(#5d0dd344-b041-4d26-bec4-8d33ea57ec9b)" />
-      </svg>
+<div class="ngst-welcome-shell">
+  <!-- Slim top nav -->
+  <header class="sticky top-0 z-50 border-b border-ngst-line/50 bg-[#e9edf6]/75 backdrop-blur-md">
+    <div class="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <a routerLink="/" class="flex shrink-0 items-center gap-2.5">
+        <img src="/assets/img/ngx-stripe-logo.png" alt="" class="h-7 w-7 -translate-y-px object-contain" />
+        <span class="text-sm font-extrabold tracking-tight text-ngst-ink">Ngx Stripe</span>
+      </a>
+      <nav class="flex items-center gap-1 sm:gap-2">
+        <a
+          routerLink="/docs/installation"
+          class="hidden rounded-lg px-3 py-1.5 text-sm font-medium text-ngst-muted transition hover:bg-white/60 hover:text-ngst-ink sm:inline-flex"
+        >
+          Docs
+        </a>
+        <a
+          href="https://github.com/richnologies/ngx-stripe"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-lg px-3 py-1.5 text-sm font-medium text-ngst-muted transition hover:bg-white/60 hover:text-ngst-ink"
+        >
+          GitHub
+        </a>
+        <a
+          routerLink="/docs/installation"
+          class="ml-1 inline-flex items-center rounded-full bg-ngst-accent px-4 py-1.5 text-sm font-semibold text-white shadow-lift transition hover:bg-ngst-accent-dark"
+        >
+          Get started
+        </a>
+      </nav>
     </div>
-  </div>
-  <div class="relative pt-6 pb-16 sm:pb-24">
-    <main class="mt-16 mx-auto max-w-7xl px-4">
-      <div class="text-center">
-        <img src="/assets/img/ngx-stripe-logo.png" class="m-auto mb-12 p-1 rounded-2xl w-40 shadow-md" />
-        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-          <span class="block xl:inline">Ngx Stripe</span>
+  </header>
+
+  <main>
+    <!-- Brand-first hero -->
+    <section class="relative overflow-hidden">
+      <div class="relative mx-auto max-w-5xl px-4 pb-12 pt-12 text-center sm:px-6 sm:pb-14 sm:pt-16 lg:px-8">
+        <div
+          class="ngst-hero-badge mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-ngst-line/80 bg-white/50 px-3 py-1 text-xs font-medium text-ngst-muted backdrop-blur"
+        >
+          <span class="h-1.5 w-1.5 rounded-full bg-ngst-accent"></span>
+          Angular 22 · Stripe.js dahlia · ngx-stripe 22.9
+        </div>
+        <img
+          src="/assets/img/ngx-stripe-logo.png"
+          alt="Ngx Stripe"
+          class="ngst-hero-mark mx-auto mb-6 h-24 w-24 object-contain sm:mb-7 sm:h-28 sm:w-28"
+        />
+        <h1 class="ngst-hero-title text-5xl font-extrabold tracking-tight text-ngst-ink sm:text-6xl md:text-7xl">
+          Ngx Stripe
         </h1>
-        <p class="mt-3 max-w-md !m-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-          Collect payments with Stripe the Angular way
+        <p class="ngst-hero-sub mt-4 w-full text-center text-base text-ngst-muted sm:text-lg">
+          Stripe.js for Angular — Observables, standalone Elements, and typed APIs.
         </p>
-        <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
-          <div class="rounded-md shadow">
-            <a
-              routerLink="/docs/installation"
-              class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
-            >
-              Get started
-            </a>
+        <div class="ngst-hero-cta mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            routerLink="/docs/installation"
+            class="inline-flex min-w-[9.5rem] items-center justify-center rounded-xl bg-ngst-accent px-7 py-3 text-sm font-semibold text-white shadow-lift transition hover:bg-ngst-accent-dark"
+          >
+            Get started
+          </a>
+          <a
+            routerLink="/docs/payment-element"
+            class="inline-flex min-w-[9.5rem] items-center justify-center rounded-xl border border-ngst-line/80 bg-white/50 px-7 py-3 text-sm font-semibold text-ngst-ink backdrop-blur transition hover:border-ngst-accent/40 hover:bg-white/80"
+          >
+            Payment Element
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why ngx-stripe -->
+    <section class="mx-auto max-w-6xl px-4 pb-4 sm:px-6 lg:px-8">
+      <div class="grid gap-8 border-y border-ngst-line/70 py-10 sm:grid-cols-3 sm:gap-10 sm:py-12">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wider text-ngst-accent">Reactive</p>
+          <h2 class="mt-2 text-base font-extrabold tracking-tight text-ngst-ink">Observable StripeService</h2>
+          <p class="mt-2 text-sm leading-relaxed text-ngst-muted">
+            Every Stripe.js call returns an Observable — confirm payments, create methods, and retrieve intents the Angular way.
+          </p>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wider text-ngst-accent">Elements</p>
+          <h2 class="mt-2 text-base font-extrabold tracking-tight text-ngst-ink">Standalone components</h2>
+          <p class="mt-2 text-sm leading-relaxed text-ngst-muted">
+            Drop in Payment Element, Express Checkout, Address, Link, Cards, Issuing, and more — no NgModule required.
+          </p>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wider text-ngst-accent">Aligned</p>
+          <h2 class="mt-2 text-base font-extrabold tracking-tight text-ngst-ink">Version lanes</h2>
+          <p class="mt-2 text-sm leading-relaxed text-ngst-muted">
+            Track Angular majors and Stripe.js named versions together. Types come from
+            <span class="font-mono text-[0.8rem]">@stripe/stripe-js</span> — not duplicated.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Elements surface -->
+    <section class="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+      <div class="max-w-2xl">
+        <h2 class="text-2xl font-extrabold tracking-tight text-ngst-ink sm:text-3xl">Everything you need to collect payments</h2>
+        <p class="mt-3 text-sm text-ngst-muted sm:text-base">
+          A thin Angular wrapper around Stripe.js — the same Elements and Checkout flows Stripe ships, wired for templates and RxJS.
+        </p>
+      </div>
+      <div class="mt-8 overflow-hidden rounded-3xl border border-ngst-line/80 bg-white/45 backdrop-blur">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3">
+          <a
+            routerLink="/docs/payment-element"
+            class="ngst-feature border-b border-ngst-line/70 p-5 transition hover:bg-white/70 sm:border-r lg:border-b"
+          >
+            <h3 class="text-sm font-extrabold text-ngst-ink">Payment Element</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ngst-muted">
+              One embeddable UI for cards and local payment methods worldwide.
+            </p>
+          </a>
+          <a
+            routerLink="/docs/express-checkout-element"
+            class="ngst-feature border-b border-ngst-line/70 p-5 transition hover:bg-white/70 lg:border-r"
+          >
+            <h3 class="text-sm font-extrabold text-ngst-ink">Express Checkout</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ngst-muted">
+              Apple Pay, Google Pay, Link, and more — one component, wallet-ready.
+            </p>
+          </a>
+          <a
+            routerLink="/docs/address-element"
+            class="ngst-feature border-b border-ngst-line/70 p-5 transition hover:bg-white/70 sm:border-r lg:border-r-0"
+          >
+            <h3 class="text-sm font-extrabold text-ngst-ink">Address Element</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ngst-muted">
+              Collect and autocomplete billing or shipping addresses.
+            </p>
+          </a>
+          <a
+            routerLink="/docs/link-authentication-element"
+            class="ngst-feature border-b border-ngst-line/70 p-5 transition hover:bg-white/70 lg:border-r"
+          >
+            <h3 class="text-sm font-extrabold text-ngst-ink">Link Authentication</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ngst-muted">
+              Let returning customers check out faster with Link.
+            </p>
+          </a>
+          <a
+            routerLink="/docs/card-elements"
+            class="ngst-feature border-b border-ngst-line/70 p-5 transition hover:bg-white/70 sm:border-r"
+          >
+            <h3 class="text-sm font-extrabold text-ngst-ink">Card Elements</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ngst-muted">
+              Full card or split number / expiry / CVC — classic Elements still supported.
+            </p>
+          </a>
+          <a
+            routerLink="/docs/payment-request-button"
+            class="ngst-feature border-b border-ngst-line/70 p-5 transition hover:bg-white/70"
+          >
+            <h3 class="text-sm font-extrabold text-ngst-ink">Payment Request Button</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ngst-muted">
+              Wallet buttons for Payment Request API flows.
+            </p>
+          </a>
+          <a
+            routerLink="/docs/checkout"
+            class="ngst-feature border-b border-ngst-line/70 p-5 transition hover:bg-white/70 sm:border-r lg:border-b-0"
+          >
+            <h3 class="text-sm font-extrabold text-ngst-ink">Checkout</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ngst-muted">
+              Hosted and embedded Checkout — low-code paths from Angular.
+            </p>
+          </a>
+          <a
+            routerLink="/docs/identity"
+            class="ngst-feature border-b border-ngst-line/70 p-5 transition hover:bg-white/70 lg:border-r lg:border-b-0"
+          >
+            <h3 class="text-sm font-extrabold text-ngst-ink">Identity</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ngst-muted">
+              Verify users with Stripe Identity from your templates.
+            </p>
+          </a>
+          <a routerLink="/docs/issuing-elements" class="ngst-feature p-5 transition hover:bg-white/70 sm:border-t-0">
+            <h3 class="text-sm font-extrabold text-ngst-ink">Issuing Elements</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ngst-muted">
+              Secure card number, CVC, PIN, and copy-button displays for Issuing.
+            </p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick start code -->
+    <section class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+      <div class="grid items-stretch gap-6 lg:grid-cols-2">
+        <div class="flex flex-col justify-center">
+          <h2 class="text-2xl font-extrabold tracking-tight text-ngst-ink sm:text-3xl">Setup in minutes</h2>
+          <p class="mt-3 text-sm text-ngst-muted sm:text-base">
+            Use <span class="font-mono text-[0.8rem] text-ngst-ink">provideNgxStripe()</span> in your app config, then
+            drop Elements into standalone components. Prefer the module path? <span class="font-mono text-[0.8rem] text-ngst-ink">NgxStripeModule.forRoot()</span> still works.
+          </p>
+          <a
+            routerLink="/docs/setup-application"
+            class="mt-5 inline-flex w-fit items-center text-sm font-semibold text-ngst-accent-dark transition hover:text-ngst-accent"
+          >
+            Setup guide →
+          </a>
+        </div>
+        <div class="ngst-panel-deep overflow-hidden rounded-2xl shadow-lift">
+          <div class="flex items-center gap-2 border-b border-white/10 px-4 py-2.5">
+            <span class="h-2.5 w-2.5 rounded-full bg-white/20"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-white/20"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-white/20"></span>
+            <span class="ml-2 font-mono text-[0.7rem] text-white/40">app.config.ts</span>
           </div>
-          <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-            <a
-              href="https://stackblitz.com/edit/ngx-stripe-live"
-              rel="noopener noreferrer"
-              target="_blank"
-              class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
-            >
-              Live demo
-            </a>
-          </div>
+          <pre class="overflow-x-auto p-5 font-mono text-[0.78rem] leading-relaxed text-[#c8cfe0] sm:text-[0.82rem]"><code><span class="text-[#a5a0ff]">import</span> &#123; provideNgxStripe &#125; <span class="text-[#a5a0ff]">from</span> <span class="text-[#86d99a]">'ngx-stripe'</span>;
+
+<span class="text-[#a5a0ff]">export const</span> appConfig = &#123;
+  providers: [
+    provideNgxStripe(<span class="text-[#86d99a]">'pk_test_…'</span>),
+  ]
+&#125;;</code></pre>
         </div>
       </div>
-    </main>
-  </div>
-</div>
-<div class="bg-indigo-700">
-  <div class="max-w-4xl mx-auto px-4 py-8 sm:px-6 sm:pt-8 sm:pb-24 lg:max-w-7xl lg:px-8">
-    <div class="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
-      <div>
-        <div>
-          <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
-            <svg
-              class="h-6 w-6 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-              />
-            </svg>
-          </span>
-        </div>
-        <div class="mt-6">
-          <h3 class="text-lg font-medium text-white">Checkout</h3>
-          <p class="mt-2 text-base text-indigo-200">
-            Use a low-code integration to build a customized payment page, hosted on Stripe.
-          </p>
-        </div>
+    </section>
+
+    <!-- Support -->
+    <section class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+      <div class="max-w-xl">
+        <h2 class="text-xl font-extrabold tracking-tight text-ngst-ink sm:text-2xl">Support</h2>
+        <p class="mt-2 text-sm text-ngst-muted sm:text-base">
+          Stuck on setup, looking for advice, or have an idea? Reach out — we’re glad to help.
+        </p>
       </div>
-      <div>
-        <div>
-          <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
-            <svg
-              class="h-6 w-6 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-              />
-            </svg>
-          </span>
-        </div>
-        <div class="mt-6">
-          <h3 class="text-lg font-medium text-white">Payment Element</h3>
-          <p class="mt-2 text-base text-indigo-200">
-            Accept payment methods from around the globe with a single secure, embeddable UI component.
-          </p>
-        </div>
-      </div>
-      <div>
-        <div>
-          <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
-            <svg
-              class="h-6 w-6 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-              />
-            </svg>
-          </span>
-        </div>
-        <div class="mt-6">
-          <h3 class="text-lg font-medium text-white">Identity</h3>
-          <p class="mt-2 text-base text-indigo-200">
-            Stripe Identity lets you programmatically confirm the identity of global users
-          </p>
-        </div>
-      </div>
-      <div>
-        <div>
-          <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
-            <svg
-              class="h-6 w-6 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-              />
-            </svg>
-          </span>
-        </div>
-        <div class="mt-6">
-          <h3 class="text-lg font-medium text-white">Payment Links</h3>
-          <p class="mt-2 text-base text-indigo-200">
-            Use Payment Links to sell online without a website. Create a full payment page in just a few clicks
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="bg-white">
-  <div class="relative pb-32 bg-gray-800">
-    <div class="absolute inset-0">
-      <img
-        class="w-full h-full object-cover"
-        src="https://images.unsplash.com/photo-1525130413817-d45c1d127c42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=60&&sat=-100"
-        alt=""
-      />
-      <div class="absolute inset-0 bg-gray-800 mix-blend-multiply" aria-hidden="true"></div>
-    </div>
-    <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">Support</h1>
-      <p class="mt-6 max-w-3xl text-xl text-gray-300">
-        We are here to help. Whether you have a problem with the library, have any suggestions for improvement or simply
-        want advice on how to approach payments in your project, do not hesitate to contact us.
-      </p>
-    </div>
-  </div>
-  <section class="-mt-32 max-w-7xl mx-auto relative z-10 pb-32 px-4 sm:px-6 lg:px-8" aria-labelledby="contact-heading">
-    <h2 class="sr-only" id="contact-heading">Contact us</h2>
-    <div class="grid grid-cols-1 gap-y-20 lg:grid-cols-3 lg:gap-y-0 lg:gap-x-8">
-      <div class="flex flex-col bg-white rounded-2xl shadow-xl">
-        <div class="flex-1 relative pt-16 px-6 pb-8 md:px-8">
-          <div class="absolute top-0 p-5 inline-block bg-indigo-600 rounded-xl shadow-lg transform -translate-y-1/2">
-            <svg class="h-6 w-6" fill="white" viewBox="0 0 24 24" aria-hidden="true">
+
+      <div class="mt-7 grid gap-3 sm:grid-cols-3 sm:gap-4">
+        <a
+          href="https://github.com/richnologies/ngx-stripe/issues/new"
+          class="ngst-support-channel group flex flex-col rounded-2xl px-5 py-5 transition sm:px-6 sm:py-6"
+        >
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-black/[0.05] text-ngst-ink">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path
                 fill-rule="evenodd"
                 d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
                 clip-rule="evenodd"
               />
             </svg>
-          </div>
-          <h3 class="text-xl font-medium text-gray-900">GitHub</h3>
-          <p class="mt-4 text-base text-gray-500">
-            This is the ideal channel to manage bugs or improvements so that the community can help and contribute.
+          </span>
+          <div class="mt-4 text-sm font-extrabold text-ngst-ink">GitHub</div>
+          <p class="mt-1.5 flex-1 text-sm leading-relaxed text-ngst-muted">
+            Best place for bugs and improvements so the community can join in.
           </p>
-        </div>
-        <div class="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
-          <a href="#" class="text-base font-medium text-indigo-700 hover:text-indigo-600"
-            >Create Issue<span aria-hidden="true"> &rarr;</span></a
+          <span
+            class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-ngst-accent transition group-hover:gap-1.5 group-hover:text-ngst-accent-dark"
           >
-        </div>
-      </div>
+            Create issue
+            <span aria-hidden="true">→</span>
+          </span>
+        </a>
 
-      <div class="flex flex-col bg-white rounded-2xl shadow-xl">
-        <div class="flex-1 relative pt-16 px-6 pb-8 md:px-8">
-          <div class="absolute top-0 p-5 inline-block bg-indigo-600 rounded-xl shadow-lg transform -translate-y-1/2">
-            <svg class="h-6 w-6" fill="white" viewBox="0 0 24 24" aria-hidden="true">
+        <a
+          href="https://x.com/messages/compose?recipient_id=jcoegom"
+          class="ngst-support-channel group flex flex-col rounded-2xl px-5 py-5 transition sm:px-6 sm:py-6"
+        >
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-black/[0.05] text-ngst-ink">
+            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path
-                d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
               />
             </svg>
-          </div>
-          <h3 class="text-xl font-medium text-gray-900">Twitter</h3>
-          <p class="mt-4 text-base text-gray-500">If you prefer, you can reach us in Twitter by sending use a DM</p>
-        </div>
-        <div class="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
-          <a
-            href="https://twitter.com/messages/compose?recipient_id=jcoegom"
-            class="text-base font-medium text-indigo-700 hover:text-indigo-600"
-            >Send DM<span aria-hidden="true"> &rarr;</span></a
+          </span>
+          <div class="mt-4 text-sm font-extrabold text-ngst-ink">X</div>
+          <p class="mt-1.5 flex-1 text-sm leading-relaxed text-ngst-muted">Prefer a quick chat? Send a DM anytime.</p>
+          <span
+            class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-ngst-accent transition group-hover:gap-1.5 group-hover:text-ngst-accent-dark"
           >
-        </div>
-      </div>
+            Send DM
+            <span aria-hidden="true">→</span>
+          </span>
+        </a>
 
-      <div class="flex flex-col bg-white rounded-2xl shadow-xl">
-        <div class="flex-1 relative pt-16 px-6 pb-8 md:px-8">
-          <div class="absolute top-0 p-5 inline-block bg-indigo-600 rounded-xl shadow-lg transform -translate-y-1/2">
-            <svg
-              class="h-6 w-6 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
+        <a
+          href="mailto:support@ngx-stripe.dev"
+          class="ngst-support-channel group flex flex-col rounded-2xl px-5 py-5 transition sm:px-6 sm:py-6"
+        >
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-black/[0.05] text-ngst-ink">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
               />
             </svg>
-          </div>
-          <h3 class="text-xl font-medium text-gray-900">Mail</h3>
-          <p class="mt-4 text-base text-gray-500">
-            If you are looking for a more private communication, send us a message directly.
-          </p>
-        </div>
-        <div class="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
-          <a href="mailto:support@ngx-stripe.dev" class="text-base font-medium text-indigo-700 hover:text-indigo-600"
-            >Send Message<span aria-hidden="true"> &rarr;</span></a
+          </span>
+          <div class="mt-4 text-sm font-extrabold text-ngst-ink">Mail</div>
+          <p class="mt-1.5 flex-1 text-sm leading-relaxed text-ngst-muted">For something more private, email us directly.</p>
+          <span
+            class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-ngst-accent transition group-hover:gap-1.5 group-hover:text-ngst-accent-dark"
           >
+            Send message
+            <span aria-hidden="true">→</span>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Sponsors -->
+    <section class="mx-auto max-w-6xl px-4 pb-10 pt-2 sm:px-6 sm:pb-12 lg:px-8">
+      <div
+        class="ngst-sponsors flex flex-col items-start justify-between gap-8 rounded-3xl px-5 py-7 sm:flex-row sm:items-center sm:px-7 sm:py-8"
+      >
+        <h2 class="max-w-md text-base font-extrabold tracking-tight text-ngst-ink sm:text-lg">
+          Thanks to our sponsors — their support funds QA, testing, and keeping pace with Angular and Stripe.js.
+        </h2>
+        <div class="flex flex-wrap items-center gap-8 sm:gap-10">
+          <img
+            class="h-9 object-contain sm:h-11"
+            src="https://github.com/richnologies/ngx-stripe/raw/main/docs/logos/stripe_blurple.png"
+            alt="Stripe"
+          />
+          <img
+            class="h-9 object-contain sm:h-11"
+            src="https://github.com/richnologies/ngx-stripe/raw/main/docs/logos/psi-logo.png"
+            alt="PSI Mobile"
+          />
         </div>
       </div>
-    </div>
-  </section>
-</div>
-<div class="bg-indigo-400 bg-opacity-25">
-  <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-    <div class="lg:grid lg:grid-cols-2 lg:gap-8">
-      <h2 class="max-w-md !mx-auto text-3xl font-extrabold text-indigo-900 text-center lg:max-w-xl lg:text-left">
-        We're thankful to our sponsors for their contribution, which has allowed us to greatly improve the project,
-        increase QA and testing, and push forward
-      </h2>
-      <div class="flow-root self-center mt-8 lg:mt-0">
-        <div class="-mt-4 -ml-8 flex flex-wrap lg:-ml-4">
-          <div class="my-8 md:mt-12 lg:mt-4 ml-8 flex flex-grow flex-shrink-0 justify-center lg:flex-grow-0 lg:ml-4">
-            <img
-              class="h-28"
-              src="https://github.com/richnologies/ngx-stripe/raw/main/docs/logos/stripe_blurple.png"
-              alt="Stripe"
-            />
-          </div>
-          <div class="my-8 md:mt-12 lg:mt-4 ml-8 flex flex-grow flex-shrink-0 justify-center lg:flex-grow-0 lg:ml-4">
-            <img
-              class="h-28"
-              src="https://github.com/richnologies/ngx-stripe/raw/main/docs/logos/psi-logo.png"
-              alt="PSI Mobile"
-            />
-          </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-transparent pb-2" aria-labelledby="footer-heading">
+    <h2 id="footer-heading" class="sr-only">Footer</h2>
+    <div
+      class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-5 border-t border-ngst-line/80 px-4 py-8 sm:grid-cols-3 sm:gap-4 sm:px-6 lg:px-8"
+    >
+      <div class="flex items-center gap-3 sm:justify-start">
+        <img class="h-8 w-8 -translate-y-0.5 object-contain" src="/assets/img/ngx-stripe-logo.png" alt="" />
+        <div>
+          <div class="text-sm font-extrabold text-ngst-ink">Ngx Stripe</div>
+          <p class="text-xs text-ngst-muted">Stripe.js for Angular</p>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-<footer class="bg-white" aria-labelledby="footer-heading">
-  <h2 id="footer-heading" class="sr-only">Footer</h2>
-  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-      <div class="space-y-8 xl:col-span-1">
-        <img class="h-14 shadow-md p-1 rounded-md" src="/assets/img/ngx-stripe-logo.png" alt="Ngx Stripe Logo" />
-        <p class="text-gray-500 text-base">Collect payments with Stripe the Angular way</p>
-        <div class="flex space-x-6">
-          <a href="https://stripe.com/docs/js" class="text-gray-400 hover:text-gray-500" target="_blank">
-            <span class="sr-only">Twitter</span>
-            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                style="transform: scale(0.65)"
-                d="M111.328 15.602c0-4.97-2.415-8.9-7.013-8.9s-7.423 3.924-7.423 8.863c0 5.85 3.32 8.8 8.036 8.8 2.318 0 4.06-.528 5.377-1.26V19.22a10.246 10.246 0 0 1-4.764 1.075c-1.9 0-3.556-.67-3.774-2.943h9.497a39.64 39.64 0 0 0 .063-1.748zm-9.606-1.835c0-2.186 1.35-3.1 2.56-3.1s2.454.906 2.454 3.1zM89.4 6.712a5.434 5.434 0 0 0-3.801 1.509l-.254-1.208h-4.27v22.64l4.85-1.032v-5.488a5.434 5.434 0 0 0 3.444 1.265c3.472 0 6.64-2.792 6.64-8.957.003-5.66-3.206-8.73-6.614-8.73zM88.23 20.1a2.898 2.898 0 0 1-2.288-.906l-.03-7.2a2.928 2.928 0 0 1 2.315-.96c1.775 0 2.998 2 2.998 4.528.003 2.593-1.198 4.546-2.995 4.546zM79.25.57l-4.87 1.035v3.95l4.87-1.032z"
-                fill-rule="evenodd"
-              />
-              <path style="transform: scale(0.65)" d="M74.38 7.035h4.87V24.04h-4.87z" />
-              <path
-                style="transform: scale(0.65)"
-                d="M69.164 8.47l-.302-1.434h-4.196V24.04h4.848V12.5c1.147-1.5 3.082-1.208 3.698-1.017V7.038c-.646-.232-2.913-.658-4.048 1.43zm-9.73-5.646L54.698 3.83l-.02 15.562c0 2.87 2.158 4.993 5.038 4.993 1.585 0 2.756-.302 3.405-.643v-3.95c-.622.248-3.683 1.138-3.683-1.72v-6.9h3.683V7.035h-3.683zM46.3 11.97c0-.758.63-1.05 1.648-1.05a10.868 10.868 0 0 1 4.83 1.25V7.6a12.815 12.815 0 0 0-4.83-.888c-3.924 0-6.557 2.056-6.557 5.488 0 5.37 7.375 4.498 7.375 6.813 0 .906-.78 1.186-1.863 1.186-1.606 0-3.68-.664-5.307-1.55v4.63a13.461 13.461 0 0 0 5.307 1.117c4.033 0 6.813-1.992 6.813-5.485 0-5.796-7.417-4.76-7.417-6.943zM13.88 9.515c0-1.37 1.14-1.9 2.982-1.9A19.661 19.661 0 0 1 25.6 9.876v-8.27A23.184 23.184 0 0 0 16.862.001C9.762.001 5 3.72 5 9.93c0 9.716 13.342 8.138 13.342 12.326 0 1.638-1.4 2.146-3.37 2.146-2.905 0-6.657-1.202-9.6-2.802v8.378A24.353 24.353 0 0 0 14.973 32C22.27 32 27.3 28.395 27.3 22.077c0-10.486-13.42-8.613-13.42-12.56z"
-              />
-            </svg>
-          </a>
-          <a
-            href="https://twitter.com/richnologies"
-            class="text-gray-400 hover:text-gray-500"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span class="sr-only">Twitter</span>
-            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"
-              />
-            </svg>
-          </a>
-          <a
-            href="https://github.com/richnologies/ngx-stripe"
-            class="text-gray-400 hover:text-gray-500"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span class="sr-only">GitHub</span>
-            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                fill-rule="evenodd"
-                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="mt-12 border-t border-gray-200 pt-8">
-      <p class="text-base text-gray-400 xl:text-center">
-        Made with love by
-        <a href="https://ricardosanchez.dev/" rel="noopener noreferrer" target="_blank">Ricardo Sánchez</a>
+
+      <p class="flex items-center justify-center gap-1.5 whitespace-nowrap text-xs text-ngst-muted">
+        <span>Made with</span>
+        <svg class="h-3.5 w-3.5 shrink-0 text-red-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path
+            d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"
+          />
+        </svg>
+        <span>by</span>
+        <a href="https://ricardosanchez.dev/" class="hover:text-ngst-accent" rel="noopener noreferrer" target="_blank"
+          >Ricardo Sánchez</a
+        >
       </p>
+
+      <div class="flex items-center justify-center gap-4 sm:justify-end">
+        <a
+          href="https://stripe.com/docs/js"
+          class="inline-flex shrink-0 items-center justify-center text-ngst-muted transition hover:text-ngst-accent"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="sr-only">StripeJS</span>
+          <svg class="h-5 w-5" fill="currentColor" viewBox="-4 -4 32 32" aria-hidden="true">
+            <path
+              d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.434 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.876 4.515 3.206 3.718 4.902 3.718 7.045c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"
+            />
+          </svg>
+        </a>
+        <a
+          href="https://x.com/richnologies"
+          class="inline-flex shrink-0 items-center justify-center text-ngst-muted transition hover:text-ngst-accent"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="sr-only">X</span>
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+            />
+          </svg>
+        </a>
+        <a
+          href="https://github.com/richnologies/ngx-stripe"
+          class="inline-flex shrink-0 items-center justify-center text-ngst-muted transition hover:text-ngst-accent"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="sr-only">GitHub</span>
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill-rule="evenodd"
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </a>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
+</div>

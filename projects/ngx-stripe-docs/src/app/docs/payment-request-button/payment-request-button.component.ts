@@ -10,6 +10,7 @@ import { NgStrPlutoService } from '../../core';
 import {
   NgStrCodeComponent,
   NgStrCodeGroupComponent,
+  NgStrContainerComponent,
   NgStrDocsHeaderComponent,
   NgStrLinkComponent,
   NgStrPanelComponent,
@@ -25,6 +26,7 @@ import {
     StripePaymentRequestButtonComponent,
     NgStrCodeComponent,
     NgStrCodeGroupComponent,
+    NgStrContainerComponent,
     NgStrDocsHeaderComponent,
     NgStrLinkComponent,
     NgStrPanelComponent,
