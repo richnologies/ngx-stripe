@@ -1,10 +1,12 @@
-import { Inject, Injectable, PLATFORM_ID, NgZone } from '@angular/core';
+import { Inject, Injectable, Optional, PLATFORM_ID, NgZone } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { WindowRef } from './window-ref.service';
 import { DocumentRef } from './document-ref.service';
+import { resolveStripeScriptSrc, STRIPE_JS_SCRIPT_URL } from './trusted-script-url.util';
 
 export interface LazyStripeAPILoaderStatus {
   loaded: boolean;
@@ -22,9 +24,10 @@ export class LazyStripeAPILoader {
 
   constructor(
     @Inject(PLATFORM_ID) public platformId: any,
-    public window: WindowRef, 
+    public window: WindowRef,
     public document: DocumentRef,
-    private zone: NgZone
+    private zone: NgZone,
+    @Optional() private domSanitizer: DomSanitizer | null
   ) {}
 
   public asStream(): Observable<LazyStripeAPILoaderStatus> {
@@ -61,7 +64,7 @@ export class LazyStripeAPILoader {
     script.type = 'text/javascript';
     script.async = true;
     script.defer = true;
-    script.src = 'https://js.stripe.com/dahlia/stripe.js';
+    script.src = resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL, this.domSanitizer);
 
     script.onload = () => {
       this.zone.run(() => {

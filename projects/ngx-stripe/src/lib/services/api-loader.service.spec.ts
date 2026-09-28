@@ -1,4 +1,5 @@
-import { PLATFORM_ID } from '@angular/core';
+import { PLATFORM_ID, SecurityContext } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { TestBed } from '@angular/core/testing';
 
 import { LazyStripeAPILoader } from './api-loader.service';
@@ -37,6 +38,40 @@ describe('LazyStripeAPILoader', () => {
     expect(createElement).toHaveBeenCalledWith('script');
     expect(script.src).toBe('https://js.stripe.com/dahlia/stripe.js');
     expect(appendChild).toHaveBeenCalledWith(script);
+  });
+
+  it('assigns script.src via DomSanitizer when provided', () => {
+    const script = { type: '', async: false, defer: false, src: '', onload: null, onerror: null };
+    const createElement = vi.fn().mockReturnValue(script);
+    const sanitizer = {
+      bypassSecurityTrustResourceUrl: vi.fn((url: string) => ({ bypass: url })),
+      sanitize: vi.fn((_ctx: SecurityContext, value: { bypass: string }) => value.bypass)
+    };
+
+    TestBed.configureTestingModule({
+      providers: [
+        LazyStripeAPILoader,
+        { provide: PLATFORM_ID, useValue: 'browser' },
+        { provide: WindowRef, useValue: { getNativeWindow: () => ({}) } },
+        {
+          provide: DocumentRef,
+          useValue: {
+            getNativeDocument: () => ({
+              createElement,
+              body: { appendChild: vi.fn() }
+            })
+          }
+        },
+        { provide: DomSanitizer, useValue: sanitizer }
+      ]
+    });
+
+    TestBed.inject(LazyStripeAPILoader).load();
+
+    expect(sanitizer.bypassSecurityTrustResourceUrl).toHaveBeenCalledWith(
+      'https://js.stripe.com/dahlia/stripe.js'
+    );
+    expect(script.src).toBe('https://js.stripe.com/dahlia/stripe.js');
   });
 
   it('skips injection on the server platform', () => {
