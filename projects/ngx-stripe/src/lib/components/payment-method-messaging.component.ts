@@ -30,6 +30,8 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 
 import { StripeElementsService } from '../services/stripe-elements.service';
 
+import { destroyStripeElement } from '../util/destroy-stripe-element.util';
+
 @Component({
   selector: 'ngx-stripe-payment-method-messaging',
   standalone: true,
@@ -106,12 +108,10 @@ export class StripePaymentMethodMessagingComponent implements OnInit, OnChanges,
   }
 
   ngOnDestroy() {
-    if (this.element) {
-      this.element.destroy();
-    }
     if (this.elementsSubscription) {
       this.elementsSubscription.unsubscribe();
     }
+    destroyStripeElement(this.element);
   }
 
   update(options: Partial<StripePaymentMethodMessagingElementOptions>) {

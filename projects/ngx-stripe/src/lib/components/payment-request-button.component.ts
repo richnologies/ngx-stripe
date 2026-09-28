@@ -38,6 +38,8 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 
 import { StripeElementsService } from '../services/stripe-elements.service';
 
+import { destroyStripeElement } from '../util/destroy-stripe-element.util';
+
 @Component({
   selector: 'ngx-stripe-payment-request-button',
   standalone: true,
@@ -135,12 +137,10 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
   }
 
   ngOnDestroy() {
-    if (this.element) {
-      this.element.destroy();
-    }
     if (this.elementsSubscription) {
       this.elementsSubscription.unsubscribe();
     }
+    destroyStripeElement(this.element);
   }
 
   canMakePayment(): Observable<CanMakePaymentResult | null> {

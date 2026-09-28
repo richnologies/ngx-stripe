@@ -31,6 +31,8 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 
 import { StripeElementsService } from '../services/stripe-elements.service';
 
+import { destroyStripeElement } from '../util/destroy-stripe-element.util';
+
 @Component({
   selector: 'ngx-stripe-link-authentication',
   standalone: true,
@@ -112,12 +114,10 @@ export class StripeLinkAuthenticationComponent implements OnInit, OnChanges, OnD
   }
 
   ngOnDestroy() {
-    if (this.element) {
-      this.element.destroy();
-    }
     if (this.elementsSubscription) {
       this.elementsSubscription.unsubscribe();
     }
+    destroyStripeElement(this.element);
   }
 
   /**
