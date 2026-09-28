@@ -24,7 +24,7 @@ test.describe('docs smoke (latest lane)', () => {
     await expect(page.getByTestId('ownership-callout')).toBeVisible();
   });
 
-  test('versioning and csp pages load', async ({ page }) => {
+  test('versioning, csp, and support pages load', async ({ page }) => {
     await page.goto('/docs/versioning');
     await expect(page.getByRole('heading', { name: /pick your lane/i })).toBeVisible();
     await expect(page.getByTestId('lane-install-command')).toBeVisible();
@@ -32,6 +32,9 @@ test.describe('docs smoke (latest lane)', () => {
     await page.goto('/docs/csp');
     await expect(page.getByRole('heading', { name: /content security policy/i })).toBeVisible();
     await expect(page.getByText(/js\.stripe\.com/i).first()).toBeVisible();
+
+    await page.goto('/docs/support');
+    await expect(page.getByRole('heading', { name: /support policy/i })).toBeVisible();
   });
 
   test('core nav pages return content', async ({ page }) => {

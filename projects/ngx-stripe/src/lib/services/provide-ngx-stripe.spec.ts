@@ -1,3 +1,4 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { provideNgxStripe } from '../ngx-stripe.module';
@@ -29,5 +30,15 @@ describe('provideNgxStripe', () => {
     expect(other).toBeTruthy();
     expect(typeof other.confirmPayment).toBe('function');
     expect(typeof other.elements).toBe('function');
+  });
+
+  it('registers under zoneless change detection', () => {
+    TestBed.configureTestingModule({
+      providers: [provideZonelessChangeDetection(), provideNgxStripe('pk_test_zoneless')]
+    });
+
+    expect(TestBed.inject(STRIPE_PUBLISHABLE_KEY)).toBe('pk_test_zoneless');
+    expect(TestBed.inject(LazyStripeAPILoader)).toBeTruthy();
+    expect(TestBed.inject(StripeService)).toBeTruthy();
   });
 });

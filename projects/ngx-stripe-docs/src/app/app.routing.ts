@@ -112,6 +112,11 @@ export const ROUTES: Routes = [
         data: { title: 'Content Security Policy' }
       },
       {
+        path: 'support',
+        loadComponent: () => import('./docs/support/support.component'),
+        data: { title: 'Support policy' }
+      },
+      {
         path: 'examples',
         loadComponent: () => import('./docs/examples/examples.component'),
         data: { title: 'Examples' }

@@ -1,0 +1,48 @@
+<ngstr-section>
+  <ng-container ngStrSectionMain>
+    <ngstr-header title="Support policy"></ngstr-header>
+    <ngstr-lane-banner></ngstr-lane-banner>
+    <ngstr-ownership-callout></ngstr-ownership-callout>
+    <p>
+      ngx-stripe follows Angular majors and Stripe.js named trains. Version =
+      <ngstr-highlight>&#123;angularMajor&#125;.&#123;stripeJsMajor&#125;.&#123;patch&#125;</ngstr-highlight>. Use
+      <a routerLink="/docs/versioning" class="underline">Pick your lane</a> and the installation table (generated from
+      <ngstr-highlight>lanes.json</ngstr-highlight>).
+    </p>
+    <ngstr-subheader subheader="Support levels" link="levels"></ngstr-subheader>
+    <ul role="list">
+      <li>
+        <strong>active</strong> — current Angular majors with published Stripe trains. Bugs and Stripe sync land here
+        first.
+      </li>
+      <li>
+        <strong>maintenance</strong> — previous Angular majors. Fixes and train sync as practical; prefer upgrading when
+        you can.
+      </li>
+      <li>
+        <strong>lts / best-effort / legacy</strong> — older lines via dist-tags when published. No guarantee of every
+        Stripe train.
+      </li>
+    </ul>
+    <ngstr-subheader subheader="Where to get help" link="help"></ngstr-subheader>
+    <ngstr-panel type="info" class="block mb-4">
+      <p class="text-sm">
+        Appearance, payment methods, and Element options are almost always
+        <strong>Stripe.js</strong> concerns — start with
+        <a href="https://docs.stripe.com/js" target="_blank" rel="noopener noreferrer">Stripe docs</a>. File an
+        ngx-stripe issue for Angular DI, Observables, loader CDN, or Element host lifecycle.
+      </p>
+    </ngstr-panel>
+    <ul role="list">
+      <li>
+        GitHub issues:
+        <a href="https://github.com/richnologies/ngx-stripe/issues" target="_blank" rel="noopener noreferrer"
+          >richnologies/ngx-stripe</a
+        >
+      </li>
+      <li>Include Angular major, ngx-stripe version, and <ngstr-highlight>@stripe/stripe-js</ngstr-highlight> major</li>
+      <li>Security: see <ngstr-highlight>SECURITY.md</ngstr-highlight> in the repo (private email, not a public issue)</li>
+      <li>CSP: <a routerLink="/docs/csp" class="underline">Content Security Policy</a></li>
+    </ul>
+  </ng-container>
+</ngstr-section>

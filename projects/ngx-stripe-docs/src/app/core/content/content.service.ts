@@ -106,6 +106,7 @@ export class NgStrContentService {
     { group: 'Support', type: 'group', name: 'Support' },
     { group: 'Support', type: 'page', name: 'FAQS', path: 'faqs' },
     { group: 'Support', type: 'page', name: 'CSP', path: 'csp' },
+    { group: 'Support', type: 'page', name: 'Support policy', path: 'support' },
     { group: 'Support', type: 'page', name: 'Examples', path: 'examples' },
     { group: 'Support', type: 'page', name: 'Migration', path: 'migration' }
   ];

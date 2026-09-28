@@ -80,6 +80,8 @@ Payment Element and the full API: [docs](https://ngx-stripe.dev/docs).
 
 MIT-licensed. Sponsors keep the project aligned with Angular and Stripe.js majors: [GitHub Sponsors](https://github.com/sponsors/richnologies).
 
+See [CONTRIBUTING.md](./CONTRIBUTING.md), [SECURITY.md](./SECURITY.md), and the [support policy](https://ngx-stripe.dev/docs/support) on the docs site.
+
 ### Principal Sponsors
 
 <p float="left">
