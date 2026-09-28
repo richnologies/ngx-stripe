@@ -19,12 +19,12 @@ const WRAPPER_METHODS = [
 describe('StripeServiceInterface parity', () => {
   it('keeps StripeInstance and StripeService method names aligned', () => {
     for (const name of WRAPPER_METHODS) {
-      expect(typeof (StripeInstance.prototype as any)[name])
-        .withContext(`StripeInstance missing ${name}`)
-        .toBe('function');
-      expect(typeof (StripeService.prototype as any)[name])
-        .withContext(`StripeService missing ${name}`)
-        .toBe('function');
+      expect(typeof (StripeInstance.prototype as any)[name], `StripeInstance missing ${name}`).toBe(
+        'function'
+      );
+      expect(typeof (StripeService.prototype as any)[name], `StripeService missing ${name}`).toBe(
+        'function'
+      );
     }
   });
 });

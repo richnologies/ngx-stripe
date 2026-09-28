@@ -1,5 +1,4 @@
-# PR CI for ngx-stripe (library quality Phase 0).
-# Contract tests land in a later phase; for now we keep tables generated and the lib build green.
+# PR CI for ngx-stripe — lanes, Vitest contract tests, pack smoke, docs smoke.
 
 name: CI
 

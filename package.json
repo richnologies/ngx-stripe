@@ -29,8 +29,8 @@
     "check:public-api": "node scripts/check-public-api.mjs",
     "check:pack-allowlist": "node scripts/check-pack-allowlist.mjs",
     "smoke:docs": "playwright test",
-    "test": "ng test ngx-stripe --watch=false --browsers=ChromeHeadless",
-    "test:ci": "ng test ngx-stripe --watch=false --browsers=ChromeHeadless --no-progress",
+    "test": "ng test ngx-stripe --watch=false",
+    "test:ci": "ng test ngx-stripe --watch=false",
     "lint": "ng lint",
     "format": "prettier --config ./.prettierrc --list-different --write \"projects/**/src/**/*{.ts,.html,.css,.scss}\"",
     "e2e": "ng e2e"
@@ -62,16 +62,11 @@
     "@playwright/test": "^1.63.0",
     "@tailwindcss/typography": "^0.5.7",
     "@types/express": "^4.17.0",
-    "@types/jasmine": "~5.1.0",
     "copyfiles": "^2.4.1",
-    "jasmine-core": "~5.7.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
+    "jsdom": "^26.1.0",
     "ng-packagr": "22.1.1",
     "tailwindcss": "^3.1.8",
-    "typescript": "~6.0.3"
+    "typescript": "~6.0.3",
+    "vitest": "^4.0.8"
   }
 }

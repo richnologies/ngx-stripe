@@ -7,7 +7,7 @@ Thanks for helping. This library is a thin Angular wrapper around Stripe.js — 
 ```bash
 npm ci
 npm start          # docs at http://localhost:4242
-npm test           # contract unit tests (ChromeHeadless)
+npm test           # Vitest contract unit tests (jsdom)
 npm run build:lib
 npm run pack:smoke
 npm run smoke:docs # Playwright against the docs app

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
+import type { Mock } from 'vitest';
 
 import { StripePaymentRequestButtonComponent } from './payment-request-button.component';
 import { StripeElementsService } from '../services/stripe-elements.service';
@@ -29,32 +30,32 @@ class HostComponent {
 }
 
 describe('StripePaymentRequestButtonComponent', () => {
-  let mount: jasmine.Spy;
-  let canMakePayment: jasmine.Spy;
+  let mount: Mock;
+  let canMakePayment: Mock;
 
   async function createFixture(canPay: { applePay?: boolean } | null, order: string[] = []) {
-    mount = jasmine.createSpy('mount').and.callFake(() => order.push('mount'));
-    canMakePayment = jasmine.createSpy('canMakePayment').and.callFake(() => {
+    mount = vi.fn().mockImplementation(() => order.push('mount'));
+    canMakePayment = vi.fn().mockImplementation(() => {
       order.push('canMakePayment');
       return Promise.resolve(canPay);
     });
 
     const paymentRequest = {
       canMakePayment,
-      on: jasmine.createSpy('on'),
-      update: jasmine.createSpy('update'),
-      show: jasmine.createSpy('show'),
-      abort: jasmine.createSpy('abort'),
+      on: vi.fn(),
+      update: vi.fn(),
+      show: vi.fn(),
+      abort: vi.fn(),
       isShowing: () => false
     };
     const element = {
       mount,
-      unmount: jasmine.createSpy('unmount'),
-      destroy: jasmine.createSpy('destroy'),
-      on: jasmine.createSpy('on'),
-      update: jasmine.createSpy('update')
+      unmount: vi.fn(),
+      destroy: vi.fn(),
+      on: vi.fn(),
+      update: vi.fn()
     };
-    const create = jasmine.createSpy('create').and.returnValue(element);
+    const create = vi.fn().mockReturnValue(element);
 
     TestBed.configureTestingModule({
       imports: [HostComponent],
@@ -62,9 +63,9 @@ describe('StripePaymentRequestButtonComponent', () => {
         {
           provide: StripeElementsService,
           useValue: {
-            elements: jasmine.createSpy('elements').and.returnValue(of({ create })),
-            paymentRequest: jasmine.createSpy('paymentRequest').and.returnValue(paymentRequest),
-            mergeOptions: jasmine.createSpy('mergeOptions').and.callFake((options) => options || {})
+            elements: vi.fn().mockReturnValue(of({ create })),
+            paymentRequest: vi.fn().mockReturnValue(paymentRequest),
+            mergeOptions: vi.fn().mockImplementation((options) => options || {})
           }
         }
       ]
@@ -86,13 +87,13 @@ describe('StripePaymentRequestButtonComponent', () => {
     expect(mount).toHaveBeenCalled();
     expect(order.indexOf('canMakePayment')).toBeGreaterThanOrEqual(0);
     expect(order.indexOf('mount')).toBeGreaterThan(order.indexOf('canMakePayment'));
-    expect(fixture.componentInstance.loaded).toBeTrue();
+    expect(fixture.componentInstance.loaded).toBe(true);
   });
 
   it('emits notavailable when canMakePayment is falsy', async () => {
     const fixture = await createFixture(null);
 
-    expect(fixture.componentInstance.missing).toBeTrue();
+    expect(fixture.componentInstance.missing).toBe(true);
     expect(mount).not.toHaveBeenCalled();
   });
 });

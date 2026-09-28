@@ -1,6 +1,5 @@
 import { PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { BehaviorSubject } from 'rxjs';
 
 import { LazyStripeAPILoader } from './api-loader.service';
 import { DocumentRef } from './document-ref.service';
@@ -8,10 +7,9 @@ import { WindowRef } from './window-ref.service';
 
 describe('LazyStripeAPILoader', () => {
   it('uses the dahlia CDN URL for this release line', () => {
-    const appendChild = jasmine.createSpy('appendChild');
-    const createElement = jasmine.createSpy('createElement').and.callFake(() => {
-      return { type: '', async: false, defer: false, src: '', onload: null, onerror: null };
-    });
+    const script = { type: '', async: false, defer: false, src: '', onload: null, onerror: null };
+    const appendChild = vi.fn();
+    const createElement = vi.fn().mockReturnValue(script);
 
     TestBed.configureTestingModule({
       providers: [
@@ -37,13 +35,12 @@ describe('LazyStripeAPILoader', () => {
     loader.load();
 
     expect(createElement).toHaveBeenCalledWith('script');
-    const script = createElement.calls.mostRecent().returnValue;
     expect(script.src).toBe('https://js.stripe.com/dahlia/stripe.js');
     expect(appendChild).toHaveBeenCalledWith(script);
   });
 
   it('skips injection on the server platform', () => {
-    const createElement = jasmine.createSpy('createElement');
+    const createElement = vi.fn();
     TestBed.configureTestingModule({
       providers: [
         LazyStripeAPILoader,
@@ -73,8 +70,8 @@ describe('LazyStripeAPILoader', () => {
           provide: DocumentRef,
           useValue: {
             getNativeDocument: () => ({
-              createElement: jasmine.createSpy('createElement'),
-              body: { appendChild: jasmine.createSpy('appendChild') }
+              createElement: vi.fn(),
+              body: { appendChild: vi.fn() }
             })
           }
         }
@@ -83,6 +80,6 @@ describe('LazyStripeAPILoader', () => {
 
     const loader = TestBed.inject(LazyStripeAPILoader);
     loader.load();
-    expect(loader.isReady()).toBeTrue();
+    expect(loader.isReady()).toBe(true);
   });
 });

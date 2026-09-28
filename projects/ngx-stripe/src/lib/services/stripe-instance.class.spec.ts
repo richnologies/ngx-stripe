@@ -18,8 +18,8 @@ describe('StripeInstance', () => {
       status: status$
     } as unknown as LazyStripeAPILoader;
 
-    const stripeCtor = jasmine.createSpy('Stripe').and.returnValue({
-      registerAppInfo: jasmine.createSpy('registerAppInfo'),
+    const stripeCtor = vi.fn().mockReturnValue({
+      registerAppInfo: vi.fn(),
       ...stripeMock
     });
 
@@ -32,9 +32,9 @@ describe('StripeInstance', () => {
   }
 
   it('calls stripe.confirmPayment once and completes', async () => {
-    const confirmPayment = jasmine
-      .createSpy('confirmPayment')
-      .and.returnValue(Promise.resolve({ paymentIntent: { status: 'succeeded' } }));
+    const confirmPayment = vi
+      .fn()
+      .mockResolvedValue({ paymentIntent: { status: 'succeeded' } });
     const { instance } = createInstance({ confirmPayment });
 
     const result = await firstValueFrom(
