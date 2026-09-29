@@ -3,6 +3,7 @@
 ## Unreleased
 
 - [#254](https://github.com/richnologies/ngx-stripe/issues/254) Fix Payment Request Button emitting `token` instead of `paymentMethod` when only `(paymentMethod)` is bound (registers exactly one of `paymentmethod` / `source` / `token`)
+- [#255](https://github.com/richnologies/ngx-stripe/issues/255) Fix lazy Stripe.js CDN injection when Trusted Types (`require-trusted-types-for 'script'`) rejects a plain `script.src` (retries with a real `TrustedScriptURL` via policy `ngx-stripe`; common path unchanged)
 
 ## 22.9.0 - 2026-09-08
 

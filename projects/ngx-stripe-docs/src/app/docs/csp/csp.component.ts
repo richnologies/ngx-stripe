@@ -32,5 +32,8 @@ export default class NgStrCspComponent {
   script-src 'self' https://js.stripe.com;
   frame-src https://js.stripe.com https://hooks.stripe.com;
   connect-src 'self' https://api.stripe.com;
-  img-src 'self' https://*.stripe.com;`;
+  img-src 'self' https://*.stripe.com;
+  # Only if you enforce Trusted Types on scripts:
+  # trusted-types angular angular#unsafe-bypass ngx-stripe;
+  # require-trusted-types-for 'script';`;
 }

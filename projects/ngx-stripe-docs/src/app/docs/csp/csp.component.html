@@ -36,11 +36,11 @@
     </p>
     <ngstr-subheader subheader="Trusted Types" link="trusted-types"></ngstr-subheader>
     <p>
-      Some enterprises enforce Trusted Types on script URLs. ngx-stripe sets
-      <ngstr-highlight>script.src</ngstr-highlight> on the loader tag. Hardening for
-      <ngstr-highlight>TrustedScriptURL</ngstr-highlight> is tracked for demand-driven work; until then, allow the Stripe
-      CDN host in your Trusted Types policy or load Stripe.js yourself from the matching named CDN before bootstrapping
-      ngx-stripe.
+      Most apps load Stripe.js with a plain CDN string. If your CSP enforces Trusted Types
+      (<ngstr-highlight>require-trusted-types-for 'script'</ngstr-highlight>), ngx-stripe retries with policy
+      <ngstr-highlight>ngx-stripe</ngstr-highlight> (Stripe CDN only). Allow that name in CSP, e.g.
+      <ngstr-highlight>trusted-types angular angular#unsafe-bypass ngx-stripe</ngstr-highlight>, or load Stripe.js
+      yourself before bootstrapping ngx-stripe.
     </p>
   </ng-container>
 </ngstr-section>
