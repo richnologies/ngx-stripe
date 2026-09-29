@@ -43,15 +43,31 @@
     </p>
     <ol role="list">
       <li>
-        <strong>Use injectStripe Method</strong>: You can inject a Stripe instance into your components when you don't
-        have the keys at the initialization phase. This method allows for dynamic Stripe instance creation based on your
-        application's logic. For an implementation example, refer to the injectStripe usage example.
+        <strong>Use <ngstr-highlight>injectStripe</ngstr-highlight></strong>: Creates a dedicated Stripe instance when
+        you already have the publishable key in the component. You must bind that instance to ngx-stripe directives and
+        components with <ngstr-highlight>[stripe]="stripe"</ngstr-highlight>. Calling
+        <ngstr-highlight>injectStripe</ngstr-highlight> in a constructor without assigning the result, or omitting
+        <ngstr-highlight>[stripe]</ngstr-highlight>, leaves the default
+        <ngstr-highlight>StripeService</ngstr-highlight> uninitialized and Elements will fail to load. See also the
+        <ngstr-link url="/docs/elements">Elements documentation</ngstr-link> and the
+        <ngstr-link url="/docs/examples/payment-element-inject">Payment Element with injectStripe example</ngstr-link>.
       </li>
+      <ngstr-code [code]="dynamicKeyInjectStripe"></ngstr-code>
       <li>
-        <strong>Stripe Service Factory</strong>: allows you to create a Stripe instance on demand with specific
-        parameters. This method is particularly useful when working with multiple Stripe accounts or configurations.
-        Learn more about it in the
-        <ngstr-link url="/docs/service-factory">StripeServiceFactory documentation</ngstr-link>.
+        <strong>Use <ngstr-highlight>StripeService.changeKey</ngstr-highlight></strong>: When the key arrives
+        asynchronously after app bootstrap, register ngx-stripe without a key
+        (<ngstr-highlight>provideNgxStripe()</ngstr-highlight> or
+        <ngstr-highlight>NgxStripeModule.forRoot()</ngstr-highlight>), call
+        <ngstr-highlight>changeKey</ngstr-highlight> on the injected
+        <ngstr-highlight>StripeService</ngstr-highlight>, then render Stripe UI (for example with
+        <ngstr-highlight>&#64;if</ngstr-highlight> or <ngstr-highlight>*ngIf</ngstr-highlight>) so Elements are not
+        created before the key is set.
+      </li>
+      <ngstr-code [code]="dynamicKeyChangeKey"></ngstr-code>
+      <li>
+        <strong>Stripe Service Factory</strong>: Use <ngstr-highlight>StripeFactoryService</ngstr-highlight> to create
+        additional Stripe instances on demand (multiple accounts or configurations). See the
+        <ngstr-link url="/docs/elements">Elements documentation</ngstr-link> (Classic Angular tab).
       </li>
     </ol>
   </ng-container>
