@@ -187,6 +187,82 @@ export default class NgStrCheckoutComponent {
       }
     });
   `;
+  checkoutElementsTS = `
+    import { Component, inject, OnInit } from '@angular/core';
+    import { HttpClient } from '@angular/common/http';
+    import { firstValueFrom } from 'rxjs';
+    import { switchMap } from 'rxjs/operators';
+
+    import { injectStripe } from 'ngx-stripe';
+    import { StripeCheckoutElementsSdk } from '@stripe/stripe-js';
+
+    @Component({
+      selector: 'ngstr-checkout-elements',
+      templateUrl: './checkout-elements.component.html'
+    })
+    export class CheckoutElementsComponent implements OnInit {
+      private readonly http = inject(HttpClient);
+      stripe = injectStripe('pk_test_***');
+      checkout!: StripeCheckoutElementsSdk;
+
+      async ngOnInit() {
+        this.checkout = await firstValueFrom(
+          this.http.post<{ clientSecret: string }>('/create-checkout-session', {}).pipe(
+            switchMap(({ clientSecret }) =>
+              this.stripe.initCheckoutElementsSdk({ clientSecret })
+            )
+          )
+        );
+
+        const expressCheckout = this.checkout.createExpressCheckoutElement();
+        expressCheckout.mount('#express-checkout-element');
+      }
+
+      async pay() {
+        const { type, actions, error } = await this.checkout.loadActions();
+        if (type === 'error') {
+          console.error(error);
+          return;
+        }
+        const result = await actions.confirm();
+        if (result.type === 'error') {
+          console.error(result.error);
+        }
+      }
+    }
+  `;
+
+  checkoutElementsHTML = `
+    <div id="express-checkout-element"></div>
+    <button type="button" (click)="pay()">Pay</button>
+  `;
+
+  serverCheckoutElementsJS = `
+    // Checkout Session with ui_mode: "elements" — use initCheckoutElementsSdk on the client,
+    // not stripe.elements({ clientSecret }).
+    // https://docs.stripe.com/payments/quickstart-checkout-sessions
+
+    app.post('/create-checkout-session', async (req, res) => {
+      try {
+        const session = await stripe.checkout.sessions.create({
+          ui_mode: 'elements',
+          mode: 'payment',
+          line_items: [
+            {
+              price: '{{PRICE_ID}}',
+              quantity: 1
+            }
+          ],
+          return_url: 'http://localhost:4242/order/success?session_id={CHECKOUT_SESSION_ID}'
+        });
+
+        res.json({ clientSecret: session.client_secret });
+      } catch (e) {
+        res.status(400).send({ error: { message: e.message } });
+      }
+    });
+  `;
+
   customSuccessScreen = `
     // This example sets up an endpoint using the Express framework.
     // Watch this video to get started: https://youtu.be/rPR2aJ6XnAc.
