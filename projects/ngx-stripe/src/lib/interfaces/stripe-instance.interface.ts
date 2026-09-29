@@ -416,56 +416,21 @@ export interface StripeServiceInterface {
   /**
    * @deprecated
    */
-  handleCardPayment(
-    clientSecret: string,
-    element?: any,
-    data?: any
-  ): Observable<{
-    paymentIntent?: PaymentIntent;
-    error?: StripeError;
-  }>;
+  handleCardPayment(clientSecret: string, element?: any, data?: any): Observable<PaymentIntentResult>;
   /**
    * @deprecated
    */
-  confirmPaymentIntent(
-    clientSecret: string,
-    element?: any,
-    data?: any
-  ): Observable<{
-    paymentIntent?: PaymentIntent;
-    error?: StripeError;
-  }>;
+  confirmPaymentIntent(clientSecret: string, element?: any, data?: any): Observable<PaymentIntentResult>;
   /**
    * @deprecated
    */
-  handleCardSetup(
-    clientSecret: string,
-    element?: any,
-    data?: any
-  ): Observable<{
-    setupIntent?: SetupIntent;
-    error?: StripeError;
-  }>;
+  handleCardSetup(clientSecret: string, element?: any, data?: any): Observable<SetupIntentResult>;
   /**
    * @deprecated
    */
-  confirmSetupIntent(
-    clientSecret: string,
-    element?: any,
-    data?: any
-  ): Observable<{
-    setupIntent?: SetupIntent;
-    error?: StripeError;
-  }>;
+  confirmSetupIntent(clientSecret: string, element?: any, data?: any): Observable<SetupIntentResult>;
   /**
    * @deprecated
    */
-  handleFpxPayment(
-    clientSecret: string,
-    element?: any,
-    data?: any
-  ): Observable<{
-    setupIntent?: SetupIntent;
-    error?: StripeError;
-  }>;
+  handleFpxPayment(clientSecret: string, element?: any, data?: any): Observable<SetupIntentResult>;
 }
