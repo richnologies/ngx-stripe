@@ -30,6 +30,8 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 
 import { StripeElementsService } from '../services/stripe-elements.service';
 
+import { destroyStripeElement } from '../util/destroy-stripe-element.util';
+
 @Component({
   selector: 'ngx-stripe-payment',
   standalone: true,
@@ -126,12 +128,10 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
   }
 
   ngOnDestroy() {
-    if (this.element) {
-      this.element.destroy();
-    }
     if (this.elementsSubscription) {
       this.elementsSubscription.unsubscribe();
     }
+    destroyStripeElement(this.element);
   }
 
   update(options: Partial<StripePaymentElementOptions>): StripePaymentElement {
@@ -147,9 +147,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
   }
 
   private createElement(options: Partial<StripePaymentElementOptions> = {}) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     try {
       this.element = this.elements.create('payment', options);
