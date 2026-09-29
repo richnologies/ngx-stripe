@@ -18,6 +18,7 @@ export { StripeIssuingCardNumberDisplayComponent } from './lib/components/issuin
 export { StripeIssuingCardPinDisplayComponent } from './lib/components/issuing-card-pin.component';
 export { StripeIssuingCardCopyButtonComponent } from './lib/components/issuing-card-copy-button.component';
 export { StripeLinkAuthenticationComponent } from './lib/components/link-authentication.component';
+export { StripeLinkSignupComponent } from './lib/components/link-signup.component';
 export { StripeAuBankAccountComponent } from './lib/components/au-bank-account.component';
 export { StripePaymentElementComponent } from './lib/components/payment-element.component';
 export { StripePaymentMethodMessagingComponent } from './lib/components/payment-method-messaging.component';

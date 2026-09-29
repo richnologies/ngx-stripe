@@ -17,6 +17,7 @@ import {
   StripeIbanElement,
   StripeIssuingCardCopyButtonElement,
   StripeLinkAuthenticationElement,
+  StripeLinkSignupElement,
   StripePaymentElement,
   StripePaymentMethodMessagingElement,
   StripePaymentRequestButtonElement,
@@ -115,6 +116,7 @@ export class StripeElementsDirective implements OnInit, OnChanges {
   getElement(elementType: 'iban'): StripeIbanElement | null;
   getElement(elementType: 'issuingCardCopyButton'): StripeIssuingCardCopyButtonElement | null;
   getElement(elementType: 'linkAuthentication'): StripeLinkAuthenticationElement | null;
+  getElement(elementType: 'linkSignup'): StripeLinkSignupElement | null;
   getElement(elementType: 'expressCheckout'): StripeExpressCheckoutElement | null;
   getElement(elementType: 'payment'): StripePaymentElement | null;
   getElement(elementType: 'paymentRequestButton'): StripePaymentRequestButtonElement | null;
@@ -149,6 +151,8 @@ export class StripeElementsDirective implements OnInit, OnChanges {
         return (this._elements as any).getElement('issuingCardCopyButton') as StripeIssuingCardCopyButtonElement | null;
       case 'linkAuthentication':
         return this._elements.getElement('linkAuthentication');
+      case 'linkSignup':
+        return this._elements.getElement('linkSignup');
       case 'expressCheckout':
         return this._elements.getElement('expressCheckout');
       case 'payment':

@@ -29,6 +29,7 @@
     "StripeIssuingCardNumberDisplayComponent",
     "StripeIssuingCardPinDisplayComponent",
     "StripeLinkAuthenticationComponent",
+    "StripeLinkSignupComponent",
     "StripePaymentElementComponent",
     "StripePaymentMethodMessagingComponent",
     "StripePaymentRequestButtonComponent",
