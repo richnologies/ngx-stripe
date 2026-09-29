@@ -27,7 +27,7 @@ describe('StripeInstance', () => {
       getNativeWindow: () => ({ Stripe: stripeCtor })
     } as unknown as WindowRef;
 
-    const instance = new StripeInstance('22.9.0', loader, windowRef, 'pk_test_123');
+    const instance = new StripeInstance('22.9.1', loader, windowRef, 'pk_test_123');
     return { instance, stripeCtor };
   }
 

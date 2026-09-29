@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 22.9.1 - 2026-09-29
+
 - Add `ngx-stripe-link-signup` (Stripe Link Signup Element; `@stripe/stripe-js` ≥ 9.16)
 - Bump workspace `@stripe/stripe-js` to ^9.17.0 (still dahlia CDN)
 - [#254](https://github.com/richnologies/ngx-stripe/issues/254) Fix Payment Request Button emitting `token` instead of `paymentMethod` when only `(paymentMethod)` is bound (registers exactly one of `paymentmethod` / `source` / `token`)
