@@ -13,6 +13,7 @@ import {
   StripePaymentElementOptions,
   StripeAddressElementOptions,
   StripeLinkAuthenticationElementOptions,
+  StripeLinkSignupElementOptions,
   StripeIssuingCardNumberDisplayElementOptions,
   StripeIssuingCardCvcDisplayElementOptions,
   StripeIssuingCardExpiryDisplayElementOptions,
@@ -65,6 +66,7 @@ export class StripeElementsService {
     options: StripeLinkAuthenticationElementOptions,
     containerClass: string
   ): StripeLinkAuthenticationElementOptions;
+  mergeOptions(options: StripeLinkSignupElementOptions, containerClass: string): StripeLinkSignupElementOptions;
   mergeOptions(
     options: StripeIssuingCardNumberDisplayElementOptions,
     containerClass: string

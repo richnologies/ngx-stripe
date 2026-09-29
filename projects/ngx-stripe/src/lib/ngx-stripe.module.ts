@@ -18,6 +18,7 @@ import { StripeIssuingCardNumberDisplayComponent } from './components/issuing-ca
 import { StripeIssuingCardPinDisplayComponent } from './components/issuing-card-pin.component';
 import { StripeIssuingCardCopyButtonComponent } from './components/issuing-card-copy-button.component';
 import { StripeLinkAuthenticationComponent } from './components/link-authentication.component';
+import { StripeLinkSignupComponent } from './components/link-signup.component';
 import { StripeAuBankAccountComponent } from './components/au-bank-account.component';
 import { StripePaymentElementComponent } from './components/payment-element.component';
 import { StripePaymentMethodMessagingComponent } from './components/payment-method-messaging.component';
@@ -54,6 +55,7 @@ const components = [
   StripeIssuingCardPinDisplayComponent,
   StripeIssuingCardCopyButtonComponent,
   StripeLinkAuthenticationComponent,
+  StripeLinkSignupComponent,
   StripeAuBankAccountComponent,
   StripePaymentElementComponent,
   StripePaymentMethodMessagingComponent,
