@@ -31,6 +31,8 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 
 import { StripeElementsService } from '../services/stripe-elements.service';
 
+import { destroyStripeElement } from '../util/destroy-stripe-element.util';
+
 @Component({
   selector: 'ngx-stripe-au-bank-account',
   standalone: true,
@@ -112,12 +114,10 @@ export class StripeAuBankAccountComponent implements OnInit, OnChanges, OnDestro
   }
 
   ngOnDestroy() {
-    if (this.element) {
-      this.element.destroy();
-    }
     if (this.elementsSubscription) {
       this.elementsSubscription.unsubscribe();
     }
+    destroyStripeElement(this.element);
   }
 
   update(options: Partial<StripeAuBankAccountElementOptions>) {
@@ -132,9 +132,7 @@ export class StripeAuBankAccountComponent implements OnInit, OnChanges, OnDestro
   }
 
   private createElement(options: Partial<StripeAuBankAccountElementOptions> = {}) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('auBankAccount', options);
     this.element.on('change', (ev) => this.change.emit(ev));

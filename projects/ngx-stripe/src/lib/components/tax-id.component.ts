@@ -31,6 +31,8 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 
 import { StripeElementsService } from '../services/stripe-elements.service';
 
+import { destroyStripeElement } from '../util/destroy-stripe-element.util';
+
 @Component({
   selector: 'ngx-stripe-tax-id',
   standalone: true,
@@ -114,12 +116,10 @@ export class StripeTaxIdComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.element) {
-      this.element.destroy();
-    }
     if (this.elementsSubscription) {
       this.elementsSubscription.unsubscribe();
     }
+    destroyStripeElement(this.element);
   }
 
   update(options: Partial<StripeTaxIdElementOptions>): StripeTaxIdElement {
@@ -132,9 +132,7 @@ export class StripeTaxIdComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private createElement(options: StripeTaxIdElementOptions) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('taxId', options);
     this.element.on('change', (ev: StripeTaxIdElementChangeEvent) => this.change.emit(ev));

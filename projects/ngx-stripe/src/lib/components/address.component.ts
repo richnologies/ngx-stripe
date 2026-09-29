@@ -31,6 +31,8 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 
 import { StripeElementsService } from '../services/stripe-elements.service';
 
+import { destroyStripeElement } from '../util/destroy-stripe-element.util';
+
 @Component({
   selector: 'ngx-stripe-address',
   standalone: true,
@@ -114,12 +116,10 @@ export class StripeAddressComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.element) {
-      this.element.destroy();
-    }
     if (this.elementsSubscription) {
       this.elementsSubscription.unsubscribe();
     }
+    destroyStripeElement(this.element);
   }
 
   update(options: Partial<StripeAddressElementOptions>): StripeAddressElement {
@@ -139,9 +139,7 @@ export class StripeAddressComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private createElement(options: StripeAddressElementOptions) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('address', options);
     this.element.on('change', (ev: StripeAddressElementChangeEvent) => this.change.emit(ev));
