@@ -31,6 +31,8 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 
 import { StripeElementsService } from '../services/stripe-elements.service';
 
+import { destroyStripeElement } from '../util/destroy-stripe-element.util';
+
 @Component({
   selector: 'ngx-stripe-contact-details',
   standalone: true,
@@ -112,18 +114,14 @@ export class StripeContactDetailsComponent implements OnInit, OnChanges, OnDestr
   }
 
   ngOnDestroy() {
-    if (this.element) {
-      this.element.destroy();
-    }
     if (this.elementsSubscription) {
       this.elementsSubscription.unsubscribe();
     }
+    destroyStripeElement(this.element);
   }
 
   private createElement(options: StripeContactDetailsElementOptions) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('contactDetails', options);
     this.element.on('change', (ev: StripeContactDetailsElementChangeEvent) => this.change.emit(ev));
