@@ -22,6 +22,13 @@ describe('destroyStripeElement', () => {
     expect(destroy).toHaveBeenCalledTimes(1);
   });
 
+  it('ignores already-destroyed errors regardless of message casing', () => {
+    const destroy = vi.fn(() => {
+      throw new Error('this element has already been destroyed');
+    });
+    expect(() => destroyStripeElement({ destroy })).not.toThrow();
+  });
+
   it('rethrows unexpected destroy errors', () => {
     const destroy = vi.fn(() => {
       throw new Error('network failure');

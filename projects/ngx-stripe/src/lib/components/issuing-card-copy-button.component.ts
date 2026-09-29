@@ -119,9 +119,7 @@ export class StripeIssuingCardCopyButtonComponent implements OnInit, OnChanges, 
     this.state = 'ready';
     this.cdr.detectChanges();
 
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('issuingCardCopyButton', options);
     this.element.on('click', (ev: { elementType: 'issuingCardCopyButton' }) => this.click.emit(ev));

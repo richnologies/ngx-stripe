@@ -118,9 +118,7 @@ export class StripeCurrencySelectorComponent implements OnInit, OnChanges, OnDes
   }
 
   private createElement(options: StripeCurrencySelectorElementOptions) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('currencySelector', options);
     this.element.on('blur', () => this.blur.emit());

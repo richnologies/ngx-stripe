@@ -146,9 +146,7 @@ export class StripeExpressCheckoutComponent implements OnInit, OnChanges, OnDest
   }
 
   private createElement(options: StripeExpressCheckoutElementOptions) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('expressCheckout', options);
     this.element.on('blur', () => this.blur.emit());

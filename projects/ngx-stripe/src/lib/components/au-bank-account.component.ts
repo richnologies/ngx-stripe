@@ -132,9 +132,7 @@ export class StripeAuBankAccountComponent implements OnInit, OnChanges, OnDestro
   }
 
   private createElement(options: Partial<StripeAuBankAccountElementOptions> = {}) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('auBankAccount', options);
     this.element.on('change', (ev) => this.change.emit(ev));

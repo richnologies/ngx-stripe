@@ -128,9 +128,7 @@ export class StripeLinkAuthenticationComponent implements OnInit, OnChanges, OnD
   }
 
   private createElement(options: StripeLinkAuthenticationElementOptions) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('linkAuthentication', options);
     this.element.on('change', (ev: StripeLinkAuthenticationElementChangeEvent) => this.change.emit(ev));

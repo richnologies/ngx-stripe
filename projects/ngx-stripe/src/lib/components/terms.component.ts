@@ -119,9 +119,7 @@ export class StripeTermsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private createElement(options: StripeTermsElementOptions) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('terms', options);
     this.element.on('blur', () => this.blur.emit());

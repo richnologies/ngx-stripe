@@ -118,9 +118,7 @@ export class StripeIssuingCardCvcDisplayComponent implements OnInit, OnChanges, 
     this.state = 'ready';
     this.cdr.detectChanges();
 
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('issuingCardCvcDisplay', options);
     this.element.mount(this.stripeElementRef.nativeElement);

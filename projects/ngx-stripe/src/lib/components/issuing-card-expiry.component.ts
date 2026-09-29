@@ -118,9 +118,7 @@ export class StripeIssuingCardExpiryDisplayComponent implements OnInit, OnChange
     this.state = 'ready';
     this.cdr.detectChanges();
 
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('issuingCardExpiryDisplay', options);
     this.element.mount(this.stripeElementRef.nativeElement);

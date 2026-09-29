@@ -133,9 +133,7 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
     this.state = 'ready';
     this.cdr.detectChanges();
 
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('card', options);
     this.element.on('change', (ev) => this.change.emit(ev));

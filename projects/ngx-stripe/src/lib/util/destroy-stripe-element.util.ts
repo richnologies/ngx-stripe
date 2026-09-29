@@ -11,7 +11,7 @@ export function destroyStripeElement(element: { destroy(): void } | null | undef
     element.destroy();
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
-    if (message.includes('already been destroyed')) {
+    if (/already been destroyed/i.test(message)) {
       return;
     }
     throw err;

@@ -234,9 +234,7 @@ export class StripePaymentRequestButtonComponent implements OnInit, OnChanges, O
     this.paymentRequest.on('shippingaddresschange', (ev) => this.shippingaddresschange.emit(ev));
     this.paymentRequest.on('shippingoptionchange', (ev) => this.shippingoptionchange.emit(ev));
 
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
     this.element = this.elements.create('paymentRequestButton', {
       paymentRequest: this.paymentRequest,
       ...options

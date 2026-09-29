@@ -121,9 +121,7 @@ export class StripeContactDetailsComponent implements OnInit, OnChanges, OnDestr
   }
 
   private createElement(options: StripeContactDetailsElementOptions) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('contactDetails', options);
     this.element.on('change', (ev: StripeContactDetailsElementChangeEvent) => this.change.emit(ev));

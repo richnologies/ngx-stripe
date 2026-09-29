@@ -132,9 +132,7 @@ export class StripeTaxIdComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private createElement(options: StripeTaxIdElementOptions) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('taxId', options);
     this.element.on('change', (ev: StripeTaxIdElementChangeEvent) => this.change.emit(ev));

@@ -126,9 +126,7 @@ export class StripePaymentMethodMessagingComponent implements OnInit, OnChanges,
   }
 
   private createElement(options: StripePaymentMethodMessagingElementOptions) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('paymentMethodMessaging', options);
     this.element.on('ready', () => this.ready.emit());

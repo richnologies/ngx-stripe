@@ -139,9 +139,7 @@ export class StripeAddressComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private createElement(options: StripeAddressElementOptions) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('address', options);
     this.element.on('change', (ev: StripeAddressElementChangeEvent) => this.change.emit(ev));

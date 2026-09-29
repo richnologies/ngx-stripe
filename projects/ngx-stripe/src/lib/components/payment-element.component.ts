@@ -147,9 +147,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
   }
 
   private createElement(options: Partial<StripePaymentElementOptions> = {}) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     try {
       this.element = this.elements.create('payment', options);
