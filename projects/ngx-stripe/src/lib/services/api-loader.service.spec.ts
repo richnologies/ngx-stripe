@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { LazyStripeAPILoader } from './api-loader.service';
 import { DocumentRef } from './document-ref.service';
 import { WindowRef } from './window-ref.service';
-import { NGX_STRIPE_TRUSTED_TYPES_POLICY, resetNgxStripeTrustedTypesPolicyForTests } from './trusted-script-url.util';
+import { resetNgxStripeTrustedTypesPolicyForTests } from './trusted-script-url.util';
 
 describe('LazyStripeAPILoader', () => {
   afterEach(() => {
@@ -68,10 +68,9 @@ describe('LazyStripeAPILoader', () => {
     const createScriptURL = vi.fn((url: string) => `trusted:${url}`);
     (globalThis as { trustedTypes?: unknown }).trustedTypes = {
       createPolicy: vi.fn((name: string) => {
-        expect(name).toBe(NGX_STRIPE_TRUSTED_TYPES_POLICY);
+        expect(name).toBe('ngx-stripe');
         return { createScriptURL };
-      }),
-      getPolicy: () => null
+      })
     };
 
     TestBed.configureTestingModule({
