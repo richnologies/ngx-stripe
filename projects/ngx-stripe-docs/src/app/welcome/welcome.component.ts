@@ -52,29 +52,43 @@ import {
 
       .ngst-panel-deep ngstr-code {
         display: block;
-        flex: 1;
+        flex: 1 1 auto;
         min-height: 0;
+        min-width: 0;
+        max-width: 100%;
+        width: 100%;
         margin: 0;
-        overflow: auto;
+        overflow: hidden;
       }
 
-      .ngst-panel-deep ngstr-code pre.ngstr-code {
+      /* ngstr-code uses ViewEncapsulation.None; pierce so the panel owns the scrollport */
+      :host ::ng-deep .ngst-panel-deep ngstr-code pre.ngstr-code {
         height: 100%;
+        max-width: 100%;
+        margin: 0;
+        overflow-x: auto;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
-      .ngst-panel-deep ngstr-code pre code.hljs {
+      :host ::ng-deep .ngst-panel-deep ngstr-code pre code.hljs {
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
         border-radius: 0 !important;
+        display: block;
+        width: max-content !important;
+        min-width: 100% !important;
         min-height: 100%;
+        box-sizing: border-box;
+        overflow: visible !important;
         font-size: 0.72rem !important;
         line-height: 1.6;
         padding: 1rem !important;
       }
 
       @media (min-width: 640px) {
-        .ngst-panel-deep ngstr-code pre code.hljs {
+        :host ::ng-deep .ngst-panel-deep ngstr-code pre code.hljs {
           font-size: 0.78rem !important;
           padding: 1.25rem !important;
         }
@@ -221,8 +235,8 @@ export default class NgStrWelcomeComponent implements OnDestroy {
   readonly slides = FIRST_PAYMENT_WELCOME_SLIDES;
   readonly activeStep = signal(0);
   selectedPath: FirstPaymentPath = 'payment';
-  /** Autoplay runs until the user clicks a step tab */
-  readonly autoplay = signal(true);
+  /** Autoplay runs on desktop until the user clicks a step tab; off on mobile / reduced motion */
+  readonly autoplay = signal(false);
 
   private autoplayTimer: ReturnType<typeof setInterval> | null = null;
   private readonly autoplayMs = 4000;
@@ -230,8 +244,8 @@ export default class NgStrWelcomeComponent implements OnDestroy {
   constructor() {
     afterNextRender(() => {
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduceMotion) {
-        this.autoplay.set(false);
+      const isMobile = window.matchMedia('(max-width: 639px)').matches;
+      if (reduceMotion || isMobile) {
         return;
       }
       this.startAutoplay();
