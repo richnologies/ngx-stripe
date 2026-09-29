@@ -31,6 +31,8 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 
 import { StripeElementsService } from '../services/stripe-elements.service';
 
+import { destroyStripeElement } from '../util/destroy-stripe-element.util';
+
 @Component({
   selector: 'ngx-stripe-iban',
   standalone: true,
@@ -112,12 +114,10 @@ export class StripeIbanComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.element) {
-      this.element.destroy();
-    }
     if (this.elementsSubscription) {
       this.elementsSubscription.unsubscribe();
     }
+    destroyStripeElement(this.element);
   }
 
   update(options: Partial<StripeIbanElementOptions>) {
@@ -132,9 +132,7 @@ export class StripeIbanComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private createElement(options: Partial<StripeIbanElementOptions> = {}) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('iban', options);
     this.element.on('change', (ev) => this.change.emit(ev));

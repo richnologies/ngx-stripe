@@ -37,6 +37,8 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 
 import { StripeElementsService } from '../services/stripe-elements.service';
 
+import { destroyStripeElement } from '../util/destroy-stripe-element.util';
+
 export type NgxStripeExpressCheckoutElementLoadErrorEvent = {
   elementType: 'expressCheckout';
   error: StripeError;
@@ -126,12 +128,10 @@ export class StripeExpressCheckoutComponent implements OnInit, OnChanges, OnDest
   }
 
   ngOnDestroy() {
-    if (this.element) {
-      this.element.destroy();
-    }
     if (this.elementsSubscription) {
       this.elementsSubscription.unsubscribe();
     }
+    destroyStripeElement(this.element);
   }
 
   update(options: StripeExpressCheckoutElementUpdateOptions): StripeExpressCheckoutElement {
@@ -146,9 +146,7 @@ export class StripeExpressCheckoutComponent implements OnInit, OnChanges, OnDest
   }
 
   private createElement(options: StripeExpressCheckoutElementOptions) {
-    if (this.element) {
-      this.element.unmount();
-    }
+    destroyStripeElement(this.element);
 
     this.element = this.elements.create('expressCheckout', options);
     this.element.on('blur', () => this.blur.emit());
