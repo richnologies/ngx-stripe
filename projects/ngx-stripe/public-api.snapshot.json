@@ -32,7 +32,6 @@
     "StripeLinkSignupComponent",
     "StripePaymentElementComponent",
     "StripePaymentMethodMessagingComponent",
-    "StripePaymentRequestButtonComponent",
     "StripeService",
     "StripeServiceInterface",
     "StripeTaxIdComponent",

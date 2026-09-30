@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 22.10.0 - 2026-09-30
+
+- Add support for Stripe.js v10 (endive) — `@stripe/stripe-js` `10.0.0-rc.4` prerelease
+- Add `confirmPayByBankPayment`
+- Remove Payment Request Button Element component (`ngx-stripe-payment-request-button`) — removed from Stripe.js v10
+- CDN `js.stripe.com/endive/stripe.js`; peer `@stripe/stripe-js` `>=10 <11`
+- Previous Angular 22 + dahlia line moves to dist-tag `v22-dahlia` (`22.9.x+`)
+
 ## 22.9.1 - 2026-09-29
 
 - Add `ngx-stripe-link-signup` (Stripe Link Signup Element; `@stripe/stripe-js` ≥ 9.16)

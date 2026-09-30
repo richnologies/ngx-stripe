@@ -1,5 +1,18 @@
 # Migration Guides | Ngx Stripe
 
+## Stripe.js v10 (endive) — ngx-stripe 22.10+ (RC)
+
+| Before (dahlia / v9) | After (endive / v10) |
+| -------------------- | -------------------- |
+| Peer `@stripe/stripe-js` `>=9 <10` | `>=10 <11` (install `10.0.0-rc.4` or later RC while prerelease) |
+| CDN `js.stripe.com/dahlia/stripe.js` | `js.stripe.com/endive/stripe.js` |
+| `ngx-stripe@latest` on Angular 22 | `22.10.x+`; stay on dahlia with `ngx-stripe@v22-dahlia` |
+| `ngx-stripe-payment-request-button` | Removed — Payment Request Button Element is gone from Stripe.js v10; use Express Checkout Element or `stripe.paymentRequest()` manually |
+
+Type and API deltas follow `@stripe/stripe-js` v10; re-run your Stripe.js integration tests before production.
+
+---
+
 ## Stripe.js v9 (dahlia) — ngx-stripe 21.9+ / 22.9+ / 20.9+ / 19.9+
 
 | Before (clover / v8) | After (dahlia / v9) |

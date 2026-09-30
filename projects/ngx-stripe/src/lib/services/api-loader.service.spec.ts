@@ -12,7 +12,7 @@ describe('LazyStripeAPILoader', () => {
     delete (globalThis as { trustedTypes?: unknown }).trustedTypes;
   });
 
-  it('uses the dahlia CDN URL for this release line', () => {
+  it('uses the endive CDN URL for this release line', () => {
     const script = { type: '', async: false, defer: false, src: '', onload: null, onerror: null };
     const appendChild = vi.fn();
     const createElement = vi.fn().mockReturnValue(script);
@@ -41,7 +41,7 @@ describe('LazyStripeAPILoader', () => {
     loader.load();
 
     expect(createElement).toHaveBeenCalledWith('script');
-    expect(script.src).toBe('https://js.stripe.com/dahlia/stripe.js');
+    expect(script.src).toBe('https://js.stripe.com/endive/stripe.js');
     expect(appendChild).toHaveBeenCalledWith(script);
   });
 
@@ -92,8 +92,8 @@ describe('LazyStripeAPILoader', () => {
 
     TestBed.inject(LazyStripeAPILoader).load();
 
-    expect(createScriptURL).toHaveBeenCalledWith('https://js.stripe.com/dahlia/stripe.js');
-    expect(script.src).toBe('trusted:https://js.stripe.com/dahlia/stripe.js');
+    expect(createScriptURL).toHaveBeenCalledWith('https://js.stripe.com/endive/stripe.js');
+    expect(script.src).toBe('trusted:https://js.stripe.com/endive/stripe.js');
   });
 
   it('marks error when Trusted Types fallback also fails', () => {

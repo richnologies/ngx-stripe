@@ -17,6 +17,8 @@ import {
   ConfirmIdealPaymentOptions,
   ConfirmP24PaymentData,
   ConfirmP24PaymentOptions,
+  ConfirmPayByBankPaymentData,
+  ConfirmPayByBankPaymentOptions,
   ConfirmCardSetupData,
   ConfirmCardSetupOptions,
   ConfirmSepaDebitPaymentData,
@@ -266,6 +268,11 @@ export interface StripeServiceInterface {
     clientSecret: string,
     data?: ConfirmP24PaymentData,
     options?: ConfirmP24PaymentOptions
+  ): Observable<PaymentIntentResult>;
+  confirmPayByBankPayment(
+    clientSecret: string,
+    data?: ConfirmPayByBankPaymentData,
+    options?: ConfirmPayByBankPaymentOptions
   ): Observable<PaymentIntentResult>;
   confirmPayNowPayment(
     clientSecret: string,

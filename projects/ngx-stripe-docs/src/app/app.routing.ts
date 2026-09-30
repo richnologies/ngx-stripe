@@ -72,11 +72,6 @@ export const ROUTES: Routes = [
         data: { title: 'Card Elements' }
       },
       {
-        path: 'payment-request-button',
-        loadComponent: () => import('./docs/payment-request-button/payment-request-button.component'),
-        data: { title: 'Payment Request Button' }
-      },
-      {
         path: 'checkout',
         loadComponent: () => import('./docs/checkout/checkout.component'),
         data: { title: 'Checkout' }
@@ -185,11 +180,6 @@ export const ROUTES: Routes = [
         path: 'examples/payment-method-messaging',
         loadComponent: () => import('./examples/payment-method-messaging.component'),
         data: { title: 'Payment Method Messaging' }
-      },
-      {
-        path: 'examples/payment-request-button',
-        loadComponent: () => import('./examples/payment-request-button.component'),
-        data: { title: 'Payment Request Button' }
       },
       {
         path: 'examples/verify-microdeposits',
