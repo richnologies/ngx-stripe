@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Generate version tables from lanes.json into README.md and the docs
- * installation page. Usage:
+ * Generate version tables from lanes.json into README.md,
+ * projects/ngx-stripe/README.md, and the docs installation page. Usage:
  *   node scripts/generate-lanes.mjs
  *   node scripts/generate-lanes.mjs --check   # exit 1 if files would change
  */
@@ -13,6 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const lanesPath = path.join(root, 'lanes.json');
 const readmePath = path.join(root, 'README.md');
+const packageReadmePath = path.join(root, 'projects/ngx-stripe/README.md');
 const installPath = path.join(
   root,
   'projects/ngx-stripe-docs/src/app/docs/installation/installation.component.html'
@@ -152,6 +153,13 @@ let dirty = false;
 
 const readme = fs.readFileSync(readmePath, 'utf8');
 dirty = writeOrCheck(readmePath, replaceMarked(readme, markdownMatrix(), 'README.md')) || dirty;
+
+const packageReadme = fs.readFileSync(packageReadmePath, 'utf8');
+dirty =
+  writeOrCheck(
+    packageReadmePath,
+    replaceMarked(packageReadme, markdownMatrix(), 'projects/ngx-stripe/README.md')
+  ) || dirty;
 
 const install = fs.readFileSync(installPath, 'utf8');
 dirty =

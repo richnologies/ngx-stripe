@@ -10,7 +10,7 @@ Collect Payments with Stripe: The Angular Way
 
 Angular components and services for [Stripe Elements](https://stripe.com/docs/stripe-js) — a thin, typed wrapper around [Stripe.js](https://stripe.com/docs/js).
 
-**Docs:** [ngx-stripe.dev](https://ngx-stripe.dev/docs) · **Stripe.js versioning:** [Stripe policy](https://docs.stripe.com/sdks/stripejs-versioning)
+**Docs:** [ngx-stripe.dev](https://ngx-stripe.dev/docs) · **First payment:** [guided tour](https://ngx-stripe.dev/docs/first-payment) · **Stripe.js versioning:** [Stripe policy](https://docs.stripe.com/sdks/stripejs-versioning)
 
 ## Install
 
@@ -46,19 +46,135 @@ npm install ngx-stripe@v21-dahlia @stripe/stripe-js@^9
 | 8 | v8-lts / 8.2.0 | — | — | — | — |
 <!-- lanes:table:end -->
 
-## Quick start
+## Collect your first payment
+
+Four steps from providers to a confirmed PaymentIntent. This matches the [docs guided tour](https://ngx-stripe.dev/docs/first-payment) — Payment Element is the recommended path (cards, wallets, and local methods in one UI). Card Element is still fully supported; the tour covers both.
+
+### 1. Provide ngx-stripe
+
+Register Stripe in your app config. Only publishable keys (`pk_test_` / `pk_live_`) belong in the browser.
 
 ```ts
+import { ApplicationConfig } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
 import { provideNgxStripe } from 'ngx-stripe';
 
-bootstrapApplication(AppComponent, {
+import { AppComponent } from './app/app.component';
+
+export const appConfig: ApplicationConfig = {
   providers: [
-    provideNgxStripe('pk_test_...'),
-  ],
-});
+    provideNgxStripe('pk_test_…'),
+  ]
+};
+
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));
 ```
 
-Payment Element and the full API: [docs](https://ngx-stripe.dev/docs).
+### 2. Create the Elements container
+
+`ngx-stripe-elements` is the shared Stripe Elements context. For Payment Element flows, set `clientSecret` from a PaymentIntent (or SetupIntent) created on your server.
+
+```ts
+import { Component } from '@angular/core';
+import { StripeElementsOptions } from '@stripe/stripe-js';
+import {
+  injectStripe,
+  StripeElementsDirective,
+  StripePaymentElementComponent
+} from 'ngx-stripe';
+
+@Component({
+  selector: 'app-checkout',
+  standalone: true,
+  imports: [StripeElementsDirective, StripePaymentElementComponent],
+  templateUrl: './checkout.component.html'
+})
+export class CheckoutComponent {
+  stripe = injectStripe();
+
+  elementsOptions: StripeElementsOptions = {
+    locale: 'en',
+    // clientSecret from your server (PaymentIntent / SetupIntent)
+    clientSecret: '{{CLIENT_SECRET}}',
+    appearance: { theme: 'stripe' }
+  };
+}
+```
+
+```html
+<ngx-stripe-elements
+  [stripe]="stripe"
+  [elementsOptions]="elementsOptions"
+>
+  <!-- Payment Element or Card Element goes here -->
+</ngx-stripe-elements>
+```
+
+### 3. Drop in Payment Element
+
+Mount `ngx-stripe-payment` inside the Elements container once you have a `clientSecret`.
+
+```html
+<form [formGroup]="checkoutForm" (ngSubmit)="pay()">
+  <input formControlName="name" placeholder="Name" />
+  <input formControlName="email" type="email" placeholder="Email" />
+
+  @if (elementsOptions.clientSecret) {
+    <ngx-stripe-elements
+      [stripe]="stripe"
+      [elementsOptions]="elementsOptions"
+    >
+      <ngx-stripe-payment />
+    </ngx-stripe-elements>
+  }
+
+  <button type="submit" [disabled]="paying">Pay</button>
+</form>
+```
+
+Prefer Card Element instead? Swap in `ngx-stripe-card` and confirm with `confirmCardPayment` — same provide + Elements steps. Details in the [tour](https://ngx-stripe.dev/docs/first-payment) and [Card Elements docs](https://ngx-stripe.dev/docs/card-elements).
+
+### 4. Confirm the payment
+
+Your server creates the PaymentIntent; the browser confirms it through ngx-stripe. Hold a `ViewChild` of the Payment Element so you can pass `elements` into `confirmPayment`.
+
+```ts
+@ViewChild(StripePaymentElementComponent)
+paymentElement!: StripePaymentElementComponent;
+
+pay() {
+  this.paying = true;
+
+  this.stripe
+    .confirmPayment({
+      elements: this.paymentElement.elements,
+      confirmParams: {
+        payment_method_data: {
+          billing_details: {
+            name: this.checkoutForm.value.name!,
+            email: this.checkoutForm.value.email!
+          }
+        }
+      },
+      redirect: 'if_required'
+    })
+    .subscribe((result) => {
+      this.paying = false;
+      if (result.error) {
+        // Show error to your customer
+        return;
+      }
+      if (result.paymentIntent?.status === 'succeeded') {
+        // Payment succeeded
+      }
+    });
+}
+```
+
+That’s the whole client path. Wire `clientSecret` to your backend, then [try a live test checkout](https://ngx-stripe.dev/docs/first-payment) with card `4242 4242 4242 4242` (any future expiry, any CVC).
+
+Element reference, service API, and more examples: [ngx-stripe.dev/docs](https://ngx-stripe.dev/docs).
 
 ## Support
 
