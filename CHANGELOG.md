@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add `confirmPayByBankPayment` wrapper (`@stripe/stripe-js` Pay by Bank types)
+
 ## 22.9.1 - 2026-09-29
 
 - Add `ngx-stripe-link-signup` (Stripe Link Signup Element; `@stripe/stripe-js` ≥ 9.16)

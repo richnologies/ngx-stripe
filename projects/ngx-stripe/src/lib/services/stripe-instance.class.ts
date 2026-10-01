@@ -70,6 +70,8 @@ import {
   ConfirmPaymentData,
   ConfirmCustomerBalancePaymentData,
   ConfirmCustomerBalancePaymentOptions,
+  ConfirmPayByBankPaymentData,
+  ConfirmPayByBankPaymentOptions,
   ConfirmPayNowPaymentData,
   ConfirmPayNowPaymentOptions,
   ConfirmPromptPayPaymentData,
@@ -444,6 +446,17 @@ export class StripeInstance implements StripeServiceInterface {
   ): Observable<PaymentIntentResult> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.confirmP24Payment(clientSecret, data, options))),
+      first()
+    );
+  }
+
+  confirmPayByBankPayment(
+    clientSecret: string,
+    data?: ConfirmPayByBankPaymentData,
+    options?: ConfirmPayByBankPaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.confirmPayByBankPayment(clientSecret, data, options))),
       first()
     );
   }
