@@ -1,5 +1,14 @@
 # Changelog
 
+## 19.9.1 - 2026-10-01
+
+- Add `ngx-stripe-link-signup` (Stripe Link Signup Element; `@stripe/stripe-js` ≥ 9.16)
+- Bump workspace `@stripe/stripe-js` to ^9.17.0 (still dahlia CDN)
+- [#254](https://github.com/richnologies/ngx-stripe/issues/254) Fix Payment Request Button emitting `token` instead of `paymentMethod` when only `(paymentMethod)` is bound (registers exactly one of `paymentmethod` / `source` / `token`)
+- [#255](https://github.com/richnologies/ngx-stripe/issues/255) Fix lazy Stripe.js CDN injection when Trusted Types (`require-trusted-types-for 'script'`) rejects a plain `script.src` (retries with a real `TrustedScriptURL` via policy `ngx-stripe`; common path unchanged)
+- [#260](https://github.com/richnologies/ngx-stripe/issues/260) Align deprecated `StripeServiceInterface` result types with `PaymentIntentResult` / `SetupIntentResult` for `exactOptionalPropertyTypes`
+- [#266](https://github.com/richnologies/ngx-stripe/issues/266) Guard Element `destroy()` so route teardown does not log “already been destroyed”
+
 ## 19.9.0 - 2026-09-08
 
 - Add support for StripeJS V9 - dahlia
