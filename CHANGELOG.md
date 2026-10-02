@@ -1,5 +1,12 @@
 # Changelog
 
+## 18.10.0 - 2026-10-02
+
+- Add support for StripeJS V10 - endive
+- Add `confirmPayByBankPayment`, `confirmBlikSetup`
+- Remove Payment Request Button Element (`ngx-stripe-payment-request-button`) — Stripe.js v10 dropped the Payment Request Button Element; use Express Checkout or Payment Element, or pin ngx-stripe `18.9.x` + `@stripe/stripe-js@^9`
+- Peer `@stripe/stripe-js` `>=10 <11`; CDN `js.stripe.com/endive/stripe.js`
+
 ## 18.9.0 - 2026-09-08
 
 - Backport StripeJS V9 (dahlia) to Angular 18
