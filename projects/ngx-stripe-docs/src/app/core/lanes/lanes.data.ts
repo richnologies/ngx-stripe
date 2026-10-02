@@ -87,6 +87,14 @@ export const NGSTR_LANES: NgStrLanesData = {
     },
     {
       "angular": 21,
+      "stripeJs": 10,
+      "range": "21.10.x+",
+      "branch": "v21",
+      "support": "active",
+      "npmTag": "v21-endive"
+    },
+    {
+      "angular": 21,
       "stripeJs": 9,
       "range": "21.9.x+",
       "branch": "v21",
@@ -124,6 +132,14 @@ export const NGSTR_LANES: NgStrLanesData = {
       "branch": "vstripe-v5",
       "support": "active",
       "npmTag": "vstripe-v5"
+    },
+    {
+      "angular": 20,
+      "stripeJs": 10,
+      "range": "20.10.x+",
+      "branch": "v20",
+      "support": "maintenance",
+      "npmTag": null
     },
     {
       "angular": 20,
@@ -167,6 +183,14 @@ export const NGSTR_LANES: NgStrLanesData = {
     },
     {
       "angular": 19,
+      "stripeJs": 10,
+      "range": "19.10.x+",
+      "branch": "v19",
+      "support": "maintenance",
+      "npmTag": null
+    },
+    {
+      "angular": 19,
       "stripeJs": 9,
       "range": "19.9.x+",
       "branch": "v19",
@@ -202,6 +226,38 @@ export const NGSTR_LANES: NgStrLanesData = {
       "stripeJs": 5,
       "range": "19.5.x+",
       "branch": "v19",
+      "support": "maintenance",
+      "npmTag": null
+    },
+    {
+      "angular": 18,
+      "stripeJs": 10,
+      "range": "18.10.x+",
+      "branch": "v18",
+      "support": "maintenance",
+      "npmTag": null
+    },
+    {
+      "angular": 18,
+      "stripeJs": 9,
+      "range": "18.9.x+",
+      "branch": "v18",
+      "support": "maintenance",
+      "npmTag": null
+    },
+    {
+      "angular": 17,
+      "stripeJs": 10,
+      "range": "17.10.x+",
+      "branch": "v17",
+      "support": "maintenance",
+      "npmTag": null
+    },
+    {
+      "angular": 17,
+      "stripeJs": 9,
+      "range": "17.9.x+",
+      "branch": "v17",
       "support": "maintenance",
       "npmTag": null
     }
@@ -257,6 +313,14 @@ export const NGSTR_LANES: NgStrLanesData = {
     },
     {
       "angular": 21,
+      "stripeJs": 10,
+      "range": "21.10.x+",
+      "branch": "v21",
+      "support": "active",
+      "npmTag": "v21-endive"
+    },
+    {
+      "angular": 21,
       "stripeJs": 9,
       "range": "21.9.x+",
       "branch": "v21",
@@ -297,18 +361,6 @@ export const NGSTR_LANES: NgStrLanesData = {
     }
   ],
   "legacy": [
-    {
-      "angular": 18,
-      "range": "18.x+",
-      "support": "best-effort",
-      "npmTag": null
-    },
-    {
-      "angular": 17,
-      "range": "17.x+",
-      "support": "best-effort",
-      "npmTag": null
-    },
     {
       "angular": 16,
       "range": "16.x+",
@@ -375,6 +427,7 @@ export const NGSTR_LANES: NgStrLanesData = {
       "22.7",
       "22.6",
       "22.5",
+      "21.10",
       "21.9"
     ]
   }
