@@ -22,7 +22,6 @@ export { StripeLinkSignupComponent } from './lib/components/link-signup.componen
 export { StripeAuBankAccountComponent } from './lib/components/au-bank-account.component';
 export { StripePaymentElementComponent } from './lib/components/payment-element.component';
 export { StripePaymentMethodMessagingComponent } from './lib/components/payment-method-messaging.component';
-export { StripePaymentRequestButtonComponent } from './lib/components/payment-request-button.component';
 export { StripeTaxIdComponent } from './lib/components/tax-id.component';
 export { StripeTermsComponent } from './lib/components/terms.component';
 

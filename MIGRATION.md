@@ -1,5 +1,19 @@
 # Migration Guides | Ngx Stripe
 
+## Stripe.js v10 (endive) — ngx-stripe 22.10+
+
+| Before (dahlia / v9) | After (endive / v10) |
+| -------------------- | -------------------- |
+| `ngx-stripe-payment-request-button` | Removed — Payment Request Button Element is gone from Stripe.js v10 (use Express Checkout Element or Payment Element) |
+| Peer `@stripe/stripe-js` `>=9 <10` | `>=10 <11` |
+| CDN `js.stripe.com/dahlia/stripe.js` | `js.stripe.com/endive/stripe.js` |
+
+Also added: `confirmPayByBankPayment`, `confirmBlikSetup`.
+
+Stay on dahlia with `ngx-stripe@v22-dahlia` and `@stripe/stripe-js@^9` if you still need the Payment Request Button Element.
+
+---
+
 ## Stripe.js v9 (dahlia) — ngx-stripe 21.9+ / 22.9+ / 20.9+ / 19.9+
 
 | Before (clover / v8) | After (dahlia / v9) |
@@ -102,7 +116,7 @@ Until this version we only have support for `CardElement`. Now we are adding all
 | CardNumberElement           | ngx-stripe-card-number            | Collects the card number.only                                                                                                                            |
 | CardExpiryElement           | ngx-stripe-card-expiry            | Collects the card‘s expiration date. only                                                                                                                |
 | CardCvcElement              | ngx-stripe-card-cvc               | Collects the card‘s CVC number.only                                                                                                                      |
-| PaymentRequestButtonElement | ngx-stripe-payment-request-button | An all-in-one checkout button backed by either Apple Pay or the Payment Request API. Refer to the Payment Request Button docs for more information. only |
+| PaymentRequestButtonElement | ngx-stripe-payment-request-button | **Removed on Stripe.js v10 (endive) / ngx-stripe 22.10+.** Still available on dahlia and older trains (`v22-dahlia`, etc.). |
 | AuBankAccountElement        | ngx-stripe-au-bank-account        | Collects Australian bank account information (BSB and account number) for use with BECS Direct Debit payments.                                           |
 | IbanElement                 | ngx-stripe-iban                   | The International Bank Account Number (IBAN). Available for SEPA countries.                                                                              |
 | IdealBankElement            | ngx-stripe-ideal-bank             | The customer's bank, for use with iDEAL payments.                                                                                                        |

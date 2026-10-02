@@ -1,4 +1,4 @@
-export const STRIPE_JS_SCRIPT_URL = 'https://js.stripe.com/dahlia/stripe.js';
+export const STRIPE_JS_SCRIPT_URL = 'https://js.stripe.com/endive/stripe.js';
 
 const POLICY_NAME = 'ngx-stripe';
 

@@ -1,7 +1,8 @@
 {
-  "latest": "22.9",
+  "latest": "22.10",
   "generatedNote": "Do not hand-edit README or docs install tables. Run: npm run generate:lanes",
   "stripeTrains": {
+    "10": { "cdn": "endive", "label": "v10 endive", "packageMajor": 10 },
     "9": { "cdn": "dahlia", "label": "v9 dahlia", "packageMajor": 9 },
     "8": { "cdn": "clover", "label": "v8 clover", "packageMajor": 8 },
     "7": { "cdn": "basil", "label": "v7 basil", "packageMajor": 7 },
@@ -9,7 +10,8 @@
     "5": { "cdn": "v3", "label": "v5", "packageMajor": 5 }
   },
   "lanes": [
-    { "angular": 22, "stripeJs": 9, "range": "22.9.x+", "branch": "main", "support": "active", "npmTag": "latest" },
+    { "angular": 22, "stripeJs": 10, "range": "22.10.x+", "branch": "main", "support": "active", "npmTag": "latest" },
+    { "angular": 22, "stripeJs": 9, "range": "22.9.x+", "branch": "v22-dahlia", "support": "active", "npmTag": "v22-dahlia" },
     { "angular": 22, "stripeJs": 8, "range": "22.8.x+", "branch": "v22-clover", "support": "active", "npmTag": "v22-clover" },
     { "angular": 22, "stripeJs": 7, "range": "22.7.x+", "branch": "v22-basil", "support": "active", "npmTag": "v22-basil" },
     { "angular": 22, "stripeJs": 6, "range": "22.6.x+", "branch": "v22-acacia", "support": "active", "npmTag": "v22-acacia" },
@@ -44,7 +46,7 @@
     { "angular": 8, "range": "v8-lts / 8.2.0", "support": "legacy", "npmTag": "v8-lts" }
   ],
   "ci": {
-    "pr": ["22.9"],
-    "nightly": ["22.9", "22.8", "22.7", "22.6", "22.5", "21.9"]
+    "pr": ["22.10"],
+    "nightly": ["22.10", "22.9", "22.8", "22.7", "22.6", "22.5", "21.9"]
   }
 }
