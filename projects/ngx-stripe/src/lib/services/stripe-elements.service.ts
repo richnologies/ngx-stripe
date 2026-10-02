@@ -10,7 +10,6 @@ import {
   StripeCardExpiryElementOptions,
   StripeElements,
   StripeIbanElementOptions,
-  StripePaymentRequestButtonElementOptions,
   StripePaymentElementOptions,
   StripeAddressElementOptions,
   StripeLinkAuthenticationElementOptions,
@@ -93,10 +92,6 @@ export class StripeElementsService {
     options: StripePaymentMethodMessagingElementOptions,
     containerClass: string
   ): StripePaymentMethodMessagingElementOptions;
-  mergeOptions(
-    options: StripePaymentRequestButtonElementOptions,
-    containerClass: string
-  ): StripePaymentRequestButtonElementOptions;
   mergeOptions(options: StripePaymentElementOptions, containerClass: string): StripePaymentElementOptions;
   mergeOptions(
     options: StripeExpressCheckoutElementOptions,

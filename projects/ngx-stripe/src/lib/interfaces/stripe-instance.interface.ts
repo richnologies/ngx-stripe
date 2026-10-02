@@ -129,7 +129,11 @@ import {
   ConfirmTwintPaymentData,
   ConfirmBilliePaymentData,
   ConfirmBilliePaymentOptions,
-  ConfirmAmazonPaySetupData
+  ConfirmAmazonPaySetupData,
+  ConfirmPayByBankPaymentData,
+  ConfirmPayByBankPaymentOptions,
+  ConfirmBlikSetupData,
+  ConfirmBlikSetupOptions
 } from '@stripe/stripe-js';
 
 export interface StripeServiceInterface {
@@ -267,6 +271,11 @@ export interface StripeServiceInterface {
     data?: ConfirmP24PaymentData,
     options?: ConfirmP24PaymentOptions
   ): Observable<PaymentIntentResult>;
+  confirmPayByBankPayment(
+    clientSecret: string,
+    data?: ConfirmPayByBankPaymentData,
+    options?: ConfirmPayByBankPaymentOptions
+  ): Observable<PaymentIntentResult>;
   confirmPayNowPayment(
     clientSecret: string,
     data?: ConfirmPayNowPaymentData,
@@ -346,6 +355,11 @@ export interface StripeServiceInterface {
   confirmAuBecsDebitSetup(clientSecret: string, data?: ConfirmAuBecsDebitSetupData): Observable<SetupIntentResult>;
   confirmBacsDebitSetup(clientSecret: string, data?: ConfirmBacsDebitSetupData): Observable<SetupIntentResult>;
   confirmBancontactSetup(clientSecret: string, data?: ConfirmBancontactSetupData): Observable<SetupIntentResult>;
+  confirmBlikSetup(
+    clientSecret: string,
+    data: ConfirmBlikSetupData,
+    options?: ConfirmBlikSetupOptions
+  ): Observable<SetupIntentResult>;
   confirmCardSetup(
     clientSecret: string,
     data?: ConfirmCardSetupData,
