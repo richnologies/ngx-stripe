@@ -5,6 +5,38 @@
       Below are the major changes for update from legacy to active
       <ngstr-highlight>ngx-stripe</ngstr-highlight>
     </p>
+    <ngstr-subheader subheader="Stripe.js v10 (endive)" link="stripejs-v10"></ngstr-subheader>
+    <p>
+      On the latest line (<ngstr-highlight>22.10.x+</ngstr-highlight>, Stripe.js
+      <ngstr-highlight>endive</ngstr-highlight>, <ngstr-highlight>&#64;stripe/stripe-js</ngstr-highlight> v10),
+      Stripe removed the <strong>Payment Request Button Element</strong>. ngx-stripe no longer ships
+      <ngstr-highlight>ngx-stripe-payment-request-button</ngstr-highlight>.
+    </p>
+    <ul role="list">
+      <li>
+        <strong>Still need the old button?</strong> Stay on dahlia:
+        <ngstr-highlight>npm install ngx-stripe&#64;v22-dahlia &#64;stripe/stripe-js&#64;^9</ngstr-highlight>.
+      </li>
+      <li>
+        <strong>Upgrading to endive:</strong> use
+        <ngstr-highlight>ngx-stripe-express-checkout</ngstr-highlight> or
+        <ngstr-highlight>ngx-stripe-payment</ngstr-highlight> for wallet flows. The underlying
+        <ngstr-highlight>stripe.paymentRequest()</ngstr-highlight> API remains typed on v10 for custom integrations.
+      </li>
+      <li>
+        CDN moves to <ngstr-highlight>https://js.stripe.com/endive/stripe.js</ngstr-highlight> (ngx-stripe loads this
+        automatically on the latest lane).
+      </li>
+    </ul>
+    <p>
+      Full matrix:
+      <a routerLink="/docs/installation" fragment="release-matrix" class="underline">release matrix</a>. See also
+      <a href="https://github.com/richnologies/ngx-stripe/blob/main/MIGRATION.md#stripejs-v10-endive--ngx-stripe-2210"
+        target="_blank"
+        rel="noopener noreferrer"
+        >MIGRATION.md</a
+      >.
+    </p>
     <ngstr-subheader subheader="Interfaces" link="interfaces"></ngstr-subheader>
     <p>
       Most of the changes in the library are because ngx-stripe will no longer maintain its own types. Instead, it will

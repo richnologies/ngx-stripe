@@ -21,7 +21,6 @@ import { StripeLinkAuthenticationComponent } from './components/link-authenticat
 import { StripeAuBankAccountComponent } from './components/au-bank-account.component';
 import { StripePaymentElementComponent } from './components/payment-element.component';
 import { StripePaymentMethodMessagingComponent } from './components/payment-method-messaging.component';
-import { StripePaymentRequestButtonComponent } from './components/payment-request-button.component';
 import { StripeTaxIdComponent } from './components/tax-id.component';
 import { StripeTermsComponent } from './components/terms.component';
 
@@ -57,14 +56,13 @@ const components = [
   StripeAuBankAccountComponent,
   StripePaymentElementComponent,
   StripePaymentMethodMessagingComponent,
-  StripePaymentRequestButtonComponent,
   StripeTaxIdComponent,
   StripeTermsComponent
 ];
 
 const directives = [StripeCardGroupDirective, StripeElementsDirective, NgxStripeElementLoadingTemplateDirective];
 
-const currentVersion = '17.9.0';
+const currentVersion = '17.10.0';
 
 function _provideNgxStripe(publishableKey?: string, options?: StripeConstructorOptions) {
   return [
