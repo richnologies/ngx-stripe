@@ -67,12 +67,6 @@ export class NgStrContentService {
     {
       group: 'Core Concepts',
       type: 'page',
-      name: 'Payment Request Button',
-      path: 'payment-request-button'
-    },
-    {
-      group: 'Core Concepts',
-      type: 'page',
       name: 'Checkout',
       path: 'checkout'
     },
