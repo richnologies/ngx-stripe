@@ -405,8 +405,7 @@ ngx-stripe-payment,
 ngx-stripe-elements,
 ngx-stripe-address,
 ngx-stripe-express-checkout,
-ngx-stripe-link-authentication,
-ngx-stripe-payment-request-button {
+ngx-stripe-link-authentication {
   max-width: 100%;
   min-width: 0;
 }

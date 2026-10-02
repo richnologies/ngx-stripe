@@ -13,8 +13,8 @@
       <li>
         <strong>Versioning</strong>: ngx-stripe versions are
         <ngstr-highlight>&#123;angularMajor&#125;.&#123;stripeJsMajor&#125;.&#123;patch&#125;</ngstr-highlight>
-        (for example, <ngstr-highlight>22.9.x</ngstr-highlight> is Angular 22 + Stripe.js dahlia /
-        <ngstr-highlight>&#64;stripe/stripe-js</ngstr-highlight> v9). Pick the cell in the
+        (for example, <ngstr-highlight>22.10.x</ngstr-highlight> is Angular 22 + Stripe.js endive /
+        <ngstr-highlight>&#64;stripe/stripe-js</ngstr-highlight> v10). Pick the cell in the
         <a routerLink="/docs/installation" fragment="release-matrix" class="underline">release matrix</a>
         that matches both your Angular major and the Stripe.js train you want. Details:
         <a routerLink="/docs/versioning" class="underline">Pick your lane</a>.
@@ -34,13 +34,13 @@
     <ngstr-code code="$ npm install ngx-stripe @stripe/stripe-js"></ngstr-code>
     <p>
       To install a specific Angular / Stripe.js lane, use an npm dist-tag or pin a version from the matrix. For example,
-      Angular 21 + dahlia:
+      Angular 22 + dahlia (previous train on Angular 22):
     </p>
-    <ngstr-code code="$ npm install ngx-stripe@v21-dahlia @stripe/stripe-js@^9"></ngstr-code>
+    <ngstr-code code="$ npm install ngx-stripe@v22-dahlia @stripe/stripe-js@^9"></ngstr-code>
     <ngstr-subheader subheader="Important Notes" link="important-notes">Important Notes</ngstr-subheader>
     <ul role="list">
       <li>
-        <strong>Stripe.js named versions</strong>: Stripe.js ships named trains (acacia, basil, clover, dahlia, …) on a
+        <strong>Stripe.js named versions</strong>: Stripe.js ships named trains (acacia, basil, clover, dahlia, endive, …) on a
         predictable schedule. ngx-stripe hardcodes the matching CDN script per line. See the
         <a href="https://docs.stripe.com/sdks/stripejs-versioning" target="_blank" rel="noopener noreferrer"
           >Stripe.js versioning policy</a
@@ -72,6 +72,7 @@
       <thead>
         <tr>
           <th scope="col">Angular \ Stripe.js</th>
+          <th>v10 endive</th>
           <th>v9 dahlia</th>
           <th>v8 clover</th>
           <th>v7 basil</th>
@@ -82,6 +83,7 @@
       <tbody>
         <tr>
           <th scope="row">22</th>
+          <td>22.10.x+</td>
           <td>22.9.x+</td>
           <td>22.8.x+</td>
           <td>22.7.x+</td>
@@ -90,6 +92,7 @@
         </tr>
         <tr>
           <th scope="row">21</th>
+          <td>—</td>
           <td>21.9.x+</td>
           <td>21.8.x+</td>
           <td>21.7.x+</td>
@@ -98,6 +101,7 @@
         </tr>
         <tr>
           <th scope="row">20</th>
+          <td>—</td>
           <td>20.9.x+</td>
           <td>20.8.x+</td>
           <td>20.7.x+</td>
@@ -106,6 +110,7 @@
         </tr>
         <tr>
           <th scope="row">19</th>
+          <td>—</td>
           <td>19.9.x+</td>
           <td>19.8.x+</td>
           <td>19.7.x+</td>
@@ -119,10 +124,12 @@
           <td>—</td>
           <td>—</td>
           <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
           <th scope="row">17</th>
           <td>17.x+</td>
+          <td>—</td>
           <td>—</td>
           <td>—</td>
           <td>—</td>
@@ -135,10 +142,12 @@
           <td>—</td>
           <td>—</td>
           <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
           <th scope="row">15</th>
           <td>15.x+</td>
+          <td>—</td>
           <td>—</td>
           <td>—</td>
           <td>—</td>
@@ -151,10 +160,12 @@
           <td>—</td>
           <td>—</td>
           <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
           <th scope="row">13</th>
           <td>13.x+</td>
+          <td>—</td>
           <td>—</td>
           <td>—</td>
           <td>—</td>
@@ -167,10 +178,12 @@
           <td>—</td>
           <td>—</td>
           <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
           <th scope="row">11</th>
           <td>11.x+</td>
+          <td>—</td>
           <td>—</td>
           <td>—</td>
           <td>—</td>
@@ -183,6 +196,7 @@
           <td>—</td>
           <td>—</td>
           <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
           <th scope="row">9</th>
@@ -191,10 +205,12 @@
           <td>—</td>
           <td>—</td>
           <td>—</td>
+          <td>—</td>
         </tr>
         <tr>
           <th scope="row">8</th>
           <td>v8-lts / 8.2.0</td>
+          <td>—</td>
           <td>—</td>
           <td>—</td>
           <td>—</td>

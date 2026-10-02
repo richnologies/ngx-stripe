@@ -3,7 +3,7 @@
 import { NgStrLanesData } from './lanes.model';
 
 export const NGSTR_LANES: NgStrLanesData = {
-  "latest": "22.9",
+  "latest": "22.10",
   "stripeTrains": {
     "5": {
       "cdn": "v3",
@@ -29,16 +29,29 @@ export const NGSTR_LANES: NgStrLanesData = {
       "cdn": "dahlia",
       "label": "v9 dahlia",
       "packageMajor": 9
+    },
+    "10": {
+      "cdn": "endive",
+      "label": "v10 endive",
+      "packageMajor": 10
     }
   },
   "lanes": [
     {
       "angular": 22,
-      "stripeJs": 9,
-      "range": "22.9.x+",
+      "stripeJs": 10,
+      "range": "22.10.x+",
       "branch": "main",
       "support": "active",
       "npmTag": "latest"
+    },
+    {
+      "angular": 22,
+      "stripeJs": 9,
+      "range": "22.9.x+",
+      "branch": "v22-dahlia",
+      "support": "active",
+      "npmTag": "v22-dahlia"
     },
     {
       "angular": 22,
@@ -196,11 +209,19 @@ export const NGSTR_LANES: NgStrLanesData = {
   "activeLanes": [
     {
       "angular": 22,
-      "stripeJs": 9,
-      "range": "22.9.x+",
+      "stripeJs": 10,
+      "range": "22.10.x+",
       "branch": "main",
       "support": "active",
       "npmTag": "latest"
+    },
+    {
+      "angular": 22,
+      "stripeJs": 9,
+      "range": "22.9.x+",
+      "branch": "v22-dahlia",
+      "support": "active",
+      "npmTag": "v22-dahlia"
     },
     {
       "angular": 22,
@@ -345,9 +366,10 @@ export const NGSTR_LANES: NgStrLanesData = {
   ],
   "ci": {
     "pr": [
-      "22.9"
+      "22.10"
     ],
     "nightly": [
+      "22.10",
       "22.9",
       "22.8",
       "22.7",
