@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -20,6 +21,7 @@ import {
   templateUrl: './elements.component.html',
   standalone: true,
   imports: [
+    RouterLink,
     MatDividerModule,
     MatTabsModule,
     NgStrBadgeComponent,
