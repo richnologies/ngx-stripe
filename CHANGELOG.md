@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 22.10.1 - 2026-10-03
+
+- [#315](https://github.com/richnologies/ngx-stripe/issues/315) Declare `rxjs` as a peer dependency so published typings resolve under pnpm isolated installs
+
 ## 22.10.0 - 2026-10-02
 
 - Add support for StripeJS V10 - endive
