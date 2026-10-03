@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 22.9.2 - 2026-10-03
+
+- [#315](https://github.com/richnologies/ngx-stripe/issues/315) Declare `rxjs` as a peer dependency so published typings resolve under pnpm isolated installs
+
 ## 22.9.1 - 2026-09-29
 
 - Add `ngx-stripe-link-signup` (Stripe Link Signup Element; `@stripe/stripe-js` ≥ 9.16)
