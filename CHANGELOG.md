@@ -6,6 +6,7 @@
 - Add `confirmPayByBankPayment`, `confirmBlikSetup`
 - Remove Payment Request Button Element (`ngx-stripe-payment-request-button`) — Stripe.js v10 dropped the Payment Request Button Element; use Express Checkout or Payment Element, or pin ngx-stripe `20.9.x` + `@stripe/stripe-js@^9`
 - Peer `@stripe/stripe-js` `>=10 <11`; CDN `js.stripe.com/endive/stripe.js`
+- [#315](https://github.com/richnologies/ngx-stripe/issues/315) Declare `rxjs` as a peer dependency so published typings resolve under pnpm isolated installs
 
 ## 20.9.1 - 2026-10-01
 
