@@ -130,6 +130,10 @@ import {
   ConfirmBilliePaymentOptions,
   ConfirmBilliePaymentData,
   ConfirmAmazonPaySetupData,
+  ConfirmPayByBankPaymentData,
+  ConfirmPayByBankPaymentOptions,
+  ConfirmBlikSetupData,
+  ConfirmBlikSetupOptions,
   WrapperLibrary
 } from '@stripe/stripe-js';
 
@@ -385,6 +389,14 @@ export class StripeService implements StripeServiceInterface {
     return this.stripe.confirmP24Payment(clientSecret, data, options);
   }
 
+  confirmPayByBankPayment(
+    clientSecret: string,
+    data?: ConfirmPayByBankPaymentData,
+    options?: ConfirmPayByBankPaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.confirmPayByBankPayment(clientSecret, data, options);
+  }
+
   confirmPayNowPayment(
     clientSecret: string,
     data?: ConfirmPayNowPaymentData,
@@ -529,6 +541,14 @@ export class StripeService implements StripeServiceInterface {
 
   confirmBancontactSetup(clientSecret: string, data?: ConfirmBancontactSetupData): Observable<SetupIntentResult> {
     return this.stripe.confirmBancontactSetup(clientSecret, data);
+  }
+
+  confirmBlikSetup(
+    clientSecret: string,
+    data: ConfirmBlikSetupData,
+    options?: ConfirmBlikSetupOptions
+  ): Observable<SetupIntentResult> {
+    return this.stripe.confirmBlikSetup(clientSecret, data, options);
   }
 
   confirmCardSetup(
