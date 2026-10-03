@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import {
   NgStrDocsHeaderComponent,
@@ -11,7 +12,13 @@ import {
   selector: 'ngstr-migration',
   templateUrl: './migration.component.html',
   standalone: true,
-  imports: [NgStrDocsHeaderComponent, NgStrHighlightComponent, NgStrSectionComponent, NgStrSubheaderComponent]
+  imports: [
+    RouterLink,
+    NgStrDocsHeaderComponent,
+    NgStrHighlightComponent,
+    NgStrSectionComponent,
+    NgStrSubheaderComponent
+  ]
 })
 export default class NgStrMigrationComponent {
   paymentIntentResultNext = '{ paymentIntent?: PaymentIntent; error?: StripeError; }';
