@@ -129,7 +129,11 @@ import {
   ConfirmTwintPaymentData,
   ConfirmBilliePaymentOptions,
   ConfirmBilliePaymentData,
-  ConfirmAmazonPaySetupData
+  ConfirmAmazonPaySetupData,
+  ConfirmPayByBankPaymentData,
+  ConfirmPayByBankPaymentOptions,
+  ConfirmBlikSetupData,
+  ConfirmBlikSetupOptions
 } from '@stripe/stripe-js';
 
 import { StripeServiceInterface } from '../interfaces/stripe-instance.interface';
@@ -448,6 +452,17 @@ export class StripeInstance implements StripeServiceInterface {
     );
   }
 
+  confirmPayByBankPayment(
+    clientSecret: string,
+    data?: ConfirmPayByBankPaymentData,
+    options?: ConfirmPayByBankPaymentOptions
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.confirmPayByBankPayment(clientSecret, data, options))),
+      first()
+    );
+  }
+
   confirmPayNowPayment(
     clientSecret: string,
     data?: ConfirmPayNowPaymentData,
@@ -656,6 +671,17 @@ export class StripeInstance implements StripeServiceInterface {
   confirmBancontactSetup(clientSecret: string, data?: ConfirmBancontactSetupData): Observable<SetupIntentResult> {
     return this.stripe.pipe(
       switchMap((stripe) => from(stripe.confirmBancontactSetup(clientSecret, data))),
+      first()
+    );
+  }
+
+  confirmBlikSetup(
+    clientSecret: string,
+    data: ConfirmBlikSetupData,
+    options?: ConfirmBlikSetupOptions
+  ): Observable<SetupIntentResult> {
+    return this.stripe.pipe(
+      switchMap((stripe) => from(stripe.confirmBlikSetup(clientSecret, data, options))),
       first()
     );
   }

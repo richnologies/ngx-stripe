@@ -20,7 +20,6 @@ import {
   StripeLinkSignupElement,
   StripePaymentElement,
   StripePaymentMethodMessagingElement,
-  StripePaymentRequestButtonElement,
   StripeShippingAddressElement,
   StripeTaxIdElement,
   StripeTermsElement
@@ -119,7 +118,6 @@ export class StripeElementsDirective implements OnInit, OnChanges {
   getElement(elementType: 'linkSignup'): StripeLinkSignupElement | null;
   getElement(elementType: 'expressCheckout'): StripeExpressCheckoutElement | null;
   getElement(elementType: 'payment'): StripePaymentElement | null;
-  getElement(elementType: 'paymentRequestButton'): StripePaymentRequestButtonElement | null;
   getElement(elementType: 'shippingAddress'): StripeShippingAddressElement | null;
   getElement(elementType: 'taxId'): StripeTaxIdElement | null;
   getElement(elementType: 'terms'): StripeTermsElement | null;
@@ -157,8 +155,6 @@ export class StripeElementsDirective implements OnInit, OnChanges {
         return this._elements.getElement('expressCheckout');
       case 'payment':
         return this._elements.getElement('payment');
-      case 'paymentRequestButton':
-        return this._elements.getElement('paymentRequestButton');
       case 'shippingAddress':
         return this._elements.getElement('shippingAddress');
       case 'taxId':
