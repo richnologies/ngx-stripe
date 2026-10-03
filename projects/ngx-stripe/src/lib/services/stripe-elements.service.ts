@@ -9,7 +9,7 @@ import {
   StripeCardNumberElementOptions,
   StripeCardExpiryElementOptions,
   StripeElements,
-  StripePaymentRequestButtonElementOptions,
+  StripeIbanElementOptions,
   StripePaymentElementOptions,
   StripeAddressElementOptions,
   StripeLinkAuthenticationElementOptions,
@@ -39,7 +39,7 @@ export class StripeElementsService {
   elements(stripe, options?: StripeElementsOptionsClientSecret): Observable<StripeElements>;
   elements(stripe, options?: StripeElementsOptionsMode): Observable<StripeElements>;
   elements(stripe, options?: StripeElementsOptions): Observable<StripeElements>;
-  elements(stripe, options = {}): Observable<StripeElements> {
+  elements(stripe, options): Observable<StripeElements> {
     if (stripe) {
       if (Object.keys(options).length > 0) {
         return stripe.elements(options);
@@ -60,6 +60,7 @@ export class StripeElementsService {
   mergeOptions(options: StripeCardElementOptions, containerClass: string): StripeCardElementOptions;
   mergeOptions(options: StripeCardNumberElementOptions, containerClass: string): StripeCardNumberElementOptions;
   mergeOptions(options: StripeCardExpiryElementOptions, containerClass: string): StripeCardExpiryElementOptions;
+  mergeOptions(options: StripeIbanElementOptions, containerClass: string): StripeIbanElementOptions;
   mergeOptions(options: StripeAuBankAccountElementOptions, containerClass: string): StripeAuBankAccountElementOptions;
   mergeOptions(options: StripeAddressElementOptions, containerClass: string): StripeAddressElementOptions;
   mergeOptions(
@@ -91,10 +92,6 @@ export class StripeElementsService {
     options: StripePaymentMethodMessagingElementOptions,
     containerClass: string
   ): StripePaymentMethodMessagingElementOptions;
-  mergeOptions(
-    options: StripePaymentRequestButtonElementOptions,
-    containerClass: string
-  ): StripePaymentRequestButtonElementOptions;
   mergeOptions(options: StripePaymentElementOptions, containerClass: string): StripePaymentElementOptions;
   mergeOptions(
     options: StripeExpressCheckoutElementOptions,

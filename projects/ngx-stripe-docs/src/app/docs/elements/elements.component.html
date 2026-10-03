@@ -176,10 +176,14 @@
           <tr>
             <td class="px-6 py-4 text-sm text-gray-500">
               This method retrieves a previously created element of the indicated type. 
-              Possible elementType are: <strong>address, paymentMethodMessaging, affirmMessage,
-              afterpayClearpayMessage, auBankAccount, card, cardNumber, cardExpiry, cardCvc,
-              fpxBank, epsBank, p24Bank, iban, idealBank, linkAuthentication,
-              expressCheckout, payment, paymentRequestButton, shippingAddress.</strong>
+              Possible elementType values match the current Stripe.js train (see
+              <a routerLink="/docs/installation" fragment="release-matrix" class="underline">release matrix</a>). On
+              <strong>endive (v10+)</strong>, <strong>paymentRequestButton</strong> is not available — Stripe removed
+              the Payment Request Button Element; ngx-stripe dropped
+              <strong>ngx-stripe-payment-request-button</strong> on that line. Examples include
+              <strong>address, contactDetails, currencySelector, paymentMethodMessaging, auBankAccount, card,
+              cardNumber, cardExpiry, cardCvc, iban, linkAuthentication, linkSignup, expressCheckout, payment,
+              shippingAddress, taxId, terms</strong>, and Issuing display elements.
               It will return the Stripe Element instance.
             </td>
           </tr>
