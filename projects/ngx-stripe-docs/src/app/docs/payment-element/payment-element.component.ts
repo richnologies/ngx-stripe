@@ -93,7 +93,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
   }
 
   pay() {
-    if (this.paymentElementForm.valid) {
+    if (this.paymentElementForm.valid && this.paymentElement) {
       this.paying = true;
       this.stripe
         .confirmPayment({

@@ -138,7 +138,7 @@
                 <button
                   type="button"
                   (click)="pay()"
-                  [disabled]="paying"
+                  [disabled]="paying || !elementsOptions?.clientSecret"
                   class="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-ngst-accent px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition hover:bg-ngst-accent-dark focus:outline-none focus:ring-2 focus:ring-ngst-accent/40 disabled:opacity-60"
                 >
                   @if (paying) {
