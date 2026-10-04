@@ -14,7 +14,7 @@ describe('provideNgxStripe', () => {
     });
 
     expect(TestBed.inject(STRIPE_PUBLISHABLE_KEY)).toBe('pk_test_demo');
-    expect(TestBed.inject(NGX_STRIPE_VERSION)).toBe('22.10.1');
+    expect(TestBed.inject(NGX_STRIPE_VERSION)).toBe('22.10.2');
     expect(TestBed.inject(LazyStripeAPILoader)).toBeTruthy();
     expect(TestBed.inject(StripeService)).toBeTruthy();
     expect(TestBed.inject(StripeFactoryService)).toBeTruthy();

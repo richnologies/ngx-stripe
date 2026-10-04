@@ -15,6 +15,7 @@ if (!fs.existsSync(path.join(distDir, 'package.json'))) {
   execSync('npm run build:lib', { cwd: root, stdio: 'inherit' });
 }
 
+execSync('npm run copy:skill', { cwd: root, stdio: 'inherit' });
 execSync('npm pack --silent', { cwd: distDir, stdio: 'pipe' });
 const tgz = fs.readdirSync(distDir).find((f) => f.endsWith('.tgz'));
 const listing = execSync(`tar -tzf ${JSON.stringify(tgz)}`, { cwd: distDir, encoding: 'utf8' })
@@ -24,8 +25,9 @@ const listing = execSync(`tar -tzf ${JSON.stringify(tgz)}`, { cwd: distDir, enco
   .filter((f) => !f.endsWith('.tgz'))
   .sort();
 
-const allowedPrefixes = ['fesm2022/', 'types/', 'LICENSE', 'README', 'package.json'];
+const allowedPrefixes = ['fesm2022/', 'types/', 'LICENSE', 'README', 'package.json', 'skills/'];
 const allowedExact = new Set(['LICENSE.md', 'README.md', 'package.json']);
+const required = ['skills/ngx-stripe/SKILL.md', 'skills/ngx-stripe/elements.md'];
 
 const unexpected = listing.filter((f) => {
   if (allowedExact.has(f)) return false;
@@ -38,6 +40,13 @@ for (const f of listing) console.log(`  ${f}`);
 if (unexpected.length) {
   console.error('\nUnexpected packaged paths:');
   for (const f of unexpected) console.error(`  - ${f}`);
+  process.exit(1);
+}
+
+const missing = required.filter((f) => !listing.includes(f));
+if (missing.length) {
+  console.error('\nMissing packaged paths:');
+  for (const f of missing) console.error(`  - ${f}`);
   process.exit(1);
 }
 

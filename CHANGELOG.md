@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 22.10.2 - 2026-10-04
+
+- Honor Payment Element `doNotCreateUntilClientSecretIsSet` so implicit create waits for a client secret ([#321](https://github.com/richnologies/ngx-stripe/pull/321))
+- Ship the consumer Agent Skill (`skills/ngx-stripe`) in the npm package; docs catalog every Element host plus `llms.txt`
+
 ## 22.10.1 - 2026-10-03
 
 - [#315](https://github.com/richnologies/ngx-stripe/issues/315) Declare `rxjs` as a peer dependency so published typings resolve under pnpm isolated installs
