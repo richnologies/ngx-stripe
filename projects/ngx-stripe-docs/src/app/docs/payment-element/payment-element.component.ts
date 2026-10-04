@@ -79,6 +79,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
   stripe = injectStripe(this.plutoService.KEYS.main);
   paying = false;
   completed = false;
+  paymentElementReady = false;
 
   ngOnInit() {
     this.plutoService
@@ -87,49 +88,60 @@ export default class NgStrPaymentElementComponent implements OnInit {
         currency: 'usd'
       })
       .subscribe((pi) => {
+        this.paymentElementReady = false;
         this.elementsOptions.clientSecret = pi.client_secret;
         this.cdr.detectChanges();
       });
   }
 
+  onPaymentElementLoad() {
+    this.paymentElementReady = true;
+    this.cdr.detectChanges();
+  }
+
   pay() {
-    if (this.paymentElementForm.valid) {
-      this.paying = true;
-      this.stripe
-        .confirmPayment({
-          elements: this.paymentElement.elements,
-          confirmParams: {
-            payment_method_data: {
-              billing_details: {
-                name: this.paymentElementForm.get('name').value,
-                email: this.paymentElementForm.get('email').value,
-                address: {
-                  line1: this.paymentElementForm.get('address').value || '',
-                  postal_code: this.paymentElementForm.get('zipcode').value || '',
-                  city: this.paymentElementForm.get('city').value || ''
-                }
+    if (
+      this.paying ||
+      this.paymentElementForm.invalid ||
+      !this.paymentElementReady ||
+      !this.paymentElement?.elements
+    ) {
+      return;
+    }
+
+    this.paying = true;
+    this.stripe
+      .confirmPayment({
+        elements: this.paymentElement.elements,
+        confirmParams: {
+          payment_method_data: {
+            billing_details: {
+              name: this.paymentElementForm.get('name').value,
+              email: this.paymentElementForm.get('email').value,
+              address: {
+                line1: this.paymentElementForm.get('address').value || '',
+                postal_code: this.paymentElementForm.get('zipcode').value || '',
+                city: this.paymentElementForm.get('city').value || ''
               }
             }
-          },
-          redirect: 'if_required'
-        })
-        .subscribe((result) => {
-          this.paying = false;
-          console.log(result);
-          if (result.error) {
-            // Show error to your customer (e.g., insufficient funds)
-            alert(JSON.stringify({ success: false, error: result.error.message }));
-          } else {
-            // The payment has been processed!
-            if (result.paymentIntent.status === 'succeeded') {
-              // Show a success message to your customer
-              this.completed = true;
-            }
           }
-        });
-    } else {
-      console.log(this.paymentElementForm);
-    }
+        },
+        redirect: 'if_required'
+      })
+      .subscribe((result) => {
+        this.paying = false;
+        console.log(result);
+        if (result.error) {
+          // Show error to your customer (e.g., insufficient funds)
+          alert(JSON.stringify({ success: false, error: result.error.message }));
+        } else {
+          // The payment has been processed!
+          if (result.paymentIntent.status === 'succeeded') {
+            // Show a success message to your customer
+            this.completed = true;
+          }
+        }
+      });
   }
 
   clearPaymentElementForm() {
