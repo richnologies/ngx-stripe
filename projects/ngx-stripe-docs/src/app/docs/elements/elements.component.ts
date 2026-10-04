@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 
+import { NGSTR_ELEMENTS } from '../../core/elements/elements.data';
+
 import {
   NgStrBadgeComponent,
   NgStrCodeComponent,
@@ -36,6 +38,8 @@ import {
   ]
 })
 export default class NgStrElementsComponent {
+  catalog = NGSTR_ELEMENTS;
+
   elementsWithInject = `
     import { Component } from '@angular/core';
 

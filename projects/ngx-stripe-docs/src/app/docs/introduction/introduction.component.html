@@ -45,19 +45,26 @@
     </ul>
     <ngstr-subheader subheader="Stripe Elements and Angular Components" link="stripe-elements"></ngstr-subheader>
     <p>
-      Ngx Stripe brings a range of components that correspond to Stripe Elements, making it easier to incorporate
-      various payment options and inputs. Here are some of the key components:
+      Each Stripe Element has an ngx-stripe host. The recommended checkout path is
+      <a class="underline" routerLink="/docs/payment-element">Payment Element</a>
+      (<ngstr-highlight>ngx-stripe-payment</ngstr-highlight>).
+      The full list of selectors lives on the
+      <a class="underline" routerLink="/docs/elements" fragment="catalog">Elements catalog</a>.
     </p>
     <ul>
       <li>
-        <strong>Payment Element (ngx-stripe-card)</strong>: A versatile component that combines various payment methods
-        into a single, streamlined element, simplifying the checkout process.
+        <strong>Payment Element (<ngstr-highlight>ngx-stripe-payment</ngstr-highlight>)</strong> —
+        cards, wallets, and local methods in one Element.
       </li>
       <li>
-        <strong>Card Element (ngx-stripe-card)</strong>: Integrate the card element for seamless credit/debit card
-        information input.
+        <strong>Express Checkout (<ngstr-highlight>ngx-stripe-express-checkout</ngstr-highlight>)</strong> —
+        Apple Pay / Google Pay / Link (replaces Payment Request Button on Stripe.js v10).
       </li>
-      <li><strong>IBAN Element (ngx-stripe-iban)</strong>: Easily accept bank transfers within the European Union.</li>
+      <li>
+        <strong>Card Element (<ngstr-highlight>ngx-stripe-card</ngstr-highlight>)</strong> —
+        still supported; split fields use
+        <ngstr-highlight>ngx-stripe-card-group</ngstr-highlight>.
+      </li>
     </ul>
   </ng-container>
 </ngstr-section>

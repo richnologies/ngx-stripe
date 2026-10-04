@@ -20,8 +20,39 @@ test.describe('docs smoke (latest lane)', () => {
     await page.goto('/docs/installation');
     await expect(page.getByTestId('install-lane-command')).toBeVisible();
     await expect(page.getByRole('heading', { name: /release matrix/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /ai agents/i })).toBeVisible();
+    await expect(page.getByText('npx skills add richnologies/ngx-stripe')).toBeVisible();
     await expect(page.getByRole('table')).toContainText('22');
     await expect(page.getByTestId('ownership-callout')).toBeVisible();
+  });
+
+  test('element catalog and a generated contract page load', async ({ page }) => {
+    await page.goto('/docs/elements');
+    await expect(page.getByRole('heading', { name: /^elements$/i })).toBeVisible();
+    await expect(page.getByRole('tabpanel', { name: 'Overview' }).getByRole('link', { name: 'Tax Id Element' })).toBeVisible();
+
+    await page.goto('/docs/tax-id-element');
+    await expect(page.getByRole('heading', { name: /tax id/i })).toBeVisible();
+    await expect(page.getByTestId('ownership-callout')).toBeVisible();
+    await expect(page.getByText('ngx-stripe-tax-id').first()).toBeVisible();
+  });
+
+  test('removed Payment Request Button page does not teach the old selector', async ({ page }) => {
+    await page.goto('/docs/payment-request-button');
+    await expect(page.getByRole('heading', { name: /payment request button/i })).toBeVisible();
+    await expect(page.getByText(/removed on stripe\.js v10/i)).toBeVisible();
+    await expect(page.getByRole('link', { name: /express checkout/i }).first()).toBeVisible();
+  });
+
+  test('llms.txt is served', async ({ page }) => {
+    // ng serve exposes the file under /assets; production also copies it to /llms.txt
+    const res = await page.request.get('/assets/llms.txt');
+    expect(res.status()).toBe(200);
+    const body = await res.text();
+    expect(body).toContain('ngx-stripe');
+    expect(body).toContain('ngx-stripe-payment');
+    expect(body).toContain('provideNgxStripe');
+    expect(body).toContain('npx skills add richnologies/ngx-stripe');
   });
 
   test('versioning, csp, and support pages load', async ({ page }) => {

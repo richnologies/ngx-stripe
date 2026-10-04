@@ -1,0 +1,170 @@
+@if (entry(); as el) {
+  <ngstr-container size="md">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="Overview">
+        <ngstr-section>
+          <ng-container ngStrSectionMain>
+            <ngstr-header [title]="el.name" />
+            <ngstr-ownership-callout />
+            <p>
+              {{ el.summary }}
+            </p>
+            <p>
+              Stripe.js type <ngstr-highlight>{{ el.stripeType }}</ngstr-highlight>,
+              selector <ngstr-highlight>{{ el.selector }}</ngstr-highlight>,
+              export <ngstr-highlight>{{ el.export }}</ngstr-highlight>.
+              Shipped in ngx-stripe <ngstr-highlight>{{ el.since }}</ngstr-highlight>.
+            </p>
+            <p>
+              Options and appearance:
+              <ngstr-link [url]="el.stripeDocs">Stripe.js documentation</ngstr-link>.
+            </p>
+            <ngstr-panel type="info">
+              <p>{{ el.notes }}</p>
+              @if (el.needsClientSecret) {
+                <p class="mt-2">
+                  Set <ngstr-highlight>clientSecret</ngstr-highlight> on
+                  <ngstr-highlight>elementsOptions</ngstr-highlight> before creating
+                  <ngstr-highlight>ngx-stripe-elements</ngstr-highlight>.
+                  Nested Elements cannot update the secret later — wrap the parent in
+                  <ngstr-highlight>&#64;if</ngstr-highlight>. See
+                  <a class="underline" routerLink="/docs/elements">Elements</a>
+                  and
+                  <a class="underline" routerLink="/docs/payment-element">Payment Element</a>.
+                </p>
+              }
+            </ngstr-panel>
+
+            <ngstr-subheader subheader="Using the Element" link="usage" />
+            <ngstr-code-group>
+              <ngstr-code name="element.component.html" [code]="el.snippetHtml" />
+              <ngstr-code name="element.component.ts" [code]="el.snippetTs" />
+            </ngstr-code-group>
+            @if (el.examplePath) {
+              <p>
+                Live example:
+                <a class="underline" [routerLink]="el.examplePath">{{ el.examplePath }}</a>
+              </p>
+            }
+          </ng-container>
+        </ngstr-section>
+      </mat-tab>
+      <mat-tab label="API">
+        <h2 class="pt-4">API Reference for {{ el.name }}</h2>
+        <ngstr-highlight>import &#123; {{ el.export }} &#125; from 'ngx-stripe'</ngstr-highlight>
+
+        <h3 class="pt-4">Components</h3>
+        <mat-divider></mat-divider>
+        <p class="pt-4">{{ el.export }}</p>
+        <strong>Selector:</strong>
+        <ngstr-highlight>{{ el.selector }}</ngstr-highlight>
+
+        <h4 class="pt-4"><strong>Properties</strong></h4>
+        <table class="w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Name
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Description
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr>
+              <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                &#64;Input() <br />
+                containerClass: string
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-500">A CSS class to add to the container element.</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                &#64;Input() <br />
+                options: {{ el.optionsType }}
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-500">
+                Stripe options for this Element. See
+                <ngstr-link [url]="el.stripeDocs">Stripe documentation</ngstr-link>.
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                &#64;Input() <br />
+                elementsOptions: StripeElementsOptions
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-500">
+                <ngstr-badge color="red">
+                  DEPRECATED: USE <a class="underline" routerLink="/docs/elements">ELEMENTS</a> INSTEAD
+                </ngstr-badge>
+                <br />
+                Implicit Elements options when no parent directive is used.
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                &#64;Input() <br />
+                stripe: StripeServiceInterface
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-500">
+                <ngstr-badge color="red">
+                  DEPRECATED: USE <a class="underline" routerLink="/docs/elements">ELEMENTS</a> INSTEAD
+                </ngstr-badge>
+                <br />
+                Implicit Stripe instance when no parent directive is used.
+              </td>
+            </tr>
+            @for (input of extraInputs(el); track input.name) {
+              <tr>
+                <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                  &#64;Input() <br />
+                  {{ input.name }}: {{ input.type }}
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-500">{{ input.description }}</td>
+              </tr>
+            }
+            @for (output of el.outputs; track output) {
+              <tr>
+                <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                  &#64;Output() <br />
+                  {{ output }}
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-500">
+                  Stripe Element event forwarded from the host.
+                  @if (output === 'load') {
+                    <ngstr-badge color="blue">CUSTOM: NGX-STRIPE ONLY</ngstr-badge>
+                    Emitted when the Angular host has mounted the Stripe Element.
+                  }
+                </td>
+              </tr>
+            }
+            <tr>
+              <td class="px-6 py-4 text-sm font-medium text-gray-900">element</td>
+              <td class="px-6 py-4 text-sm text-gray-500">The underlying Stripe.js Element instance.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        @if (el.methods.length) {
+          <h4 class="pt-4"><strong>Methods</strong></h4>
+          <table class="w-full divide-y divide-gray-200">
+            <tbody class="bg-white divide-y divide-gray-200">
+              @for (method of el.methods; track method) {
+                <tr class="bg-gray-50">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ method }}</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 text-sm text-gray-500">
+                    Delegates to the Stripe.js Element. See
+                    <ngstr-link [url]="el.stripeDocs">Stripe documentation</ngstr-link>.
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+      </mat-tab>
+    </mat-tab-group>
+  </ngstr-container>
+}

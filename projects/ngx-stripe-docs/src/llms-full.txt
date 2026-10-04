@@ -1,0 +1,553 @@
+# ngx-stripe (full)
+
+# ngx-stripe
+
+> Angular wrapper around Stripe.js: Observable StripeService, provideNgxStripe / injectStripe, and standalone Elements hosts.
+
+ngx-stripe does not own payment types or Element appearance. Types come from `@stripe/stripe-js`. Styling, payment methods, and PCI are Stripe.
+
+Version = `{angularMajor}.{stripeJsMajor}.{patch}` (e.g. 22.10.x = Angular 22 + Stripe.js v10 endive).
+
+## Install
+
+```bash
+npm install ngx-stripe @stripe/stripe-js
+```
+
+```ts
+import { provideNgxStripe } from 'ngx-stripe';
+export const appConfig = { providers: [provideNgxStripe('pk_test_…')] };
+```
+
+`injectStripe()` uses the default key. Service methods are Observables, not Promises.
+Nested Elements: set `clientSecret` on `ngx-stripe-elements` before create; wrap in `@if`.
+Split Card fields need `ngx-stripe-card-group`. Payment Request Button is gone on Stripe.js v10 / `*.10`.
+
+## Docs
+
+- [Introduction](https://ngx-stripe.dev/docs/introduction)
+- [Installation / lanes](https://ngx-stripe.dev/docs/installation)
+- [Setup](https://ngx-stripe.dev/docs/setup-application)
+- [First payment](https://ngx-stripe.dev/docs/first-payment)
+- [Elements parent + catalog](https://ngx-stripe.dev/docs/elements)
+- [Stripe Service](https://ngx-stripe.dev/docs/service)
+- [CSP](https://ngx-stripe.dev/docs/csp)
+- [Checkout](https://ngx-stripe.dev/docs/checkout)
+- [Identity](https://ngx-stripe.dev/docs/identity)
+- [Migration](https://ngx-stripe.dev/docs/migration)
+- [llms-full.txt](https://ngx-stripe.dev/llms-full.txt)
+
+## Elements
+
+- [Payment Element](https://ngx-stripe.dev/docs/payment-element): `ngx-stripe-payment`
+- [Express Checkout Element](https://ngx-stripe.dev/docs/express-checkout-element): `ngx-stripe-express-checkout`
+- [Link Authentication Element](https://ngx-stripe.dev/docs/link-authentication-element): `ngx-stripe-link-authentication`
+- [Link Signup Element](https://ngx-stripe.dev/docs/link-signup-element): `ngx-stripe-link-signup`
+- [Address Element](https://ngx-stripe.dev/docs/address-element): `ngx-stripe-address`
+- [Contact Details Element](https://ngx-stripe.dev/docs/contact-details-element): `ngx-stripe-contact-details`
+- [Tax Id Element](https://ngx-stripe.dev/docs/tax-id-element): `ngx-stripe-tax-id`
+- [Terms Element](https://ngx-stripe.dev/docs/terms-element): `ngx-stripe-terms`
+- [Currency Selector Element](https://ngx-stripe.dev/docs/currency-selector-element): `ngx-stripe-currency-selector`
+- [Payment Method Messaging](https://ngx-stripe.dev/docs/payment-method-messaging-element): `ngx-stripe-payment-method-messaging`
+- [Card Element](https://ngx-stripe.dev/docs/card-elements): `ngx-stripe-card`
+- [Card Number Element](https://ngx-stripe.dev/docs/card-elements): `ngx-stripe-card-number`
+- [Card Expiry Element](https://ngx-stripe.dev/docs/card-elements): `ngx-stripe-card-expiry`
+- [Card CVC Element](https://ngx-stripe.dev/docs/card-elements): `ngx-stripe-card-cvc`
+- [IBAN Element](https://ngx-stripe.dev/docs/iban-element): `ngx-stripe-iban`
+- [AU Bank Account Element](https://ngx-stripe.dev/docs/au-bank-account-element): `ngx-stripe-au-bank-account`
+- [Issuing Card Number](https://ngx-stripe.dev/docs/issuing-elements): `ngx-stripe-issuing-card-number-display`
+- [Issuing Card CVC](https://ngx-stripe.dev/docs/issuing-elements): `ngx-stripe-issuing-card-cvc-display`
+- [Issuing Card Expiry](https://ngx-stripe.dev/docs/issuing-elements): `ngx-stripe-issuing-card-expiry-display`
+- [Issuing Card PIN](https://ngx-stripe.dev/docs/issuing-elements): `ngx-stripe-issuing-card-pin-display`
+- [Issuing Card Copy Button](https://ngx-stripe.dev/docs/issuing-elements): `ngx-stripe-issuing-card-copy-button`
+
+## Skill
+
+Agent Skill (`SKILL.md`), editor-agnostic:
+
+```bash
+npx skills add richnologies/ngx-stripe
+```
+
+Source: https://github.com/richnologies/ngx-stripe/tree/main/skills/ngx-stripe
+
+
+## Setup
+
+```ts
+import { provideNgxStripe } from 'ngx-stripe';
+
+export const appConfig = {
+  providers: [provideNgxStripe('pk_live_...')]
+};
+```
+
+`injectStripe()` uses the default key. Pass a key or `StripeInstance` for Connect / second accounts.
+
+Nested Elements: create the parent `ngx-stripe-elements` once with `clientSecret` set. Do not patch clientSecret after create. Use `@if (elementsOptions.clientSecret)`.
+
+Split card number / expiry / CVC must sit in `ngx-stripe-card-group`. Directives: `StripeElementsDirective`, `StripeCardGroupDirective`, `NgxStripeElementLoadingTemplateDirective`.
+
+## Element contract pages
+
+### Payment Element
+
+- Export: `StripePaymentElementComponent`
+- Selector: `ngx-stripe-payment`
+- Stripe type: `payment`
+- Docs: https://ngx-stripe.dev/docs/payment-element
+- Stripe.js: https://docs.stripe.com/js/element/payment_element
+- Since: 13.x+
+- clientSecret on parent Elements: yes
+- Collect payment details for many methods in one Element. Prefer this over Card Elements for new integrations.
+- Wrap in ngx-stripe-elements. Set clientSecret on the parent Elements options before create — nested Elements cannot update clientSecret later. Use @if until the secret exists. doNotCreateUntilClientSecretIsSet defers implicit (non-parent) create.
+
+```html
+@if (elementsOptions.clientSecret) {
+  <ngx-stripe-elements
+    [stripe]="stripe"
+    [elementsOptions]="elementsOptions"
+  >
+    <ngx-stripe-payment />
+  </ngx-stripe-elements>
+}
+```
+
+### Express Checkout Element
+
+- Export: `StripeExpressCheckoutComponent`
+- Selector: `ngx-stripe-express-checkout`
+- Stripe type: `expressCheckout`
+- Docs: https://ngx-stripe.dev/docs/express-checkout-element
+- Stripe.js: https://docs.stripe.com/js/element/express_checkout_element
+- Since: 18.x+
+- clientSecret on parent Elements: yes
+- Wallet buttons (Apple Pay, Google Pay, Link, PayPal, …) in one Element. Replacement path for Payment Request Button on endive.
+- Parent ngx-stripe-elements with a PaymentIntent/SetupIntent clientSecret, or deferred mode + amount (see Express Checkout docs). Bind (clicked) not (click). Confirm via stripe.confirmPayment with the same Elements instance. Checkout Sessions ui_mode=elements use initCheckoutElementsSdk instead.
+
+```html
+@if (elementsOptions.clientSecret) {
+  <ngx-stripe-elements
+    [stripe]="stripe"
+    [elementsOptions]="elementsOptions"
+  >
+    <ngx-stripe-express-checkout />
+  </ngx-stripe-elements>
+}
+```
+
+### Link Authentication Element
+
+- Export: `StripeLinkAuthenticationComponent`
+- Selector: `ngx-stripe-link-authentication`
+- Stripe type: `linkAuthentication`
+- Docs: https://ngx-stripe.dev/docs/link-authentication-element
+- Stripe.js: https://docs.stripe.com/js/elements_object/create_link_authentication_element
+- Since: 16.x+
+- clientSecret on parent Elements: yes
+- Collect email and authenticate returning Link customers on checkout.
+- Place inside the same ngx-stripe-elements as Payment Element. Email is collected by the Element — do not also pass it on confirmPayment unless you have a reason to. Stripe now documents this flow as Contact Details (`ngx-stripe-contact-details`); this host remains for the linkAuthentication type.
+
+```html
+@if (elementsOptions.clientSecret) {
+  <ngx-stripe-elements
+    [stripe]="stripe"
+    [elementsOptions]="elementsOptions"
+  >
+    <ngx-stripe-link-authentication />
+  </ngx-stripe-elements>
+}
+```
+
+### Link Signup Element
+
+- Export: `StripeLinkSignupComponent`
+- Selector: `ngx-stripe-link-signup`
+- Stripe type: `linkSignup`
+- Docs: https://ngx-stripe.dev/docs/link-signup-element
+- Stripe.js: https://docs.stripe.com/js/elements_object/create_link_signup_element
+- Since: 22.9.1
+- clientSecret on parent Elements: yes
+- Collect Link signup details (email / name / phone defaults) next to Payment Element.
+- Requires Link enabled on the Stripe account. Use the same Elements group as Payment Element. Types from @stripe/stripe-js (≥ 9.16).
+
+```html
+@if (elementsOptions.clientSecret) {
+  <ngx-stripe-elements
+    [stripe]="stripe"
+    [elementsOptions]="elementsOptions"
+  >
+    <ngx-stripe-link-signup [options]="options" />
+  </ngx-stripe-elements>
+}
+```
+
+### Address Element
+
+- Export: `StripeAddressComponent`
+- Selector: `ngx-stripe-address`
+- Stripe type: `address`
+- Docs: https://ngx-stripe.dev/docs/address-element
+- Stripe.js: https://docs.stripe.com/js/elements_object/create_address_element
+- Since: 14.x+
+- clientSecret on parent Elements: yes
+- Collect shipping or billing addresses. Autocomplete when used with Payment Element.
+- Create with options.mode 'shipping' or 'billing'. Call getValue() to validate and read the address.
+
+```html
+@if (elementsOptions.clientSecret) {
+  <ngx-stripe-elements
+    [stripe]="stripe"
+    [elementsOptions]="elementsOptions"
+  >
+    <ngx-stripe-address />
+  </ngx-stripe-elements>
+}
+```
+
+### Contact Details Element
+
+- Export: `StripeContactDetailsComponent`
+- Selector: `ngx-stripe-contact-details`
+- Stripe type: `contactDetails`
+- Docs: https://ngx-stripe.dev/docs/contact-details-element
+- Stripe.js: https://docs.stripe.com/js/element/contact_details_element
+- Since: 21.9.0
+- clientSecret on parent Elements: yes
+- Collect customer contact details (email) inside Elements.
+- Dahlia+ (ngx-stripe 21.9 / 22.9). Stripe’s current name for the Link email Element (was Link Authentication). Listen to (change) for complete / value. Prefer this over ngx-stripe-link-authentication for new work.
+
+```html
+@if (elementsOptions.clientSecret) {
+  <ngx-stripe-elements
+    [stripe]="stripe"
+    [elementsOptions]="elementsOptions"
+  >
+    <ngx-stripe-contact-details [options]="options" />
+  </ngx-stripe-elements>
+}
+```
+
+### Tax Id Element
+
+- Export: `StripeTaxIdComponent`
+- Selector: `ngx-stripe-tax-id`
+- Stripe type: `taxId`
+- Docs: https://ngx-stripe.dev/docs/tax-id-element
+- Stripe.js: https://docs.stripe.com/js/elements_object/create_tax_id_element
+- Since: 21.9.0
+- clientSecret on parent Elements: yes
+- Collect a customer's tax ID inside Checkout/Elements.
+- Dahlia+. Call getValue() after mount. Enable Tax ID collection in Stripe Dashboard / Checkout settings as required by Stripe.
+
+```html
+@if (elementsOptions.clientSecret) {
+  <ngx-stripe-elements
+    [stripe]="stripe"
+    [elementsOptions]="elementsOptions"
+  >
+    <ngx-stripe-tax-id [options]="options" />
+  </ngx-stripe-elements>
+}
+```
+
+### Terms Element
+
+- Export: `StripeTermsComponent`
+- Selector: `ngx-stripe-terms`
+- Stripe type: `terms`
+- Docs: https://ngx-stripe.dev/docs/terms-element
+- Stripe.js: https://docs.stripe.com/js/elements_object/create_terms_element
+- Since: 21.9.0
+- clientSecret on parent Elements: yes
+- Show Stripe-hosted terms/agreements in the payment form.
+- Dahlia+. Options are Stripe-owned (often empty). Pair with Payment Element in the same ngx-stripe-elements.
+
+```html
+@if (elementsOptions.clientSecret) {
+  <ngx-stripe-elements
+    [stripe]="stripe"
+    [elementsOptions]="elementsOptions"
+  >
+    <ngx-stripe-terms />
+  </ngx-stripe-elements>
+}
+```
+
+### Currency Selector Element
+
+- Export: `StripeCurrencySelectorComponent`
+- Selector: `ngx-stripe-currency-selector`
+- Stripe type: `currencySelector`
+- Docs: https://ngx-stripe.dev/docs/currency-selector-element
+- Stripe.js: https://docs.stripe.com/js/elements_object/create_currency_selector_element
+- Since: 21.9.0
+- clientSecret on parent Elements: yes
+- Let the customer pick a presentment currency when Stripe Adaptive Pricing / currency selection is enabled.
+- Dahlia+. Requires a PaymentIntent/SetupIntent whose currency settings allow selection. Stripe owns the option object (currently empty).
+
+```html
+@if (elementsOptions.clientSecret) {
+  <ngx-stripe-elements
+    [stripe]="stripe"
+    [elementsOptions]="elementsOptions"
+  >
+    <ngx-stripe-currency-selector />
+  </ngx-stripe-elements>
+}
+```
+
+### Payment Method Messaging
+
+- Export: `StripePaymentMethodMessagingComponent`
+- Selector: `ngx-stripe-payment-method-messaging`
+- Stripe type: `paymentMethodMessaging`
+- Docs: https://ngx-stripe.dev/docs/payment-method-messaging-element
+- Stripe.js: https://docs.stripe.com/js/elements_object/create_payment_method_messaging_element
+- Since: 16.x+
+- clientSecret on parent Elements: no
+- Show buy-now-pay-later / installment messaging (Klarna, Affirm, Afterpay, …) for a given amount.
+- Does not collect payment details. amount is in the smallest currency unit. Enable the payment methods on the Stripe account.
+
+```html
+<ngx-stripe-elements
+  [stripe]="stripe"
+  [elementsOptions]="elementsOptions"
+>
+  <ngx-stripe-payment-method-messaging [options]="options" />
+</ngx-stripe-elements>
+```
+
+### Card Element
+
+- Export: `StripeCardComponent`
+- Selector: `ngx-stripe-card`
+- Stripe type: `card`
+- Docs: https://ngx-stripe.dev/docs/card-elements
+- Stripe.js: https://docs.stripe.com/js/elements_object/create_card_element
+- Since: 1.x+
+- clientSecret on parent Elements: no
+- Single iframe for card number, expiry, and CVC. Prefer Payment Element for new work.
+- Split fields use ngx-stripe-card-number, ngx-stripe-card-expiry, ngx-stripe-card-cvc inside ngx-stripe-card-group.
+
+```html
+<ngx-stripe-elements
+  [stripe]="stripe"
+  [elementsOptions]="elementsOptions"
+>
+  <ngx-stripe-card />
+</ngx-stripe-elements>
+```
+
+### Card Number Element
+
+- Export: `StripeCardNumberComponent`
+- Selector: `ngx-stripe-card-number`
+- Stripe type: `cardNumber`
+- Docs: https://ngx-stripe.dev/docs/card-elements
+- Stripe.js: https://docs.stripe.com/js/elements_object/create_card_number_element
+- Since: 1.x+
+- clientSecret on parent Elements: no
+- Split Card Element — number field. Use with ngx-stripe-card-group.
+- Must sit with expiry and CVC in the same card group.
+
+```html
+<ngx-stripe-elements
+  [stripe]="stripe"
+  [elementsOptions]="elementsOptions"
+>
+  <ngx-stripe-card-number />
+</ngx-stripe-elements>
+```
+
+### Card Expiry Element
+
+- Export: `StripeCardExpiryComponent`
+- Selector: `ngx-stripe-card-expiry`
+- Stripe type: `cardExpiry`
+- Docs: https://ngx-stripe.dev/docs/card-elements
+- Stripe.js: https://docs.stripe.com/js/elements_object/create_card_expiry_element
+- Since: 1.x+
+- clientSecret on parent Elements: no
+- Split Card Element — expiry field.
+- Use with ngx-stripe-card-group.
+
+```html
+<ngx-stripe-elements
+  [stripe]="stripe"
+  [elementsOptions]="elementsOptions"
+>
+  <ngx-stripe-card-expiry />
+</ngx-stripe-elements>
+```
+
+### Card CVC Element
+
+- Export: `StripeCardCvcComponent`
+- Selector: `ngx-stripe-card-cvc`
+- Stripe type: `cardCvc`
+- Docs: https://ngx-stripe.dev/docs/card-elements
+- Stripe.js: https://docs.stripe.com/js/elements_object/create_card_cvc_element
+- Since: 1.x+
+- clientSecret on parent Elements: no
+- Split Card Element — CVC field.
+- Use with ngx-stripe-card-group.
+
+```html
+<ngx-stripe-elements
+  [stripe]="stripe"
+  [elementsOptions]="elementsOptions"
+>
+  <ngx-stripe-card-cvc />
+</ngx-stripe-elements>
+```
+
+### IBAN Element
+
+- Export: `StripeIbanComponent`
+- Selector: `ngx-stripe-iban`
+- Stripe type: `iban`
+- Docs: https://ngx-stripe.dev/docs/iban-element
+- Stripe.js: https://docs.stripe.com/js/elements_object/create_iban_element
+- Since: 6.x+
+- clientSecret on parent Elements: no
+- Collect a SEPA IBAN. Often used with createToken / confirmSepaDebitPayment.
+- Pass supportedCountries. Confirm with the matching Stripe.js method (e.g. confirmSepaDebitPayment) or createToken for the legacy token flow.
+
+```html
+<ngx-stripe-elements
+  [stripe]="stripe"
+  [elementsOptions]="elementsOptions"
+>
+  <ngx-stripe-iban [options]="options" />
+</ngx-stripe-elements>
+```
+
+### AU Bank Account Element
+
+- Export: `StripeAuBankAccountComponent`
+- Selector: `ngx-stripe-au-bank-account`
+- Stripe type: `auBankAccount`
+- Docs: https://ngx-stripe.dev/docs/au-bank-account-element
+- Stripe.js: https://docs.stripe.com/js/elements_object/create_au_bank_account_element
+- Since: 12.x+
+- clientSecret on parent Elements: yes
+- Collect Australian BECS Debit account details.
+- Enable au_becs_debit on the Stripe account. Confirm with confirmAuBecsDebitPayment / Setup. BSB + account number are Stripe-hosted.
+
+```html
+@if (elementsOptions.clientSecret) {
+  <ngx-stripe-elements
+    [stripe]="stripe"
+    [elementsOptions]="elementsOptions"
+  >
+    <ngx-stripe-au-bank-account />
+  </ngx-stripe-elements>
+}
+```
+
+### Issuing Card Number
+
+- Export: `StripeIssuingCardNumberDisplayComponent`
+- Selector: `ngx-stripe-issuing-card-number-display`
+- Stripe type: `issuingCardNumberDisplay`
+- Docs: https://ngx-stripe.dev/docs/issuing-elements
+- Stripe.js: https://docs.stripe.com/js/issuing_elements/create_issuing_card_number_display_element
+- Since: 14.x+
+- clientSecret on parent Elements: no
+- PCI-compliant display of an Issuing card number. Requires an Issuing nonce from your backend.
+- Not a checkout Element. Pass issuingCard and nonce in options. See Issuing docs page.
+
+```html
+<ngx-stripe-elements
+  [stripe]="stripe"
+  [elementsOptions]="elementsOptions"
+>
+  <ngx-stripe-issuing-card-number-display />
+</ngx-stripe-elements>
+```
+
+### Issuing Card CVC
+
+- Export: `StripeIssuingCardCvcDisplayComponent`
+- Selector: `ngx-stripe-issuing-card-cvc-display`
+- Stripe type: `issuingCardCvcDisplay`
+- Docs: https://ngx-stripe.dev/docs/issuing-elements
+- Stripe.js: https://docs.stripe.com/js/issuing_elements/create_issuing_card_cvc_display_element
+- Since: 14.x+
+- clientSecret on parent Elements: no
+- PCI-compliant display of an Issuing card CVC.
+- Requires Issuing nonce.
+
+```html
+<ngx-stripe-elements
+  [stripe]="stripe"
+  [elementsOptions]="elementsOptions"
+>
+  <ngx-stripe-issuing-card-cvc-display />
+</ngx-stripe-elements>
+```
+
+### Issuing Card Expiry
+
+- Export: `StripeIssuingCardExpiryDisplayComponent`
+- Selector: `ngx-stripe-issuing-card-expiry-display`
+- Stripe type: `issuingCardExpiryDisplay`
+- Docs: https://ngx-stripe.dev/docs/issuing-elements
+- Stripe.js: https://docs.stripe.com/js/issuing_elements/create_issuing_card_expiry_display_element
+- Since: 14.x+
+- clientSecret on parent Elements: no
+- PCI-compliant display of an Issuing card expiry.
+- Requires Issuing nonce.
+
+```html
+<ngx-stripe-elements
+  [stripe]="stripe"
+  [elementsOptions]="elementsOptions"
+>
+  <ngx-stripe-issuing-card-expiry-display />
+</ngx-stripe-elements>
+```
+
+### Issuing Card PIN
+
+- Export: `StripeIssuingCardPinDisplayComponent`
+- Selector: `ngx-stripe-issuing-card-pin-display`
+- Stripe type: `issuingCardPinDisplay`
+- Docs: https://ngx-stripe.dev/docs/issuing-elements
+- Stripe.js: https://docs.stripe.com/js/issuing_elements/create_issuing_card_pin_display_element
+- Since: 14.x+
+- clientSecret on parent Elements: no
+- PCI-compliant display of an Issuing card PIN.
+- Requires Issuing nonce.
+
+```html
+<ngx-stripe-elements
+  [stripe]="stripe"
+  [elementsOptions]="elementsOptions"
+>
+  <ngx-stripe-issuing-card-pin-display />
+</ngx-stripe-elements>
+```
+
+### Issuing Card Copy Button
+
+- Export: `StripeIssuingCardCopyButtonComponent`
+- Selector: `ngx-stripe-issuing-card-copy-button`
+- Stripe type: `issuingCardCopyButton`
+- Docs: https://ngx-stripe.dev/docs/issuing-elements
+- Stripe.js: https://docs.stripe.com/js/issuing_elements/create_issuing_copy_button_element
+- Since: 21.9.0
+- clientSecret on parent Elements: no
+- Copy button paired with Issuing display Elements.
+- Dahlia+. to: must reference the Issuing display Element to copy from.
+
+```html
+<ngx-stripe-elements
+  [stripe]="stripe"
+  [elementsOptions]="elementsOptions"
+>
+  <ngx-stripe-issuing-card-copy-button />
+</ngx-stripe-elements>
+```
+

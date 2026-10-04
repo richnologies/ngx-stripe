@@ -1,6 +1,13 @@
 import { Routes } from '@angular/router';
 
+import { ngStrContractElements } from './core/elements/elements.data';
 import { NgStrDocsShellComponent } from './docs-elements/docs-shell/docs-shell.component';
+
+const contractElementRoutes: Routes = ngStrContractElements().map((el) => ({
+  path: el.docsPath.replace('/docs/', ''),
+  loadComponent: () => import('./docs/element-contract/element-contract.component'),
+  data: { title: el.name, elementId: el.id }
+}));
 
 export const ROUTES: Routes = [
   {
@@ -71,6 +78,12 @@ export const ROUTES: Routes = [
         loadComponent: () => import('./docs/card-elements/card-elements.component'),
         data: { title: 'Card Elements' }
       },
+      {
+        path: 'payment-request-button',
+        loadComponent: () => import('./docs/payment-request-button/payment-request-button.component'),
+        data: { title: 'Payment Request Button' }
+      },
+      ...contractElementRoutes,
       {
         path: 'checkout',
         loadComponent: () => import('./docs/checkout/checkout.component'),

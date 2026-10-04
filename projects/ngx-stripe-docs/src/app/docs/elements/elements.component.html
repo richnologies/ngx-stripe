@@ -8,6 +8,31 @@
             Stripe Elements are pre-built UI components designed to securely collect payment details,
             simplifying the integration of Stripe's payment processing capabilities.
           </p>
+
+          <ngstr-subheader subheader="Element catalog" link="catalog" />
+          <p>
+            Every ngx-stripe Element host. Styling and options stay in Stripe.js; these pages cover the Angular selector and lifecycle.
+          </p>
+          <table class="mb-8 w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Element</th>
+                <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Selector</th>
+                <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Since</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white">
+              @for (el of catalog; track el.id) {
+                <tr>
+                  <td class="px-4 py-3 text-sm font-medium text-gray-900">
+                    <a class="underline" [routerLink]="el.docsPath">{{ el.name }}</a>
+                  </td>
+                  <td class="px-4 py-3 text-sm text-gray-500"><ngstr-highlight>{{ el.selector }}</ngstr-highlight></td>
+                  <td class="px-4 py-3 text-sm text-gray-500">{{ el.since }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
       
           <ngstr-subheader subheader="Create an Elements Instance" link="elements-instance" />
           <p>

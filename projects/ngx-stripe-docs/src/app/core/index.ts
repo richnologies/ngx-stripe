@@ -1,4 +1,6 @@
 export * from './clipboard/clipboard.service';
+export * from './elements/elements.model';
+export * from './elements/elements.data';
 export * from './content/content.service';
 export * from './content/menu-item.model';
 

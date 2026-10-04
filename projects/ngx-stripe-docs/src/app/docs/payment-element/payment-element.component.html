@@ -290,6 +290,18 @@
           </tr>
           <tr>
             <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Input() <br />
+              doNotCreateUntilClientSecretIsSet: boolean
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              When true, skip creating the Payment Element until a clientSecret is available
+              (implicit Elements path). Nested <ngstr-highlight>ngx-stripe-elements</ngstr-highlight>
+              still must be created with the secret set — wrap that parent in
+              <ngstr-highlight>&#64;if</ngstr-highlight>.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
               &#64;Output() <br />
               load: EventEmitter&lt;<br/>
               StripePaymentElement<br/>

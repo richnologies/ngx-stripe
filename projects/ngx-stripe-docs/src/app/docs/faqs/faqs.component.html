@@ -12,7 +12,17 @@
       Match Angular major and Stripe.js train:
       <ngstr-highlight>&#123;angular&#125;.&#123;stripeJs&#125;.x</ngstr-highlight>. See
       <a routerLink="/docs/versioning" class="underline">Pick your lane</a> and the installation table. Do not pass
-      legacy <ngstr-highlight>apiVersion</ngstr-highlight> on basil+ named trains.
+      legacy       <ngstr-highlight>apiVersion</ngstr-highlight> on basil+ named trains.
+    </p>
+    <ngstr-subheader subheader="Where did Payment Request Button go?" link="payment-request-button"></ngstr-subheader>
+    <p>
+      Stripe removed the Payment Request Button Element in Stripe.js v10. ngx-stripe
+      <ngstr-highlight>*.10</ngstr-highlight> dropped
+      <ngstr-highlight>ngx-stripe-payment-request-button</ngstr-highlight>. Use
+      <a class="underline" routerLink="/docs/express-checkout-element">Express Checkout</a>
+      or stay on
+      <ngstr-highlight>ngx-stripe@v22-dahlia</ngstr-highlight>. Details:
+      <a class="underline" routerLink="/docs/payment-request-button">Payment Request Button</a>.
     </p>
     <ngstr-subheader
       subheader="Do I need to connect to a back-end server such as AWS lambda for the component to work or does the component work directly with Stripe?"

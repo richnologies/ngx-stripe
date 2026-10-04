@@ -16,15 +16,17 @@ npm run smoke:docs # Playwright against the docs app
 ## Version lanes
 
 - Source of truth: [`lanes.json`](./lanes.json)
+- Element catalog (docs + AI): [`elements-inventory.json`](./elements-inventory.json)
 - Version = `{angularMajor}.{stripeJsMajor}.{patch}`
 - **Do not hand-edit** the README or docs installation version tables. Run:
 
 ```bash
 npm run generate:lanes
 npm run generate:playground   # StackBlitz lane folders under playground/lanes/
+npm run generate:elements     # llms.txt, skills/ngx-stripe/elements.md, docs elements.data.ts
 ```
 
-CI fails if generated tables / `lanes.data.ts` drift (`npm run generate:lanes:check`).
+CI fails if generated tables / `lanes.data.ts` drift (`npm run generate:lanes:check`) or if Element inventory outputs drift (`npm run generate:elements:check`).
 
 ## Which branch?
 
@@ -64,4 +66,4 @@ After a Stripe major bump, run `npm run check:stripe-drift` (also listed in the 
 
 - Keep diffs focused
 - Include or update a contract test when fixing a wrapper bug
-- Run `npm test && npm run build:lib && npm run generate:lanes:check` before opening the PR
+- Run `npm test && npm run build:lib && npm run generate:lanes:check && npm run generate:elements:check` before opening the PR

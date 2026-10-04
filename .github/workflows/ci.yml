@@ -32,6 +32,9 @@ jobs:
       - name: Check generated version tables
         run: npm run generate:lanes:check
 
+      - name: Check generated element inventory
+        run: npm run generate:elements:check
+
       - name: Unit tests
         run: npm test
 

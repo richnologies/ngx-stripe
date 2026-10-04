@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import {
   NgStrDocsHeaderComponent,
+  NgStrHighlightComponent,
   NgStrLinkComponent,
   NgStrSectionComponent,
   NgStrSubheaderComponent
@@ -12,7 +14,9 @@ import {
   templateUrl: './introduction.component.html',
   standalone: true,
   imports: [
+    RouterLink,
     NgStrDocsHeaderComponent,
+    NgStrHighlightComponent,
     NgStrLinkComponent,
     NgStrSectionComponent,
     NgStrSubheaderComponent

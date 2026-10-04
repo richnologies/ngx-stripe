@@ -6,9 +6,24 @@
       The aim of this section is to provide some examples of usual application. Based on questions, problems or
       suggestions, extra examples will be added. In-app demos on this site always use the <strong>latest</strong> lane.
       For older Angular / Stripe trains, open the
-      <a href="https://stackblitz.com/github/richnologies/ngx-stripe/tree/main/playground/lanes/21.8?file=src%2Fmain.ts" target="_blank" rel="noopener noreferrer">StackBlitz playground</a>
-      (templates under <ngstr-highlight>playground/lanes/</ngstr-highlight>).
+      <a
+        [href]="lanes.stackblitzUrl()"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="underline"
+        >StackBlitz playground</a
+      >
+      for the lane selected in the picker (templates under <ngstr-highlight>playground/lanes/</ngstr-highlight>).
     </p>
+    <ngstr-subheader subheader="Live demos" link="live-demos"></ngstr-subheader>
+    <p>These routes run Stripe.js in the docs app on the latest lane:</p>
+    <ul>
+      @for (demo of liveDemos; track demo.path) {
+        <li>
+          <a class="underline" [routerLink]="demo.path">{{ demo.name }}</a>
+        </li>
+      }
+    </ul>
     <ngstr-subheader subheader="Create Token" link="create-token"></ngstr-subheader>
     <p>This is an easy example because it does not need server side code.</p>
     <ngstr-subheader subheader="Usage" link="usage-token"></ngstr-subheader>

@@ -10,7 +10,7 @@ Collect Payments with Stripe: The Angular Way
 
 Angular components and services for [Stripe Elements](https://stripe.com/docs/stripe-js) — a thin, typed wrapper around [Stripe.js](https://stripe.com/docs/js).
 
-**Docs:** [ngx-stripe.dev](https://ngx-stripe.dev/docs) · **First payment:** [guided tour](https://ngx-stripe.dev/docs/first-payment) · **Stripe.js versioning:** [Stripe policy](https://docs.stripe.com/sdks/stripejs-versioning)
+**Docs:** [ngx-stripe.dev](https://ngx-stripe.dev/docs) · **First payment:** [guided tour](https://ngx-stripe.dev/docs/first-payment) · **AI:** [llms.txt](https://ngx-stripe.dev/llms.txt) · **Agent Skill:** `npx skills add richnologies/ngx-stripe` · **Stripe.js versioning:** [Stripe policy](https://docs.stripe.com/sdks/stripejs-versioning)
 
 ## Install
 

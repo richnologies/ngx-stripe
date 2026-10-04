@@ -1,0 +1,70 @@
+# ngx-stripe
+
+> Angular wrapper around Stripe.js: Observable StripeService, provideNgxStripe / injectStripe, and standalone Elements hosts.
+
+ngx-stripe does not own payment types or Element appearance. Types come from `@stripe/stripe-js`. Styling, payment methods, and PCI are Stripe.
+
+Version = `{angularMajor}.{stripeJsMajor}.{patch}` (e.g. 22.10.x = Angular 22 + Stripe.js v10 endive).
+
+## Install
+
+```bash
+npm install ngx-stripe @stripe/stripe-js
+```
+
+```ts
+import { provideNgxStripe } from 'ngx-stripe';
+export const appConfig = { providers: [provideNgxStripe('pk_test_…')] };
+```
+
+`injectStripe()` uses the default key. Service methods are Observables, not Promises.
+Nested Elements: set `clientSecret` on `ngx-stripe-elements` before create; wrap in `@if`.
+Split Card fields need `ngx-stripe-card-group`. Payment Request Button is gone on Stripe.js v10 / `*.10`.
+
+## Docs
+
+- [Introduction](https://ngx-stripe.dev/docs/introduction)
+- [Installation / lanes](https://ngx-stripe.dev/docs/installation)
+- [Setup](https://ngx-stripe.dev/docs/setup-application)
+- [First payment](https://ngx-stripe.dev/docs/first-payment)
+- [Elements parent + catalog](https://ngx-stripe.dev/docs/elements)
+- [Stripe Service](https://ngx-stripe.dev/docs/service)
+- [CSP](https://ngx-stripe.dev/docs/csp)
+- [Checkout](https://ngx-stripe.dev/docs/checkout)
+- [Identity](https://ngx-stripe.dev/docs/identity)
+- [Migration](https://ngx-stripe.dev/docs/migration)
+- [llms-full.txt](https://ngx-stripe.dev/llms-full.txt)
+
+## Elements
+
+- [Payment Element](https://ngx-stripe.dev/docs/payment-element): `ngx-stripe-payment`
+- [Express Checkout Element](https://ngx-stripe.dev/docs/express-checkout-element): `ngx-stripe-express-checkout`
+- [Link Authentication Element](https://ngx-stripe.dev/docs/link-authentication-element): `ngx-stripe-link-authentication`
+- [Link Signup Element](https://ngx-stripe.dev/docs/link-signup-element): `ngx-stripe-link-signup`
+- [Address Element](https://ngx-stripe.dev/docs/address-element): `ngx-stripe-address`
+- [Contact Details Element](https://ngx-stripe.dev/docs/contact-details-element): `ngx-stripe-contact-details`
+- [Tax Id Element](https://ngx-stripe.dev/docs/tax-id-element): `ngx-stripe-tax-id`
+- [Terms Element](https://ngx-stripe.dev/docs/terms-element): `ngx-stripe-terms`
+- [Currency Selector Element](https://ngx-stripe.dev/docs/currency-selector-element): `ngx-stripe-currency-selector`
+- [Payment Method Messaging](https://ngx-stripe.dev/docs/payment-method-messaging-element): `ngx-stripe-payment-method-messaging`
+- [Card Element](https://ngx-stripe.dev/docs/card-elements): `ngx-stripe-card`
+- [Card Number Element](https://ngx-stripe.dev/docs/card-elements): `ngx-stripe-card-number`
+- [Card Expiry Element](https://ngx-stripe.dev/docs/card-elements): `ngx-stripe-card-expiry`
+- [Card CVC Element](https://ngx-stripe.dev/docs/card-elements): `ngx-stripe-card-cvc`
+- [IBAN Element](https://ngx-stripe.dev/docs/iban-element): `ngx-stripe-iban`
+- [AU Bank Account Element](https://ngx-stripe.dev/docs/au-bank-account-element): `ngx-stripe-au-bank-account`
+- [Issuing Card Number](https://ngx-stripe.dev/docs/issuing-elements): `ngx-stripe-issuing-card-number-display`
+- [Issuing Card CVC](https://ngx-stripe.dev/docs/issuing-elements): `ngx-stripe-issuing-card-cvc-display`
+- [Issuing Card Expiry](https://ngx-stripe.dev/docs/issuing-elements): `ngx-stripe-issuing-card-expiry-display`
+- [Issuing Card PIN](https://ngx-stripe.dev/docs/issuing-elements): `ngx-stripe-issuing-card-pin-display`
+- [Issuing Card Copy Button](https://ngx-stripe.dev/docs/issuing-elements): `ngx-stripe-issuing-card-copy-button`
+
+## Skill
+
+Agent Skill (`SKILL.md`), editor-agnostic:
+
+```bash
+npx skills add richnologies/ngx-stripe
+```
+
+Source: https://github.com/richnologies/ngx-stripe/tree/main/skills/ngx-stripe

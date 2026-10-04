@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+import { NgStrLanesService } from '../../core';
 
 import {
   NgStrCodeComponent,
@@ -15,6 +18,7 @@ import {
   templateUrl: './examples.component.html',
   standalone: true,
   imports: [
+    RouterLink,
     NgStrCodeComponent,
     NgStrCodeGroupComponent,
     NgStrDocsHeaderComponent,
@@ -25,6 +29,23 @@ import {
   ]
 })
 export default class NgStrExamplesComponent {
+  readonly lanes = inject(NgStrLanesService);
+
+  liveDemos = [
+    { name: 'Payment Element', path: '/docs/examples/payment-element' },
+    { name: 'Payment Element with injectStripe', path: '/docs/examples/payment-element-inject' },
+    { name: 'Express Checkout', path: '/docs/examples/express-checkout-element' },
+    { name: 'Address Element', path: '/docs/examples/address-element' },
+    { name: 'Link Authentication', path: '/docs/examples/link-authentication-element' },
+    { name: 'IBAN', path: '/docs/examples/iban-element' },
+    { name: 'Payment Method Messaging', path: '/docs/examples/payment-method-messaging' },
+    { name: 'Issuing Elements', path: '/docs/examples/issuing-elements' },
+    { name: 'Card (one Element)', path: '/docs/examples/card-one-element' },
+    { name: 'Card events', path: '/docs/examples/card-events' },
+    { name: 'Card PaymentIntent', path: '/docs/examples/card-payment-intent' },
+    { name: 'Verify microdeposits', path: '/docs/examples/verify-microdeposits' }
+  ];
+
   createTokenTS = `
     import { Component, OnInit, ViewChild } from '@angular/core';
     import { FormGroup, FormBuilder, Validators } from "@angular/forms";

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ngx-stripe.richnologies.io/sitemap.xml
+Sitemap: https://ngx-stripe.dev/sitemap.xml

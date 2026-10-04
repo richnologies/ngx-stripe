@@ -1,0 +1,33 @@
+<ngstr-container size="md">
+  <ngstr-section>
+    <ng-container ngStrSectionMain>
+      <ngstr-header title="Payment Request Button" />
+      <ngstr-panel type="danger">
+        <p class="font-semibold mb-1">Removed on Stripe.js v10 (endive)</p>
+        <p>
+          Stripe dropped the Payment Request Button Element.
+          ngx-stripe
+          <ngstr-highlight>*.10</ngstr-highlight>
+          no longer ships
+          <ngstr-highlight>ngx-stripe-payment-request-button</ngstr-highlight>.
+        </p>
+      </ngstr-panel>
+      <p>
+        Use
+        <a class="underline" routerLink="/docs/express-checkout-element">Express Checkout Element</a>
+        (<ngstr-highlight>ngx-stripe-express-checkout</ngstr-highlight>)
+        or
+        <a class="underline" routerLink="/docs/payment-element">Payment Element</a>
+        for wallets. The
+        <ngstr-highlight>stripe.paymentRequest()</ngstr-highlight>
+        method is still typed if you need a custom button.
+      </p>
+      <p>
+        Stay on dahlia if you still need the old Element:
+        <ngstr-highlight>npm install ngx-stripe@v22-dahlia @stripe/stripe-js@^9</ngstr-highlight>.
+        See
+        <a class="underline" routerLink="/docs/migration" fragment="stripejs-v10">Migration</a>.
+      </p>
+    </ng-container>
+  </ngstr-section>
+</ngstr-container>

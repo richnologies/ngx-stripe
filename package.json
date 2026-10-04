@@ -23,6 +23,8 @@
     "start": "ng serve ngx-stripe-docs",
     "generate:lanes": "node scripts/generate-lanes.mjs",
     "generate:lanes:check": "node scripts/generate-lanes.mjs --check",
+    "generate:elements": "node scripts/generate-elements.mjs",
+    "generate:elements:check": "node scripts/generate-elements.mjs --check",
     "generate:playground": "node scripts/generate-playground.mjs",
     "pack:smoke": "node scripts/pack-smoke.mjs",
     "check:stripe-drift": "node scripts/check-stripe-drift.mjs",

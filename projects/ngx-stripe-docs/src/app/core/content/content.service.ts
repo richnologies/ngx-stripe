@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { ngStrNavElements } from '../elements/elements.data';
+
 import { NgStrMenuItem } from './menu-item.model';
 
 @Injectable({ providedIn: 'root' })
@@ -40,30 +42,12 @@ export class NgStrContentService {
       name: 'Elements',
       path: 'elements'
     },
-    {
+    ...ngStrNavElements().map((el) => ({
       group: 'Core Concepts',
-      type: 'page',
-      name: 'Payment Element',
-      path: 'payment-element'
-    },
-    {
-      group: 'Core Concepts',
-      type: 'page',
-      name: 'Express Checkout Element',
-      path: 'express-checkout-element'
-    },
-    {
-      group: 'Core Concepts',
-      type: 'page',
-      name: 'Link Authentication Element',
-      path: 'link-authentication-element'
-    },
-    {
-      group: 'Core Concepts',
-      type: 'page',
-      name: 'Address Element',
-      path: 'address-element'
-    },
+      type: 'page' as const,
+      name: el.name,
+      path: el.docsPath.replace('/docs/', '')
+    })),
     {
       group: 'Core Concepts',
       type: 'page',
