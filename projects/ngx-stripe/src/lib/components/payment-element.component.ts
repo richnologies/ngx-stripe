@@ -71,6 +71,10 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
   ) {}
 
   async ngOnChanges(changes: SimpleChanges) {
+    if (this.doNotCreateUntilClientSecretIsSet && !this.hasClientSecret()) {
+      return;
+    }
+
     this.state = 'starting';
     let updateElements = false;
 
@@ -92,7 +96,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
     if (changes.options || changes.containerClass || !this.element || updateElements) {
       if (this.element && !updateElements) {
         this.update(options);
-      } else if (this.elements && updateElements) {
+      } else if (this.elements && (updateElements || !this.element)) {
         this.createElement(options);
       }
     }
@@ -106,10 +110,17 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
     if (this.elementsProvider) {
       this.elementsSubscription = this.elementsProvider.elements.subscribe((elements) => {
         this.elements = elements;
+        if (this.doNotCreateUntilClientSecretIsSet && !this.hasClientSecret()) {
+          return;
+        }
         this.createElement(options);
         this.state = 'ready';
       });
     } else if (this.state === 'notready') {
+      if (this.doNotCreateUntilClientSecretIsSet && !this.hasClientSecret()) {
+        return;
+      }
+
       this.state = 'starting';
 
       this.elements = await this.stripeElementsService
@@ -144,6 +155,10 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
 
   fetchUpdates() {
     return from(this.elements.fetchUpdates());
+  }
+
+  private hasClientSecret(): boolean {
+    return Boolean(this.clientSecret || this.elementsOptions?.clientSecret);
   }
 
   private createElement(options: Partial<StripePaymentElementOptions> = {}) {
