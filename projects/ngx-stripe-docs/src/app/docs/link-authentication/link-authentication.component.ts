@@ -126,7 +126,7 @@ export default class NgStrLinkAuthenticationComponent {
         if (this.paying() || this.paymentElementForm.invalid) return;
         this.paying.set(true);
 
-        const { name, address, zipcode, city } = this.checkoutForm.getRawValue();
+        const { name, address, zipcode, city } = this.paymentElementForm.getRawValue();
 
         this.stripe
           .confirmPayment({
@@ -202,6 +202,7 @@ export default class NgStrLinkAuthenticationComponent {
     import {
       injectStripe,
       StripeElementsDirective,
+      StripeLinkAuthenticationComponent,
       StripePaymentElementComponent
     } from 'ngx-stripe';
     import {
@@ -280,7 +281,7 @@ export default class NgStrLinkAuthenticationComponent {
       }
 
       onChange(ev: StripeLinkAuthenticationElementChangeEvent) {
-        const email = event.value.email;
+        const email = ev.value.email;
       }
 
       pay() {
