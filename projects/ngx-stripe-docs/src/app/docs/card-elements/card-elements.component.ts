@@ -147,19 +147,21 @@ export default class NgStrCardElementsComponent {
 
   oneElementTS = `
     import { Component, inject, ViewChild } from '@angular/core';
-    import { UntypedFormBuilder, Validators } from '@angular/forms';
+    import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 
     import { MatInputModule } from '@angular/material/input';
 
     import {
       injectStripe,
-      StripeElementsDirective
+      StripeElementsDirective,
       StripeCardComponent
     } from 'ngx-stripe';
     import {
       StripeElementsOptions,
       StripeCardElementOptions
     } from '@stripe/stripe-js';
+
+    import { YourOwnAPIService } from './your-own-api.service';
 
     @Component({
       selector: 'ngstre-one-element-card',
@@ -195,6 +197,7 @@ export default class NgStrCardElementsComponent {
       @ViewChild(StripeCardComponent) cardElement!: StripeCardComponent;
 
       private readonly fb = inject(UntypedFormBuilder);
+      private readonly yourOwnAPI = inject(YourOwnAPIService);
 
       cardOptions: StripeCardElementOptions = {
         style: {
@@ -224,9 +227,9 @@ export default class NgStrCardElementsComponent {
       stripe = injectStripe(this.yourOwnAPI.StripePublicKey);
 
       createToken() {
-        const name = this.stripeTest.get('name').value;
+        const name = this.checkoutForm.get('name')!.value;
         this.stripe
-          .createToken(this.card.element, { name })
+          .createToken(this.cardElement.element, { name })
           .subscribe((result) => {
             if (result.token) {
               // Use the token

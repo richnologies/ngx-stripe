@@ -385,7 +385,7 @@ export default class NgStrAddressComponent implements OnInit {
               payment_method_data: {
                 billing_details: {
                   // notice how much of the information is handled by Stripe
-                  name: this.stripeTest.get('name').value
+                  name: name as string
                 }
               }
             },

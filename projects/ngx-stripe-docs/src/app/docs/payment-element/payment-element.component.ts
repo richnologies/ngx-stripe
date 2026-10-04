@@ -225,7 +225,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
         if (this.paying() || this.paymentElementForm.invalid) return;
         this.paying.set(true);
 
-        const { name, email, address, zipcode, city } = this.checkoutForm.getRawValue();
+        const { name, email, address, zipcode, city } = this.paymentElementForm.getRawValue();
 
         this.stripe
           .confirmPayment({
@@ -367,7 +367,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
         if (this.paying() || this.paymentElementForm.invalid) return;
         this.paying.set(true);
 
-        const { name, email, address, zipcode, city } = this.checkoutForm.getRawValue();
+        const { name, email, address, zipcode, city } = this.paymentElementForm.getRawValue();
 
         this.stripe
           .confirmPayment({

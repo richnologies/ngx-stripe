@@ -73,7 +73,7 @@ export default class NgStrExpressCheckoutComponent {
     export default class ExpressCheckoutElementExampleComponent {
       private readonly yourOwnAPI = inject(YourOwnAPIService);
 
-      stripe = injectStripe(this.plutoService.KEYS.main);
+      stripe = injectStripe(this.yourOwnAPI.StripePublicKey);
       elementsOptions: StripeElementsOptions = {
         mode: 'payment',
         amount: 1099,
@@ -135,7 +135,7 @@ export default class NgStrExpressCheckoutComponent {
     export default class ExpressCheckoutElementExampleComponent {
       private readonly yourOwnAPI = inject(YourOwnAPIService);
 
-      stripe = injectStripe(this.plutoService.KEYS.main);
+      stripe = injectStripe(this.yourOwnAPI.StripePublicKey);
       elementsOptions: StripeElementsOptions = {
         mode: 'payment',
         amount: 1099,
@@ -159,7 +159,7 @@ export default class NgStrExpressCheckoutComponent {
   `;
 
   expressCheckoutConfirmEventTS = `
-    import { Component, inject } from '@angular/core';
+    import { Component, inject, ViewChild } from '@angular/core';
 
     import {
       injectStripe,
@@ -204,7 +204,7 @@ export default class NgStrExpressCheckoutComponent {
 
       private readonly yourOwnAPI = inject(YourOwnAPIService);
 
-      stripe = injectStripe(this.plutoService.KEYS.main);
+      stripe = injectStripe(this.yourOwnAPI.StripePublicKey);
       elementsOptions: StripeElementsOptions = {
         mode: 'payment',
         amount: 1099,
@@ -283,7 +283,7 @@ export default class NgStrExpressCheckoutComponent {
     export default class ExpressCheckoutElementExampleComponent {
       private readonly yourOwnAPI = inject(YourOwnAPIService);
 
-      stripe = injectStripe(this.plutoService.KEYS.main);
+      stripe = injectStripe(this.yourOwnAPI.StripePublicKey);
       elementsOptions: StripeElementsOptions = {
         mode: 'payment',
         amount: 1099,
@@ -349,7 +349,7 @@ export default class NgStrExpressCheckoutComponent {
     export default class ExpressCheckoutElementExampleComponent {
       private readonly yourOwnAPI = inject(YourOwnAPIService);
 
-      stripe = injectStripe(this.plutoService.KEYS.main);
+      stripe = injectStripe(this.yourOwnAPI.StripePublicKey);
       elementsOptions: StripeElementsOptions = {
         mode: 'payment',
         amount: 1099,
