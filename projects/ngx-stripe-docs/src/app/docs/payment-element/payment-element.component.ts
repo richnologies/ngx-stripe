@@ -79,6 +79,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
   stripe = injectStripe(this.plutoService.KEYS.main);
   paying = false;
   completed = false;
+  paymentElementLoaded = false;
 
   ngOnInit() {
     this.plutoService
@@ -87,13 +88,22 @@ export default class NgStrPaymentElementComponent implements OnInit {
         currency: 'usd'
       })
       .subscribe((pi) => {
+        this.paymentElementLoaded = false;
         this.elementsOptions.clientSecret = pi.client_secret;
         this.cdr.detectChanges();
       });
   }
 
+  onPaymentElementLoad() {
+    this.paymentElementLoaded = true;
+  }
+
   pay() {
-    if (this.paymentElementForm.valid && this.paymentElement) {
+    if (
+      this.paymentElementForm.valid &&
+      this.paymentElement?.elements &&
+      this.paymentElementLoaded
+    ) {
       this.paying = true;
       this.stripe
         .confirmPayment({
