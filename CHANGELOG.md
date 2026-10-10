@@ -1,5 +1,10 @@
 # Changelog
 
+## 20.10.2 - 2026-10-10
+
+- Honor Payment Element `doNotCreateUntilClientSecretIsSet` so implicit create waits for a client secret ([#321](https://github.com/richnologies/ngx-stripe/pull/321))
+- Ship the consumer Agent Skill (`skills/ngx-stripe`) in the npm package
+
 ## 20.10.0 - 2026-10-02
 
 - Add support for StripeJS V10 - endive
