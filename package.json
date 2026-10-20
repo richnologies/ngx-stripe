@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "@angular/build": "^22.1.7",
-    "@angular/cli": "^22.1.7",
+    "@angular/cli": "^22.2.3",
     "@angular/compiler-cli": "^22.1.5",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/typography": "^0.5.7",
