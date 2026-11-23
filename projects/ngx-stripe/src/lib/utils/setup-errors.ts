@@ -32,6 +32,15 @@ export const NGX_STRIPE_CLIENT_SECRET_CHANGED =
   'Render <ngx-stripe-elements> only once the clientSecret is known, ' +
   `for example inside @if (elementsOptions.clientSecret). See ${DOCS}/payment-element`;
 
+export function ngxStripeCreateOnlyOptionsChanged(element: string, keys: string[], docsPath: string): string {
+  const names = keys.join(', ');
+  return (
+    `[ngx-stripe] ${names} can only be set when the ${element} is created, so the new value is ignored. ` +
+    'To apply it, create the element again, for example by rendering it inside @if and toggling the condition. ' +
+    `See ${DOCS}/${docsPath}`
+  );
+}
+
 /**
  * Root fallback for ngx-stripe's injectables. It only runs when no injector provides the service,
  * which used to end in "NullInjectorError: No provider for StripeService".

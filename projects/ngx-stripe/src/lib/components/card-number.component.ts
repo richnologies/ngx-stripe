@@ -31,6 +31,7 @@ import { StripeElementsDirective } from '../directives/elements.directive';
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 import { destroyStripeElement } from '../util/destroy-stripe-element.util';
+import { CARD_NUMBER_ELEMENT_UPDATE_KEYS, pickUpdateOptions } from '../util/update-options.util';
 
 @Component({
   selector: 'ngx-stripe-card-number',
@@ -63,6 +64,7 @@ export class StripeCardNumberComponent implements OnInit, OnChanges, OnDestroy {
 
   elements!: StripeElements;
   elementsSubscription!: Subscription;
+  private createdWith: Partial<StripeCardNumberElementOptions> = {};
 
   constructor(
     public stripeElementsService: StripeElementsService,
@@ -100,7 +102,13 @@ export class StripeCardNumberComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   update(options: Partial<StripeCardNumberElementOptions>) {
-    this.element.update(options);
+    this.element.update(
+      pickUpdateOptions(options, CARD_NUMBER_ELEMENT_UPDATE_KEYS, {
+        element: 'Card Number Element',
+        docsPath: 'card-elements',
+        createdWith: this.createdWith
+      })
+    );
   }
 
   /**
@@ -117,6 +125,7 @@ export class StripeCardNumberComponent implements OnInit, OnChanges, OnDestroy {
       this.update(options);
     } else if (this.elements && source === 'elements') {
       this.element = this.elements.create('cardNumber', options);
+      this.createdWith = options;
       this.element.on('change', (ev) => {
         this.change.emit(ev);
         this.cardGroup?.change.emit(ev);

@@ -31,6 +31,7 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 import { destroyStripeElement } from '../util/destroy-stripe-element.util';
+import { PAYMENT_ELEMENT_UPDATE_KEYS, pickUpdateOptions } from '../util/update-options.util';
 
 @Component({
   selector: 'ngx-stripe-payment',
@@ -66,6 +67,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
 
   state: 'notready' | 'starting' | 'ready' = 'notready';
   private elementsSubscription!: Subscription;
+  private createdWith: Partial<StripePaymentElementOptions> = {};
 
   constructor(
     public stripeElementsService: StripeElementsService,
@@ -146,7 +148,13 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
   }
 
   update(options: Partial<StripePaymentElementOptions>): StripePaymentElement {
-    return this.element.update(options);
+    return this.element.update(
+      pickUpdateOptions(options, PAYMENT_ELEMENT_UPDATE_KEYS, {
+        element: 'Payment Element',
+        docsPath: 'payment-element',
+        createdWith: this.createdWith
+      })
+    );
   }
 
   collapse(): StripePaymentElement {
@@ -166,6 +174,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
 
     try {
       this.element = this.elements.create('payment', options);
+      this.createdWith = options;
     } catch (err) {
       this.elements = undefined as any;
       throw err;

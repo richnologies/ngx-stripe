@@ -1,5 +1,5 @@
 import { of } from 'rxjs';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { StripePaymentElementComponent } from './payment-element.component';
 import { StripeElementsService } from '../services/stripe-elements.service';
@@ -97,5 +97,66 @@ describe('StripePaymentElementComponent doNotCreateUntilClientSecretIsSet', () =
     expect(stripeElements.create).toHaveBeenCalledWith('payment', {});
     expect(paymentElement.mount).toHaveBeenCalledTimes(1);
     expect(cmp.state).toBe('ready');
+  });
+});
+
+describe('StripePaymentElementComponent options updates (#333)', () => {
+  afterEach(() => vi.restoreAllMocks());
+
+  async function created(options: Record<string, unknown>) {
+    const h = harness();
+    h.cmp.options = options;
+    await h.cmp.ngOnInit();
+    return h;
+  }
+
+  it('creates the element with create-only options such as wallets', async () => {
+    const { stripeElements } = await created({ wallets: { applePay: 'never' }, readOnly: false });
+
+    expect(stripeElements.create).toHaveBeenCalledWith('payment', { wallets: { applePay: 'never' }, readOnly: false });
+  });
+
+  it('sends only updatable options to element.update() when [options] changes', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const { cmp, paymentElement, stripeElements } = await created({
+      wallets: { applePay: 'never' },
+      readOnly: false
+    });
+
+    // A signal or getter usually builds a new object with the same wallets value.
+    cmp.options = {
+      wallets: { applePay: 'never' },
+      readOnly: true,
+      defaultValues: { billingDetails: { name: 'Jenny Rosen' } }
+    };
+    await cmp.ngOnChanges({ options: change(cmp.options) });
+
+    expect(stripeElements.create).toHaveBeenCalledTimes(1);
+    expect(paymentElement.update).toHaveBeenCalledWith({
+      readOnly: true,
+      defaultValues: { billingDetails: { name: 'Jenny Rosen' } }
+    });
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('filters the public update() method too', async () => {
+    const { cmp, paymentElement } = await created({});
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    cmp.update({ wallets: { googlePay: 'never' }, layout: 'tabs' });
+
+    expect(paymentElement.update).toHaveBeenCalledWith({ layout: 'tabs' });
+  });
+
+  it('warns in dev mode when a create-only option gets a new value, since it has no effect', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const { cmp, paymentElement } = await created({ wallets: { applePay: 'never' } });
+
+    cmp.options = { wallets: { applePay: 'auto' }, readOnly: true };
+    await cmp.ngOnChanges({ options: change(cmp.options) });
+
+    expect(paymentElement.update).toHaveBeenCalledWith({ readOnly: true });
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(warn.mock.calls[0][0]).toContain('[ngx-stripe] wallets can only be set when the Payment Element is created');
   });
 });
