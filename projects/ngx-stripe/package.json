@@ -1,6 +1,6 @@
 {
   "name": "ngx-stripe",
-  "version": "22.10.2",
+  "version": "22.10.3",
   "description": "Stripe for Angular: standalone components for Payment Element, Express Checkout and every Stripe Element, plus an Observable wrapper around Stripe.js.",
   "repository": {
     "type": "git",

@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lanes = JSON.parse(fs.readFileSync(path.join(root, 'lanes.json'), 'utf8'));
+const library = JSON.parse(fs.readFileSync(path.join(root, 'projects/ngx-stripe/package.json'), 'utf8'));
 const templateDir = path.join(root, 'playground/template');
 const outRoot = path.join(root, 'playground/lanes');
 
@@ -29,15 +30,13 @@ function copyDir(src, dest) {
 function packageJson(lane) {
   const train = lanes.stripeTrains[String(lane.stripeJs)];
   const angular = `^${lane.angular}.0.0`;
-  const ngx =
-    lane.npmTag === 'latest'
-      ? `^${lane.angular}.${lane.stripeJs}.0`
-      : lane.npmTag
-        ? lane.npmTag.startsWith('v')
-          ? // dist-tag as version range fallback for StackBlitz — pin range
-            `^${lane.angular}.${lane.stripeJs}.0`
-          : `^${lane.angular}.${lane.stripeJs}.0`
-        : `^${lane.angular}.${lane.stripeJs}.0`;
+  // The lane built from this branch follows the library's own package.json, so a release bump
+  // reaches the playground through `npm run generate:playground`. Other lanes live on their
+  // own branches: they get the first release of their line.
+  const current = lane.npmTag === 'latest';
+  const ngx = current ? `^${library.version}` : `^${lane.angular}.${lane.stripeJs}.0`;
+  const stripeJsFloor = /(\d+\.\d+\.\d+)/.exec(library.peerDependencies['@stripe/stripe-js'])[1];
+  const stripeJs = current ? `^${stripeJsFloor}` : `^${train.packageMajor}.0.0`;
 
   return {
     name: `ngx-stripe-playground-${lane.angular}-${lane.stripeJs}`,
@@ -56,7 +55,7 @@ function packageJson(lane) {
       '@angular/platform-browser': angular,
       '@angular/platform-browser-dynamic': angular,
       '@angular/router': angular,
-      '@stripe/stripe-js': `^${train.packageMajor}.0.0`,
+      '@stripe/stripe-js': stripeJs,
       'ngx-stripe': ngx,
       rxjs: '~7.8.0',
       tslib: '^2.3.0',
