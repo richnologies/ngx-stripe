@@ -40,7 +40,9 @@ fi
 echo "→ $HOST:$DIR"
 ssh "$HOST" "mkdir -p '$DIR/runtime/docs' '$DIR/nginx'"
 rsync -az deploy/docs/docker-compose.yml "$HOST:$DIR/docker-compose.yml"
-rsync -az deploy/docs/nginx.conf "$HOST:$DIR/nginx/docs.conf"
+# --inplace: the container mounts this one file. rsync normally writes a new file and renames it
+# over the old one, which leaves the running container reading the old copy until it restarts.
+rsync -az --inplace deploy/docs/nginx.conf "$HOST:$DIR/nginx/docs.conf"
 # --delay-updates puts every changed file in place at the end of the transfer, and
 # --delete-after drops old files only after that, so readers never see a half-synced site.
 rsync -az --delete-after --delay-updates "$SITE/" "$HOST:$DIR/runtime/docs/"
