@@ -59,6 +59,69 @@ describe('ng add ngx-stripe', () => {
     expect(JSON.parse(tree.readContent('/package.json')).dependencies['@stripe/stripe-js']).toBe('10.3.0');
   });
 
+  it.each(['^10.0.0', '10', '10.x', '~10.3.0', '10.4.1', '>=10.0.0', 'latest'])(
+    'keeps the existing @stripe/stripe-js specifier %s, which can satisfy this release',
+    async (specifier) => {
+      const base = await workspace(true);
+      const pkg = JSON.parse(base.readContent('/package.json'));
+      pkg.dependencies['@stripe/stripe-js'] = specifier;
+      base.overwrite('/package.json', JSON.stringify(pkg));
+
+      const tree = await runner.runSchematic('ng-add', {}, base);
+      expect(JSON.parse(tree.readContent('/package.json')).dependencies['@stripe/stripe-js']).toBe(specifier);
+    }
+  );
+
+  it.each(['10.1.0', '~10.0.0', '10.2', '^9.17.0', '9'])(
+    'replaces the existing @stripe/stripe-js specifier %s, which is below what this release needs',
+    async (specifier) => {
+      const base = await workspace(true);
+      const pkg = JSON.parse(base.readContent('/package.json'));
+      pkg.dependencies['@stripe/stripe-js'] = specifier;
+      base.overwrite('/package.json', JSON.stringify(pkg));
+
+      const tree = await runner.runSchematic('ng-add', {}, base);
+      const ownPeer: string = require('../../package.json').peerDependencies['@stripe/stripe-js'];
+      expect(JSON.parse(tree.readContent('/package.json')).dependencies['@stripe/stripe-js']).toBe(
+        `^${/(\d+\.\d+\.\d+)/.exec(ownPeer)![1]}`
+      );
+      expect(runner.tasks.some((t) => t.name === 'node-package')).toBe(true);
+    }
+  );
+
+  it('updates @stripe/stripe-js where it is, when the app keeps it in devDependencies', async () => {
+    const base = await workspace(true);
+    const pkg = JSON.parse(base.readContent('/package.json'));
+    pkg.devDependencies['@stripe/stripe-js'] = '10.0.0';
+    base.overwrite('/package.json', JSON.stringify(pkg));
+
+    const after = JSON.parse((await runner.runSchematic('ng-add', {}, base)).readContent('/package.json'));
+    expect(after.devDependencies['@stripe/stripe-js']).toMatch(/^\^10\./);
+    expect(after.dependencies['@stripe/stripe-js']).toBeUndefined();
+  });
+
+  it('does not take a commented-out provideNgxStripe() for an existing setup', async () => {
+    const base = await workspace(true);
+    const path = base.files.find((f) => f.endsWith('shop/src/app/app.config.ts'))!;
+    base.overwrite(
+      path,
+      base.readContent(path) + "\n// provideNgxStripe('pk_test_later'), TODO enable payments\n/* NgxStripeModule.forRoot() */\n"
+    );
+
+    const tree = await runner.runSchematic('ng-add', { publishableKey: 'pk_test_abc123' }, base);
+    expect(file(tree, 'shop/src/app/app.config.ts')).toContain("provideNgxStripe('pk_test_abc123')");
+  });
+
+  it('still sees a real setup on a line that also has a URL', async () => {
+    const base = await workspace(true);
+    const once = await runner.runSchematic('ng-add', { publishableKey: 'pk_test_abc123' }, base);
+    const path = once.files.find((f) => f.endsWith('shop/src/app/app.config.ts'))!;
+    once.overwrite(path, "const docs = 'https://ngx-stripe.dev/docs';\n" + once.readContent(path));
+
+    const twice = await runner.runSchematic('ng-add', { publishableKey: 'pk_test_other' }, once);
+    expect(file(twice, 'shop/src/app/app.config.ts').match(/provideNgxStripe\(/g)).toHaveLength(1);
+  });
+
   it('adds provideNgxStripe() without a key when none is given', async () => {
     const tree = await runner.runSchematic('ng-add', { publishableKey: '' }, await workspace(true));
     expect(file(tree, 'shop/src/app/app.config.ts')).toContain('provideNgxStripe()');

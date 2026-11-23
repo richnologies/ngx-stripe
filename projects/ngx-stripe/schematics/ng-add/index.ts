@@ -2,7 +2,13 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { Rule, SchematicContext, SchematicsException, Tree, chain, noop } from '@angular-devkit/schematics';
-import { ExistingBehavior, addDependency, addRootProvider, readWorkspace } from '@schematics/angular/utility';
+import {
+  DependencyType,
+  ExistingBehavior,
+  addDependency,
+  addRootProvider,
+  readWorkspace
+} from '@schematics/angular/utility';
 
 export interface NgAddOptions {
   project?: string;
@@ -26,7 +32,7 @@ export default function ngAdd(options: NgAddOptions): Rule {
     }
 
     return chain([
-      addDependency('@stripe/stripe-js', stripeJsRange(), { existing: ExistingBehavior.Skip }),
+      stripeJsDependency(tree, context),
       alreadySetUp
         ? noop()
         : addRootProvider(project.name, ({ code, external }) =>
@@ -91,7 +97,7 @@ function findExistingSetup(tree: Tree, sourceRoot: string): string | null {
   let found: string | null = null;
   tree.getDir(sourceRoot).visit((path) => {
     if (found || !path.endsWith('.ts') || path.endsWith('.spec.ts')) return;
-    const text = tree.readText(path);
+    const text = stripComments(tree.readText(path));
     if (/provideNgxStripe\s*\(|NgxStripeModule\s*\.\s*forRoot\s*\(/.test(text)) {
       found = path.replace(/^\//, '');
     }
@@ -99,15 +105,77 @@ function findExistingSetup(tree: Tree, sourceRoot: string): string | null {
   return found;
 }
 
-/** The @stripe/stripe-js range this ngx-stripe release declares as its peer, as a caret range. */
-function stripeJsRange(): string {
+/** A commented-out `provideNgxStripe(...)` is not a setup. URLs such as `https://…` are left alone. */
+function stripComments(source: string): string {
+  return source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:'"`])\/\/.*$/gm, '$1');
+}
+
+interface StripeJsPeer {
+  /** The peer range as declared, e.g. `>=10.3.0 <11.0.0`. */
+  range: string;
+  /** The lowest supported version, as [major, minor, patch]. */
+  floor: [number, number, number];
+}
+
+/** The @stripe/stripe-js peer this ngx-stripe release declares. */
+function stripeJsPeer(): StripeJsPeer {
   const pkg = JSON.parse(readFileSync(join(__dirname, '..', '..', 'package.json'), 'utf8'));
-  const peer: string = pkg.peerDependencies?.['@stripe/stripe-js'] ?? '';
-  const min = /(\d+)\.(\d+)\.(\d+)/.exec(peer);
+  const range: string = pkg.peerDependencies?.['@stripe/stripe-js'] ?? '';
+  const min = /(\d+)\.(\d+)\.(\d+)/.exec(range);
   if (!min) {
     throw new SchematicsException('ngx-stripe package.json declares no @stripe/stripe-js peer dependency.');
   }
-  return `^${min[1]}.${min[2]}.${min[3]}`;
+  return { range, floor: [Number(min[1]), Number(min[2]), Number(min[3])] };
+}
+
+/**
+ * Adds @stripe/stripe-js at the supported range. A version the app already has is kept, unless it
+ * can never satisfy this release's peer (an older major, or a pin below the floor): that one is
+ * replaced, because ngx-stripe's typings need the supported version.
+ */
+function stripeJsDependency(tree: Tree, context: SchematicContext): Rule {
+  const peer = stripeJsPeer();
+  const wanted = `^${peer.floor.join('.')}`;
+
+  const manifest = tree.readJson('/package.json') as Record<string, Record<string, string> | undefined>;
+  const type = manifest[DependencyType.Default]?.['@stripe/stripe-js']
+    ? DependencyType.Default
+    : manifest[DependencyType.Dev]?.['@stripe/stripe-js']
+      ? DependencyType.Dev
+      : DependencyType.Default;
+  const existing = manifest[type]?.['@stripe/stripe-js'];
+
+  if (!existing || canSatisfy(existing, peer.floor) !== false) {
+    return addDependency('@stripe/stripe-js', wanted, { type, existing: ExistingBehavior.Skip });
+  }
+
+  context.logger.info(
+    `This ngx-stripe needs @stripe/stripe-js ${peer.range}, so "${existing}" is updated to "${wanted}".`
+  );
+  return addDependency('@stripe/stripe-js', wanted, { type, existing: ExistingBehavior.Replace });
+}
+
+/**
+ * Whether a package.json specifier can resolve to a version at or above `floor` within its major.
+ * Returns null for specifiers this does not try to understand (ranges, tags, URLs), which are left alone.
+ */
+export function canSatisfy(specifier: string, floor: [number, number, number]): boolean | null {
+  const match = /^\s*(\^|~|=|v)?\s*(\d+)(?:\.(\d+|x|\*))?(?:\.(\d+|x|\*))?\s*$/i.exec(specifier);
+  if (!match) return null;
+
+  const [, operator, majorText, minorText, patchText] = match;
+  const major = Number(majorText);
+  if (major !== floor[0]) return false;
+
+  const minor = minorText === undefined || /x|\*/i.test(minorText) ? null : Number(minorText);
+  const patch = patchText === undefined || /x|\*/i.test(patchText) ? null : Number(patchText);
+
+  // `^10.1.0`, `10`, `10.x`: any later version of the major is allowed.
+  if (operator === '^' || minor === null) return true;
+  // `~10.1.0`, `10.1`, `10.1.x`: only later patches of that minor.
+  if (operator === '~' || patch === null) return minor >= floor[1];
+  // An exact version.
+  return minor > floor[1] || (minor === floor[1] && patch >= floor[2]);
 }
 
 function logNextSteps(context: SchematicContext, key: string, alreadySetUp: boolean): void {
