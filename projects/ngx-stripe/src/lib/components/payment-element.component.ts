@@ -21,6 +21,7 @@ import {
   StripeError,
   StripePaymentElement,
   StripePaymentElementChangeEvent,
+  StripePaymentElementFieldChangeEvent,
   StripePaymentElementOptions
 } from '@stripe/stripe-js';
 
@@ -31,7 +32,13 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 import { destroyStripeElement } from '../util/destroy-stripe-element.util';
-import { PAYMENT_ELEMENT_UPDATE_KEYS, pickUpdateOptions } from '../util/update-options.util';
+import { SubscriberAwareEmitter } from '../util/subscriber-aware-emitter.util';
+import {
+  PAYMENT_ELEMENT_CREATE_ONLY_KEYS,
+  PAYMENT_ELEMENT_NESTED_CREATE_ONLY_KEYS,
+  createOnlyCheck,
+  omitCreateOnlyOptions
+} from '../util/update-options.util';
 
 @Component({
   selector: 'ngx-stripe-payment',
@@ -64,10 +71,20 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
     elementType: 'payment';
     error: StripeError;
   }>();
+  private readonly fieldChangeEmitter = new SubscriberAwareEmitter<StripePaymentElementFieldChangeEvent>(() =>
+    this.listenForFieldChange()
+  );
+  /**
+   * Requires beta access from Stripe. Emits when a field inside the Payment Element changes state
+   * (displayed, focused, completed, errored...). ngx-stripe only listens for the event once
+   * something subscribes, in the template or in code.
+   */
+  @Output() fieldchange: EventEmitter<StripePaymentElementFieldChangeEvent> = this.fieldChangeEmitter;
 
   state: 'notready' | 'starting' | 'ready' = 'notready';
   private elementsSubscription!: Subscription;
-  private createdWith: Partial<StripePaymentElementOptions> = {};
+  private fieldChangeElement?: StripePaymentElement;
+  private createOnly = createOnlyCheck('Payment Element', 'payment-element');
 
   constructor(
     public stripeElementsService: StripeElementsService,
@@ -149,11 +166,12 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
 
   update(options: Partial<StripePaymentElementOptions>): StripePaymentElement {
     return this.element.update(
-      pickUpdateOptions(options, PAYMENT_ELEMENT_UPDATE_KEYS, {
-        element: 'Payment Element',
-        docsPath: 'payment-element',
-        createdWith: this.createdWith
-      })
+      omitCreateOnlyOptions(
+        options,
+        PAYMENT_ELEMENT_CREATE_ONLY_KEYS,
+        this.createOnly,
+        PAYMENT_ELEMENT_NESTED_CREATE_ONLY_KEYS
+      )
     );
   }
 
@@ -165,6 +183,18 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
     return from(this.elements.fetchUpdates());
   }
 
+  /**
+   * `fieldchange` is a beta event, so it is only registered when an app subscribes to the output.
+   * Runs when the element is created and again on each subscription, whichever comes last.
+   */
+  private listenForFieldChange() {
+    if (!this.element || !this.fieldChangeEmitter.hasHadSubscriber || this.fieldChangeElement === this.element) {
+      return;
+    }
+    this.fieldChangeElement = this.element;
+    this.element.on('fieldchange', (ev) => this.fieldchange.emit(ev));
+  }
+
   private hasClientSecret(): boolean {
     return Boolean(this.clientSecret || this.elementsOptions?.clientSecret);
   }
@@ -174,7 +204,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
 
     try {
       this.element = this.elements.create('payment', options);
-      this.createdWith = options;
+      this.createOnly = createOnlyCheck('Payment Element', 'payment-element', options);
     } catch (err) {
       this.elements = undefined as any;
       throw err;
@@ -186,6 +216,7 @@ export class StripePaymentElementComponent implements OnInit, OnChanges, OnDestr
     this.element.on('ready', (ev) => this.ready.emit(ev));
     this.element.on('escape', (ev) => this.escape.emit(ev));
     this.element.on('loaderror', (ev) => this.loaderror.emit(ev));
+    this.listenForFieldChange();
 
     this.element.mount(this.stripeElementRef.nativeElement);
 

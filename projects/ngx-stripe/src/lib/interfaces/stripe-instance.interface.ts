@@ -112,6 +112,8 @@ import {
   StripeElementsOptionsClientSecret,
   StripeEmbeddedCheckoutOptions,
   StripeEmbeddedCheckout,
+  InitializePricingOptions,
+  Pricing,
   StripeCheckoutElementsSdkOptions,
   StripeCheckoutElementsSdk,
   StripeCheckoutFormSdkOptions,
@@ -427,6 +429,10 @@ export interface StripeServiceInterface {
   initCheckoutElementsSdk(options: StripeCheckoutElementsSdkOptions): Observable<StripeCheckoutElementsSdk>;
   initCheckoutFormSdk(options: StripeCheckoutFormSdkOptions): Observable<StripeCheckoutFormSdk>;
   createEmbeddedCheckoutPage(options: StripeEmbeddedCheckoutOptions): Observable<StripeEmbeddedCheckout>;
+  /**
+   * Requires beta access from Stripe. Initializes the Pricing SDK for price localization and currency selection.
+   */
+  initializePricing(options: InitializePricingOptions): Observable<Pricing>;
   /**
    * @deprecated
    */

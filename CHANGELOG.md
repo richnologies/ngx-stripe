@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Add `ng add ngx-stripe`: installs the matching `@stripe/stripe-js`, adds `provideNgxStripe()` to the app config (or root NgModule) and asks for the publishable key
+- Sync with `@stripe/stripe-js` 10.3.0. Peer `@stripe/stripe-js` is now `>=10.3.0 <11` (was `>=10 <11`), because the new typings below only exist from 10.3.0
+- Add `initializePricing` to `StripeService`, `StripeInstance` and `injectStripe()` (Stripe Pricing SDK, beta)
+- Add the `(fieldchange)` output to `ngx-stripe-payment` (beta). ngx-stripe only listens for the event once something subscribes to it
+- [#333](https://github.com/richnologies/ngx-stripe/issues/333) Stop sending create-only options to `element.update()`: `wallets`, `layout.defaultCollapsed` and `layout.paymentMethodLogoPosition` on the Payment Element, `disableLink` and `preferredNetwork` on the Card and Card Number Elements. In dev mode a warning says so when one of them changes after the element exists
+- Clearer setup errors: a missing `provideNgxStripe()`, a missing publishable key, a blocked Stripe.js script and a rejected Trusted Types policy now say what to fix and link to the docs. In dev mode, changing `clientSecret` on an existing `ngx-stripe-elements` logs a warning
+- Behaviour change: because of those errors, `inject(StripeService, { optional: true })` (also `StripeElementsService`, `StripeFactoryService`) throws when ngx-stripe is not provided, instead of returning `null`. Check `inject(NGX_STRIPE_VERSION, { optional: true })` first if your code must work without ngx-stripe
+
 ## 22.10.2 - 2026-10-04
 
 - Honor Payment Element `doNotCreateUntilClientSecretIsSet` so implicit create waits for a client secret ([#321](https://github.com/richnologies/ngx-stripe/pull/321))

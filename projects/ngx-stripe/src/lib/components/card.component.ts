@@ -34,7 +34,11 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 import { StripeElementsService } from '../services/stripe-elements.service';
 
 import { destroyStripeElement } from '../util/destroy-stripe-element.util';
-import { CARD_ELEMENT_UPDATE_KEYS, pickUpdateOptions } from '../util/update-options.util';
+import {
+  CARD_ELEMENT_CREATE_ONLY_KEYS,
+  createOnlyCheck,
+  omitCreateOnlyOptions
+} from '../util/update-options.util';
 
 @Component({
   selector: 'ngx-stripe-card',
@@ -70,7 +74,7 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
   elements!: StripeElements;
   state: 'notready' | 'starting' | 'ready' = 'notready';
   private elementsSubscription!: Subscription;
-  private createdWith: Partial<StripeCardElementOptions> = {};
+  private createOnly = createOnlyCheck('Card Element', 'card-elements');
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -121,13 +125,7 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   update(options: StripeCardElementUpdateOptions) {
-    this.element.update(
-      pickUpdateOptions(options, CARD_ELEMENT_UPDATE_KEYS, {
-        element: 'Card Element',
-        docsPath: 'card-elements',
-        createdWith: this.createdWith
-      })
-    );
+    this.element.update(omitCreateOnlyOptions(options, CARD_ELEMENT_CREATE_ONLY_KEYS, this.createOnly));
   }
 
   /**
@@ -144,7 +142,7 @@ export class StripeCardComponent implements OnInit, OnChanges, OnDestroy {
     destroyStripeElement(this.element);
 
     this.element = this.elements.create('card', options);
-    this.createdWith = options;
+    this.createOnly = createOnlyCheck('Card Element', 'card-elements', options);
     this.element.on('change', (ev) => this.change.emit(ev));
     this.element.on('blur', () => this.blur.emit());
     this.element.on('focus', () => this.focus.emit());

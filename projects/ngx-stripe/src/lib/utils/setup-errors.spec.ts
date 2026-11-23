@@ -1,9 +1,10 @@
-import { PLATFORM_ID } from '@angular/core';
+import { PLATFORM_ID, inject } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { StripeElementsDirective } from '../directives/elements.directive';
+import { NGX_STRIPE_VERSION } from '../interfaces/ngx-stripe.interface';
 import { NgxStripeModule, provideNgxStripe } from '../ngx-stripe.module';
 import { LazyStripeAPILoader } from '../services/api-loader.service';
 import { DocumentRef } from '../services/document-ref.service';
@@ -30,6 +31,17 @@ describe('setup errors: ngx-stripe not provided (#193, #218)', () => {
   ])('injecting %s without providers names provideNgxStripe', (_name, token) => {
     TestBed.configureTestingModule({});
     expect(() => TestBed.inject(token as typeof StripeService)).toThrow(NGX_STRIPE_NOT_PROVIDED);
+  });
+
+  it('optional injection also throws the clear error; NGX_STRIPE_VERSION is the way to ask "is it set up?"', () => {
+    TestBed.configureTestingModule({});
+
+    // The root fallback cannot tell an optional injection from a required one. This is intended and
+    // documented in the changelog: code that must run without ngx-stripe checks the token first.
+    expect(() => TestBed.runInInjectionContext(() => inject(StripeService, { optional: true }))).toThrow(
+      NGX_STRIPE_NOT_PROVIDED
+    );
+    expect(TestBed.runInInjectionContext(() => inject(NGX_STRIPE_VERSION, { optional: true }))).toBeNull();
   });
 
   it('injectStripe() without providers names provideNgxStripe', () => {

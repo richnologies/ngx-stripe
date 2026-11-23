@@ -27,7 +27,8 @@ export const NGSTR_ELEMENTS: NgStrElementEntry[] = [
       "focus",
       "ready",
       "escape",
-      "loaderror"
+      "loaderror",
+      "fieldchange"
     ],
     "methods": [
       "fetchUpdates()",

@@ -114,6 +114,8 @@ import {
   ConfirmCashappSetupOptions,
   StripeEmbeddedCheckoutOptions,
   StripeEmbeddedCheckout,
+  InitializePricingOptions,
+  Pricing,
   StripeCheckoutElementsSdkOptions,
   StripeCheckoutElementsSdk,
   StripeCheckoutFormSdkOptions,
@@ -692,6 +694,13 @@ export class StripeService implements StripeServiceInterface {
 
   createEmbeddedCheckoutPage(options: StripeEmbeddedCheckoutOptions): Observable<StripeEmbeddedCheckout> {
     return this.stripe.createEmbeddedCheckoutPage(options);
+  }
+
+  /**
+   * Requires beta access from Stripe. Initializes the Pricing SDK for price localization and currency selection.
+   */
+  initializePricing(options: InitializePricingOptions): Observable<Pricing> {
+    return this.stripe.initializePricing(options);
   }
 
   /**

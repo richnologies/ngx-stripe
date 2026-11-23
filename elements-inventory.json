@@ -17,7 +17,7 @@
       "needsClientSecret": true,
       "summary": "Collect payment details for many methods in one Element. Prefer this over Card Elements for new integrations.",
       "notes": "Wrap in ngx-stripe-elements. Set clientSecret on the parent Elements options before create — nested Elements cannot update clientSecret later. Use @if until the secret exists. doNotCreateUntilClientSecretIsSet defers implicit (non-parent) create.",
-      "outputs": ["load", "blur", "change", "focus", "ready", "escape", "loaderror"],
+      "outputs": ["load", "blur", "change", "focus", "ready", "escape", "loaderror", "fieldchange"],
       "methods": ["fetchUpdates()", "update(options)", "collapse()"],
       "extraInputs": [
         {

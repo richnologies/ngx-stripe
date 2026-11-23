@@ -5,10 +5,15 @@
 | Before (dahlia / v9) | After (endive / v10) |
 | -------------------- | -------------------- |
 | `ngx-stripe-payment-request-button` | Removed — Payment Request Button Element is gone from Stripe.js v10 (use Express Checkout Element or Payment Element) |
-| Peer `@stripe/stripe-js` `>=9 <10` | `>=10 <11` |
+| Peer `@stripe/stripe-js` `>=9 <10` | `>=10 <11` (`>=10.3 <11` from ngx-stripe 22.10.3) |
 | CDN `js.stripe.com/dahlia/stripe.js` | `js.stripe.com/endive/stripe.js` |
 
 Also added: `confirmPayByBankPayment`, `confirmBlikSetup`.
+
+From 22.10.3:
+
+- `@stripe/stripe-js` 10.3.0 or later is required, because ngx-stripe's typings use types that Stripe added in 10.3 (`initializePricing`, the Payment Element `fieldchange` event). `ng add ngx-stripe` updates an older version for you.
+- Injecting `StripeService`, `StripeElementsService` or `StripeFactoryService` without `provideNgxStripe()` (or `NgxStripeModule.forRoot()`) now throws an error that names the fix, instead of `NullInjectorError`. This also applies to optional injection: `inject(StripeService, { optional: true })` no longer returns `null`. Code that has to work without ngx-stripe can check `inject(NGX_STRIPE_VERSION, { optional: true })` first.
 
 Stay on dahlia with `ngx-stripe@v22-dahlia` and `@stripe/stripe-js@^9` if you still need the Payment Request Button Element.
 

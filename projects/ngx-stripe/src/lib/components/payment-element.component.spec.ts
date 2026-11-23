@@ -1,3 +1,5 @@
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
@@ -97,6 +99,106 @@ describe('StripePaymentElementComponent doNotCreateUntilClientSecretIsSet', () =
     expect(stripeElements.create).toHaveBeenCalledWith('payment', {});
     expect(paymentElement.mount).toHaveBeenCalledTimes(1);
     expect(cmp.state).toBe('ready');
+  });
+});
+
+describe('StripePaymentElementComponent (fieldchange) beta event', () => {
+  const fieldChangeListeners = (paymentElement: { on: { mock: { calls: unknown[][] } } }) =>
+    paymentElement.on.mock.calls.filter((call) => call[0] === 'fieldchange');
+
+  it('does not listen to fieldchange unless something subscribes', async () => {
+    const { cmp, paymentElement } = harness();
+
+    await cmp.ngOnInit();
+
+    const events = paymentElement.on.mock.calls.map((call: unknown[]) => call[0]);
+    expect(events).toContain('change');
+    expect(events).not.toContain('fieldchange');
+  });
+
+  it('listens and forwards fieldchange events when subscribed before the element exists', async () => {
+    const { cmp, paymentElement } = harness();
+    const received: unknown[] = [];
+    cmp.fieldchange.subscribe((ev) => received.push(ev));
+
+    await cmp.ngOnInit();
+
+    const calls = fieldChangeListeners(paymentElement);
+    expect(calls).toHaveLength(1);
+    const event = { elementType: 'payment', fieldId: 'number', type: 'focused' };
+    (calls[0][1] as (ev: unknown) => void)(event);
+    expect(received).toEqual([event]);
+  });
+
+  it('starts listening when code subscribes after the element was created', async () => {
+    const { cmp, paymentElement } = harness();
+    await cmp.ngOnInit();
+    expect(fieldChangeListeners(paymentElement)).toHaveLength(0);
+
+    const received: unknown[] = [];
+    cmp.fieldchange.subscribe((ev) => received.push(ev));
+    cmp.fieldchange.subscribe(() => undefined);
+
+    const calls = fieldChangeListeners(paymentElement);
+    expect(calls).toHaveLength(1);
+    (calls[0][1] as (ev: unknown) => void)({ fieldId: 'expiry' });
+    expect(received).toEqual([{ fieldId: 'expiry' }]);
+  });
+
+  it('does not depend on Subject.observed, which RxJS 6 does not have', async () => {
+    const { cmp, paymentElement } = harness();
+    Object.defineProperty(cmp.fieldchange, 'observed', { get: () => undefined });
+    cmp.fieldchange.subscribe(() => undefined);
+
+    await cmp.ngOnInit();
+
+    expect(fieldChangeListeners(paymentElement)).toHaveLength(1);
+  });
+
+  it('listens again on a re-created element', async () => {
+    const { cmp, stripeElements } = harness();
+    const first = { on: vi.fn(), mount: vi.fn(), destroy: vi.fn(), update: vi.fn(), collapse: vi.fn() };
+    const second = { on: vi.fn(), mount: vi.fn(), destroy: vi.fn(), update: vi.fn(), collapse: vi.fn() };
+    stripeElements.create.mockReturnValueOnce(first).mockReturnValueOnce(second);
+    cmp.fieldchange.subscribe(() => undefined);
+
+    await cmp.ngOnInit();
+    cmp.clientSecret = 'pi_secret_next';
+    await cmp.ngOnChanges({ clientSecret: change('pi_secret_next') });
+
+    expect(fieldChangeListeners(first)).toHaveLength(1);
+    expect(fieldChangeListeners(second)).toHaveLength(1);
+  });
+
+  it('listens when (fieldchange) is bound in a template', async () => {
+    const paymentElement = { on: vi.fn(), mount: vi.fn(), destroy: vi.fn(), update: vi.fn(), collapse: vi.fn() };
+    const elementsService = {
+      elements: () => of({ create: () => paymentElement }),
+      mergeOptions: (options?: unknown) => options || {}
+    };
+
+    @Component({
+      standalone: true,
+      imports: [StripePaymentElementComponent],
+      template: `<ngx-stripe-payment [stripe]="stripe" (fieldchange)="events.push($event)" />`
+    })
+    class HostComponent {
+      stripe = {} as StripePaymentElementComponent['stripe'];
+      events: unknown[] = [];
+    }
+
+    TestBed.configureTestingModule({
+      imports: [HostComponent],
+      providers: [{ provide: StripeElementsService, useValue: elementsService }]
+    });
+    const fixture = TestBed.createComponent(HostComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const calls = fieldChangeListeners(paymentElement);
+    expect(calls).toHaveLength(1);
+    (calls[0][1] as (ev: unknown) => void)({ fieldId: 'cvc' });
+    expect(fixture.componentInstance.events).toEqual([{ fieldId: 'cvc' }]);
   });
 });
 

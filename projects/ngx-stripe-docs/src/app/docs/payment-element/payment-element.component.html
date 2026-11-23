@@ -373,6 +373,17 @@
           </tr>
           <tr>
             <td class="px-6 py-4  text-sm font-medium text-gray-900">
+              &#64;Output() <br />
+              fieldchange: EventEmitter&lt;StripePaymentElementFieldChangeEvent&gt;
+            </td>
+            <td class="px-6 py-4  text-sm text-gray-500">
+              Triggered when a field inside the Element changes state (displayed, focused, completed, errored...).
+              Requires beta access from Stripe and <code>&#64;stripe/stripe-js</code> 10.3 or later. ngx-stripe only
+              listens for it when you bind it.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4  text-sm font-medium text-gray-900">
               element: StripePaymentElement
             </td>
             <td class="px-6 py-4  text-sm text-gray-500">

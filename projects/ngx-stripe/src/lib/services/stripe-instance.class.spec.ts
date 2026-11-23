@@ -48,6 +48,18 @@ describe('StripeInstance', () => {
     expect(result.paymentIntent?.status).toBe('succeeded');
   });
 
+  it('wraps stripe.initializePricing (stripe-js 10.3) and emits the Pricing instance', async () => {
+    const pricing = { getAvailableCurrencies: vi.fn() };
+    const initializePricing = vi.fn().mockResolvedValue(pricing);
+    const { instance } = createInstance({ initializePricing });
+
+    const result = await firstValueFrom(instance.initializePricing({ pricingPolicy: 'pp_test_123' }));
+
+    expect(initializePricing).toHaveBeenCalledTimes(1);
+    expect(initializePricing).toHaveBeenCalledWith({ pricingPolicy: 'pp_test_123' });
+    expect(result).toBe(pricing);
+  });
+
   it('exposes getInstance after load', async () => {
     const { instance, stripeCtor } = createInstance({
       confirmPayment: () => Promise.resolve({})
