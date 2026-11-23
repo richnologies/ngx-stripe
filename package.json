@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@angular/build": "^22.1.7",
-    "@angular/cli": "^22.1.7",
+    "@angular/cli": "^22.3.0",
     "@angular/compiler-cli": "^22.1.5",
     "@angular/ssr": "^22.2.0",
     "@playwright/test": "^1.63.0",
