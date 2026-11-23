@@ -21,7 +21,10 @@
           "options": {
             "buildTarget": "ngx-stripe:build",
             "tsConfig": "projects/ngx-stripe/tsconfig.spec.json",
-            "runner": "vitest"
+            "runner": "vitest",
+            "exclude": [
+              "schematics/**"
+            ]
           }
         },
         "lint": {

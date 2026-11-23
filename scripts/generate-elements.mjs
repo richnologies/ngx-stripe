@@ -197,8 +197,10 @@ Version = \`{angularMajor}.{stripeJsMajor}.{patch}\` (e.g. 22.10.x = Angular 22 
 ## Install
 
 \`\`\`bash
-npm install ngx-stripe @stripe/stripe-js
+ng add ngx-stripe --publishable-key pk_test_…
 \`\`\`
+
+Installs ngx-stripe and the matching \`@stripe/stripe-js\`, and adds \`provideNgxStripe\` to the app config. By hand: \`npm install ngx-stripe @stripe/stripe-js\`, then:
 
 \`\`\`ts
 import { provideNgxStripe } from 'ngx-stripe';

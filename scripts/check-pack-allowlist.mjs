@@ -25,9 +25,17 @@ const listing = execSync(`tar -tzf ${JSON.stringify(tgz)}`, { cwd: distDir, enco
   .filter((f) => !f.endsWith('.tgz'))
   .sort();
 
-const allowedPrefixes = ['fesm2022/', 'types/', 'LICENSE', 'README', 'package.json', 'skills/'];
+const allowedPrefixes = ['fesm2022/', 'types/', 'LICENSE', 'README', 'package.json', 'skills/', 'schematics/'];
 const allowedExact = new Set(['LICENSE.md', 'README.md', 'package.json']);
-const required = ['skills/ngx-stripe/SKILL.md', 'skills/ngx-stripe/elements.md'];
+const required = [
+  'skills/ngx-stripe/SKILL.md',
+  'skills/ngx-stripe/elements.md',
+  // `ng add ngx-stripe`
+  'schematics/collection.json',
+  'schematics/package.json',
+  'schematics/ng-add/index.js',
+  'schematics/ng-add/schema.json'
+];
 
 const unexpected = listing.filter((f) => {
   if (allowedExact.has(f)) return false;

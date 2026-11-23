@@ -1,17 +1,35 @@
 {
   "name": "ngx-stripe",
   "version": "22.10.2",
+  "description": "Stripe for Angular: standalone components for Payment Element, Express Checkout and every Stripe Element, plus an Observable wrapper around Stripe.js.",
   "repository": {
     "type": "git",
     "url": "https://github.com/richnologies/ngx-stripe"
   },
   "homepage": "https://ngx-stripe.dev",
+  "bugs": {
+    "url": "https://github.com/richnologies/ngx-stripe/issues"
+  },
   "keywords": [
     "angular",
     "stripe",
-    "payments"
+    "stripe-js",
+    "stripe-elements",
+    "payment-element",
+    "express-checkout",
+    "stripe-checkout",
+    "payments",
+    "checkout",
+    "apple-pay",
+    "google-pay",
+    "angular-library",
+    "ngx"
   ],
   "license": "MIT",
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": "dependencies"
+  },
   "peerDependencies": {
     "@angular/common": ">=22.0.0 <23.0.0",
     "@angular/core": ">=22.0.0 <23.0.0",

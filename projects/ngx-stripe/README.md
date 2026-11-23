@@ -1,6 +1,6 @@
 Collect Payments with Stripe: The Angular Way
 
-<a href="https://stripe.com/partners/ngx-stripe" target="_blank"><img src="https://raw.githubusercontent.com/richnologies/ngx-stripe/main/docs/logos/stripe_partner_badge_verified_blurple.png" alt="Stripe Verified Partner" width="98"/></a>
+<img src="https://raw.githubusercontent.com/richnologies/ngx-stripe/main/docs/logos/stripe_partner_badge_verified_blurple.png" alt="Stripe Verified Partner" width="98"/>
 [![version](https://img.shields.io/npm/v/ngx-stripe.svg)](https://www.npmjs.com/package/ngx-stripe)
 [![license](https://img.shields.io/npm/l/ngx-stripe.svg)](https://www.npmjs.com/package/ngx-stripe)
 
@@ -10,13 +10,15 @@ Collect Payments with Stripe: The Angular Way
 
 Angular components and services for [Stripe Elements](https://stripe.com/docs/stripe-js) — a thin, typed wrapper around [Stripe.js](https://stripe.com/docs/js).
 
-**Docs:** [ngx-stripe.dev](https://ngx-stripe.dev/docs) · **First payment:** [guided tour](https://ngx-stripe.dev/docs/first-payment) · **AI:** [llms.txt](https://ngx-stripe.dev/llms.txt) · **Agent Skill:** `npx skills add richnologies/ngx-stripe` · **Stripe.js versioning:** [Stripe policy](https://docs.stripe.com/sdks/stripejs-versioning)
+**Docs:** [ngx-stripe.dev](https://ngx-stripe.dev/docs) · **Listed by Stripe:** [community SDKs](https://docs.stripe.com/sdks/community) · **First payment:** [guided tour](https://ngx-stripe.dev/docs/first-payment) · **AI:** [llms.txt](https://ngx-stripe.dev/llms.txt) · **Agent Skill:** `npx skills add richnologies/ngx-stripe` · **Stripe.js versioning:** [Stripe policy](https://docs.stripe.com/sdks/stripejs-versioning)
 
 ## Install
 
 ```bash
-npm install ngx-stripe @stripe/stripe-js
+ng add ngx-stripe
 ```
+
+`ng add` installs `ngx-stripe` and the matching `@stripe/stripe-js`, then adds `provideNgxStripe()` to your app config (or root NgModule). It asks for your publishable key; pass `--publishable-key pk_test_…` to skip the prompt. To set it up by hand instead: `npm install ngx-stripe @stripe/stripe-js`, then step 1 below.
 
 `ngx-stripe` version = `{angularMajor}.{stripeJsMajor}.{patch}` (e.g. `22.10.x` = Angular 22 + Stripe.js endive / `@stripe/stripe-js` v10).
 

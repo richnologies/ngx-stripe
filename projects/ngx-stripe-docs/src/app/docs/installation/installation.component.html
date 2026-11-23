@@ -25,6 +25,15 @@
         as a peer dependency for types. Keep its major aligned with the middle digit of ngx-stripe.
       </li>
     </ul>
+    <ngstr-subheader subheader="ng add" link="ng-add"></ngstr-subheader>
+    <p>
+      The quickest setup on the latest lane. It installs ngx-stripe and the matching
+      <ngstr-highlight>&#64;stripe/stripe-js</ngstr-highlight>, then adds
+      <ngstr-highlight>provideNgxStripe()</ngstr-highlight> to your app config (or root NgModule). It asks for your
+      publishable key; pass <ngstr-highlight>--publishable-key pk_test_…</ngstr-highlight> to skip the prompt. It refuses
+      secret keys, and running it twice changes nothing.
+    </p>
+    <ngstr-code code="$ ng add ngx-stripe"></ngstr-code>
     <ngstr-subheader subheader="Install (selected lane)" link="install-selected"></ngstr-subheader>
     <ngstr-code [code]="lanes.installCommand()" data-testid="install-lane-command"></ngstr-code>
     <p class="text-sm text-slate-500 mb-4">

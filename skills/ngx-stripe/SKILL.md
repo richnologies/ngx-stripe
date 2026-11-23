@@ -19,7 +19,7 @@ npx skills add richnologies/ngx-stripe
 ```
 
 - Types: `@stripe/stripe-js` only. Do not invent parallel interfaces.
-- Install: `npm install ngx-stripe @stripe/stripe-js`
+- Install: `ng add ngx-stripe --publishable-key pk_test_…` (installs both packages and adds `provideNgxStripe`), or `npm install ngx-stripe @stripe/stripe-js` and set up by hand.
 - Version: `{angularMajor}.{stripeJsMajor}.{patch}` — e.g. `22.10.x` is Angular 22 + Stripe.js v10 (endive CDN).
 - Setup: `provideNgxStripe('pk_…')` in `appConfig.providers`, then `injectStripe()`. Keep `NgxStripeModule.forRoot()` only for existing NgModule apps.
 - Service methods return **Observables** (`from(stripe.method()).pipe(first())`). Subscribe or convert; do not treat them as Promises.

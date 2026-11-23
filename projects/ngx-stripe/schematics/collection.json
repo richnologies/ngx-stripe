@@ -1,0 +1,9 @@
+{
+  "schematics": {
+    "ng-add": {
+      "description": "Set up ngx-stripe in an Angular application: install @stripe/stripe-js and add provideNgxStripe().",
+      "factory": "./ng-add/index",
+      "schema": "./ng-add/schema.json"
+    }
+  }
+}

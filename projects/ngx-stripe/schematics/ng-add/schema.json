@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "NgxStripeNgAdd",
+  "title": "ngx-stripe ng-add",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "The application to set up.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "publishableKey": {
+      "type": "string",
+      "description": "Your Stripe publishable key (pk_test_… or pk_live_…). Leave it empty to add it later.",
+      "default": "",
+      "x-prompt": "Your Stripe publishable key (pk_test_… or pk_live_…), or leave empty to add it later:"
+    }
+  }
+}
