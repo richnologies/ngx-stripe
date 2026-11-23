@@ -79,6 +79,9 @@ export default class NgStrPaymentElementComponent implements OnInit {
   stripe = injectStripe(this.plutoService.KEYS.main);
   paying = false;
   completed = false;
+  // Set by the Payment Element's (ready) event: Stripe has created and rendered it, so
+  // confirmPayment has an Elements group to read from.
+  paymentElementReady = false;
 
   ngOnInit() {
     this.plutoService
@@ -93,7 +96,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
   }
 
   pay() {
-    if (this.paymentElementForm.valid && this.paymentElement) {
+    if (this.paymentElementForm.valid && this.paymentElementReady && this.paymentElement?.elements) {
       this.paying = true;
       this.stripe
         .confirmPayment({
@@ -209,6 +212,8 @@ export default class NgStrPaymentElementComponent implements OnInit {
       // Replace with your own public key
       stripe = injectStripe(this.yourOwnAPI.StripePublicKey);
       paying = signal(false);
+      // True once the Payment Element is rendered and confirmPayment can use it
+      ready = signal(false);
 
       ngOnInit() {
         this.yourOwnAPI
@@ -222,7 +227,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
       }
 
       pay() {
-        if (this.paying() || this.paymentElementForm.invalid) return;
+        if (this.paying() || !this.ready() || this.paymentElementForm.invalid) return;
         this.paying.set(true);
 
         const { name, email, address, zipcode, city } = this.paymentElementForm.getRawValue();
@@ -285,10 +290,13 @@ export default class NgStrPaymentElementComponent implements OnInit {
           [stripe]="stripe"
           [elementsOptions]="elementsOptions"
         >
-          <ngx-stripe-payment [options]="paymentElementOptions" />
+          <ngx-stripe-payment
+            [options]="paymentElementOptions"
+            (ready)="ready.set(true)"
+          />
         </ngx-stripe-elements>
       }
-      <button (click)="pay()">PAY</button>
+      <button (click)="pay()" [disabled]="paying() || !ready()">PAY</button>
     </div>
   `;
 
@@ -351,6 +359,8 @@ export default class NgStrPaymentElementComponent implements OnInit {
       // Replace with your own public key
       stripe = injectStripe(this.yourOwnAPI.StripePublicKey);
       paying = signal(false);
+      // True once the Payment Element is rendered and confirmPayment can use it
+      ready = signal(false);
 
       ngOnInit() {
         this.yourOwnAPI
@@ -364,7 +374,7 @@ export default class NgStrPaymentElementComponent implements OnInit {
       }
 
       pay() {
-        if (this.paying() || this.paymentElementForm.invalid) return;
+        if (this.paying() || !this.ready() || this.paymentElementForm.invalid) return;
         this.paying.set(true);
 
         const { name, email, address, zipcode, city } = this.paymentElementForm.getRawValue();
@@ -427,9 +437,10 @@ export default class NgStrPaymentElementComponent implements OnInit {
           [stripe]="stripe"
           [elementsOptions]="elementsOptions"
           [options]="paymentElementOptions"
+          (ready)="ready.set(true)"
         />
       }
-      <button (click)="pay()">PAY</button>
+      <button (click)="pay()" [disabled]="paying() || !ready()">PAY</button>
     </div>
   `;
 
