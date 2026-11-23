@@ -36,7 +36,7 @@ export const ROUTES: Routes = [
       {
         path: 'setup-application',
         loadComponent: () => import('./docs/setup-application/setup-application.component'),
-        data: { title: 'Installation' }
+        data: { title: 'Setup Application' }
       },
       {
         path: 'first-payment',

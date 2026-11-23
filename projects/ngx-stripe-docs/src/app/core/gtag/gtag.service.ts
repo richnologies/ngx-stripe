@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { filter, first, tap } from 'rxjs/operators';
@@ -11,6 +11,8 @@ export class NgStrGoogleTagManagerService {
   private readonly document = inject(DOCUMENT);
   private readonly env = inject(ENV);
   private readonly titleService = inject(Title);
+  /** Analytics is browser-only: the build-time prerender must not load or bake in the tag. */
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   private loaded = new BehaviorSubject<boolean>(false);
   private loading = false;
@@ -22,6 +24,8 @@ export class NgStrGoogleTagManagerService {
   }
 
   async setup() {
+    if (!this.isBrowser) return;
+
     if (this.window && this.trackingCode) this.window[`ga-disable-${this.trackingCode}`] = false;
     this.enable = true;
 
@@ -44,7 +48,7 @@ export class NgStrGoogleTagManagerService {
   }
 
   pageView(path: string) {
-    if (this.trackingCode && this.enable && this.window) {
+    if (this.isBrowser && this.trackingCode && this.enable && this.window) {
       this.gtag('config', this.trackingCode, {
         page_title: this.titleService.getTitle(),
         page_location: `${this.window.location.origin}${path}`,
@@ -54,6 +58,8 @@ export class NgStrGoogleTagManagerService {
   }
 
   gtag(...args) {
+    if (!this.isBrowser) return;
+
     const a = arguments;
     lastValueFrom(
       this.loaded.pipe(

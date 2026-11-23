@@ -51,6 +51,8 @@
             "outputPath": "dist/ngx-stripe-docs",
             "index": "projects/ngx-stripe-docs/src/index.html",
             "browser": "projects/ngx-stripe-docs/src/main.ts",
+            "server": "projects/ngx-stripe-docs/src/main.server.ts",
+            "outputMode": "static",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/ngx-stripe-docs/tsconfig.app.json",
             "assets": [
@@ -58,8 +60,7 @@
               "projects/ngx-stripe-docs/src/robots.txt",
               "projects/ngx-stripe-docs/src/llms.txt",
               "projects/ngx-stripe-docs/src/llms-full.txt",
-              "projects/ngx-stripe-docs/src/sitemap.xml",
-              "projects/ngx-stripe-docs/src/_redirects"
+              "projects/ngx-stripe-docs/src/sitemap.xml"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",

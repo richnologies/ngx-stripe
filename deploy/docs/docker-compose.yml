@@ -1,0 +1,27 @@
+# ngx-stripe.dev docs site.
+#
+# Runs on a host that already has nginxproxy/nginx-proxy and nginxproxy/acme-companion on an
+# external `proxy` network: nginx-proxy routes by VIRTUAL_HOST, acme-companion issues one
+# Let's Encrypt certificate for every name in LETSENCRYPT_HOST (so all of them must resolve
+# to the host before it can succeed).
+#
+# The site files are the prerendered build (dist/ngx-stripe-docs/browser), synced into
+# ./runtime/docs by scripts/deploy-docs.sh. Nothing is built on the server.
+services:
+  docs:
+    container_name: ngx-stripe-docs
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    environment:
+      VIRTUAL_HOST: ngx-stripe.dev,www.ngx-stripe.dev
+      VIRTUAL_PORT: '80'
+      LETSENCRYPT_HOST: ngx-stripe.dev,www.ngx-stripe.dev
+    volumes:
+      - ./runtime/docs:/usr/share/nginx/html:ro
+      - ./nginx/docs.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

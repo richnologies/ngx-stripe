@@ -62,6 +62,10 @@ export class NgStrCodeComponent implements OnChanges {
       return;
     }
 
+    // Plain escaped source first: it is what the build-time prerender ships (highlight.js only
+    // loads in the browser) and what the reader sees until the highlighted version arrives.
+    this.highlighted = this.sanitizer.bypassSecurityTrustHtml(escapeHtml(source));
+
     const language = this.detectLanguage();
     try {
       const result = await firstValueFrom(
@@ -73,7 +77,7 @@ export class NgStrCodeComponent implements OnChanges {
       }
       this.highlighted = this.sanitizer.bypassSecurityTrustHtml(html);
     } catch {
-      this.highlighted = this.sanitizer.bypassSecurityTrustHtml(escapeHtml(source));
+      // Keep the plain source.
     }
     this.cdr.markForCheck();
   }

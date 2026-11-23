@@ -1,17 +1,8 @@
-import { provideHttpClient } from '@angular/common/http';
-import { enableProdMode, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter, withInMemoryScrolling } from '@angular/router';
-
-import { HighlightModule, HighlightOptions, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
-
-import { provideNgxStripe } from 'ngx-stripe';
 
 import { AppComponent } from './app/app.component';
-import { ROUTES } from './app/app.routing';
-import { PLUTO_ID } from './app/core';
-import { ENV } from './app/interfaces';
+import { appConfig } from './app/app.config';
 
 import { environment } from './environments/environment';
 
@@ -20,42 +11,7 @@ if (environment.production) {
 }
 
 function bootstrap() {
-  bootstrapApplication(AppComponent, {
-    providers: [
-      provideZoneChangeDetection(),
-      provideNgxStripe(),
-      provideHttpClient(),
-      provideRouter(
-        ROUTES,
-        withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' })
-      ),
-      importProvidersFrom(
-        ReactiveFormsModule,
-        HighlightModule
-      ),
-      {
-        provide: ENV,
-        useValue: environment
-      },
-      {
-        provide: PLUTO_ID,
-        useValue: '449f8516-791a-49ab-a09d-50f79a0678b6'
-      },
-      {
-        provide: HIGHLIGHT_OPTIONS,
-        useValue: <HighlightOptions>{
-          coreLibraryLoader: () => import('highlight.js/lib/core'),
-          lineNumbersLoader: () => import('ngx-highlightjs/line-numbers'), // Optional, only if you want the line numbers
-          languages: {
-            typescript: () => import('highlight.js/lib/languages/typescript'),
-            javascript: () => import('highlight.js/lib/languages/javascript'),
-            css: () => import('highlight.js/lib/languages/css'),
-            xml: () => import('highlight.js/lib/languages/xml')
-          }
-        }
-      }
-    ]
-  }).catch((err) => console.error(err));
+  bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));
 }
 
 if (document.readyState === 'complete') {

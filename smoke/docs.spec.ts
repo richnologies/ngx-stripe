@@ -87,6 +87,22 @@ test.describe('docs smoke (latest lane)', () => {
   });
 });
 
+test.describe('docs smoke (server-rendered HTML)', () => {
+  // Search engines and AI crawlers read the HTML without running Angular. The page must
+  // already carry its content and SEO tags before any JavaScript runs.
+  test('payment element page ships content and SEO tags without JavaScript', async ({ request }) => {
+    const res = await request.get('/docs/payment-element');
+    expect(res.status()).toBe(200);
+    const html = await res.text();
+    const h1 = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? '';
+    expect(h1.replace(/<[^>]*>/g, '').trim()).toBe('Payment Element');
+    expect(html).toContain('<title>Payment Element | ngx-stripe');
+    expect(html).toMatch(/<meta name="description" content="Payment Element for Angular/);
+    expect(html).toContain('<link rel="canonical" href="https://ngx-stripe.dev/docs/payment-element">');
+    expect(html).toContain('ngx-stripe-payment');
+  });
+});
+
 test.describe('docs smoke (older lane overlay)', () => {
   test(`picker selects ${older} and shows StackBlitz link`, async ({ page }) => {
     await page.goto(`/docs/versioning?lane=${older}`);
