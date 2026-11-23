@@ -32,7 +32,9 @@ import {
 
 import { StripeService } from './stripe.service';
 
-@Injectable()
+import { ngxStripeNotProvided } from '../utils/setup-errors';
+
+@Injectable({ providedIn: 'root', useFactory: ngxStripeNotProvided })
 export class StripeElementsService {
   constructor(private stripeService: StripeService) {}
 

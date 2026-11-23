@@ -7,6 +7,8 @@ import { WindowRef } from './window-ref.service';
 import { DocumentRef } from './document-ref.service';
 import { resolveStripeScriptSrc, STRIPE_JS_SCRIPT_URL } from './trusted-script-url.util';
 
+import { NGX_STRIPE_TRUSTED_TYPES_REJECTED, ngxStripeScriptLoadFailed } from '../utils/setup-errors';
+
 export interface LazyStripeAPILoaderStatus {
   loaded: boolean;
   loading: boolean;
@@ -69,6 +71,7 @@ export class LazyStripeAPILoader {
       try {
         script.src = resolveStripeScriptSrc(STRIPE_JS_SCRIPT_URL);
       } catch {
+        console.error(NGX_STRIPE_TRUSTED_TYPES_REJECTED);
         this.zone.run(() => {
           this.status.next({ loaded: false, loading: false, error: true });
         });
@@ -83,6 +86,8 @@ export class LazyStripeAPILoader {
     };
 
     script.onerror = () => {
+      // Stripe calls wait for a loaded script, so without this the failure is silent.
+      console.error(ngxStripeScriptLoadFailed(STRIPE_JS_SCRIPT_URL));
       this.zone.run(() => {
         this.status.next({ loaded: false, loading: false, error: true });
       });

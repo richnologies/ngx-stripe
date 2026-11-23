@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Directive, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter, isDevMode } from '@angular/core';
 import { from } from 'rxjs';
 
 import {
@@ -29,6 +29,8 @@ import { StripeServiceInterface } from '../interfaces/stripe-instance.interface'
 
 import { StripeElementsService } from '../services/stripe-elements.service';
 
+import { NGX_STRIPE_CLIENT_SECRET_CHANGED } from '../utils/setup-errors';
+
 @Directive({
   selector: 'ngx-stripe-elements,[ngxStripeElements]',
   standalone: true
@@ -57,6 +59,10 @@ export class StripeElementsDirective implements OnInit, OnChanges {
 
     if (changes.elementsOptions) {
       if (this._elements) {
+        if (isDevMode() && elementsOptions?.clientSecret !== changes.elementsOptions.previousValue?.clientSecret) {
+          console.warn(NGX_STRIPE_CLIENT_SECRET_CHANGED);
+        }
+
         const payload = Object.keys(elementsOptions as object).reduce((acc: any, key) => {
           if (
             (elementsOptions as any)[key] !== changes.elementsOptions.previousValue[key] &&

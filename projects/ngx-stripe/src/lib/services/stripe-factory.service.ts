@@ -9,7 +9,9 @@ import { WindowRef } from './window-ref.service';
 
 import { StripeInstance } from './stripe-instance.class';
 
-@Injectable()
+import { NGX_STRIPE_MISSING_KEY, ngxStripeNotProvided } from '../utils/setup-errors';
+
+@Injectable({ providedIn: 'root', useFactory: ngxStripeNotProvided })
 export class StripeFactoryService {
   constructor(
     @Inject(NGX_STRIPE_VERSION) public version: string,
@@ -21,9 +23,7 @@ export class StripeFactoryService {
 
   public create(key?: string, options?: StripeConstructorOptions): StripeInstance {
     if (!key && !this.baseKey) {
-      throw new Error(
-        'No key defined! Either you need to pass it as a parameter or define it when you call NgxStripeModule.forRoot()'
-      );
+      throw new Error(NGX_STRIPE_MISSING_KEY);
     }
 
     return new StripeInstance(this.version, this.loader, this.window, key || this.baseKey, options || this.baseOptions);

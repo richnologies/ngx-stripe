@@ -145,7 +145,9 @@ import { LazyStripeAPILoader, LazyStripeAPILoaderStatus } from './api-loader.ser
 
 import { StripeInstance } from './stripe-instance.class';
 
-@Injectable()
+import { ngxStripeNotProvided } from '../utils/setup-errors';
+
+@Injectable({ providedIn: 'root', useFactory: ngxStripeNotProvided })
 export class StripeService implements StripeServiceInterface {
   stripe!: StripeInstance;
 
