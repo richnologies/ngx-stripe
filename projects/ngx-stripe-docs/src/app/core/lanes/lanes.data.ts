@@ -419,16 +419,6 @@ export const NGSTR_LANES: NgStrLanesData = {
   "ci": {
     "pr": [
       "22.10"
-    ],
-    "nightly": [
-      "22.10",
-      "22.9",
-      "22.8",
-      "22.7",
-      "22.6",
-      "22.5",
-      "21.10",
-      "21.9"
     ]
   }
 } as NgStrLanesData;

@@ -4,10 +4,9 @@ import path from 'node:path';
 
 const lanes = JSON.parse(fs.readFileSync(path.join(__dirname, '../lanes.json'), 'utf8'));
 const latest = lanes.latest as string;
-const older =
-  (lanes.ci?.nightly as string[] | undefined)?.find((id) => id.startsWith('21.')) ||
-  (lanes.ci?.nightly as string[] | undefined)?.find((id) => id !== latest) ||
-  '21.8';
+// First lane on the previous Angular major (lanes.json lists the newest Stripe train first).
+const laneIds = (lanes.lanes as { angular: number; stripeJs: number }[]).map((l) => `${l.angular}.${l.stripeJs}`);
+const older = laneIds.find((id) => id.startsWith('21.')) || laneIds.find((id) => id !== latest) || '21.10';
 
 test.describe('docs smoke (latest lane)', () => {
   test('boots introduction', async ({ page }) => {

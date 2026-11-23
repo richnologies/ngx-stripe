@@ -26,7 +26,7 @@ export interface NgStrLanesData {
   lanes: NgStrLane[];
   activeLanes: NgStrLane[];
   legacy: NgStrLegacyLane[];
-  ci: { pr: string[]; nightly: string[] };
+  ci: { pr: string[] };
 }
 
 export function laneId(lane: Pick<NgStrLane, 'angular' | 'stripeJs'>): string {
